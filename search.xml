@@ -1,0 +1,1588 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>4 Simple and Effective Ways To Avoid Too Many Ifs With TypeScript</title>
+    <url>/2021/09/21/4-simple-and-effective-ways-to-avoid-too-many-ifs-with-typescript/</url>
+    <content><![CDATA[<h4>If…else is not bad — excessive usage is</h4>
+
+
+<p>If…else exists in all programming languages. They’re not bad practices if used properly. It’s a simple, easy-to-understand, and flexible logic control structure.</p>
+<p>But in reality, it’s often used excessively. They can be bad in the following cases:</p>
+<ul>
+<li><p>Nested if-else or multiple-level nesting (worse)</p>
+</li>
+<li><p>Too many if-else cause large numbers of condition branches</p>
+</li>
+<li><p>Complex condition statement with mixed flags</p>
+</li>
+</ul>
+<p>The excessive usages of if…else are code smells. It makes your codebase hard to read and maintain, as there are more branching paths to consider.</p>
+<p>As a developer, we always look to<a class="link"   href="https://sunnysun-5694.medium.com/path-to-functional-style-a-typescript-refactoring-example-f5f052fe4d84" > improve the code by refactoring <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. In this article, we will go through four different approaches in the context of TypeScript.</p>
+<h2 id="1-Guard-and-Early-Return"><a href="#1-Guard-and-Early-Return" class="headerlink" title="1. Guard and Early Return"></a>1. Guard and Early Return</h2><p><strong>Problem</strong>: In this nested if…else code snippet, it can be challenging to follow the changes to the status value. Even in this simplified example, the control flow is not straightforward. You can imagine the code quickly growing into a hard-to-maintain state when more condition logic is added.</p>
+<pre>
+<code>
+  getStatus(response: &#123; status: string, error: any &#125;) &#123;
+    let status = '';
+    if (response.status === '200') &#123;
+      this.process();
+      status = 'success';
+    &#125; else &#123;
+      if (response.error) &#123;
+        status = response.error.message;
+      &#125; else &#123;
+        status =  'unexpected error';
+      &#125;
+    &#125;
+    return status;
+  &#125;
+</code>
+</pre>
+<p><strong>The solution</strong>: <a class="link"   href="https://refactoring.guru/replace-nested-conditional-with-guard-clauses" >Guard <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> and early return is my favorite refactoring method. It’s simple to implement and gives you quick and immediate results.</p>
+<p>In the code below, we move the edge cases to the beginning of the function. We also simplified the nested if into a flat statement with a ternary operator. When the edge case condition is met, the error status is immediately returned.</p>
+<pre>
+<code>
+   getStatus(response: &#123; status: string, error: any &#125;) &#123;
+    if (response.status !== '200') &#123;
+      return response.error ? response.error.message : 'unexpected error';
+    &#125;
+    this.process();
+    return 'success';
+  &#125; 
+</code>
+</pre>
+<p>After refactoring, the code becomes linear. The early return handles failure cases first, making the code easier to test and less error-prone. The result is better readability and better maintainability.</p>
+<p>Another similar way is to use the “Data guard” <a class="link"   href="https://sunnysun-5694.medium.com/how-to-map-rest-api-data-using-decorator-pattern-in-angular-6-94eb49ba16b1" >decorator <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> which contains the validation logic. The main function is only invoked after the validation passing.</p>
+<h2 id="2-Table-Driven-Method"><a href="#2-Table-Driven-Method" class="headerlink" title="2. Table-Driven Method"></a>2. Table-Driven Method</h2><p><strong>Problem</strong>: The intention of the code snippet below is to get the number of days for a month. Obviously, it’s error-prone and hard to change. For example, what happens if we need support in leap years? It will be a maintenance nightmare.</p>
+<pre>
+<code>
+     if (month === 1) return 31;
+    if (month === 2) return 29;
+    if (month === 3) return 31;
+    if (month === 4) return 30;
+    if (month === 5) return 31;
+    if (month === 6) return 30;
+    if (month === 7) return 31;
+    if (month === 8) return 31;
+    if (month === 9) return 30;
+    if (month === 10) return 31;
+    if (month === 11) return 30;
+    if (month === 12) return 31; 
+</code>
+</pre>
+<p><strong>The solution</strong>: We use the <a class="link"   href="https://rads.stackoverflow.com/amzn/click/com/0735619670" >Table-driven method <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> to improve the above code snippet.</p>
+<blockquote>
+<p>Table-driven methods are schemes that allow you to look up information in a table rather than using logic statements (i.e. case, if). — dev.to</p>
+</blockquote>
+<pre>
+<code>
+     const monthDays= [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    return monthDays[month - 1]; 
+</code>
+</pre>
+<p>Here we define an array monthDays that maps the possible values of a month. The result is much more compact and readable. Please note that this method is more suitable when input parameters are mutually exclusive.</p>
+<p>The same method can be applied to a group of functions.</p>
+<pre>
+<code>
+ // many ifs
+function performActions(actionName: string) &#123;
+  if (actionName === "save") &#123;
+    // save...
+  &#125; else if (actionName === "update") &#123;
+    // update ...
+  &#125; else if (actionName === "delete") &#123;
+    // delete...
+  &#125;
+&#125;
+
+// refactor with table driven methods
+const funcs: Record<string, () => void> = &#123;
+  save: () => &#123;
+    // save ...
+  &#125;,
+  update: () => &#123;
+    // update ...
+  &#125;,
+  delete: () => &#123;
+    //delete ...
+  &#125;
+&#125;;
+
+function performActions2(actionName: string) &#123;
+  const action = funcs[actionName];
+  if (action) &#123;
+    action();
+  &#125;
+&#125;
+ 
+</code>
+</pre>
+<p>In the above code sample, the performAction function contains multiple ifs. It can be difficult to extend when more actions need to be added into. We use the funcs <a class="link"   href="https://betterprogramming.pub/typescripts-record-type-explained-691372b1a449" >RecordType  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>to map the actionName matching function. Thus we avoid the multiple ifs, and it can be extended to additional actions easily.</p>
+<p>The table-driven method can be applied beyond just one-to-one key-value mappings. In the following example, the ifs statement is used to rating by a given score range. How can we refactor this method?</p>
+<pre><code>  getRating(score: number) &#123;
+    if (score &gt; 12) &#123;
+      return 5;
+    &#125; else if (score &gt; 9) &#123;
+      return 4;
+    &#125; else if (score &gt; 6) &#123;
+      return 3;
+    &#125; else if (score &gt; 3) &#123;
+      return 2;
+    &#125; else &#123;
+      return 1;
+    &#125;
+  &#125;
+</code></pre>
+<p>we can apply the Table-driven method using Object.keys as below:</p>
+<pre><code>  getRating(score: number) &#123;
+    const ratingScoreMap = &#123;
+      12: 5,
+      9: 4,
+      6: 3,
+      3: 2,
+      1: 1
+    &#125;;
+    const sortedRating = Object.keys(ratingScoreMap)
+      .map(Number)
+      .sort((a, b) =&gt; b - a);
+    for (const threshold of sortedRating) &#123;
+      if (score &gt; Number(threshold)) &#123;
+        return ratingScoreMap[threshold];
+      &#125;
+    &#125;
+    return 1;
+  &#125;
+</code></pre>
+<p>By using a lookup table to store the mapping relationships, the table-driven method allows for efficient and flexible value mapping in a variety of contexts.</p>
+<h2 id="3-Extract"><a href="#3-Extract" class="headerlink" title="3. Extract"></a>3. Extract</h2><p><strong>Problem</strong>: Complex conditions aren’t a problem as long as they are readable. The below example contains a nested and complex if condition statement. It’s hard to figure out what the condition is.</p>
+<pre>
+<code>
+    transfer(fromAccount, toAccount, amount: number) &#123;
+    if (fromAccount.status === 'Active' && toAccount.status === 'Active' && amount > 0) &#123;
+      if (amount < fromAccount.dailyLimit && amount < fromAccount.amount) &#123;
+        fromAccount.amout -= amount;
+        fromAccount.transactions.add(amount, 'debit');
+        toAccount.amout += amount;
+        toAccount.transactions.add(amount, 'credit');
+      &#125;
+      this.logTransaction();
+    &#125;
+  &#125;
+</code>
+</pre>
+<p><strong>Solution</strong>: The extract method is a way to refactor conditional logic into a more modular form. In the code snippet below, we use the extract method to refactor the above example.</p>
+<p>The multiple checks in the nested ifs are wrapped into a separate function with a meaningful name. The nested ifs are replaced by a single if with a simple condition function.</p>
+<pre>
+<code>
+   transfer(fromAccount, toAccount, amount: number) &#123;
+    if(this.validateTransactoin(fromAccount, toAccount, amount))&#123;
+      this.performTransaction();
+    &#125;
+    this.logTransaction();
+  &#125; 
+</code>
+</pre>
+<p>The improved version is much easier to understand and change.</p>
+<h2 id="4-Default-Value-and-operators"><a href="#4-Default-Value-and-operators" class="headerlink" title="4. Default Value and || operators"></a>4. Default Value and || operators</h2><p><strong>Problem</strong>: The following if..else is used to perform the null checks, but the code is unnecessarily complex and not very readable.</p>
+<pre>
+<code>
+   getStatusMessage(status: string, errorCode: number) &#123;
+    if (!status) return 'NA';
+    if(errorCode) &#123;
+      return `Status:$&#123;status&#125;, err:&#123;errorCode&#125;`;
+    &#125; else &#123;
+      return `Status:$&#123;status&#125;, err: -1`;
+    &#125;
+  &#125; 
+</code>
+</pre>
+<p><strong>The solution</strong>: Giving parameters a default value is another of my personal favorite refactoring methods.</p>
+<p>Default value combined with the || operator is a simple and effective way of reducing code complexity.</p>
+<p>In this example, we give the status a default value and use the || operator to handle the null check. Thanks to the flexibility of JavaScript, the result is less code duplication and more readable code.</p>
+<pre>
+<code>
+   getStatusMessage(status = 'NA', errorCode: number) &#123;
+    return `Status:$&#123;status&#125;, err: $&#123;errorCode || -1&#125;`;
+  &#125; 
+</code>
+</pre>
+<h2 id="Focus-on-the-Root-Cause"><a href="#Focus-on-the-Root-Cause" class="headerlink" title="Focus on the Root Cause"></a>Focus on the Root Cause</h2><p>Excessive usage of if…else can be a symptom of other issues. When working on refactoring, we should focus on the root cause instead of just fixing the symptom.</p>
+<p>A function is composed of input, internal state, and output. The function takes the input parameters, executes the internal state mutation, and returns the output result. The excessive usage of if..else can be the result of:</p>
+<ul>
+<li><p><strong>Excessive logic for the internal state</strong>: All the above four methods may be applied to improve the code.</p>
+</li>
+<li><p><strong>Complex input parameters with mixed flags</strong>: In this case, the default value method may help. But the root cause may be the function interface abstraction. We may need to review and improve the abstraction.</p>
+</li>
+<li><p><strong>Too many different return paths and complex output</strong>: It’s a sign that the function may be doing too many things. The focus should be refactoring the function instead of reducing the if..else statements.</p>
+</li>
+</ul>
+<p>To do a clean refactoring, we should focus on formulating a clear interface so that the function is doing one single thing. (<a class="link"   href="https://en.wikipedia.org/wiki/Single-responsibility_principle#:~:text=The%20single%2Dresponsibility%20principle%20(SRP,it%20should%20encapsulate%20that%20part.&text=Hence%2C%20each%20module%20should%20be%20responsible%20for%20each%20role.)" >Single responsibility principle <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>We discussed four simple and effective ways to remove the excessive usage of if…else. Applying these methods will help you write cleaner, more readable code.</p>
+<p>There are other approaches to refactor the if..else, like using a <a class="link"   href="https://medium.com/codex/factory-pattern-type-script-implementation-with-type-map-ea422f38862" >factory pattern <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> or responsibility chain pattern. They are not covered in this article because I want to focus on simpler and more practical solutions.</p>
+<p>There is no one size fits all solution as every approach has its own pros and cons. The ability to pick the right tool for a particular job separates a <a class="link"   href="https://betterprogramming.pub/5-attributes-of-a-top-developer-bf5ae55a2b67" >top developer <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> from an average one.</p>
+<p>If you like this article, you may also like to read another TypeScript article.<br><a href="https://betterprogramming.pub/apply-builder-pattern-to-generate-query-filter-in-typescript-651a6b13da38"><strong>Apply Builder Pattern To Generate Query Filter In TypeScript</strong><br><em>Implement an immutable and strongly typed filter builder</em>betterprogramming.pub</a></p>
+<p>Happy programming!</p>
+]]></content>
+      <tags>
+        <tag>TypeScript</tag>
+        <tag>Best Practice</tag>
+        <tag>Refactoring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>6 TypeScript Code Patterns To Make Your Code More Robust</title>
+    <url>/2021/11/06/6-typescript-code-patterns-to-make-your-code-more-robust/</url>
+    <content><![CDATA[<h3 id="Simple-and-practical-solutions-you-can-apply-in-daily-work"><a href="#Simple-and-practical-solutions-you-can-apply-in-daily-work" class="headerlink" title="Simple and practical solutions you can apply in daily work"></a>Simple and practical solutions you can apply in daily work</h3><p>I found out that I repeatedly use some TypeScript code patterns in daily work. Those code patterns aren’t heavy or complex, and they also don’t require a lot of boilerplate code. They’re just simple and practical solutions to resolve a few common problems.</p>
+<p>In the next few sections, I’ll share my six favorite TypeScript code patterns.</p>
+<h2 id="Use-Pick-To-Implement-Interface-Segregation-Principle"><a href="#Use-Pick-To-Implement-Interface-Segregation-Principle" class="headerlink" title="Use Pick To Implement Interface Segregation Principle"></a>Use Pick To Implement Interface Segregation Principle</h2><p>The interface segregation principle is defined as:</p>
+<blockquote>
+<p>Clients should not be forced to implement interfaces they do not use.</p>
+</blockquote>
+<p>Let’s say we have a Client type, it’s used in multiple places. Sometimes only a subset of properties is used. According to the interface segregation principle, the function parameter with the type should be the minimal type required.</p>
+<p>We can use <a class="link"   href="https://www.typescriptlang.org/docs/handbook/utility-types.html#picktype-keys" >Pick <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> utility type to exclude unused properties from the Client type. As shown in the code snippet below, only the name and active properties are picked. Thus the ClientSummary type represents a smaller, more specific interface that only includes the properties that it needs.</p>
+<pre><code>
+interface Client &#123;
+  name: string;
+  dateOfBirth: Date;
+  active: boolean;
+&#125;
+ 
+type ClientSummary = Pick<Client, "name" | "active">;
+ 
+const clients: ClientSummary = &#123;
+  name: 'John',
+  active: true,
+&#125;;
+</code></pre>
+<p>An alternative way is to use <a class="link"   href="https://www.typescriptlang.org/docs/handbook/utility-types.html#excludetype-excludedunion" >Exclude <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> utility type as below:</p>
+<pre><code>type ClientSummary = Exclude&lt;Client, &#39;dateOfBirth&#39;&gt;;
+</code></pre>
+<p>However, Pick is more robust because no changes are required when additional properties are added to the Client type.</p>
+<h2 id="Const-Assertion-To-Derive-Types-From-Literal-Expressions"><a href="#Const-Assertion-To-Derive-Types-From-Literal-Expressions" class="headerlink" title="Const Assertion To Derive Types From Literal Expressions"></a>Const Assertion To Derive Types From Literal Expressions</h2><p>as const is a TypeScript construct for literal values called<a class="link"   href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-4.html#const-assertions" > const assertion <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. When as const is applied, we get a const object with every property as a non-widen literal type. We can use it to derive types from the declared constants with const assertion.</p>
+<p>The following code snippet is an example that I<a class="link"   href="https://medium.com/codex/how-to-share-constants-in-typescript-project-8f76a2e40352?sk=4d6297705c65d9c6db493d251d9a7666" > discussed in another article <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. In a nutshell, we derived payGradeType and payValueType from the payGrades constant. These types form a constraint-type system. When the source constant is modified, all related types will be automatically updated.</p>
+<pre><code>
+export const payGrades = &#123; 
+  low: "1", 
+  average: "2", 
+  high: "3"
+&#125; as const;
+
+type t = typeof payGrades;
+type payGradeType = keyof t; // 'low' | 'average' | 'high'
+type payValueType =  t[keyof t]; // '1' | '2' | '3'
+
+const hisPay: payValueType = '3'; //okay
+const myPay:  payValueType = '4'; // error
+</code></pre>
+<p>By using const assertions to derive types from literal expressions, you can create variables with more specific and accurate types, which can help to improve the type-safety and correctness of your Type.</p>
+<h2 id="Exhaustive-Checks-With-“never”-Type"><a href="#Exhaustive-Checks-With-“never”-Type" class="headerlink" title="Exhaustive Checks With “never” Type"></a>Exhaustive Checks With “never” Type</h2><p>The never type represents the type of values that never occur. It can be useful for performing exhaustive checks, as you can use the never type to ensure that all possible cases are handled in a switch statement or other control flow construct.</p>
+<p>A good application of never type is as the type guard for impossible types.</p>
+<p>The following example shows how to cover all possible literal type values. Since the DataTypes includes only the two literal types client and order, assertUnreachable will never be reached.</p>
+<p>If another developer adds a new literal type into the DataTypes, and forgets to update the switch statement, a compile-time error will be thrown.</p>
+<pre><code>
+type DataTypes = 'client' | 'order';
+
+function getProcessName(c: DataTypes): string &#123;
+    switch(c) &#123;
+        case 'client':
+            return 'register' + c;
+        case 'order':
+            return 'process' + c;
+        default:
+        return assertUnreachable(c);
+    &#125;   
+&#125;
+function assertUnreachable(x: never): never &#123;
+    throw new Error("something is very wrong");
+&#125;
+</code></pre>
+
+<p>With the exhaustive type checking in place, we can detect a missing condition at compile time instead of run time.</p>
+<h2 id="Use-Opaque-Type-To-Simulate-Nominal-Typing-Behavior"><a href="#Use-Opaque-Type-To-Simulate-Nominal-Typing-Behavior" class="headerlink" title="Use Opaque Type To Simulate Nominal Typing Behavior"></a>Use Opaque Type To Simulate Nominal Typing Behavior</h2><p>TypeScript is a structural type system. In the <a class="link"   href="https://www.typescriptlang.org/play#example/structural-typing" >structure type system <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>, two types with the same shape are compatible. This makes TypeScript very flexible, but it can also create potential issues.</p>
+<p>In the contrived example below, we have two compatible types Customer and VIPCustomer. The function getVIPName should only take the VIPCustomer type argument. But, if the Customer type argument is passed in by mistake, it won’t error out due to the structure typing limitation.</p>
+<pre><code>
+type Customer &#123;
+  name: string
+&#125;
+
+type VIPCustomer &#123;
+  name: string
+&#125;
+
+const cust = &#123;name: 'John'&#125; as Customer;
+const vip = &#123;name: 'Mark'&#125; as VIPCustomer;
+
+function getVIPName(vip: VIPCustomer) &#123;
+  return vip.name;
+&#125;
+
+console.log('vip name:', getVIPName(vip)); //vip name: Mark
+// The getVIPName works without error
+console.log('vip name:', getVIPName(cust)); //vip name: John
+</code></pre>
+<p>The above problem can be resolved by opaque type. Opaque types allow you to create types that are nominally typed, but are still compatible with structural types.</p>
+<p>Although TypeScript doesn’t support opaque type out-of-box, we can achieve similar behavior using intersection type.</p>
+<p>The below OpaqueType makes use of <a class="link"   href="https://www.typescriptlang.org/docs/handbook/2/generics.html" >Generic Type  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>and intersection type. Now the type Customer and VIPCustomer are structurally different. As the internal _brand property only exists in compile-time, there is no run-time cost associated with it.</p>
+<pre><code>
+type OpaqueType<K, T> = K & &#123; _brand: T &#125;
+type Customer = OpaqueType<Person, "Customer">
+type VIPCustomer = OpaqueType<Person, "VIP">
+
+function getVIPName(vip: VIPCustomer) &#123;
+  return vip.name;
+&#125;
+
+const cust = &#123;name: 'John'&#125; as Customer;
+const vip = &#123;name: 'Mark'&#125; as VIPCustomer;
+
+console.log('vip name:', getVIPName(vip)); //vip name: Mark
+// Error: Argument of type 'Customer' is not assignable to parameter of type 'VIPCustomer'.
+console.log('vip name:', getVIPName(cust)); 
+</code></pre>
+<p>The opaque type implementation can make your TypeScript code cleaner and stronger when used in the right place.</p>
+<h2 id="Lookup-property-type-from-an-Object-Type"><a href="#Lookup-property-type-from-an-Object-Type" class="headerlink" title="Lookup property type from an Object Type"></a>Lookup property type from an Object Type</h2><p><a class="link"   href="https://blog.logrocket.com/type-flowing-rethinking-typescript-typing-system/" >TypeScript is about types <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. Often, we need to extract an existing object property type from a complex object type.</p>
+<p>We use conditional types and never to filter out the required data type definitions in lookup type definition below.</p>
+<pre><code>
+type PropertyType<T, Path extends string> =
+    Path extends keyof T ? T[Path] :
+        Path extends `$&#123;infer K&#125;.$&#123;infer R&#125;` ? K extends keyof T ? PropertyType<T[K], R> : 
+        never :
+    never;
+
+type lookup<T, Key, prop extends string> = Key extends keyof T? PropertyType<T[Key], prop>: never;
+</code></pre>
+<p>The lookup type may look confusing at the first glance. Let’s break it down.</p>
+<p>Firstly, to access a property type, we’ll create a new type with recursive type aliases.</p>
+<p>When Path extends keyof T is truthy, it means the full path is matched. Thus, we return the current property type.</p>
+<p>When Path extends keyof T is falsy, we use the infer keyword to build a pattern to match the Path. If it matches, we make a recursive call to the next-level property. Otherwise, it will return a never and that means the Path does not match with the type.</p>
+<p>If it does not match, continue recursively with the current property as the first parameter.</p>
+<p>The generated property type can be used in other functions to enforce type safety.</p>
+<h2 id="Refactor-Excessive-Function-Parameters-With-Destructing-Assignments"><a href="#Refactor-Excessive-Function-Parameters-With-Destructing-Assignments" class="headerlink" title="Refactor Excessive Function Parameters With Destructing Assignments"></a>Refactor Excessive Function Parameters With Destructing Assignments</h2><p>A common issue for TypeScript code is excessive function parameters. We can use destructing assignments to refactor excessive function parameters and make your code more concise and readable.</p>
+<p>Destructing assignments allow you to unpack the values of an object or array into individual variables. This can be useful when you have a function with multiple parameters that are related, as you can use destructing assignments to unpack the values into individual variables and pass them to the function as separate arguments.</p>
+<p>The example below illustrates the issue of excessive parameters. For example, if a new parameter type, let’s say middleName is required. We need to be very careful in adding parameters to the right place.</p>
+<p>Obviously, it’s hard to maintain. It’s also hard to read the caller function to match the argument with its name.</p>
+<pre><code>
+interface Staff &#123; 
+  firstName: string, 
+  lastName: string, 
+  age: number, 
+  contact: string,
+  isActive: boolean,
+  isDelete: boolean
+&#125;
+
+function register(firstName: string, lastName: string, age: number, contact: string, isActive: boolean, isDelete: boolean)&#123;
+  console.log(`$&#123;firstName&#125; $&#123;lastName&#125; $&#123;age&#125; $&#123;contact&#125; $&#123;isActive&#125;  $&#123;isDelete&#125;`)
+&#125;
+
+register('john', 'duggan', 25, '123456', true, false);
+</code></pre>
+<p>To refactor it, we make use of object destructuring and object literals as below. It’s one of my favorite methods as it’s simple. concise and readable.</p>
+<p>TypeScript is intelligent. It not only assigns the value to the corresponding variable but also infers the type correctly.</p>
+<pre><code>
+// use destructing and pass in an object
+function register2(&#123;firstName, lastName, age, contact, isActive, isDelete&#125;: Staff)&#123;
+  console.log(`$&#123;firstName&#125; $&#123;lastName&#125; $&#123;age&#125; $&#123;contact&#125; $&#123;isActive&#125; $&#123;isDelete&#125;`)
+&#125;
+
+const user = &#123; 
+  firstName: 'john', 
+  lastName: 'duggan', 
+  age: 25, 
+  contact: '1234567',
+  isActive: true,
+  isDelete: false
+&#125;;
+
+register2(user);
+</code></pre>
+<p>After the refactoring, the sequence of parameters doesn’t matter anymore. You can add or remove a property without worrying about its position.</p>
+<p>The TypeScript typing system is amazing. The challenge for developers is to make full use of its powerful toolbox for clean and strongly typed code.</p>
+<p>I hope this article is useful to you. If you have your favorite TypeScript code patterns, do let me know.</p>
+<p>If you like this article, you may also like to check out my <a class="link"   href="https://betterprogramming.pub/6-typescript-typing-system-tricks-you-should-know-5aa39bda8049?sk=b8a4adbb43a591a64da08b4987ea079d" >other article about TypeScript best practices <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+]]></content>
+      <tags>
+        <tag>TypeScript</tag>
+        <tag>Design Pattern</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>All You Need to Know About Angular Proxy Configuration</title>
+    <url>/2023/03/05/all-you-need-to-know-about-angular-proxy-configuration/</url>
+    <content><![CDATA[<h3>
+A complete guide on setting up a proxy in Angular for API calls behind a corporate proxy or with windows authentication
+</h3>
+<section data-field="body" class="e-content">
+<section name="d474" class="section section--body section--first"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><p name="d69c" id="d69c" class="graf graf--p graf-after--figure">Angular Developers use Angular CLI for local development. One of the most common needs is to set up a proxy in the local dev environment to avoid CORS error when the Angular app sends an HTTP request to an API residing on a different domain. Angular CLI makes the process relatively easy, but it can be tricky in some edge cases.</p><p name="3469" id="3469" class="graf graf--p graf-after--p">In this article, I am going to discuss how to set up a dev server proxy for</p><ul class="postList"><li name="a340" id="a340" class="graf graf--li graf-after--p"><a href="#e0ed" data-href="#e0ed" class="markup--anchor markup--li-anchor">proxy to API in localhost</a></li><li name="6bb5" id="6bb5" class="graf graf--li graf-after--li"><a href="#d919" data-href="#d919" class="markup--anchor markup--li-anchor">proxy to external API within a corporate network</a></li><li name="fa38" id="fa38" class="graf graf--li graf-after--li"><a href="#2e9b" data-href="#2e9b" class="markup--anchor markup--li-anchor">proxy to API using windows authentication (IIS)</a></li><li name="5e25" id="5e25" class="graf graf--li graf-after--li graf--trailing">m<a href="#55ad" data-href="#55ad" class="markup--anchor markup--li-anchor">ultiple schemes in one WWW-Authenticate header</a></li></ul></div></div></section><section name="8b3e" class="section section--body"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h4 name="e0ed" id="e0ed" class="graf graf--h4 graf--leading">Setup a proxy to connect to API in localhost</h4><p name="74ab" id="74ab" class="graf graf--p graf-after--h4">With Angular CLI, we can start the local dev server using the command below.</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="typescript" name="40ca" id="40ca" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content">ng serve</span></pre><p name="492a" id="492a" class="graf graf--p graf-after--pre">The command invokes the internal dev server based on <a class="link"  href="https://webpack.js.org/configuration/dev-server/" data- href="https://webpack.js.org/configuration/dev-server/"  class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">webpack dev server <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. By default, the dev server runs on <code class="markup--code markup--p-code"><a href="http://localhost:4200." data-href="http://localhost:4200." class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">http://localhost:4200</a></code><a href="http://localhost:4200." data-href="http://localhost:4200." class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">.</a></p><p name="7338" id="7338" class="graf graf--p graf-after--p">When the Angular app needs to call its backend API, which is also hosted locally at <code class="markup--code markup--p-code u-paddingRight0 u-marginRight0"><a href="http://localhost:3000." data-href="http://localhost:3000." class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">http://localhost:3000</a>, </code>then we will encounter a CORS error because the HTTP call use a different origin (<code class="markup--code markup--p-code">localhost:3000</code>).</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="kotlin" name="9972" id="9972" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content"><span class="hljs-keyword">this</span>.http.<span class="hljs-keyword">get</span>(<span class="hljs-string">&#x27;http://locahost:3000/api/&#x27;</span>)<br />    .subscribe(res =&gt; {...});</span></pre><p name="db2d" id="db2d" class="graf graf--p graf-after--pre">The CORS issue can be resolved by configuring the Angular dev server proxy. A sample proxy config can be created below</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="kotlin" name="9f70" id="9f70" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content"><span class="hljs-comment">// proxy.conf.json</span><br />{<br />  <span class="hljs-string">&quot;/api&quot;</span>: {<br />    <span class="hljs-string">&quot;target&quot;</span>: <span class="hljs-string">&quot;http://localhost:3000&quot;</span>,<br />    <span class="hljs-string">&quot;secure&quot;</span>: <span class="hljs-literal">false</span>,<br />  }<br />}<br /><span class="hljs-comment">// we change the angular http call to remove the domain prefix</span><br /><span class="hljs-keyword">this</span>.http.<span class="hljs-keyword">get</span>(<span class="hljs-string">&#x27;/api/&#x27;</span>)<br />    .subscribe(res =&gt; {...});</span></pre><p name="8f6f" id="8f6f" class="graf graf--p graf-after--pre">As illustrated by the following diagram, the proxy sits between the Angular app and the backend API and translates the “<code class="markup--code markup--p-code">api/v1</code>” calls to backend API. The CORS error doesn’t happen because the call to API is the same origin (<code class="markup--code markup--p-code u-paddingRight0 u-marginRight0"><a href="http://localhost:4200." data-href="http://localhost:4200." class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">localhost:4200</a>/api</code><strong class="markup--strong markup--p-strong">)</strong> now.</p><figure name="7f63" id="7f63" class="graf graf--figure graf-after--p"><img  class="graf-image" data-image-id="1*_2jpbQ3XXY-FzQ3Nq-8DSQ.png" data-width="1488" data-height="548" 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/800/1*_2jpbQ3XXY-FzQ3Nq-8DSQ.png"
+                     
+                ></figure><p name="2613" id="2613" class="graf graf--p graf-after--figure">To make the proxy configuration takes effect, it must be passed into the <code class="markup--code markup--p-code">ng serve</code> command.</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="css" name="f9a1" id="f9a1" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content">ng serve <span class="hljs-attr">--proxy-config</span> proxy<span class="hljs-selector-class">.conf</span><span class="hljs-selector-class">.json</span></span></pre><p name="00bf" id="00bf" class="graf graf--p graf-after--pre">Or we can add it to the <code class="markup--code markup--p-code">angular.json</code> configuration</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="bash" name="6e4f" id="6e4f" class="graf graf--pre graf-after--p graf--trailing graf--preV2"><span class="pre--content"><br /><span class="hljs-string">&quot;serve&quot;</span>: {<br />  ...<br />  <span class="hljs-string">&quot;options&quot;</span>: {<br />    ...<br />    <span class="hljs-string">&quot;proxyConfig&quot;</span>: <span class="hljs-string">&quot;proxy.conf.json&quot;</span><br />  }<br />}</span></pre></div></div></section><section name="7fbe" class="section section--body"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h4 name="d919" id="d919" class="graf graf--h4 graf--leading">Connect to external API behind corporate Proxy</h4><p name="3103" id="3103" class="graf graf--p graf-after--h4">Often we worked within a corporate network, and the Angular app in a local dev environment also need to connect to an external API. Using the previous example, we might need to call <a class="link"  href="http://abc.company.com/api." data- href="http://abc.company.com/api."  class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">http://abc.company.com/api <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> in the Angular app instead of calling <a href="http://localhost:3000," data-href="http://localhost:3000," class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">http://localhost:3000/api</a>.</p><p name="31c6" id="31c6" class="graf graf--p graf-after--p">Accessing an external API behind a corporate proxy requires the <code class="markup--code markup--p-code">HTTP_PROXY</code> and <code class="markup--code markup--p-code">HTTPS_PROXY</code> environment variables to be configured. If the proxy utilizes an SSL certificate, the <code class="markup--code markup--p-code">secure</code> flag needs to be set to false, to bypass the certificate verification.</p><p name="67a7" id="67a7" class="graf graf--p graf-after--p">To handle corporate proxy, we need to create a <code class="markup--code markup--p-code">proxy.conf.js</code> as below.</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="javascript" name="cbd3" id="cbd3" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content"><span class="hljs-keyword">const</span> <span class="hljs-title class_">HttpsProxyAgent</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;https-proxy-agent&#x27;</span>);<br /><br /><span class="hljs-keyword">const</span> proxyConfig = [<br />  {<br />    <span class="hljs-attr">context</span>: <span class="hljs-string">&#x27;/api&#x27;</span>,<br />    <span class="hljs-attr">pathRewrite</span>: { <span class="hljs-string">&#x27;^/api&#x27;</span>: <span class="hljs-string">&#x27;&#x27;</span> },<br />    <span class="hljs-attr">target</span>: <span class="hljs-string">&#x27;https://api.abc.com&#x27;</span>,<br />    <span class="hljs-attr">changeOrigin</span>: <span class="hljs-literal">true</span>,<br />    <span class="hljs-attr">secure</span>: <span class="hljs-literal">false</span><br />  }<br />];<br /><br /><span class="hljs-keyword">function</span> <span class="hljs-title function_">setupForCorporateProxy</span>(<span class="hljs-params">proxyConfig</span>) {<br />  <span class="hljs-keyword">const</span> proxyServer = process.<span class="hljs-property">env</span>.<span class="hljs-property">http_proxy</span> || process.<span class="hljs-property">env</span>.<span class="hljs-property">HTTP_PROXY</span>;<br /><br />  <span class="hljs-keyword">if</span> (proxyServer) {<br />    <span class="hljs-keyword">const</span> agent = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpsProxyAgent</span>(proxyServer);<br />    proxyConfig.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">c</span> =&gt;</span> {<br />      c.<span class="hljs-property">agent</span> = agent;<br />    });<br />  }<br />  <span class="hljs-keyword">return</span> proxyConfig;<br />}<br /><br /><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = <span class="hljs-title function_">setupForCorporateProxy</span>(proxyConfig);</span></pre><p name="03f1" id="03f1" class="graf graf--p graf-after--pre">In the above example, we proxy a request like <code class="markup--code markup--p-code">api/v1/client</code> to an external server <code class="markup--code markup--p-code">https://api.abc.com/v1/client</code>. When a corporate proxy is required, we set up an <a class="link"  href="https://nodejs.org/api/https.html#https_class_https_agent" data- href="https://nodejs.org/api/https.html#https_class_https_agent"  class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">HTTPS agent <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> object in the proxy based on <code class="markup--code markup--p-code">HTTP_PROXY</code> and <code class="markup--code markup--p-code">HTTPS_PROXY</code> environment variables. The <code class="markup--code markup--p-code">secure:false</code> option is added to handle the custom SSL certificate in the corporate proxy.</p><p name="4042" id="4042" class="graf graf--p graf-after--p">To use the new js configuration for the Angular app, run the following</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="css" name="a9cc" id="a9cc" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content">ng serve <span class="hljs-attr">--proxy-config</span> proxy<span class="hljs-selector-class">.conf</span><span class="hljs-selector-class">.js</span></span></pre><p name="5771" id="5771" class="graf graf--p graf-after--pre graf--trailing">It is worth noting that there are two types of agents: <code class="markup--code markup--p-code">HttpsProxyAgent</code> and <code class="markup--code markup--p-code">HttpProxyAgent,</code> it is necessary to choose the appropriate one based on the environment setting.</p></div></div></section><section name="ced4" class="section section--body"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h4 name="2e9b" id="2e9b" class="graf graf--h4 graf--leading">Proxy to API using windows authentication (IIS)</h4><p name="e3c6" id="e3c6" class="graf graf--p graf-after--h4">Windows authentication is widely used by many companies that rely on Microsoft Ecosystem. The situation can be tricky if the Angular App is connecting to an API service hosted with IIS that is protected by windows authentication.</p><p name="d613" id="d613" class="graf graf--p graf-after--p">The typical problem is that the call from the Angular app to the API will return 401 when using the proxy setting in the local dev environment.</p><p name="ea6e" id="ea6e" class="graf graf--p graf-after--p">For example, <code class="markup--code markup--p-code">/api/v1/../login</code> is an Endpoint protected by Windows Authentication, the request to the API from a locally running Angular App receives 401 unauthorized responses. Below is the network tab screenshot in Chrome dev tools.</p><figure name="f8c2" id="f8c2" class="graf graf--figure graf-after--p"><img  class="graf-image" data-image-id="1*kewDSVjh_LP_TjNEEitLAA.png" data-width="1360" data-height="104" 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/800/1*kewDSVjh_LP_TjNEEitLAA.png"
+                     
+                ><figcaption class="imageCaption">failed request</figcaption></figure><p name="3798" id="3798" class="graf graf--p graf-after--figure">The root cause of the issue is that windows authentication is connection based, but the Proxy break the keep-live connection.</p><p name="7495" id="7495" class="graf graf--p graf-after--p">Under the hood of windows authentication, it uses either Kerberos or NTLM, either protocol will require a keep-live connection to keep the authentication state.</p><p name="3772" id="3772" class="graf graf--p graf-after--p">When the <code class="markup--code markup--p-code">/api/v1/../login</code> is called, the browser tries to establish a connection with the IIS server via NTLM negotiation handshake which includes 3 parts. They are the Type-1 message, the Type-2, and the Type-3 message. You can find more details of the NTLM handshake <a class="link"  href="https://web.archive.org/web/20210126065105/http://www.innovation.ch/personal/ronald/ntlm.html" data- href="https://web.archive.org/web/20210126065105/http://www.innovation.ch/personal/ronald/ntlm.html"  class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">here <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. You may already notice that there are two HTTP calls shown for the same request in the above screenshot. They are the first two parts of the handshake.</p><p name="3bb5" id="3bb5" class="graf graf--p graf-after--p">Because the request is proxying locally, the 3 handshake messages were sent in 3 separate requests(sockets) through the proxy, thus a keep-live connection can’t be kept in the process. That is the reason the last message didn’t occur.</p><p name="b679" id="b679" class="graf graf--p graf-after--p">To fix the issue, We need to configure the proxy to maintain a single connection between the browser and IIS server. The<code class="markup--code markup--p-code"><a class="link"  href="https://github.com/node-modules/agentkeepalive#readme" data- href="https://github.com/node-modules/agentkeepalive#readme"  class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">agentkeepalive <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></code> package can help us to achieve this goal. The updated proxy configuration is shown below.</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="yaml" name="333d" id="333d" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content"><span class="hljs-string">const</span> <span class="hljs-string">Agent</span> <span class="hljs-string">=</span> <span class="hljs-string">require(&quot;agentkeepalive&quot;);</span><br /><br /><span class="hljs-string">const</span> <span class="hljs-string">keepaliveAgent</span> <span class="hljs-string">=</span> <span class="hljs-string">new</span> <span class="hljs-string">Agent({</span><br />    <span class="hljs-attr">maxSockets:</span> <span class="hljs-number">1</span><span class="hljs-string">,</span><br />    <span class="hljs-attr">keepAlive:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span><br />    <span class="hljs-attr">maxFreeSockets:</span> <span class="hljs-number">10</span><span class="hljs-string">,</span><br />    <span class="hljs-attr">keepAliveMsecs:</span> <span class="hljs-number">1000</span><span class="hljs-string">,</span><br />    <span class="hljs-attr">timeout:</span> <span class="hljs-number">60000</span><span class="hljs-string">,</span><br />    <span class="hljs-attr">keepAliveTimeout:</span> <span class="hljs-number">30000</span> <span class="hljs-string">//</span> <span class="hljs-string">free</span> <span class="hljs-string">socket</span> <span class="hljs-string">keepalive</span> <span class="hljs-string">for</span> <span class="hljs-number">30</span> <span class="hljs-string">seconds</span><br /><span class="hljs-string">});</span><br /><br /><span class="hljs-string">const</span> <span class="hljs-string">PROXY_CONFIG</span> <span class="hljs-string">=</span> [<br />    {<br />        <span class="hljs-attr">target:</span> <span class="hljs-string">&quot;http://localhost:3000&quot;</span>,<br />        <span class="hljs-attr">context:</span> <span class="hljs-string">&quot;/api&quot;</span>,<br />        <span class="hljs-attr">secure:</span> <span class="hljs-literal">false</span>,<br />        <span class="hljs-attr">changeOrigin:</span> <span class="hljs-literal">true</span>,<br />        <span class="hljs-attr">loglevel:</span> <span class="hljs-string">&quot;debug&quot;</span>,<br />        <span class="hljs-attr">agent:</span> <span class="hljs-string">keepaliveAgent</span><br />    }<br />]<span class="hljs-string">;</span><br /><span class="hljs-string">module.exports</span> <span class="hljs-string">=</span> <span class="hljs-string">PROXY_CONFIG;</span></span></pre><p name="335a" id="335a" class="graf graf--p graf-after--pre">The updated proxy config set the <code class="markup--code markup--p-code">maxSockets</code> to 1, <code class="markup--code markup--p-code">keepAlive</code> flag to true, and sets the timeout to 30 seconds, which is long enough to complete the handshake. This config aims to make <code class="markup--code markup--p-code">http.Agent</code> to maintain a keep-live connection between the browser and IIS server via proxy in the authentication process.</p><p name="7ec0" id="7ec0" class="graf graf--p graf-after--p">Now, the <code class="markup--code markup--p-code">/api/v1/../login</code> API request should work.</p><figure name="ee08" id="ee08" class="graf graf--figure graf-after--p"><img  class="graf-image" data-image-id="1*EWspU6LBiNGgJX32wz7yow.png" data-width="1392" data-height="108" 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/800/1*EWspU6LBiNGgJX32wz7yow.png"
+                     
+                ><figcaption class="imageCaption">success request</figcaption></figure><p name="1c4a" id="1c4a" class="graf graf--p graf-after--figure graf--trailing">The above is the network tab logs after successful authentication with the new config. We can see the three requests during the handshake, and the last one return HTTP 200 success status.</p></div></div></section><section name="4fd6" class="section section--body"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h4 name="55ad" id="55ad" class="graf graf--h4 graf--leading">Multiple schemes in one WWW-Authenticate header</h4><p name="48d7" id="48d7" class="graf graf--p graf-after--h4">Another possible cause of the error from windows authentication is the <code class="markup--code markup--p-code">www-authenticate</code> header. According to RFC 7235, it is okay to have multiple authentication schemes in one <code class="markup--code markup--p-code">www-authenticate</code> header field, although it can make the field difficult to be parsed.</p><blockquote name="2917" id="2917" class="graf graf--blockquote graf-after--p">agents will need to take special care in parsing the WWW-<br>Authenticate or Proxy-Authenticate header field value if it contains<br>more than one challenge, or if more than one WWW-Authenticate header<br>field is provided, since the contents of a challenge may itself<br>contain a comma-separated list of authentication parameters.</blockquote><p name="6f59" id="6f59" class="graf graf--p graf-after--blockquote">The reality is that the browser support is <a class="link"  href="http://test.greenbytes.de/tech/tc/httpauth/" data- href="http://test.greenbytes.de/tech/tc/httpauth/"  class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">questionable <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. Below is an example of the www-authenticate header with two schemes.</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="makefile" name="bdc2" id="bdc2" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content"><span class="hljs-section">WWW-Authenticate: Negotiate, NTLM</span></span></pre><p name="5e1c" id="5e1c" class="graf graf--p graf-after--pre">Some browsers may not be able to parse the above correctly and this will break the NTLM handshake process. To resolve this issue, we can utilize the <code class="markup--code markup--p-code">proxyRes</code> callback in the <code class="markup--code markup--p-code"><a class="link"  href="https://www.npmjs.com/package/http-proxy-middleware" data- href="https://www.npmjs.com/package/http-proxy-middleware"  class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">http-proxy-middleware <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></code> as below</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="javascript" name="05dd" id="05dd" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content"><span class="hljs-keyword">const</span> onProxyRes = <span class="hljs-keyword">function</span> (<span class="hljs-params">proxyRes, req, res</span>) {<br />     <span class="hljs-keyword">var</span> key = <span class="hljs-string">&#x27;www-authenticate&#x27;</span>;<br />     proxyRes.<span class="hljs-property">headers</span>[key] = proxyRes.<span class="hljs-property">headers</span>[key] &amp;&amp; proxyRes.<span class="hljs-property">headers</span>[key].<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;,&#x27;</span>);<br />};<br /><br /><span class="hljs-comment">// add it into the proxy config option</span><br /><span class="hljs-attr">onProxyRes</span>: onProxyRes</span></pre><p name="f6ae" id="f6ae" class="graf graf--p graf-after--pre">The full proxy configuration looks like below.</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="javascript" name="409b" id="409b" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content"><span class="hljs-keyword">const</span> <span class="hljs-title class_">Agent</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;agentkeepalive&quot;</span>);<br /><br /><span class="hljs-keyword">const</span> keepaliveAgent = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Agent</span>({<br />    <span class="hljs-attr">maxSockets</span>: <span class="hljs-number">1</span>,<br />    <span class="hljs-attr">keepAlive</span>: <span class="hljs-literal">true</span>,<br />    <span class="hljs-attr">maxFreeSockets</span>: <span class="hljs-number">10</span>,<br />    <span class="hljs-attr">keepAliveMsecs</span>: <span class="hljs-number">1000</span>,<br />    <span class="hljs-attr">timeout</span>: <span class="hljs-number">60000</span>,<br />    <span class="hljs-attr">keepAliveTimeout</span>: <span class="hljs-number">30000</span> <span class="hljs-comment">// free socket keepalive for 30 seconds</span><br />});<br /><span class="hljs-keyword">const</span> onProxyRes = <span class="hljs-keyword">function</span> (<span class="hljs-params">proxyRes, req, res</span>) {<br />     <span class="hljs-keyword">var</span> key = <span class="hljs-string">&#x27;www-authenticate&#x27;</span>;<br />     proxyRes.<span class="hljs-property">headers</span>[key] = proxyRes.<span class="hljs-property">headers</span>[key] &amp;&amp; proxyRes.<span class="hljs-property">headers</span>[key].<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;,&#x27;</span>);<br />};<br /><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">PROXY_CONFIG</span> = [<br />    {<br />        <span class="hljs-attr">target</span>: <span class="hljs-string">&quot;http://localhost:3000&quot;</span>,<br />        <span class="hljs-attr">context</span>: <span class="hljs-string">&quot;/api&quot;</span>,<br />        <span class="hljs-attr">secure</span>: <span class="hljs-literal">false</span>,<br />        <span class="hljs-attr">changeOrigin</span>: <span class="hljs-literal">true</span>,<br />        <span class="hljs-attr">onProxyRes</span>: onProxyRes,<br />        <span class="hljs-attr">agent</span>: keepaliveAgent<br />    }<br />];<br /><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = <span class="hljs-variable constant_">PROXY_CONFIG</span>;</span></pre><p name="1c36" id="1c36" class="graf graf--p graf-after--pre">With the new callback added, the multiple schemes in the <code class="markup--code markup--p-code">www-authenticate</code> header will be sent in multiple lines, and the NTLM negotiation handshake will be able to continue.</p><pre data-code-block-mode="2" spellcheck="false" data-code-block-lang="json" name="6dc5" id="6dc5" class="graf graf--pre graf-after--p graf--trailing graf--preV2"><span class="pre--content"><span class="hljs-comment">// From the original response header</span><br />www-authenticate<span class="hljs-punctuation">:</span> Negotiate<span class="hljs-punctuation">,</span> NTLM<br /><br /><span class="hljs-comment">// After the onProxRes callback function</span><br />www-authenticate<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>&#x27;Negotiate&#x27;<span class="hljs-punctuation">,</span> &#x27;NTLM&#x27;<span class="hljs-punctuation">]</span><br /><br /><span class="hljs-comment">// It is equivalent to</span><br />&lt; WWW-Authenticate<span class="hljs-punctuation">:</span> Negotiate<br />&lt; WWW-Authenticate<span class="hljs-punctuation">:</span> NTLM<br /><br /></span></pre></div></div></section><section name="4c06" class="section section--body section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h4 name="db9d" id="db9d" class="graf graf--h4 graf--leading">Summary</h4><p name="1e6a" id="1e6a" class="graf graf--p graf-after--h4">In this article, we discuss how to avoid CORS issues by setting up a proxy using Angular CLI for local development. I hope it is useful to you if you’re working on Angular behind a corporate proxy and/or using IIS with windows authentication.</p><p name="db66" id="db66" class="graf graf--p graf-after--p">Happy programming!</p></section>
+</section>
+<footer><p>By <a class="link"   href="https://medium.com/@sunnysun-5694"  class="p-author h-card">Sunny Sun <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> on <a href="https://medium.com/p/a1aeb2d8c86"><time class="dt-published" datetime="2023-02-22T12:16:38.971Z">February 22, 2023</time></a>.</p><p><a class="link"   href="https://medium.com/@sunnysun-5694/all-you-need-to-know-about-angular-proxy-configuration-a1aeb2d8c86"  class="p-canonical">Canonical link <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p><p>Exported from <a class="link"   href="https://medium.com" >Medium <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> on March 5, 2023.</p></footer></article></body></html>]]></content>
+      <tags>
+        <tag>TypeScript</tag>
+        <tag>Angular</tag>
+        <tag>Proxy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Turbocharge Your App with NestJS - Tips and Tricks</title>
+    <url>/2022/09/21/build-a-high-performance-nestjs-app/</url>
+    <content><![CDATA[<h2 id="4-Performance-Boosting-Techniques-to-Get-the-Most-Out-of-NestJS"><a href="#4-Performance-Boosting-Techniques-to-Get-the-Most-Out-of-NestJS" class="headerlink" title="4 Performance Boosting Techniques to Get the Most Out of NestJS"></a>4 Performance Boosting Techniques to Get the Most Out of NestJS</h2><p>As a powerful Node.js application framework, NestJS offers a wide range of features for building server-side apps. Its popularity continues to grow as more developers discover its benefits.</p>
+<p>However, when it comes to building a NestJS app, performance is often an overlooked aspect. In this article, I will discuss a few practical techniques for crafting a high-performance NestJS application</p>
+<h3 id="Architecture-Choice"><a href="#Architecture-Choice" class="headerlink" title="Architecture Choice"></a>Architecture Choice</h3><p>By default, NestJS runs on top of <a class="link"   href="https://expressjs.com/" >Express <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> primary due to its popularity. Although there are some overheads, NestJS’s performance isn’t far away from Express. Express is considered to be a well-performed framework. Thus the default option: Nest-Express is good enough for a normal server-side App.</p>
+<p>But if performance is the first priority, a better option is to use F<a class="link"   href="https://docs.nestjs.com/techniques/performance" >astify <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> which is much faster than Express.</p>
+<p>Below is a recent benchmark test results for Nest-Express vs Nest-Fastify vs Express alone. We can see that Nest-Fastify is more than 3 times faster than Nest-Express.</p>
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*1LITO4dK7Uw3AJEuPrh-3g.png" alt="A recent benchmark ([https://github.com/nestjs/nest/pull/10276/checks?check_run_id=8318006381](https://github.com/nestjs/nest/pull/10276/checks?check_run_id=8318006381))"><em>A recent benchmark (<a class="link"   href="https://github.com/nestjs/nest/pull/10276/checks?check_run_id=8318006381" >https://github.com/nestjs/nest/pull/10276/checks?check_run_id&#x3D;8318006381 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>)</em></p>
+<p>If you are building a new NestJS App, one of the first things to consider is whether you should stick to the Express, or start with Fastify. For existing Apps, it is also possible to migrate to Fastify from Express since Nest provides framework independence using<a class="link"   href="https://docs.nestjs.com/techniques/performance" > adapter <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<h3 id="Caching"><a href="#Caching" class="headerlink" title="Caching"></a>Caching</h3><p>Caching can improve your NestJS app or any web app performance dramatically. It is a complex topic and is considered to be one of the <a class="link"   href="https://martinfowler.com/bliki/TwoHardThings.html" >two hard things in computing <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. However, NestJS has made it easier with its well-abstracted API.</p>
+<p>NestJS provides an out-of-box<a class="link"   href="https://docs.nestjs.com/techniques/caching" > cache manager. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> The cache manager provides an API for various cache storage providers. The default storage provider is an in-memory data store and it is built-in. To enable in-memory caching, we need to import the CacheModule as below.</p>
+<pre><code>import &#123; CacheModule, Module &#125; from &#39;@nestjs/common&#39;;
+import &#123; AppController &#125; from &#39;./app.controller&#39;;
+
+@Module(&#123;
+  imports: [CacheModule.register()],
+  controllers: [AppController],
+&#125;)
+export class AppModule &#123;&#125;
+</code></pre>
+<p>For more configuration options, refer to the <a class="link"   href="https://docs.nestjs.com/techniques/caching" >official documentation <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<p>You can switch to a number of other storage providers, for example, <a class="link"   href="https://github.com/dabroek/node-cache-manager-redis-store" >redis store <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<p>Regardless of which storage provider you choose, you can set up a cache interceptor to automatically cache the get response.</p>
+<pre><code>import * as redisStore from &#39;cache-manager-redis-store&#39;;
+@Module(&#123;
+  imports: [CacheModule.register(&#123;store: redisStore&#125;)],
+  controllers: [AppController],
+  providers: [
+    &#123;
+      provide: APP_INTERCEPTOR,
+      useClass: CacheInterceptor,
+    &#125;,
+  ],
+&#125;)
+</code></pre>
+<p>The above configuration will import CacheInterceptor, and bind it to all endpoints globally. Alternatively, you also can use UseInterceptors to bind the CacheInterceptor at the controller level.</p>
+<h3 id="Enable-Gzip"><a href="#Enable-Gzip" class="headerlink" title="Enable Gzip"></a>Enable Gzip</h3><p>Enabling Gzip compression can greatly improve API performance. It doesn’t only work with NestJS, instead, it is applicable to any common Web API service. It is easy to implement and very effective, but at the same time also easily to be forgotten.</p>
+<p>Gzip compresses API requests and responses. The result is up to 10x reduced payload.</p>
+<p>You can either enable Gzip compression via Nginx. Most NestJS apps sit behind Nginx, and you can configure Nginx to use gzip to compress the HTTP response on the fly. The following is an example to enable Gzip in nginx.conf.</p>
+<pre><code>gzip on;
+gzip_disable &quot;msie6&quot;;
+</code></pre>
+<p>Another way is to enable Gzip within the NestJS app. In your NestJs App, you can make use of the compression middleware package provided to compress and serve content.</p>
+<pre><code>import * as compression from &#39;compression&#39;;
+// somewhere in your initialization file
+app.use(compression());
+</code></pre>
+<p>In the above example, the compression middleware is imported from the @nestjs&#x2F;common package and used to enable gzip compression for all requests to the app. This allows the app to compress the response using gzip if the client supports it, which can improve the performance and efficiency of the app.</p>
+<h3 id="Cluster-Mode"><a href="#Cluster-Mode" class="headerlink" title="Cluster Mode"></a>Cluster Mode</h3><p>By default, the NestJS App instance runs in a single thread. Since all servers have multiple CPU cores, the single-thread instance doesn’t take full advantage of the server resources.</p>
+<p>To utilize the multiple cores to improve performance, we can use the Cluster<a class="link"   href="https://nodejs.org/api/cluster.html" > module <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> in NodeJS. Under cluster mode, the child processes run as a cluster, thus incoming requests are handled simultaneously. It results in better throughput.</p>
+<p>It is straightforward to create a cluster service in NestJS. Below is an example of implementation.</p>
+<pre>
+<code>
+import &#123; NestFactory &#125; from '@nestjs/core';
+import &#123; AppModule &#125; from './app.module';
+import * as os from 'os';
+
+const cluster = require('node:cluster');
+const numCPUs = os.cpus().length;
+
+async function bootstrap() &#123;
+  const app = await NestFactory.create(AppModule);
+  await app.listen(3000);
+&#125;
+if(cluster.isMaster)&#123;
+  console.log(`Master server started on $&#123;process.pid&#125;`);
+  for (let i = 0; i < numCPUs; i++) &#123;
+      cluster.fork();
+  &#125;
+  cluster.on('exit', (worker, code, signal) => &#123;
+      console.log(`Worker $&#123;worker.process.pid&#125; died. Restarting`);
+      cluster.fork();
+  &#125;)
+&#125; else &#123;
+  console.log(`Cluster server started on $&#123;process.pid&#125;`)
+  bootstrap();
+&#125;
+</code>
+</pre>
+<p>The gist of the above code is</p>
+<ul>
+<li><p>Firstly, we import the cluster module and get the number of CPU cores</p>
+</li>
+<li><p>The master process is responsible for creating the worker processes, and the worker processes are responsible for running the NestJS app.</p>
+</li>
+<li><p>For the master process, a worker process is created for each CPU available. We also listen to the exit of a worker process, when any worker process crashes, the master process will fork a new one.</p>
+</li>
+<li><p>For the child process, we can use the bootstrap function to start the server instance.</p>
+</li>
+</ul>
+<p>In the production environment, you can use pm2 to run the App in cluster mode. The command below will start the app with cluster mode for 8 CPU cores.</p>
+<pre><code>pm2 start dist/main.js -i 8
+</code></pre>
+<p>Overall, using cluster mode in a NestJS app can provide improved performance and scalability by sharing the workload across multiple worker processes.</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Optimizing the performance of a NestJS application is a complex and multifaceted task. In this article, we discussed how to utilize the built-in NestJS features like Fastify, and Cache Manager to improve performance. Gzip and Cluster modules are also commonly used to optimize not only NestJS but also other NodeJS web apps.</p>
+<p>If you found this article useful, you may also like to check out my other NestJS-related articles on <a class="link"   href="https://medium.com/p/be6bc77e789e" >how to build efficient and maintainable NestJS apps <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> and <a class="link"   href="https://medium.com/gitconnected/maximize-code-security-in-your-nestjs-applications-part-1-b7abb99fa048" >NestJS security <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<p>Happy programming!</p>
+]]></content>
+      <tags>
+        <tag>TypeScript</tag>
+        <tag>NestJS</tag>
+        <tag>Performance</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Comparing four popular NestJS ORMs</title>
+    <url>/2022/07/01/comparing-four-popular-nestjs-ORM/</url>
+    <content><![CDATA[<h1 id=""><a href="#" class="headerlink" title=""></a></h1><p>NestJS is a popular Node.js server-side framework. It’s highly customizable, comes with a rich ecosystem, and is compatible with most Node.js libraries, including the ORM libraries.</p>
+<h2 id="ORMs-in-NestJS"><a href="#ORMs-in-NestJS" class="headerlink" title="ORMs in NestJS"></a>ORMs in NestJS</h2><p>Object-relational mapping (ORM) is a technique that abstracts your database tables to data objects in memory. It allows you to query and write data to databases using data objects. ORMs are used to make database access easier, as developers won’t need to write raw queries. </p>
+<p><a class="link"   href="https://blog.logrocket.com/why-you-should-avoid-orms-with-examples-in-node-js-e0baab73fa5/" >ORMs have their limitations <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>, such as performance issues with complex queries, but they can still make your life easier when used in the right places.</p>
+<p>NestJS is database-agnostic. For convenience, NestJS provides tight integrations with TypeORM and Sequelize out of the box with the @nestjs&#x2F;typeorm and @nestjs&#x2F;sequelize packages. You can also directly use any general purpose Node.js database integration library or ORM, but the ecosystem of NestJS ORMs is so massive, it can be daunting to choose the right one for your project. </p>
+<p>In this article, we are going to walk through using four common ORMs with NestJS. They are:</p>
+<ul>
+<li>Sequelize</li>
+<li>TypeORM</li>
+<li>MikroORM</li>
+<li>Prisma</li>
+</ul>
+<p>Our intention is to summarize their common characteristics, like popularity, features, documentation, and maturity, and for each ORM, a code snippet will be provided to give you the simplest example of applying the framework.</p>
+<h2 id="NestJS-and-Sequelize"><a href="#NestJS-and-Sequelize" class="headerlink" title="NestJS and Sequelize"></a>NestJS and Sequelize</h2><p>Introduced around 2014, <a class="link"   href="https://github.com/sequelize/sequelize" >Sequelize <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> is an easy-to-use and Promise-based ORM for Node.js.</p>
+<p>It supports many databases, including PostgreSQL, MySQL, MariaDB, SQLite, DB2 and MSSQL. Its limitations include a lack of NoSQL support and only supporting the Active Record pattern.</p>
+<h3 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h3><p>Sequelize provides a rich set of features: transaction and migration support, model validations, eager and lazy loading, and read replication, among others. Sequelize has reasonable documentation with rich information and good examples, but sometimes I find it’s not easy to search for a particular topic.</p>
+<p>Sequelize comes with a CLI that can create a database, initialize configuration and seeders, or manage migration. It also uses the <a class="link"   href="https://www.martinfowler.com/eaaCatalog/activeRecord.html" >Active Record <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> pattern. In the Active Record pattern, a database row is mapped into an object in application, and a database table is represented by a class. Thus, when we create an entity object and call the <code>save</code> method, a new row is added to the database table. </p>
+<p>The main benefit of the Active Record pattern is its simplicity: you can directly use the entity classes to represent and interact with the database tables.</p>
+<h3 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h3><p>Sequelize is easy to set up and use. Below is an example of the basic database configuration and operation. </p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">// Firstly, we create a Sequelize instance with an options object</span><br><span class="line">export const databaseProviders = [</span><br><span class="line">  &#123;</span><br><span class="line">    provide: &#x27;SEQUELIZE&#x27;,</span><br><span class="line">    useFactory: async () =&gt; &#123;</span><br><span class="line">      const sequelize = new Sequelize(&#123;</span><br><span class="line">        dialect: &#x27;postgres&#x27;,</span><br><span class="line">        host: &#x27;localhost&#x27;,</span><br><span class="line">        port: 5432,</span><br><span class="line">        username: &#x27;postgres&#x27;,</span><br><span class="line">        password: &#x27;postgres&#x27;,</span><br><span class="line">        database: &#x27;postgres&#x27;,</span><br><span class="line">      &#125;);</span><br><span class="line">      sequelize.addModels([Cat]); // Add all models</span><br><span class="line">      await sequelize.sync(); // Sync database tables</span><br><span class="line">      return sequelize;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">// Then, export the provider to make it accessible</span><br><span class="line">@Module(&#123;</span><br><span class="line">  providers: [...databaseProviders],</span><br><span class="line">  exports: [...databaseProviders],</span><br><span class="line">&#125;)</span><br><span class="line">export class DatabaseModule &#123;&#125;</span><br><span class="line"></span><br><span class="line">// Define model entity, each represent a table in the database</span><br><span class="line">@Table</span><br><span class="line">export class Cat extends Model &#123;</span><br><span class="line">  @Column</span><br><span class="line">  name: string;</span><br><span class="line"></span><br><span class="line">  @Column</span><br><span class="line">  age: number;</span><br><span class="line"></span><br><span class="line">  @Column</span><br><span class="line">  breed: string;</span><br><span class="line">&#125;</span><br><span class="line">// Create a repository provider</span><br><span class="line">export const catsProviders = [</span><br><span class="line">  &#123;</span><br><span class="line">    provide: &#x27;CATS_REPOSITORY&#x27;,</span><br><span class="line">    useValue: Cat,</span><br><span class="line">  &#125;,</span><br><span class="line">];</span><br><span class="line">// In CatsService, we inject the repository</span><br><span class="line">export class CatsService &#123;</span><br><span class="line">  constructor(</span><br><span class="line">    @Inject(&#x27;CATS_REPOSITORY&#x27;)</span><br><span class="line">    private catsRepository: typeof Cat,</span><br><span class="line">  ) &#123;&#125;</span><br><span class="line"></span><br><span class="line">// Then, we can perform database operations</span><br><span class="line">this.catsRepository.findAll&lt;Cat&gt;();</span><br></pre></td></tr></table></figure></div>
+
+
+<p>In some cases, where it’s just easier to execute raw SQL queries, you can use the function <code>sequelize.query</code>.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// SQL Script. Source https://sequelize.org/docs/v6/core-concepts/raw-queries/</span><br><span class="line">const [results, metadata] = await sequelize.query(&quot;UPDATE users SET y = 42 WHERE x = 12&quot;);</span><br><span class="line">// Results will be an empty array and metadata will contain the number of affected rows.</span><br></pre></td></tr></table></figure></div>
+
+
+<p>Sequelize is hard at work <a class="link"   href="https://sequelize.org/docs/v7/other-topics/typescript/" >making official TypeScript support possible <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>, but for now, it is still recommended that you use the <code><a class="link"   href="https://www.npmjs.com/package/sequelize-typescript" >sequelize-typescript package <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></code> to work with TypeScript in your project.</p>
+<h3 id="Community-and-popularity"><a href="#Community-and-popularity" class="headerlink" title="Community and popularity"></a>Community and popularity</h3><p>Sequelize is a very mature and stable ORM. It has an active community and a wide array of necessary tooling. As one of the most popular ORM frameworks, Sequelize has 26K stars and 4K forks on GitHub. It’s also directly supported by NestJS with <code>@nestjs/sequelize</code>.</p>
+<h3 id="Use-cases"><a href="#Use-cases" class="headerlink" title="Use cases"></a>Use cases</h3><p>Sequelize is a general purpose ORM for Node.js apps. If you are looking for a stable, easy-to-use ORM, it is worth your consideration.</p>
+<h2 id="TypeORM"><a href="#TypeORM" class="headerlink" title="TypeORM"></a>TypeORM</h2><p><a class="link"   href="https://typeorm.io/" >TypeORM <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> is another mature ORM for Node.js. It has a rich feature set, including an entity manager, connection pooling, replication, and query caching. It’s also directly supported by NestJS with its own package, <code>@nestjs/typeorm</code>.</p>
+<p>Released in 2016, TypeORM supports the dialects PostgreSQL, MySQL, MariaDB, SQLite, MSSQL, and MongoDB. That means that you can use both NoSQL and SQL databases at the same time with TypeORM. </p>
+<h3 id="Features-1"><a href="#Features-1" class="headerlink" title="Features"></a>Features</h3><p>TypeORM provides a CLI that can create entities, projects, and subscribers or manage migration. It supports both <a class="link"   href="https://www.martinfowler.com/eaaCatalog/activeRecord.html" >Active Record <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> and <a class="link"   href="https://martinfowler.com/eaaCatalog/dataMapper.html" >Data Mapper <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> patterns.</p>
+<p>The Data Mapper pattern adds a data access layer (DAL) between the business domain of your application and the database. Using the Data Mapper pattern provides more flexibility and better performance, as it makes more efficient use of the database than a naive Active Record implementation. Providing both approaches gives you a choice of pattern that suits your application.</p>
+<p>Much like some open source projects, its documentation has room for improvement. One of the common issues is a lack of necessary API details.</p>
+<h3 id="Setup-1"><a href="#Setup-1" class="headerlink" title="Setup"></a>Setup</h3><p>Below is the basic database configuration and operation for TypeORM using the Active Record pattern.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">// Firstly, we setup Database Connection</span><br><span class="line">@Module(&#123;</span><br><span class="line">  imports: [</span><br><span class="line">    TypeOrmModule.forRoot(&#123;</span><br><span class="line">      type: &#x27;postgres&#x27;,</span><br><span class="line">      host: &#x27;localhost&#x27;,</span><br><span class="line">      port: 5432,</span><br><span class="line">      username: &#x27;postgres&#x27;,</span><br><span class="line">      password: &#x27;postgres&#x27;,</span><br><span class="line">      database: &#x27;postgres&#x27;,</span><br><span class="line">      entities: [Cat],</span><br><span class="line">      synchronize: true, // Sync the entities with the database every time the application runs</span><br><span class="line">    &#125;),</span><br><span class="line">    CatsModule,</span><br><span class="line">  ],</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// Then you can define the data entity</span><br><span class="line">@Entity()</span><br><span class="line">export class Cat &#123;</span><br><span class="line">  @PrimaryGeneratedColumn()</span><br><span class="line">  id: number;</span><br><span class="line"></span><br><span class="line">  @Column()</span><br><span class="line">  name: string;</span><br><span class="line"></span><br><span class="line">  @Column()</span><br><span class="line">  breed: string;</span><br><span class="line">&#125;</span><br><span class="line">// We can use the repository design pattern which means each entity has its own repository.</span><br><span class="line">// Here, we inject the catRepository into your service</span><br><span class="line">export class CatsService &#123;</span><br><span class="line">  constructor(</span><br><span class="line">    @InjectRepository(Cat)</span><br><span class="line">    private catsRepository: Repository&lt;Cat&gt;,</span><br><span class="line">  ) &#123;&#125;</span><br><span class="line">  </span><br><span class="line">// Then you can use the injected repo to perform database operation</span><br><span class="line">  this.catsRepository.find();</span><br><span class="line">  this.catsRepository.save&lt;Cat&gt;(cat);</span><br></pre></td></tr></table></figure></div>
+
+
+<p>To run a raw SQL query, you can use the <code>@InjectConnection</code> decorator and use the <code>query</code> method to run a custom query script.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// Inject the connection</span><br><span class="line">constructor(@InjectConnection() private readonly connection: Connection) </span><br><span class="line">&#123;&#125; </span><br><span class="line">// Run the query</span><br><span class="line">this.connection.query(&#x27;SELECT * FROM [TableName];&#x27;); </span><br></pre></td></tr></table></figure></div>
+
+
+<p>You can use either JavaScript or TypeScript with TypeORM. <a class="link"   href="https://blog.logrocket.com/typeorm-object-relational-mapping-node-js/" >Using TypeORM <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> with TypeScript is more natural as compared to other ORMs, as it’s written by TypeScript.</p>
+<h3 id="Community-and-popularity-1"><a href="#Community-and-popularity-1" class="headerlink" title="Community and popularity"></a>Community and popularity</h3><p>It’s one of the most popular ORM libraries, with 28.2K stars and 5.1K forks on GitHub.</p>
+<p>With its rich feature set and flexibility, TypeORM is one of the best ORMs for NestJS.</p>
+<h3 id="Use-cases-1"><a href="#Use-cases-1" class="headerlink" title="Use cases"></a>Use cases</h3><p>TypeORM can run on Node.js and a number of other platforms. It is a great choice if your application requires one or more of the following features:</p>
+<ul>
+<li>Scalable to a large, enterprise-grade app</li>
+<li>Support for multiple databases</li>
+<li>Support for both SQL and NoSQL databases</li>
+<li>Support for multiple platforms, including Node.js, Ionic, Cordova, React Native, NativeScript, Expo, or Electron</li>
+</ul>
+<h2 id="MikroORM"><a href="#MikroORM" class="headerlink" title="MikroORM"></a>MikroORM</h2><p><a class="link"   href="https://github.com/mikro-orm/mikro-orm" >MikroORM <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> is another TypeScript ORM for Node.js based on the Data Mapper, Unit of Work, and Identity Map patterns.</p>
+<p>Launched in 2018, it’s a relatively young ORM. MikroORM supports both SQL and NoSQL databases, including MongoDB, MySQL, PostgreSQL and SQLite databases. MikroORM also has its own NestJS support, <code><a class="link"   href="https://mikro-orm.io/docs/usage-with-nestjs/" >@mikro-orm/nestjs package <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></code>, which is a third-party package and not managed by the NestJS team.</p>
+<h3 id="Features-2"><a href="#Features-2" class="headerlink" title="Features"></a>Features</h3><p>MikroORM provides an impressive list of features, including transactions, support for the Identity Map pattern, cascading persist and remove, a query builder, and more. It’s a fully-featured ORM with all the major database options, and is easily migrated to from TypeORM, if you’re looking to switch.</p>
+<p>It comes with a CLI tool that can create&#x2F;update&#x2F;drop database schema, manage database migration, and generate entities.</p>
+<p>MikroORM supports the Data Mapper pattern. It’s also built based on <a class="link"   href="https://martinfowler.com/eaaCatalog/unitOfWork.html" >Unit of Work <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> and <a class="link"   href="https://martinfowler.com/eaaCatalog/identityMap.html" >Identity Map <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> patterns. Implementing Unit of Work allows us to handle transactions automatically. It’s also optimized for transactions via Identity Map patterns, which makes it possible to prevent unnecessary round-trips to the database. Those patterns also help MikroORM achieve good performance: <a class="link"   href="https://mikro-orm.io/blog/mikro-orm-4-1-released" >a recent benchmark <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> shows it only takes around 70ms for inserting 10K entities with SQLite.</p>
+<h3 id="Setup-2"><a href="#Setup-2" class="headerlink" title="Setup"></a>Setup</h3><p>The syntax of MikroORM is very simple and straightforward. Below is an example of using MikroORM for the simplest database operations in NestJS.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">// Firstly, import MikroOrmModule in App.module</span><br><span class="line">@Module(&#123;</span><br><span class="line">  imports: [MikroOrmModule.forRoot(), CatsModule],</span><br><span class="line">&#125;)</span><br><span class="line">// The Database configuration is store in mikro-orm.config.ts</span><br><span class="line">const config: Options = &#123;</span><br><span class="line">  entities: [Cat],</span><br><span class="line">  dbName: &#x27;postgres&#x27;,</span><br><span class="line">  type: &#x27;postgresql&#x27;,</span><br><span class="line">  port: 5432,</span><br><span class="line">  host: &#x27;localhost&#x27;,</span><br><span class="line">  debug: true,</span><br><span class="line">  user: &#x27;postgres&#x27;,</span><br><span class="line">  password: &#x27;postgres&#x27;,</span><br><span class="line">&#125; as Options;</span><br><span class="line"></span><br><span class="line">// The config paths are defined in package.json</span><br><span class="line">  &quot;mikro-orm&quot;: &#123;</span><br><span class="line">    &quot;useTsNode&quot;: true,</span><br><span class="line">    &quot;configPaths&quot;: [</span><br><span class="line">      &quot;./src/mikro-orm.config.ts&quot;,</span><br><span class="line">      &quot;./dist/mikro-orm.config.js&quot;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">// To use repository pattern, we register entities via forFeature() in feature module</span><br><span class="line">@Module(&#123;</span><br><span class="line">  imports: [MikroOrmModule.forFeature(&#123; entities: [Cat] &#125;)],</span><br><span class="line">&#125;)</span><br><span class="line">export class CatsModule &#123;&#125;</span><br><span class="line"></span><br><span class="line">// We inject the repository into service</span><br><span class="line">  constructor(</span><br><span class="line">    @InjectRepository(Cat)</span><br><span class="line">    private readonly catRepository: EntityRepository&lt;Cat&gt;,</span><br><span class="line">  ) &#123;&#125;</span><br><span class="line"></span><br><span class="line"> // Then, we can perform database operation</span><br><span class="line">this.catRepository.findOne(findOneOptions);</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="Community-and-popularity-2"><a href="#Community-and-popularity-2" class="headerlink" title="Community and popularity"></a>Community and popularity</h3><p>The documentation of MikroORM is actively maintained and easy to navigate. Although it’s one of the youngest ORMs, it doesn’t have a long list of open issues in GitHub. The repo is actively maintained, and issues are normally resolved quickly.</p>
+<p>MikroORM is built to overcome some existing issues of other Node.js ORMs, like lack of transaction support. It’s fast growing and offers strong type safety in addition to a list of great features.</p>
+<h3 id="Use-cases-2"><a href="#Use-cases-2" class="headerlink" title="Use cases"></a>Use cases</h3><p>MikroORM stands out because of its unique features, strong typing and good support. It’s worth considering if you are looking for an ORM for:</p>
+<ul>
+<li>A greenfield app that needs good transaction support</li>
+<li>An app that needs regular batch data updates and fast performance</li>
+</ul>
+<h2 id="Prisma"><a href="#Prisma" class="headerlink" title="Prisma"></a>Prisma</h2><p><a class="link"   href="https://github.com/prisma/prisma" >Prisma <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> is an open source ORM for Node.js. It currently supports PostgreSQL, MySQL, SQL Server, SQLite, MongoDB, and CockroachDB (which is still available for preview only).</p>
+<p>Prisma integrates smoothly with NestJS. Unlike the other ORMs, there is no need to have a separate package for the NestJS-ORM integration. Instead, the Prisma CLI package is the only thing we need to use Prisma in NestJS.</p>
+<h3 id="Features-3"><a href="#Features-3" class="headerlink" title="Features"></a>Features</h3><p>Prisma is a unique library compared with other ORMs discussed in this article. Instead of using entity models as other ORMs do, it uses a schema definition language. Developers can define the data models with Prisma schema, and the models are used to generate the migration files for the chosen database. It also generates strongly typed code to interact with the database.</p>
+<p>Schema files are used as a single source of truth for both database and application, and the code generation based on it helps to build type-safe queries to catch errors during compile time. </p>
+<p>Prisma provides good tooling, including Prisma CLI and Prisma Studio. You can use the CLI to create migrations, or use the Studio to inspect databases, which works well with the Entity structure of Prisma. It also provides a Prisma data platform for database hosting.</p>
+<p>The documentation of Prisma is nicely formatted and actively maintained.</p>
+<h3 id="Setup-3"><a href="#Setup-3" class="headerlink" title="Setup"></a>Setup</h3><p>Using Prisma, developers can simply define their schemas and not worry about specific ORM frameworks. Below is the most basic usage of PrismaORM with NestJS.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">// Firstly, we need a schema file to model the database</span><br><span class="line">generator client &#123;</span><br><span class="line">  provider = &quot;prisma-client-js&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">datasource db &#123;</span><br><span class="line">  provider = &quot;postgresql&quot;</span><br><span class="line">  url      = env(&quot;DATABASE_URL&quot;) // the DATABASE_URL is stored in .env file</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">model Cat &#123;</span><br><span class="line">  id            Int         @default(autoincrement()) @id</span><br><span class="line">  name          String</span><br><span class="line">  age           Int</span><br><span class="line">  breed         String   </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// To generates SQL files and also runs them on the configured database, run following command</span><br><span class="line"> npx prisma migrate dev --name init</span><br><span class="line"></span><br><span class="line">// Create a Database service to interact with the Prisma Client API</span><br><span class="line">@Injectable()</span><br><span class="line">export class PrismaService extends PrismaClient implements OnModuleInit &#123;</span><br><span class="line">  async onModuleInit() &#123;</span><br><span class="line">    await this.$connect();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  async enableShutdownHooks(app: INestApplication) &#123;</span><br><span class="line">    this.$on(&#x27;beforeExit&#x27;, async () =&gt; &#123;</span><br><span class="line">      await app.close();</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// In service layer, we inject the DatabaseService</span><br><span class="line">constructor(private prisma: PrismaService) &#123;&#125;</span><br><span class="line"></span><br><span class="line">// We can perform database operation via Prisma client api as below</span><br><span class="line">// Please note that we use Prisma Client&#x27;s generated types, like the &quot;Cat&quot;</span><br><span class="line">  async cat(</span><br><span class="line">    catWhereUniqueInput: Prisma.CatWhereUniqueInput,</span><br><span class="line">  ): Promise&lt;Cat | null&gt; &#123;</span><br><span class="line">    return this.prisma.cat.findUnique(&#123;</span><br><span class="line">      where: catWhereUniqueInput,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="Community-and-popularity-3"><a href="#Community-and-popularity-3" class="headerlink" title="Community and popularity"></a>Community and popularity</h3><p>First released in 2019, Prisma is the newest ORM of the four we discussed. It will need time to get to a more mature state. Recently, the release of version 3 introduced a few <a class="link"   href="https://www.prisma.io/docs/guides/upgrade-guides/upgrading-versions/upgrading-to-prisma-3" >breaking changes <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. There are also some existing issues noted in GitHub, such as that it <a class="link"   href="https://github.com/prisma/prisma1/issues/2466" >does not support some Postgres column types <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<p>With 23.3K GitHub stars and 828 forks, it’s grown rapidly in popularity.</p>
+<h3 id="Use-cases-3"><a href="#Use-cases-3" class="headerlink" title="Use cases"></a>Use cases</h3><p>Overall, Prisma is a very promising ORM. It’s designed to mitigate existing problems in traditional ORMs and can be used with either JavaScript or TypeScript. The advantage of using TypeScript is that you can leverage the Prisma Client’s generated types for better type-safety.</p>
+<p>Some good use cases for Prisma are:</p>
+<ul>
+<li>Rapid prototype development for new apps</li>
+<li>Apps that require good database tooling and strong typing support</li>
+</ul>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>There are a number of ORMs that can be used together with NestJS. Thus, choosing a suitable ORM for your NestJS application can be a hard decision. In this article, we have walked through four popular ORMs, and discussed their strengths and weaknesses.</p>
+<p>I also created a repo with the most basic sample code for each ORM, so it will be easier for you to have a direct impression if you have not used them. You can find the source code <a class="link"   href="https://github.com/sunnyy02/nestjs-orms" >here <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+]]></content>
+      <tags>
+        <tag>TypeScript</tag>
+        <tag>NestJS</tag>
+        <tag>ORM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Deep clone an Object and preserve its type with TypeScript</title>
+    <url>/2020/10/05/deep-clone-an-object-and-preserve-its-type-with-typescript/</url>
+    <content><![CDATA[<h3 id="From-Shallow-Copy-to-Deep-Clone-with-Type"><a href="#From-Shallow-Copy-to-Deep-Clone-with-Type" class="headerlink" title="From Shallow Copy to Deep Clone with Type"></a>From Shallow Copy to Deep Clone with Type</h3><p>Everything in the JavaScript world is an Object. We often need to clone an Object. When working with TypeScript, preserving the object type may also be required.</p>
+<p>This article will explore the options of deep cloning an Object with TypeScript. The implementations of the clone are not dependent on external libraries.</p>
+<h3 id="Shallow-copy"><a href="#Shallow-copy" class="headerlink" title="Shallow copy"></a>Shallow copy</h3><p>A shallow copy using Object.Assign or Spread operator will duplicate the top-level properties. But the properties as an Object are copied as a reference after shallow copy, thus it is shared between the original source and target(copied Object).</p>
+<pre><code>const objShallowCopy = Object.assign(&#123;&#125;, Obj1);
+// or
+const objShallowCopy = &#123;...Obj1&#125;;
+</code></pre>
+<p>The above methods can not deep clone a complex Object properly. But it is good enough for cases when nested object properties are not required.</p>
+<h3 id="The-simplest-way-to-do-a-Deep-copy"><a href="#The-simplest-way-to-do-a-Deep-copy" class="headerlink" title="The simplest way to do a Deep copy"></a>The simplest way to do a Deep copy</h3><p>Using JSON.parse and JSON.stringify is the simplest way to deep clone an Object. With the one-line code below, the nested properties of a complex object can be deep-cloned.</p>
+<pre><code>const objCloneByJsonStringfy = JSON.parse(JSON.stringify(Obj1));
+</code></pre>
+<p>But it does have a few caveats.</p>
+<ul>
+<li><p>It is slow due to the nature of the method involving serialization and deserialization of an Object to and from JSON. When cloning a large object using this method, performance will be a concern.</p>
+</li>
+<li><p>The date type is not supported. Dates will be parsed as Strings, thus the Dates object in the source object will be lost after copying.</p>
+</li>
+<li><p>It does not preserve the type of the object as well as the methods. As the code snippet below shows, the instanceof returns false, because it can not find the constructor in the Object’s prototype chain. And the functions within the source Object will be missing after copying.</p>
+<pre><code>
+  const objCloneByJsonStringfy = JSON.parse(JSON.stringify(obj1));
+  // the type of obj1 is ObjectWithName
+  console.log(objCloneByJsonStringfy instanceof ObjectWithName);
+  // the output is false
+</code></pre></li>
+</ul>
+<h3 id="Preserve-the-Type"><a href="#Preserve-the-Type" class="headerlink" title="Preserve the Type"></a>Preserve the Type</h3><p>To solve the issues above, the following recursive deep clone function is developed. It supports Date data type, and keeps the original object class constructor and methods in its prototype chain. It is also compact and efficient.</p>
+<p>The gist of the code is below. A new object is instantiated with the source object prototype, and reduce operator is used to recursively copy each property over.</p>
+<pre><code>
+    return Array.isArray(source)
+      ? source.map(item => deepCopy(item))
+        : source instanceof Date
+        ? new Date(source.getTime())
+        : source && typeof source === 'object'
+        ? Object.getOwnPropertyNames(source).reduce((o, prop) => 
+          o[prop] = deepCopy(source[prop]);
+          return o;
+          &#125;, Object.create(Object.getPrototypeOf(source))
+          : source as T;
+</code></pre>
+<p>The key to the above code is “Object.create”, it is equivalent to the following:</p>
+<pre><code>
+    Object.create = function (o) &#123;
+        function F() &#123;&#125;
+        F.prototype = o;
+        return new F();
+    &#125;;
+</code></pre>
+<p>So the after-copy object will point to the same prototype of the source object.</p>
+<h3 id="Property-descriptor"><a href="#Property-descriptor" class="headerlink" title="Property descriptor"></a>Property descriptor</h3><p>Each property in JavaScript not only has a value, but also has three attributes (<em>configurable</em>, <em>enumerable,</em> and <em>writable</em>). All four attributes are called <a class="link"   href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor" >property descriptors <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<p>To complete the deep clone function above and make it be “true” copy of the original object, the property descriptor should be cloned as well as the value of the property. We can use “Object.defineProperty” to achieve that.</p>
+<p>The complete function is listed here</p>
+<pre><code>
+        export class cloneable &#123;
+        public static deepCopy<T>(source: T): T &#123;
+            return Array.isArray(source)
+            ? source.map(item => this.deepCopy(item))
+            : source instanceof Date
+            ? new Date(source.getTime())
+            : source && typeof source === 'object'
+                ? Object.getOwnPropertyNames(source).reduce((o, prop) => &#123;
+                    Object.defineProperty(o, prop, Object.getOwnPropertyDescriptor(source, prop)!);
+                    o[prop] = this.deepCopy((source as &#123; [key: string]: any &#125;)[prop]);
+                    return o;
+                &#125;, Object.create(Object.getPrototypeOf(source)))
+            : source as T;
+        &#125;
+        &#125;
+        </code></pre>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>In this article, We discuss the usage and pitfalls of JSON.Parse&#x2F;JSON.Stringify in deep cloning an Object. A custom solution is presented to achieve true deep cloning and preserve the type of an Object.</p>
+<p>Hopefully, this article can help you in copying objects with TypeScript.</p>
+<p>If you like this article, you may also like my other recent articles.<br><a href="https://javascript.plainenglish.io/case-study-a-practical-usage-of-typescript-discriminated-union-type-and-generics-87e75a2717f8"><strong>Use Cases For TypeScript Discriminated Union Types and Generics</strong><br><em>One reason I really like Typescript is its Type system, it is practical and feature rich. Applying the types in right…</em>javascript.plainenglish.io</a></p>
+<p>Happy Programming!</p>
+]]></content>
+      <tags>
+        <tag>TypeScript</tag>
+        <tag>Refactoring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>My Journey to Becoming a Certified Kubernetes Application Developer</title>
+    <url>/2022/07/11/how-i-passed-the-ckad-exam-certified-kubernetes-application-developer/</url>
+    <content><![CDATA[<h5 id="Tips-to-study-prepare-and-pass-the-CKAD-exam"><a href="#Tips-to-study-prepare-and-pass-the-CKAD-exam" class="headerlink" title="Tips to study, prepare and pass the CKAD exam"></a>Tips to study, prepare and pass the CKAD exam</h5><p>As a <a class="link"   href="https://betterprogramming.pub/why-i-choose-to-be-a-contract-programmer-7d36bad23b6d" >seasoned contractor <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>, I am keen to update my skillset. Recently I passed the CKAD certification exam(Certified Kubernetes Application Developer).</p>
+<p>Get ready to roll up your sleeves and put your skills to the test!</p>
+<p>The CKAD exam is a hands-on challenge that requires you to solve real-world problems in live environments. It’s not an easy exam, but the payoff is worth it — this exam is highly valued in the industry and can give you an edge in your career. Don’t be fooled by traditional MCQ exams — the CKAD exam truly tests your knowledge and expertise in a way that sets you apart from the competition.</p>
+<p>In this article, I am going to share my experiences with the exam.</p>
+<h3 id="My-background"><a href="#My-background" class="headerlink" title="My background"></a>My background</h3><p>Before I started preparing for this exam, I had limited knowledge of Kubernetes. I had some exposure to OpenShift, and I understood some Kubernetes concepts like Pod, deployments, etc.</p>
+<p>I am familiar with vim and basic Linux commands. This proved to be an important advantage.</p>
+<h3 id="How-I-prepared-for-the-exam"><a href="#How-I-prepared-for-the-exam" class="headerlink" title="How I prepared for the exam"></a>How I prepared for the exam</h3><p>It took me 6 weeks to prepare and pass the exam. I did the following:</p>
+<ul>
+<li><p>I completed the Udemy course <a class="link"   href="https://www.udemy.com/course/certified-kubernetes-application-developer/" >Kubernetes Certified Application Developer (CKAD) with Tests <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. This is an excellent course, with up-to-date information.</p>
+</li>
+<li><p>The two mock exams and two lightning labs on <a class="link"   href="https://kodekloud.com/" >kodecloud <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> (provided free if you subscribe to the above Udemy course).</p>
+</li>
+<li><p><a class="link"   href="https://killer.sh/ckad" >CKAD simulator <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> from killer.sh. I practiced it a few times before the exam. You will get two free sessions after purchasing the CKAD exam. Each session allows you to access the simulator for 36 hours, it includes 22 exam questions and 3 preview questions. The simulator questions are slightly more difficult than the real exam, but the style and scope are very similar.</p>
+</li>
+<li><p><a class="link"   href="https://www.devopsmadness.com/cka_cheatsheet/" >CKAD Cheatsheet <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. It’s essential to get familiar with all the imperative commands.</p>
+</li>
+<li><p>I set up minikube on my Macbook and did a fair bit of practice.</p>
+</li>
+</ul>
+<p>My study strategy is composed of multiple iterations of Udemy courses and practices. After completing the first round of the course, I took the mock exams and lightning labs. The first mock test result was not great, so I went back to the Udemy course to study the related topics again. I repeated this process until I passed all the mock exams and lightning labs within half an hour each.</p>
+<p>I applied the same strategy for the simulator exam at killer.sh. During the first session, I couldn’t finish the 22 questions within two hours. After studying the answers and revisiting the topics, I got a good score and completed the 22 questions within the time frame. That gave me the confidence to take the actual exam.</p>
+<p>The most important thing is to understand the key concepts. Many of the questions ask you to troubleshoot issues like a Pod or service not working&#x2F;un-connectable. Without a deep understanding of how those elements work together, it will be hard to answer them.</p>
+<h3 id="Before-the-exam"><a href="#Before-the-exam" class="headerlink" title="Before the exam"></a>Before the exam</h3><p>During the pre-exam check, a proctor will check your exam environment via video. I got a few surprises during the check. Here are a few things you may want to know:</p>
+<ul>
+<li><p>Browser bookmarks are not allowed</p>
+</li>
+<li><p><strong>2nd monitor isn’t allowed</strong></p>
+</li>
+<li><p>the desk needs to be clear (no books, cups, or anything unrelated to the exam)</p>
+</li>
+</ul>
+<h3 id="During-the-exam"><a href="#During-the-exam" class="headerlink" title="During the exam"></a>During the exam</h3><p>The test is carried out with a Linux VM embedded within PSI secure browser. The platform isn’t very friendly, and the latency is not ideal during the exam. In the beginning, I spent a few minutes figuring out how to properly copy&#x2F;paste. My vim skill is a great help during the exam.</p>
+<p>The first thing I did is to create a few aliases</p>
+<pre><code>alias k=kubectl
+alias kc=&quot;kubectl create&quot;
+export do=&quot;--dry-run=client -o yaml&quot;
+</code></pre>
+<p>In the exam, I normally use an imperative command to create a YAML file as in the below example.</p>
+<pre><code>k -n mynamspace run newPod --image=nginx $do &gt; newPod.yml
+</code></pre>
+<p>Then, I edit the YAML file to add in what is required for the exam question and run the create command to action it.</p>
+<pre><code>kc -f newPod.yml
+</code></pre>
+<p>For each question, there is a warning to remind you to switch to the context required for the question. Don’t forget to do that, otherwise, you may get zero marks even if you did everything else perfectly.</p>
+<p>The 2-hour exam came with 16 questions (the number of questions in your exam may be slightly different). I completed all questions with 10 mins left. I use the time left re-check my answers. So on average, I spent 6 to 7 mins on each question.</p>
+<p>Before the exam, I read some blog posts suggesting answering based on score weighting instead of sequentially. But I didn’t follow this advice. I answered all the questions sequentially. I felt it was a distraction to consider score weighting during the exam. The score weighting is normally linear with complexity. The 2% score question is easier than the 8% score question. If I got stuck on a question, I will move on to the next one regardless of the score weighting.</p>
+<h3 id="After-the-exam"><a href="#After-the-exam" class="headerlink" title="After the exam"></a>After the exam</h3><p>I received a few emails exactly after 24 hours (from the time that exam started) to inform me of the result, badge, certificate, etc. The certificate is valid for 3 years.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2244/1*Xj-8Ib3kpBBUpwTYon6dIQ.png"
+                     
+                ></p>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>Overall, I felt that the level of difficulty of the exam is similar to the lightning labs in the Udemy course. It’s not difficult to pass if you prepare well and practice enough. I am satisfied with the time and effort spent preparing for the exam because I learned real skills on top of the certificate.</p>
+<p>If you plan to take the exam, please remember</p>
+<ul>
+<li><p>Study the key concepts and get a good understanding</p>
+</li>
+<li><p>Be good with vim and Linux commands</p>
+</li>
+<li><p>Use alias, and imperative commands to save time</p>
+</li>
+<li><p>Be familiar with the official documentation website</p>
+</li>
+</ul>
+<p>Good luck.</p>
+]]></content>
+      <tags>
+        <tag>Kubernetes</tag>
+        <tag>CKAD</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>How to Resolve Certificate Errors in a Node.js App with SSL Calls</title>
+    <url>/2019/12/11/how-to-resolve-certifcate-error-in-NodeJS-App/</url>
+    <content><![CDATA[<h5 id="A-practical-guide-to-resolving-SSL-certificate-errors"><a href="#A-practical-guide-to-resolving-SSL-certificate-errors" class="headerlink" title="A practical guide to resolving SSL certificate errors"></a>A practical guide to resolving SSL certificate errors</h5><p>In a non-production environment, setting up a NodeJS App with HTTPS and a Server Certificate is relatively straightforward. In a production environment, if your Node&#x2F;Express App sits behind a reverse proxy like Nginx which serves certificates, and it does not need to call other external services, then HTTPS and a Server Certificate are not required.</p>
+<p>However, in reality, your Node app will need to call various back-end services protected by HTTPS. By default, NodeJs is built with <a class="link"   href="https://github.com/nodejs/node-v0.x-archive/blob/master/src/node_root_certs.h" >a bundle of commonly used CA root certificates <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. Even with these certificates, we still may be bashed with HTTPS-related errors if your back-end services are hosted with self-signed certificates (i.e. company-specific private CA).</p>
+<p>Some of these errors include:</p>
+<blockquote>
+<p><em>UNABLE_TO_GET_ISSUER_CERT_LOCALLY</em><br><em>UNABLE_TO_VERIFY_LEAF_SIGNATURE</em><br><em>DEPTH_ZERO_SELF_SIGNED_CERT</em></p>
+</blockquote>
+<p>We need to understand these errors before they can be resolved.</p>
+<p>Let’s dive deep into these errors.</p>
+<h3 id="SSL-Handshake"><a href="#SSL-Handshake" class="headerlink" title="SSL Handshake"></a>SSL Handshake</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2000/1*JJq75jP6uG4tXoJBdj1zCQ.png"
+                     
+                ></p>
+<p>These errors originate from the SSL handshake process. When a client begins to establish a connection to the server, a TLS handshake happens. It is a series of messages exchanged between the client and server. In these messages, they agree with the version of the TLS and cipher suites to use, verify the identity of the server, and generate the session keys.</p>
+<p>In step 2 of the above diagram, the server sends a message containing the server’s SSL certificate. Then the client verifies the certificate with the CA (Certificate authority) that issued it. This step confirms that the server is who it says it is, and the client is interacting with the actual owner of the domain.</p>
+<p>The above SSL errors are thrown because the client is not able to verify the trust chain of the self-signed server certificate sent in step 2.</p>
+<blockquote>
+<p>TLS handshake is a complex process, you may like to read the article below for more details.<br><a href="https://levelup.gitconnected.com/deep-dive-into-tls-handshake-e029e28e2eb3"><strong>Deep Dive Into TLS Handshake</strong><br><em>TLS 1.2 Handshake process explained step by step</em>levelup.gitconnected.com</a></p>
+</blockquote>
+<h3 id="Quick-and-Dirty-Fix-rejectUnauthorized"><a href="#Quick-and-Dirty-Fix-rejectUnauthorized" class="headerlink" title="Quick and Dirty Fix: rejectUnauthorized"></a>Quick and Dirty Fix: rejectUnauthorized</h3><p>The easiest solution to resolve these errors is to use the “rejectUnauthorized” option as below.</p>
+<pre><code>https.request(&#123; 
+      ....,
+      rejectUnauthorized: false,
+    &#125;,
+...)
+</code></pre>
+<p>or set it as an environment variable</p>
+<pre><code>NODE_TLS_REJECT_UNAUTHORIZED=0
+</code></pre>
+<p>However, this method is unsafe because it disables the server certificate verification, making the Node app open to <a class="link"   href="https://en.wikipedia.org/wiki/Man-in-the-middle_attack" >MITM  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>attack. Thus, it is strongly recommended only to disable certificate verification in a development environment, and never apply this approach in production.</p>
+<h3 id="Use-CA-Option"><a href="#Use-CA-Option" class="headerlink" title="Use CA Option"></a>Use CA Option</h3><p>A safer way is to specify the CA certificate that is expected from the server. In other words, the common name of the certificate needs to match the server certificate.</p>
+<pre><code>request(&#123; 
+   ca: [fs.readFileSync([certificate path])],
+   rejectUnauthorized: true,
+&#125;
+</code></pre>
+<p>As you can see, the ca option is an array, thus you can set multiple certificate files if required. Hardcoding the certificate files in the code can make it difficult to update or rotate the certificates as needed. To avoid these issues, consider using a configuration management tool to handle the installation and updates of certificates.</p>
+<h3 id="NODE-EXTRA-CA-CERTS"><a href="#NODE-EXTRA-CA-CERTS" class="headerlink" title="NODE_EXTRA_CA_CERTS"></a>NODE_EXTRA_CA_CERTS</h3><p>From Node version 7.3.0, NODE_EXTRA_CA_CERTS environment variable is introduced to specify the location of any additional certificate authority (CA) certificates that are needed. This allows the “root” CAs to be extended with the extra certificates in the file. The file should consist of one or more trusted certificates in **PEM **format.</p>
+<p>To use the NODE_EXTRA_CA_CERTS environment variable, you can specify the path to the certificate file when starting your Node.js app. For example, you could use the following command :</p>
+<pre><code>NODE_EXTRA_CA_CERTS=path/to/ca/certificates.pem node app.js
+</code></pre>
+<p>This command sets the NODE_EXTRA_CA_CERTS variable and then starts the app.js Node.js app. The Node.js app will then use the CA certificates when making SSL calls, which will help to resolve the certificate errors.</p>
+<p>Please note that the extra certificates won’t be effective if the ca options property is explicitly specified for an HTTPS client or server.</p>
+<h3 id="How-to-troubleshoot"><a href="#How-to-troubleshoot" class="headerlink" title="How to troubleshoot?"></a>How to troubleshoot?</h3><p>If you have used either the ca option or the NODE_EXTRA_CA_CERTS, but still, receive the same errors. It is normally caused by the incorrect certificate being used.</p>
+<p>Firstly, let’s check the certificate chain to make sure that all of the necessary intermediate certificates are included in the certificate chain. The certificate chain should include the server certificate, the intermediate CA certificate, and the root CA certificate.</p>
+<p>For the ca option or the extra certs to work, we need to get the full CA Chain or at least the Root CA certificate.</p>
+<p>You can use <a class="link"   href="https://www.openssl.org/" >OpenSSL <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> to retrieve the Full CA Chain as follows:</p>
+<pre><code>openssl s_client -connect $&#123;REMHOST&#125;:$&#123;REMPORT&#125;
+</code></pre>
+<p>An example of the certificate chain is shown below.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2000/1*7mINu9NCxlhQPfNqCYjVIw.png"
+                      alt="Google CA Certificate Chain"
+                ><em>Google CA Certificate Chain</em></p>
+<blockquote>
+<p>Please note that the *showcerts *command may not work if the command is executed behind a proxy or the remote server uses <a class="link"   href="https://en.wikipedia.org/wiki/Server_Name_Indication" >SNI <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+</blockquote>
+<p>If the error still persists, below are other things to check</p>
+<ul>
+<li><p>Check the certificate path to ensure the certificate path is correct and readable by the app.</p>
+</li>
+<li><p>Verify the certificate is in the correct format (normally PEM or DER). You can use openssl command to convert the certificate to the required format.</p>
+</li>
+</ul>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>In this article, We discuss how to resolve the certificate errors in NodeJs App in detail. If you still can’t fix the error after trying everything, then StackOverflow is your best friend :).</p>
+<p>If you are not already a paid Medium member, <a class="link"   href="https://sunnysun-5694.medium.com/membership" >**you can do so by visiting this link <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**. You’ll get unlimited full access to every story on Medium. I’ll receive a portion of your membership fees as a referral.</p>
+<p>Thanks for reading, and happy programming!</p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>Security</tag>
+        <tag>Certificate</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Integrate with Dynamics CRM Online using Web API</title>
+    <url>/2019/10/05/integrate-with-dynamics-crm-online-using-web-api/</url>
+    <content><![CDATA[<h2 id="Build-a-REST-service-layer-as-an-integration-point-to-CRM"><a href="#Build-a-REST-service-layer-as-an-integration-point-to-CRM" class="headerlink" title="Build a REST service layer as an integration point to CRM"></a>Build a REST service layer as an integration point to CRM</h2><h3 id="Why-integration"><a href="#Why-integration" class="headerlink" title="Why integration"></a>Why integration</h3><p>The Enterprise Information System is like modern warfare, both are composed of highly sophisticated elements. In the modern battlefield, simply adding new weapons like stealth aircraft can not win a war, situational awareness with information sharing, and collaboration between military assets from ballistic missile submarines to special forces on the ground is the “game changer”. In the current business environment, to gain an edge, just implementing a top-rank application like Dynamics CRM is not enough, the key is to collaborate with vital business data to help business users to make informed decisions.</p>
+<p>In military terms, it is called “Network Centric Warfare”, in Business, it is called Integration.</p>
+<h3 id="Integration-with-CRM"><a href="#Integration-with-CRM" class="headerlink" title="Integration with CRM"></a>Integration with CRM</h3><p>Recently I have been working on a project to integrate Dynamics CRM into an Enterprise Service Bus system. I found the process of integration to CRM as a whole is not well documented for beginners, the purpose of this article is to share my experience in building a REST service layer as an integration point to CRM 2016.</p>
+<h3 id="Scenario"><a href="#Scenario" class="headerlink" title="Scenario"></a>Scenario</h3><p>To illustrate the integration process, let’s assume a company recently implemented Dynamics CRM 2016. The sales team wants to integrate an enterprise mobile app with CRM. The Mobile app will retrieve client contacts from CRM, so salesmen can contact the client. Salesmen may also post new leads to CRM. After the lead is posted, the default workflow will be activated to process the lead.</p>
+<h3 id="The-Solution"><a href="#The-Solution" class="headerlink" title="The Solution"></a>The Solution</h3><p>The above scenario requires the mobile app to retrieve data from and write data to CRM. A REST service layer is introduced to provide a facade to CRM Web API. By using the REST layer as the integration point, we encapsulate the details of connecting to Web API, thus if there is any change in the future version of CRM, the REST service is the only place that needs to be updated.</p>
+<p>The canonical data model is applied in the REST Service layer to provide a common data format. The following code snippet illustrates this approach with the leads entity data model.</p>
+<pre><code>   /// &lt;summary&gt;
+   /// a common lead data format to all consumer apps
+   /// &lt;/summary&gt;
+    public class LeadDto
+    &#123;
+        public string FirstName &#123; get; set; &#125;
+        public string MiddleName &#123; get; set; &#125;
+        public string LastName &#123; get; set; &#125;
+        public string PhoneNumber &#123; get; set; &#125;
+    &#125;
+    /// &lt;summary&gt;
+    /// Lead data model used to posted to CRM web api
+    /// &lt;/summary&gt;
+    public class CRMLeadModel
+    &#123;
+        public string firstname &#123; get; set; &#125;
+        public string middlename &#123; get; set; &#125;
+        public string lastname &#123; get; set; &#125;
+        public string telephone1 &#123; get; set; &#125;
+    &#125;
+</code></pre>
+<h3 id="Dynamics-Server-to-Server-S2S-Authentication"><a href="#Dynamics-Server-to-Server-S2S-Authentication" class="headerlink" title="Dynamics Server-to-Server (S2S) Authentication"></a>Dynamics Server-to-Server (S2S) Authentication</h3><p>The REST service needs to authenticate to CRM first before it can connect to Web API, S2S is used because it is secure and doesn’t need to use a paid Dynamics 365 user license. As illustrated in the diagram below, an application user account is created and associated with a custom security role, rather than user credentials, the application is authenticated based on a service principal identified by an Azure AD Object ID value which is stored in the created application user account. Please note that S2S authentication is only available to CRM Online.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2000/1*A8ql7dBE8dxJhN-GZzqDkw.jpeg"
+                      alt="CRM 2016 S2S Authentication"
+                ><em>CRM 2016 S2S Authentication</em></p>
+<h3 id="Setup-S2S"><a href="#Setup-S2S" class="headerlink" title="Setup S2S"></a>Setup S2S</h3><blockquote>
+<p><strong>Registering the App in Azure to get ClientID and Client Secret</strong></p>
+<ol>
+<li>Add a new application registration in Azure portal with your Dynamics CRM subscription. After saving, a new Application ID should be shown.</li>
+<li>Select the registered app just created, add new Settings&#x2F;Key and copy the value of the Key</li>
+<li>Go to Required Permissions, Add “Dynamics CRM online” and tick “Access CRM online as organisation users”</li>
+</ol>
+</blockquote>
+<p>After completing the above steps, you should have the following keys</p>
+<ul>
+<li><p>ApplicationID(ClientID): generated in Step 1</p>
+</li>
+<li><p>Client Secret: generated in Step 2</p>
+</li>
+<li><p>TenantID: go to Azure Active Directory -&gt; Properties -&gt; Directory ID</p>
+</li>
+<li><p>AADInstanceUrl: <a class="link"   href="https://login.microsoftonline.com/" >https://login.microsoftonline.com <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</li>
+<li><p>OrganizationUrl: CRM online root Url, i.e. <a class="link"   href="https://cofcqldsba.api.crm6.dynamics.com/" >https:&#x2F;&#x2F;[your org name].api.crm6.dynamics.com&#x2F; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<blockquote>
+<p><strong>Create CRM Application User and Security Role</strong></p>
+<ol>
+<li>Go to CRM &gt; Security Roles, create a new Security Role</li>
+<li>Create a new CRM application user, and enter the Application ID obtained in the previous step. Note: Select “Application Users” before clicking on “New” button.</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2000/1*5T8oj9HRx7eeIYdOdiRVOg.png"
+                     
+                ></p>
+<blockquote>
+<ol start="3">
+<li>Assign the newly created user with the custom security role created in step 1.</li>
+</ol>
+</blockquote>
+<p>Now we should be able to use the ADAL Nuget package, to obtain the Access Token.</p>
+<pre><code>**protected** **async** Task&lt;**string**&gt; GetAccessToken()
+&#123;
+    **var** clientcred = **new** ClientCredential(applicationId, clientSecret);
+    **var** authenticationContext = **new** AuthenticationContext($&quot;&#123;aadInstanceUrl&#125;/&#123;tenantId&#125;&quot;);
+    **var** authenticationResult = **await** authenticationContext.AcquireTokenAsync(organizationUrl, clientcred);
+    **return** authenticationResult.AccessToken;
+  &#125;
+</code></pre>
+<h3 id="Read-data-from-CRM"><a href="#Read-data-from-CRM" class="headerlink" title="Read data from CRM"></a>Read data from CRM</h3><p>After obtaining the access token, it needs to be added to the HTTP request header.</p>
+<pre><code>var client = new HttpClient();
+client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(&quot;Bearer&quot;, accessToken);
+</code></pre>
+<p>Retrieving data from CRM is simply a Get HTTP request via OData. To retrieve a contact entity, the request looks like the one below. Please note that this example will return every field in the contact record, which is not a good practice, in real-life cases, $Select should be used to only return the data you need.</p>
+<pre><code>GET http://[Organization URI]/api/data/v9.0/contacts(9cdbf27c-8efb-e511-80d2-00155db07c77)
+</code></pre>
+<p>To retrieve a list of options set, the request looks like below</p>
+<pre><code>GET http://[ORG URI]/api/data/v9.0/
+GlobalOptionSetDefinitions(Name=&#39;&#123;OptionSetName&#125;&#39;)
+</code></pre>
+<p>In REST Service, the Get HTTP Request is sent using HttpClient, and the response will be received and deserialized.</p>
+<pre><code>var client = new HttpClient();
+**var** response = **await** client.GetAsync(url);
+**var** result = **await** response.Content.ReadAsStringAsync();
+</code></pre>
+<h3 id="Write-Data-to-CRM"><a href="#Write-Data-to-CRM" class="headerlink" title="Write Data to CRM"></a>Write Data to CRM</h3><p>To create an entity in CRM, we use a POST request. The following code snippet is simplified for illustration purposes only.</p>
+<pre><code>CRMLeadModel leadModel = **new** CRMLeadModel()
+            &#123;
+                firstname = leadDto.FirstName,
+                lastname = leadDto.LastName,
+                middlename = leadDto.MiddleName
+            &#125;;
+**var** leadUrl = $&quot;[Organization URI]/api/data/v9.0/leads&quot;;
+
+HttpContent content = **new** StringContent(JsonConvert.SerializeObject(leadModel), Encoding.UTF8, &quot;application/json&quot;);
+var client = new HttpClient();
+**var response = await** client.PostAsync(url, content);
+</code></pre>
+<p>The response header contains the Uri of the newly created entity.</p>
+<p>You can create multiple related entities in a single operation by defining them as navigation properties values. For example, the following Lead Entity contains an object property of the single-valued navigation property <em>PrimaryPreference</em>, when the Lead entity is posted, it will create a lead entity as well as Perference entity.</p>
+<pre><code>CRMLeadModel leadModel = **new** CRMLeadModel()
+            &#123;
+                *PrimaryPreference = new CRMPreferenceModel()&#123;
+                  // populate the preference model properties
+                 &#125;
+*            &#125;*;*
+</code></pre>
+<h3 id="Activate-a-Process-flow-in-CRM"><a href="#Activate-a-Process-flow-in-CRM" class="headerlink" title="Activate a Process flow in CRM"></a>Activate a Process flow in CRM</h3><p>In Dynamics CRM 2016, the new “SetProcessRequest” is introduced to allow the setting of default business process flow. In this demo, after a salesman post leads to a CRM, we want to activate the default workflow associated with the Lead entity.</p>
+<p>Firstly, to get the default workflow Id, we use the following OData call:</p>
+<pre><code>[ORG URI]/api/data/v9.0/workflows?$filter=primaryentity eq &#39;lead&#39;
+</code></pre>
+<p>To set the BPF, two parameters: New Process and Target need to be passed to the request as the following code snippet.</p>
+<pre><code>**var** setProcessAction = **new** SetProcessAction();
+setProcessAction.target = **new** Target()
+            &#123;
+                leadid = leadId,
+                odatatype = &quot;Microsoft.Dynamics.CRM.lead&quot;
+            &#125;;
+setProcessAction.newprocess = **new** NewProcess()
+            &#123;
+                workflowid = wrokflowId, 
+                odatatype = &quot;Microsoft.Dynamics.CRM.workflow&quot;
+            &#125;;
+ **var** qualificationUrl = $&quot;[ORG URI]/api/data/v9.0/SetProcess&quot;;
+</code></pre>
+<p>The result of the above SetProcessRequest is that the BPF is activated for the newly created lead entity.</p>
+<h3 id="Devil-is-in-the-details"><a href="#Devil-is-in-the-details" class="headerlink" title="Devil is in the details"></a>Devil is in the details</h3><p>A few little tricks&#x2F;trips that will make your integration journey easier.</p>
+<h3 id="Navigation-properties"><a href="#Navigation-properties" class="headerlink" title="Navigation properties"></a>Navigation properties</h3><p>CRM 2016 Web Api support OData V4, one of the very useful feature is the navigation properties which allow you to retrieve or update data associated with the current entity. In the HTTP Request Content, it needs to be used with @odata.bind annotation. For example, the “parentcontactid” field in Lead Entity is a lookup to contact entity, the JSON representation of the field in HTTP request is like below</p>
+<pre><code>&quot;parentcontactid@odata.bind&quot;: &quot;/contacts(735bea55-a421-e811-a830-000d3ae09197)&quot;
+
+// To serialize the JSON name with @, we need to use the JSONProperty attributes
+[JsonProperty(&quot;parentcontactid@odata.bind&quot;)]
+</code></pre>
+<h3 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h3><p>CRM REST builder is a great tool when working with Web API. It is a code generator that creates JavaScript to perform actions against CRM’s REST endpoints. It installs as a managed solution in your organization so you’ll get the benefit of working with the entities and attributes that you’ve created.<br><a href="https://github.com/jlattimer/CRMRESTBuilder"><strong>jlattimer&#x2F;CRMRESTBuilder</strong><br><em>CRMRESTBuilder - A tool for CRM 2011&#x2F;2013&#x2F;2015&#x2F;2016&#x2F;365 Online &amp; On Premise to generate JavaScript code using the 2011…</em>github.com</a></p>
+<h3 id="English-like-Plural"><a href="#English-like-Plural" class="headerlink" title="English like Plural"></a>English like Plural</h3><p>You may already have noticed that when querying with CRM API, you need to add “s” to the entity name. but there are exceptions, for example, anything ending in “s” is pluralized as “ses”, and “y” is pluralized as “ies”. so the following request will return a “Resource not found” error.</p>
+<pre><code>https://[ORG URI]/api/data/v9.0/opportunitys
+</code></pre>
+<p>The correct OData call is</p>
+<pre><code>https://[ORG URI]/api/data/v9.0/opportunities
+</code></pre>
+<p>Enjoy your journey in CRM integration!</p>
+<p><em>If you are not already a paid member of Medium, <a class="link"   href="https://sunnysun-5694.medium.com/membership" >**you can do so by visiting this link <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**. You’ll get unlimited full access to every story on Medium. I’ll receive a portion of your membership fees as a referral.</em></p>
+]]></content>
+      <tags>
+        <tag>WebAPI</tag>
+        <tag>DynamicsCRM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Maximize Code Security in Your NestJS Applications (Part 1)</title>
+    <url>/2022/12/21/maximize-code-security-in-your-nestjs-applications-part-1/</url>
+    <content><![CDATA[<h4 id="Top-Secure-Code-Best-Practices-for-NestJS-Developers"><a href="#Top-Secure-Code-Best-Practices-for-NestJS-Developers" class="headerlink" title="Top Secure Code Best Practices for NestJS Developers"></a>Top Secure Code Best Practices for NestJS Developers</h4><p>As a developer, we all know how critical is code security. The recent data breaches at <a class="link"   href="https://www.optus.com.au/about/media-centre/media-releases/2022/09/optus-notifies-customers-of-cyberattack" >Optus <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> and <a class="link"   href="https://www.medibank.com.au/health-insurance/info/cyber-security/" >Medibank  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>highlight the importance of code security again. So, the question is: how can we write secure code to prevent various types of attacks in web applications? It is essential to follow best practices to write secure code, so our App is protected against vulnerabilities and threats.</p>
+<p>Before we dive into how to prevent the security risk? let’s first examine the most common types of security risks. This will give us a better understanding of the challenges to keep our App secure.</p>
+<p>The OWASP Top 10 is a widely accepted list of the most critical security risks for web applications, as determined through consensus among industry experts. Below is the list of the top 10 risks in 2017 and 2021.</p>
+<p><img src="https://cdn-images-1.medium.com/max/2250/1*ObUHh3Z9GbA8jFlBoTHaXg.png" alt="Source: [https://owasp.org/www-project-top-ten/](https://owasp.org/www-project-top-ten/)"><em>Source: <a class="link"   href="https://owasp.org/www-project-top-ten/" >https://owasp.org/www-project-top-ten/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></em></p>
+<p>Many of the top 10 are critical for the security of web Apps.</p>
+<p>As part 1 of a two-part article, I will walk through a few risks and the best practices that you can follow to prevent the risk.</p>
+<p>They include:</p>
+<ul>
+<li><p><a href="#4d65">Broken access control</a></p>
+</li>
+<li><p><a href="#3fb4">Server-side request forgery (SSRF)</a></p>
+</li>
+<li><p><a href="#2dac">Mass assignment</a></p>
+</li>
+<li><p><a href="#ffd8">Sensitive information exposure</a></p>
+</li>
+</ul>
+<h3 id="Broken-access-control"><a href="#Broken-access-control" class="headerlink" title="Broken access control"></a>Broken access control</h3><p>Broken function access is one of the most common risks. It occurs when an attacker is able to access unauthorized functions or resources. One real-world example is the <a class="link"   href="https://gibsonsec.org/snapchat/" >Snapchat incident on Jan 2014 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<p>To prevent this risk, it is important to follow the principle of <strong>least privilege</strong>. This means that access should always be denied by default, and privileges should only be granted on an as-needed basis.</p>
+<p>We can use access control mechanisms such as role-based access control (RBAC) or access control lists (ACLs) to restrict access to functions or resources based on a user’s role or permissions.</p>
+<p>Here’s an example of RBAC using <a class="link"   href="https://docs.nestjs.com/guards" >Guards  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>in a NestJS application:</p>
+<pre><code>import &#123; Injectable, CanActivate, ExecutionContext &#125; from &#39;@nestjs/common&#39;;
+
+@Injectable()
+export class AdminRoleGuard implements CanActivate &#123;
+  canActivate(context: ExecutionContext): boolean &#123;
+    const request = context.switchToHttp().getRequest();
+    const user = request.user;
+    return user.role === &#39;admin&#39;;
+  &#125;
+&#125;
+
+@Controller(&#39;cats&#39;)
+export class CatsController &#123;
+  @UseGuards(AdminRoleGuard)
+  @Get()
+  async findAll(): Promise&lt;Cat[]&gt; &#123;
+    return this.catsService.findAll();
+  &#125;
+&#125;
+</code></pre>
+<p>In the above code snippet, we create an AdminRoleGuard that implements the CanActivate interface provided by NestJS. It checks the role of the current user and returns true when the user is an admin. We then use the @UseGuards decorator to apply the AdminRoleGuard to the findAll method, which will restrict access to the endpoint for users withadmin role only.</p>
+<p>The access control mechanisms should be applied using centralized functions from a proven framework, to ensure it is safe and easy to maintain.</p>
+<p>It is also recommended to have unit tests that tests the necessary Guards being applied on a controller. Thus if the Guard is accidentally removed, the unit test will catch it.</p>
+<h3 id="Server-side-request-forgery-SSRF"><a href="#Server-side-request-forgery-SSRF" class="headerlink" title="Server-side request forgery (SSRF)"></a>Server-side request forgery (SSRF)</h3><p>SSRF is a type of cyber attack in which an attacker induces a server to make unintended requests on their behalf. These requests can be used to access restricted resources from internal networks.</p>
+<p>To prevent SSRF, It is essential to properly validate user input. Below is an example of an endpoint vulnerable to SSRF risk.</p>
+<pre><code>import &#123; Controller, Get, Res, HttpStatus, Query &#125; from &#39;@nestjs/common&#39;;
+
+@Controller()
+export class CatsController &#123;
+  @Get()
+  async getData(@Query(&#39;url&#39;) url: string, @Res() res) &#123;
+    const response = await fetch(url);
+    return await response.json();
+  &#125;
+&#125;
+</code></pre>
+<p>In the above example, the App makes a request to the URL sourced from url query parameter and returns the response data to the client. Obviously, it is vulnerable to SSRF attacks because an attacker can send a request to the server with a malicious URL that accesses restricted resources from the internal network.</p>
+<p>We should validate the URL parameter to prevent the risk as below.</p>
+<pre><code>import &#123; Controller, Get, Res, HttpStatus, Query &#125; from &#39;@nestjs/common&#39;;
+import &#123; isURL &#125; from &#39;validator&#39;;
+
+@Controller()
+export class CatsController &#123;
+  @Get()
+  async getData(@Query(&#39;url&#39;) url: string, @Res() res) &#123;
+    if (!isURL(url)) &#123;
+      return res.status(HttpStatus.BAD_REQUEST).send(&#39;Invalid URL&#39;);
+    &#125;
+
+    const response = await fetch(url);
+    return await response.json();
+  &#125;
+&#125;
+</code></pre>
+<p>To further improve security, we shouldn’t allow users to pass in URLs directly in query parameters. Instead, we should use an existing service to retrieve the data from a trusted API.</p>
+<pre><code>@Controller()
+export class CatsController &#123;
+  @Get()
+  async getData(@Query(&#39;name&#39;) dataName: string, @Res() res) &#123;
+    const response = await dataService.GetDataByName(dataName);
+    return await response.json();
+  &#125;
+&#125;
+</code></pre>
+<p>There are other ways to prevent SSRF attacks:</p>
+<ul>
+<li><p>Only make requests to trusted sources (i.e. known APIs or services)</p>
+</li>
+<li><p>Implement security headers (i.e. headers like “<a class="link"   href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options" >X-Frame-Options <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>”) to prevent clickjacking attacks and other types of malicious requests.</p>
+</li>
+<li><p>Use a Content Security Policy(CSP) to specify which sources are allowed to make requests on behalf of your application.</p>
+</li>
+</ul>
+<p>In NestJS, you can use <a class="link"   href="https://docs.nestjs.com/security/helmet" >helmet  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>to easily set up security headers and a Content Security Policy.</p>
+<h3 id="Mass-Assignment"><a href="#Mass-Assignment" class="headerlink" title="Mass Assignment"></a>Mass Assignment</h3><p>Mass assignment is a vulnerability in that an attacker is able to modify multiple object properties by sending a malicious request to your App.</p>
+<p>In the below example, a new user is created based on the data coming from the request body. It is vulnerable to mass assignment attacks because an attacker can send a request with malicious data that overwrites sensitive fields in the Client object (i.e. role or password).</p>
+<pre><code>import &#123; Controller, Post, Body &#125; from &#39;@nestjs/common&#39;;
+
+@Controller(&quot;client&quot;)
+export class ClientController &#123;
+  @Post()
+  create(@Body() body) &#123;
+    const client = new Client(body);
+    return await client.save();
+  &#125;
+&#125;
+</code></pre>
+<p>To prevent mass assignment, we can define a whitelist of allowed properties for each object. In the below example, we implemented a white list of properties to prevent overwriting of sensitive fields.</p>
+<pre><code>import &#123; Entity, Column, PrimaryGeneratedColumn &#125; from &#39;typeorm&#39;;
+
+@Entity()
+export class Client&#123;
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  name: string;
+
+  @Column()
+  role: string;
+
+  @Column()
+  password: string;
+
+  @Column(&#125;)
+  email: string;
+&#125;
+
+@Controller(&#39;client&#39;)
+export class ClientController &#123;
+  constructor(private clientService: ClientService) &#123;&#125;
+
+  @Post()
+  async create(@Body() client: Pick&lt;User, &#39;name&#39; | &#39;email&#39;&gt;) &#123;
+    return await this.clientService.create(client);
+  &#125;
+&#125;
+</code></pre>
+<p>Here, we use the TypeScript Pick type to define a whitelist of properties for the User entity. The @Body decorator is then used to bind the request body to the user parameter, which will only include the allowed properties. This prevents an attacker from modifying other properties of the User entity through mass assignment.</p>
+<p>Other ways to prevent mass assignment include:</p>
+<ul>
+<li><p>Use a reduced DTO, instead of a general DTO. For example, create a InsertClientEntity and UpdateClientEntity. These DTOs only contain properties that are allowed in the insert and update operation.</p>
+</li>
+<li><p>Avoid directly binding to an object coming from the client side.</p>
+</li>
+</ul>
+<h3 id="Sensitive-information-exposure"><a href="#Sensitive-information-exposure" class="headerlink" title="Sensitive information exposure"></a>Sensitive information exposure</h3><p>Sensitive information includes things like passwords, API keys, and other confidential data. Any data that contains personal information or payment-related information are sensitive.</p>
+<p>Often, when designing web API, excessive data are returned to the client.</p>
+<pre><code>import &#123; Controller, Get, Param &#125; from &#39;@nestjs/common&#39;;
+import &#123; Client&#125; from &#39;./client/client.entity&#39;;
+
+@Controller()
+export class ClientController &#123;
+  @Get(&#39;clients/:id&#39;)
+  async getClient(@Param(&#39;id&#39;) id: string): Promise&lt;Client&gt; &#123;
+    // Return all fields for the client
+    return await Client.findById(id);
+  &#125;
+&#125;
+</code></pre>
+<p>In this example, the getClient method is returning all fields for the client including sensitive data like role or password. Although these data aren’t consumed or displayed by clients, they still can be intercepted and exposed by attackers.</p>
+<p>To prevent sensitive personal data exposure, we should only return the necessary data of the client, which is name and email fields in this case. In a nutshell, we should only expose the minimum amount of data.</p>
+<pre><code>import &#123; Controller, Get, Param, UseGuards &#125; from &#39;@nestjs/common&#39;;
+import &#123; Client&#125; from &#39;./client/client.entity&#39;;
+
+@Controller()
+export class ClientController &#123;
+  @Get(&#39;clients/:id&#39;)
+  async getClient(@Param(&#39;id&#39;) id: string): Promise&lt;Client&gt; &#123;
+    // Only return the name and email
+    return await Client.findById(id).map(c =&gt; &#123;c.name, c.email&#125;);
+  &#125;
+&#125;
+</code></pre>
+<p>To prevent sensitive data exposure, below are other guidelines to follow:</p>
+<ul>
+<li><p>Do NOT store sensitive information to version control. This information includes environment variables or configuration files</p>
+</li>
+<li><p>Identify sensitive information (<a class="link"   href="https://gdpr-info.eu/" >GDPR <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>, <a class="link"   href="https://www.pcisecuritystandards.org/" >PCI,  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>and <a class="link"   href="https://www.cyber.gov.au/acsc/view-all-content/glossary/personally-identifiable-information-pii" >PII data <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>) in your system, and secure them through encryption.</p>
+</li>
+<li><p>Make sure that your App uses HTTPS between the client and the server. This will prevent sensitive data from being intercepted during transmission.</p>
+</li>
+</ul>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>In this article, we walk through 4 common risks and the best practices to prevent those risks within the context of NestJS.</p>
+<p>By following these best practices, you can write secure code to ensure that your NestJS app is as secure as possible.</p>
+<p>In part 2 of the article, we continue the discussion on other top OWASP risks.<br><a href="https://levelup.gitconnected.com/maximize-code-security-in-your-nestjs-applications-part-2-be707466b7ea"><strong>Maximize Code Security in Your NestJS Applications (Part 2)</strong><br><em>Secure Code Best Practices with Real-World Examples</em>levelup.gitconnected.com</a></p>
+<p>Happy Programming!</p>
+]]></content>
+      <tags>
+        <tag>TypeScript</tag>
+        <tag>NestJS</tag>
+        <tag>Security</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Type flowing - a new perspective on the TypeScript typing system</title>
+    <url>/2021/08/19/type-flowing-rethinking-typescript-typing-system/</url>
+    <content><![CDATA[<p>TypeScript provides a very rich toolbox. It includes mapped types, conditional types with control flow-based analysis, type inference, and many more.</p>
+<p>It’s not an easy task for many JavaScript developers who are new to TypeScript to switch from loose typing to static typing.  Even for developers who have been working in TypeScript for years, it can be confusing as the typing system continuously evolves. </p>
+<p>A common myth about advanced types is that it should mainly be used for building type libraries and is not required for day-to-day TypeScript work.</p>
+<p>The truth is that TypeScript advanced types are very useful for daily TypeScript work. They’re a great tool for building a strongly typed system into your code, expressing your intentions clearly, and making your code safer.</p>
+<p>The purpose of introducing the type flowing concept is to think about the typing system in a way that’s similar to how we think about reactive programming data flow. </p>
+<p>By looking at the typing system from a new perspective, it will help us to “think in types” and utilize the more advanced tools in the TypeScript toolbox in a systematic way.</p>
+<h2 id="Types-can-flow"><a href="#Types-can-flow" class="headerlink" title="Types can flow"></a>Types can flow</h2><p>In reactive programming, data flows between reactive components. In the TypeScript typing system, types can flow as well.</p>
+<p>The first time I encountered the concept of “Type flowing” was in <a class="link"   href="https://github.com/basarat/typescript-book/blob/master/docs/types/type-inference.md" >PranshuKhandal’s TypeScript book <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. He explains this idea in the following way: </p>
+<p><em>The types flowing is just how I imagine in my brain the flow of type information.</em></p>
+<p>Inspired by this, I wanted to expand the type flowing concept to the typing system level. My definition of type flowing is:</p>
+<pre><code>_Type flowing is when one or more subtypes are mapped and transformed from a source type. These types form a strongly constrained typing system through type operations._
+</code></pre>
+<p>The basic form of type flowing can be done via type aliases. </p>
+<p>Type aliases allow you to create a new type name for an existing type. In the example below, the type alias <code>TargetType</code> is assigned as a reference to the <code>SourceType</code>, so the type is transferred.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type SourceType = &#123; id: string, quantity: number &#125;;</span><br><span class="line">type TargetType= SourceType; // &#123; id: string, quantity: number &#125;;</span><br></pre></td></tr></table></figure></div>
+
+
+<p>Thanks to the power of type inferences, types can flow in a few different ways. These include:</p>
+<ul>
+<li>Through data assignment </li>
+<li>With the <code>return type</code> function, which is inferred by the <code>return</code> statements; e.g., the following function is inferred to return a <code>number</code> type</li>
+<li>Pattern matching with function parameters: as illustrated in the below example, annotating the <code>decrease</code> function with “<code>DecreaseType</code>” type converts the <code>a,b</code> value to a <code>number</code> type</li>
+</ul>
+<p>The following code snippets illustrate the above cases.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">const quantity: number = 4;</span><br><span class="line">const stockQuantity = quantity;</span><br><span class="line">type StockType= typeof stockQuantity; // number</span><br><span class="line"></span><br><span class="line">// function return type</span><br><span class="line">function increase(a: number) &#123;</span><br><span class="line">    return a + 1;</span><br><span class="line">&#125;</span><br><span class="line">const result = increase(2); // number</span><br><span class="line"></span><br><span class="line">// function parameters matching</span><br><span class="line">type DecreaseType = (start: number, offset: number) =&gt; number;</span><br><span class="line">const decrease: DecreaseType = (a,b) =&gt; &#123; // a: number, b: number</span><br><span class="line">    return a- b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h2 id="Reactive-programming-data-flow-vs-type-flowing"><a href="#Reactive-programming-data-flow-vs-type-flowing" class="headerlink" title="Reactive programming data flow vs. type flowing"></a>Reactive programming data flow vs. type flowing</h2><p>The core of reactive programming is the flowing of data between the source and the reactive components. Some of its concepts are very similar to the TypeScript typing system, as you can see in the chart below. </p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog.logrocket.com/wp-content/uploads/2021/08/rxjs-operator-vs-typescript-type-1.png"
+                      alt="alt_text" title="image_tooltip"
+                ></p>
+<p>You can see a comparison between the RxJS operator concepts and TypeScript typing. In the typing system, the type can be transformed, filtered, and mapped to one or more subtypes. </p>
+<p>These subtypes are “reactive” as well. When the source type changes, the subtypes will be updated automatically. </p>
+<p>A well-designed type system will add strongly typed constraints to the data and functions in the app, so any breaking changes made to the source type definition will show an immediate compile time error.</p>
+<p>While there are some similarities between RxJS and TypeScript typing, there are still a lot of differences between the two. For example, the data flow in RxJS occurs at runtime, while type flowing in TypeScript occurs at compile time. </p>
+<p>The purpose of referencing RxJS here is to illustrate the flow concept in RxJS, which will hopefully help us build a shared understanding of “thinking with types.”</p>
+<h2 id="Type-operations-in-type-flowing"><a href="#Type-operations-in-type-flowing" class="headerlink" title="Type operations in type flowing"></a>Type operations in type flowing</h2><h3 id="Map-and-filter"><a href="#Map-and-filter" class="headerlink" title="Map and filter"></a>Map and filter</h3><p>The two most frequently used operators in reactive programming are <code>map</code> and <code>filter</code>. How should we perform these two operations for types in TypeScript?</p>
+<p>The <a class="link"   href="https://www.typescriptlang.org/docs/handbook/2/mapped-types.html" >mapped type <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> is the equivalent of the <a class="link"   href="https://rxjs.dev/api/operators/map" >map operator in RxJS <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. It allows us to create a type that is based on another type using the first one’s index signature and generic types. </p>
+<p>When you combine conditional types with type inference, the type transformations you can achieve with mapped types are beyond imagination. We’ll discuss how to use mapped types later in the article.</p>
+<p>The equivalent of arrays in type flowing is the union type. To apply filters on union types, we need to use conditional types and the <code>never</code> type. As <code>filter</code> is such a common need, TypeScript provides the <code>exclude</code> and <code>extract</code> utility types right out of the box. </p>
+<p>The below code uses conditional types to remove types from <code>T</code> that are not assignable to <code>U</code>. The <code>never<em> </em></code>type is used here for type narrowing, or filtering out the options of a union type.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type Exclude&lt;T, U&gt; = T extends U ? never : T;</span><br><span class="line">type T1 = Exclude&lt;&quot;a&quot; | &quot;b&quot; | &quot;c&quot; , &quot;a&quot; &gt;; // &quot;b&quot; | &quot;c&quot;</span><br><span class="line">type Extract&lt;T, U&gt; = T extends U ? T: never;</span><br><span class="line">type T2 = Extract&lt;&quot;a&quot; | &quot;b&quot; | &quot;c&quot; , &quot;a&quot; &gt;; // &quot;a&quot;</span><br></pre></td></tr></table></figure></div>
+
+
+<p>We can also filter the type properties using the out-of-the-box TypeScript utility types.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type Omit&lt;T, K extends string | number | symbol&gt; = &#123;[P in Exclude&lt;keyof T, K&gt;]: T[P]; &#125;</span><br><span class="line">type T1 = Omit&lt;&#123; a: string, b: string &#125;, &quot;a&quot;&gt; //  &#123; b: string; &#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="Pipe-the-flow-with-control-flow-analysis"><a href="#Pipe-the-flow-with-control-flow-analysis" class="headerlink" title="Pipe the flow with control flow analysis"></a>Pipe the flow with control flow analysis</h3><p>Using <a class="link"   href="https://www.typescriptlang.org/docs/handbook/2/narrowing.html#control-flow-analysis" >control flow analysis with type guard <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>, we can pipe the flow the way the pipe operator does in RxJS.</p>
+<p>Below is an example using type guard to perform type checks, which narrow the type to a more specific one and control the logic flow.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">function doSomething(x: A | B) &#123;</span><br><span class="line"> if (x instanceof A) &#123;</span><br><span class="line">   // x is A</span><br><span class="line"> &#125; else &#123;</span><br><span class="line">   // x is B</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+<p>In the above example, the TypeScript compiler analyzes all possible flows of control for the expression. It looks at the <code>x instance of A</code> to determine the type of <code>x</code> to be <code>A</code> within the <code>if</code> block, and narrows the type to <code>B</code> in the <code>else</code> block. </p>
+<p>If we think of that as the logic branching, it can be used in a connective way, similar to the way water flows through a pipe and can be redirected to a different, connected pipe to reach its destination.</p>
+<h2 id="Building-strong-constraints-using-type-flowing"><a href="#Building-strong-constraints-using-type-flowing" class="headerlink" title="Building strong constraints using type flowing"></a>Building strong constraints using type flowing</h2><p>With the theory out of the way, let’s put this idea into practice. Below, we’ll look at how the type flowing concept can be put into practice by mapping, filtering, and transforming the types to implement a well-constrained typing system. </p>
+<h3 id="Defining-the-mapper-methods"><a href="#Defining-the-mapper-methods" class="headerlink" title="Defining the mapper methods"></a>Defining the mapper methods</h3><p>We are building a Node.js app with the mapper pattern. To implement the pattern, we must first define some mapper methods, which take data entity objects and map them to a data transfer object (DTO). </p>
+<p>On the flip side, there is another set of methods to convert the DTOs to corresponding entity objects.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">export class myMapper &#123;</span><br><span class="line">   toClient(args: ClientEntity) : ClientDto &#123; ...&#125;;</span><br><span class="line">   fromClient(args: ClientDto) : ClientEntity&#123; ...&#125;;</span><br><span class="line">   toOrder(args: OrderEntity) : OrderDto &#123; ...&#125;;</span><br><span class="line">   fromOrder(args: OrderDto) : OrderEntity&#123; ...&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+<p>We’ll use a simplified, contrived example to demonstrate the following two goals with our strong typing system:</p>
+<ol>
+<li>Create a type for the mapper with all the methods and interfaces from the data schema</li>
+<li>Create a union type to represent entity names for type safety</li>
+</ol>
+<h3 id="Defining-the-data-entity-and-DTO-types"><a href="#Defining-the-data-entity-and-DTO-types" class="headerlink" title="Defining the data entity and DTO types"></a>Defining the data entity and DTO types</h3><p>First, we need to define the types for the entities and DTOs.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type DataSchema = &#123;</span><br><span class="line">  client: &#123;</span><br><span class="line">      dto:  &#123; id: string, name: string&#125;,</span><br><span class="line">      entity: &#123;clientId: string, clientName: string&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  order:  &#123;</span><br><span class="line">      dto:  &#123; id: string, amount: number&#125;,</span><br><span class="line">      entity: &#123;orderId: string, quantity: number&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+<p>Now that we have the raw data types defined, how do we extract each entity and DTO type from them? </p>
+<p>We’ll use conditional types and <code>never<em> </em></code>to filter out the required data type definitions.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type PropertyType&lt;T, Path extends string&gt; = Path extends keyof T ? T[Path] : never;</span><br><span class="line"></span><br><span class="line">type lookup&lt;T, Key extends keyof T, prop extends string&gt; = PropertyType&lt;T[Key], prop&gt;;</span><br></pre></td></tr></table></figure></div>
+
+
+<p>We can simplify the above by merging them into a single <code>lookup</code> type. </p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type lookup&lt;T, Key extends keyof T, prop extends string&gt; = prop</span><br><span class="line">extends keyof T[Key] ? T[Key][prop] : never;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="Support-for-nested-properties"><a href="#Support-for-nested-properties" class="headerlink" title="Support for nested properties"></a>Support for nested properties</h3><p>The above <code>lookup</code> type only works for a single-level property. What happens when the source type has more depth? </p>
+<p>To access a property type with more depth, we’ll create a new type with recursive type aliases. </p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type PropertyType&lt;T, Path extends string&gt; =</span><br><span class="line">    Path extends keyof T ? T[Path] :</span><br><span class="line">        Path extends `$&#123;infer K&#125;.$&#123;infer R&#125;` ? K extends keyof T ? PropertyType&lt;T[K], R&gt; : </span><br><span class="line">        never :</span><br><span class="line">    never;</span><br><span class="line"></span><br><span class="line">type lookup&lt;T, Key, prop extends string&gt; = Key extends keyof T? PropertyType&lt;T[Key], prop&gt;: never;</span><br></pre></td></tr></table></figure></div>
+
+
+<p>When <code>Path extends keyof T</code> is truthy, it means the full path is matched. Thus, we return the current property type.</p>
+<p>When  <code>Path extends keyof T</code> is falsy, we use the <code>infer</code> keyword to build a pattern to match the <code>Path</code>. If it matches, we make a recursive call to the next-level property. Otherwise, it will return a <code>never<em> </em></code>and that means the <code>Path</code> does not match with the type</p>
+<p>If it does not match, continue recursively with the current property as the first parameter.</p>
+<h3 id="Defining-the-mapper-type-and-methods"><a href="#Defining-the-mapper-type-and-methods" class="headerlink" title="Defining the mapper type and methods"></a>Defining the mapper type and methods</h3><p>Now, it’s time to create the mapper methods. Here, we use <a class="link"   href="https://www.typescriptlang.org/docs/handbook/literal-types.html" >string literal types <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> to form <code>MapTo</code> and <code>MapFrom</code> with the help of the Capitalize utility type.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">// MapTo and MapFrom</span><br><span class="line">type MapTo&lt;T extends string&gt; = `to$&#123;Capitalize&lt;T&gt;&#125;`;</span><br><span class="line">type MapFrom&lt;T extends string&gt; = `from$&#123;Capitalize&lt;T&gt;&#125;`;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="Putting-it-all-together"><a href="#Putting-it-all-together" class="headerlink" title="Putting it all together"></a>Putting it all together</h3><p>When we assemble the previous parts, our first goal is achieved! </p>
+<p>We make use of the <a class="link"   href="https://devblogs.microsoft.com/typescript/announcing-typescript-4-1/#key-remapping-mapped-types" >key remapping <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> feature (i.e., the <code>as</code> clause in the below code block), which has only been available since the release of TypeScript 4.1.</p>
+<p>Please also note that <code>Key extends string ? Key : never</code> is needed because the type of object keys can vary among strings, numbers, and symbols. We are only interested in the string cases here.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type ExtractMapperTo&lt;T&gt; = &#123;</span><br><span class="line">  [Key in keyof T as MapTo&lt;Key extends string ? Key : never&gt;]: (args: lookup&lt;T, Key, &#x27;dto&#x27;&gt;) =&gt; lookup&lt;T, Key, &#x27;entity&#x27;&gt;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">type ExtractMapperFrom&lt;T&gt; = &#123;</span><br><span class="line">  [Key in keyof T as MapFrom&lt;Key extends string ? Key : never&gt;]:(args: lookup&lt;T, Key, &#x27;entity&#x27;&gt;) =&gt; lookup&lt;T, Key, &#x27;dto&#x27;&gt;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// Then all these mapper methods are automatically created </span><br><span class="line">type mapper = ExtractMapperTo&lt;DataSchema&gt; &amp; ExtractMapperFrom&lt;DataSchema&gt;;</span><br></pre></td></tr></table></figure></div>
+
+
+<p>We can see below that all of the mapper method interfaces are automatically created.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">// Our first goal achieved!</span><br><span class="line">declare const m: mapper;</span><br><span class="line">m.toClient(&#123;id: &#x27;123&#x27;, name: &#x27;John&#x27;&#125;);</span><br><span class="line">m.fromClient(&#123;clientId: &#x27;123&#x27;, clientName: &#x27;John&#x27;&#125;);</span><br><span class="line">m.toOrder(&#123;id: &#x27;123&#x27;, amount: 3&#125;);</span><br><span class="line">m.fromOrder(&#123;orderId: &#x27;345&#x27;,quantity: 4&#125;);</span><br></pre></td></tr></table></figure></div>
+
+
+<p>We have nice IDE IntelliSense support as well.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog.logrocket.com/wp-content/uploads/2021/08/ide-intellisense-support.png"
+                      alt="alt_text" title="image_tooltip"
+                ></p>
+<h3 id="Converting-an-object-type-to-a-union-type"><a href="#Converting-an-object-type-to-a-union-type" class="headerlink" title="Converting an object type to a union type"></a>Converting an object type to a union type</h3><p>Our next goal is to create a union type to represent data type names from the source <code>DataSchema</code> type. </p>
+<p>The key to the solution is the <code>PropToUnion&amp;lt;T&gt;</code> type.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">// Derive the data type names into a union type</span><br><span class="line">type PropToUnion&lt;T&gt; = &#123;[k in keyof T]: k&#125;[keyof T];</span><br><span class="line"></span><br><span class="line">type DataTypes = PropToUnion&lt;DataSchema&gt;; // &#x27;client&#x27; | &#x27;order&#x27;</span><br></pre></td></tr></table></figure></div>
+
+
+<p>First, <code>&#123;[k in keyof T]: k&#125;</code> extracts the key of <code>T</code> as both key and value using <code>keyof</code>. The output is:</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">&#123;</span><br><span class="line">   client: &quot;client&quot;;</span><br><span class="line">   order: &quot;order&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+<p>Then, we use the index signature <code>[keyof T]</code> to extract the values as a union type.</p>
+<p>The generated union type can help us enforce type safety. Let’s say we have placed the following function in another module far away from the source type. In the <code>getProcessName</code> function, the <code>switch</code> statement triggers the type guard and <code>never<em> </em></code>is returned in the default case to tell the compiler that it should never be reached.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">// Second goal achieved</span><br><span class="line">function getProcessName(c: DataTypes): string &#123;</span><br><span class="line">    switch(c) &#123;</span><br><span class="line">        case &#x27;client&#x27;:</span><br><span class="line">            return &#x27;register&#x27; + c;</span><br><span class="line">        case &#x27;order&#x27;:</span><br><span class="line">            return &#x27;process&#x27; + c;</span><br><span class="line">        default:</span><br><span class="line">        return assertUnreachable(c);</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br><span class="line">function assertUnreachable(x: never): never &#123;</span><br><span class="line">    throw new Error(&quot;something is very wrong&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+<p>This is how the union type and <code>never<em> </em></code>help to enforce type safety. </p>
+<p>Now, let’s assume there’s been a change to the data schema — we add a new data type called <code>account</code>. In a large team, the developer adding the new type may not be aware of the impact of the change. Without typing constraints, it could result in a hidden runtime error that is hard to find. </p>
+<p>If we use type flowing to build the typing constraints, the downstream subtypes will be automatically updated as below.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type DataTypes = &quot;client&quot; | &quot;order&quot; | &quot;Account&quot;</span><br></pre></td></tr></table></figure></div>
+
+
+<p>The TypeScript compiler will also show an error in the <code>getProcessName</code> function to prompt us that a breaking change has occurred.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog.logrocket.com/wp-content/uploads/2021/08/breaking-change-error-demo.png"
+                      alt="alt_text" title="image_tooltip"
+                ></p>
+<p>Our second goal is achieved! We have a union type that now represents entity names and contributes to type safety.</p>
+<p>To recap, this diagram shows the main steps we took to achieve the first goal of type flowing.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog.logrocket.com/wp-content/uploads/2021/08/recap-type-flow-diagram.png"
+                      alt="alt_text" title="image_tooltip"
+                ></p>
+<p>Overall, we created several new types based on the original source type. Any changes to the source type will trigger updates to all of the downstream types automatically, and we will get an instant error prompt if the change breaks the functions that depend on it.<strong>_ _</strong></p>
+<p>The full example code can be found<a class="link"   href="https://gist.github.com/sunnyy02/7b0a768380057f2ed7541aba4d9f8d22" > here <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>This article discusses the TypeScript type flowing concept with reference to reactive programming in RxJS. We applied the type flowing concept to a practical example by building a well-constrained type system to maximize the benefits of type safety. </p>
+<p>I hope this discussion helps to change the idea that TypeScript’s advanced types are only for developing type libraries or for complex framework-level programming. I also hope it can help you to start applying the typing system more creatively in your daily TypeScript work.</p>
+<p>Happy typing!</p>
+]]></content>
+      <tags>
+        <tag>TypeScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Upload Files to S3 Using Angular and NestJS</title>
+    <url>/2022/09/12/upload-files-to-s3-using-angular-and-nestjs/</url>
+    <content><![CDATA[<h2 id="An-End-to-End-Example-using-Angular-and-NestJS"><a href="#An-End-to-End-Example-using-Angular-and-NestJS" class="headerlink" title="An End to End Example using Angular and NestJS"></a>An End to End Example using Angular and NestJS</h2><p>Recently, I worked on an S3 file-uploading feature for an Angular&#x2F;NestJS App. To my surprise, I have difficulty finding a tutorial with complete and working examples. Thus, I thought it might be useful to walk through the process of file uploading to the S3 (Amazon Simple Storage Service) bucket with Angular and NestJS.</p>
+<p>I assume that you have basic knowledge of Angular and NestJS. So I will skip those initial App Setups and focus on the file uploading part.</p>
+<h2 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h2><p>You will need these technologies to follow along:</p>
+<ul>
+<li><p>Angular 14</p>
+</li>
+<li><p>NestJS version 9</p>
+</li>
+<li><p>NodeJS v14 or above</p>
+</li>
+<li><p>An AWS account</p>
+</li>
+</ul>
+<h3 id="S3-bucket-and-Access-Key-x2F-Secret-Access-Key"><a href="#S3-bucket-and-Access-Key-x2F-Secret-Access-Key" class="headerlink" title="S3 bucket and Access Key&#x2F;Secret Access Key"></a>S3 bucket and Access Key&#x2F;Secret Access Key</h3><p>To upload files to S3, we need to set up the S3 bucket and IAM user required for NestJS API to access it.</p>
+<p>If you don’t have an S3 bucket yet, follow <a class="link"   href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-bucket.html" >this instruction <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> to create one.</p>
+<p>The next step is to log in to your AWS account and navigate to IAM to add a user. Enter a user name and tick the “Access key -Programmatic access” option.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2000/1*gTTzcQ0WjgRi6hvn5RwJvw.png"
+                      alt="Create IAM User"
+                ><em>Create IAM User</em></p>
+<p>Then, click on the “Next: Permission” button to attach the “AmazonS3FullAccess” policy to the IAM user.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2486/1*y72uqoq2Ig1uzhWHQCR39g.png"
+                      alt="Attach existing policy"
+                ><em>Attach existing policy</em></p>
+<p>Click on the “Next” button to accept the default setting and create the user. The Access key ID and Secret access key will be shown on the success screen. We can download the CSV file to keep the key values for later use.</p>
+<p>Here we create an IAM user with full access to all the S3 buckets under your AWS account. In the production environment, we should create a custom policy to restrict the IAM user to access the particular S3 bucket for file uploading only. But for sake of simplicity, we skip this step in this article.</p>
+<p>Now, we have the S3 bucket ready. Let’s build the file upload API with NestJS.</p>
+<h3 id="NestJS-file-uploading"><a href="#NestJS-file-uploading" class="headerlink" title="NestJS file uploading"></a>NestJS file uploading</h3><p>We can create a new NestJS App using Nest CLI.</p>
+<pre><code>nest new ng-nest-upload
+</code></pre>
+<p>We need to install the aws-sdk package.</p>
+<pre><code>npm install aws-sdk @types/aws-sdk
+</code></pre>
+<p>We also need to install the type definition of multer</p>
+<pre><code>npm i -D @types/multer
+</code></pre>
+<blockquote>
+<p>NestJs makes use of <a class="link"   href="https://www.npmjs.com/package/multer" >Multer <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> to handle the file upload. Multer is a node.js middleware for handling multipart&#x2F;form-data, which is primarily used for uploading files. Multer extracts the values of the form text fields into a body object. It also creates a new object for file or multiple files in the request.file or request.files object. The body object contains the values of the text fields of the form, and the file or files object contains the files uploaded via the form.</p>
+</blockquote>
+<p>Let’s create the file upload endpoint which captures and saves the file from FileInterceptor.</p>
+<pre><code>
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadFile(
+    @UploadedFile() file: Express.Multer.File,
+    @Request() req,
+  ): Promise<any> &#123;
+    const result = await this.fileservice.uploadPublicFile(
+      file.buffer,
+      file.originalname,
+    );
+    return new ResponseModel(result); 
+  &#125;
+</code></pre>
+
+<p>We use two decorators here:</p>
+<ul>
+<li><p>FileInterceptor: It takes the field name as the first parameter to extract the uploaded file. The field name is sent from the client multipart&#x2F;form-data, thus you will need to update it to match the name of the field in your code. The FileInterceptor uses Multer under the hood.</p>
+</li>
+<li><p>UploadedFile: It is used to reference the file payload from request.</p>
+</li>
+</ul>
+<h3 id="Save-the-file-to-S3-Bucket"><a href="#Save-the-file-to-S3-Bucket" class="headerlink" title="Save the file to S3 Bucket"></a>Save the file to S3 Bucket</h3><p>In the above controller, we also use FileService to save the file to S3. In FileService, we use aws-sdk v3 to upload a stream object to an S3 bucket. As shown below, we need to specify 3 parameters</p>
+<ul>
+<li><p>Bucket: name of the S3 bucket</p>
+</li>
+<li><p>Body: a buffer object representing the file</p>
+</li>
+<li><p>Key: Unique key for the file</p>
+</li>
+</ul>
+<pre><code>
+@Injectable()
+export class FileService &#123;
+  async uploadPublicFile(dataBuffer: Buffer, filename: string) &#123;
+    try &#123;
+      const s3 = new S3();
+      const uploadResult = await s3
+        .upload(&#123;
+          Bucket: 'file-uploads',
+          Body: dataBuffer,
+          Key: `$&#123;uuid()&#125;-$&#123;filename&#125;`
+        &#125;)
+        .promise();
+
+      return  &#123;
+        key: uploadResult.Key,
+        url: uploadResult.Location,
+      &#125;;
+    &#125; catch (err) &#123;
+      console.log(err);
+      return &#123; key: 'error', url: err.message &#125;;
+    &#125;
+  &#125;
+&#125;
+</code></pre>
+<p>How is the access configuration to S3 set up in NestJS API? we initialize these configurations at thebootstrap method of main.ts.</p>
+<pre><code>
+async function bootstrap() &#123;
+  const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('api');
+   config.update(&#123;
+        accessKeyId: '[your S3 Access key]',
+        secretAccessKey: '[your S3 secret]',
+        region: '[your S3 region]',
+      &#125;);
+  await app.listen(3000);
+&#125;
+bootstrap();
+</code></pre>
+
+<p>Again for Sake of simplicity, the Access Key and Secret are hardcoded in the above example. In the real-life App, they should come from environment variables.</p>
+<h3 id="Angular-client"><a href="#Angular-client" class="headerlink" title="Angular client"></a>Angular client</h3><p>To upload files from an Angular App, we use the <a class="link"   href="https://medium.com/gitconnected/3-ways-to-access-local-files-from-web-browser-70f57fa57e50" >*File *interface <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> that provides information about files and allows JavaScript on a web page to access their content.</p>
+<p>The following<input type="file"> represents a file select field and a “Choose file” button. This plain button allows users to access local files from a browser. We can use the accept attribute to limit the type of files to upload.</p>
+<pre><code>&lt;input type=&quot;file&quot; [accept]=&quot;acceptedFileExtensions&quot; (change)=&quot;attachFile($event)&quot;&gt;
+</code></pre>
+<p>Unfortunately, we can’t change the style of the default file select button. The solution is to use another custom button to invoke the default button. In the code below, we hide the default button and style the custom button with CSS class fileButton.</p>
+<pre><code>
+  <input #fileInput type="file" class="file-input" [accept]="acceptedFileExtensions" (change)="attachFile($event)" />
+  <div class="row document-type">
+    <div class="col-xs-12">
+      <button class="fileButton" action="file" (click)="onSelectFile()" type="submit">Upload document</button>
+      allowed file types(JPG, PNG, GIF)
+    </div>
+  </div>
+</code></pre>
+
+<p>In the UploadComponent, we use @ViewChild decorator to get a reference to the hidden file select button in the template.</p>
+<pre><code>@ViewChild(‘fileInput’, &#123; static: false &#125;)
+ fileInput: ElementRef | undefined;
+</code></pre>
+<p>Instead of calling the click handler within the Html template, we can invoke the hidden button click within the component class as below.</p>
+<pre><code>this.fileInput.nativeElement.click();
+</code></pre>
+<p>To send the file to the NestJS API, we construct the formData and post a request to the NestJS endpoint as below.</p>
+<pre><code>
+  attachFile(event: any) &#123;
+    const file: File = event.target.files?.[0];
+    if (file && this.isValid(file)) &#123;
+      this.errorMessage = '';
+      const formData = new FormData();
+      formData.append('file', file, file.name);
+      const uploadFileHeaders = new HttpHeaders(&#123;
+        Accept: `application/json, text/plain, */*`,
+      &#125;);
+      this.httpClient
+        .post('/api/file-upload/upload', formData, &#123;
+          headers: uploadFileHeaders,
+        &#125;)
+        .subscribe(&#123;
+          next: (response) => &#123;
+            this.successMessage = `Document $&#123;file.name&#125; is uploaded successfully`;
+          &#125;,
+          error: (error) => &#123;
+            this.errorMessage = `failed to upload document.`;
+            return error;
+          &#125;,
+        &#125;);
+    &#125;
+  &#125;
+</code></pre>
+
+<p>Please note that the post request header should not include the content type.</p>
+<h3 id="Further-consideration"><a href="#Further-consideration" class="headerlink" title="Further consideration"></a>Further consideration</h3><p>In this contrived example, authentication isn’t being implemented. In real-life applications, you may consider using a JWT token to <a class="link"   href="https://medium.com/gitconnected/maximize-code-security-in-your-nestjs-applications-part-2-be707466b7ea" >enforce security <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> between the Angular client and the backend.</p>
+<p>Another thing to consider is the safety of the uploaded files. Although we have implemented the validation of file extensions in the Angular client, it isn’t enough. It is still possible for a file with malicious content to slip in. A better approach is to set up a staging S3 bucket with an anti-virus scanning service. Any uploaded file will need to be scanned before it is moved to the final bucket for consumption. But this topic is out of the scope of this article and <a class="link"   href="https://aws.amazon.com/blogs/apn/integrating-amazon-s3-malware-scanning-into-your-application-workflow-with-cloud-storage-security/" >here  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>is a good starting point.</p>
+<p>By performing these checks on the uploaded file, you can ensure that it is not malicious and protect your system from potential harm.</p>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>In this article, we walk through an end-to-end example of uploading a file to S3 Bucket from an Angular client via NestJS API. With the built-in decorators, NestJS makes it really easy to handle the file-uploading process.</p>
+<p>The complete source code can be found in this <a class="link"   href="https://github.com/sunnyy02/ng-nest-s3-upload" >GitHub repo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<p>Happy programming!</p>
+]]></content>
+      <tags>
+        <tag>TypeScript</tag>
+        <tag>Angular</tag>
+        <tag>NestJS</tag>
+      </tags>
+  </entry>
+</search>
