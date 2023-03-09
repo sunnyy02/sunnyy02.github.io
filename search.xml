@@ -1710,4 +1710,346 @@ type allPayValues =  allPayGrades[keyof allPayGrades]; //"T1" | "T2" | "T3" | "A
         <tag>TypeScript</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Install and ConfigureYour Own MySQL Server On Oracle Always Free Ubuntu VM</title>
+    <url>/2023/02/05/install-config-your-own-mysql-on-oracle-free-vm/</url>
+    <content><![CDATA[<h2 id="Complete-guide-and-tricks-on-how-to-connect-to-the-MySQL-instances-remotely"><a href="#Complete-guide-and-tricks-on-how-to-connect-to-the-MySQL-instances-remotely" class="headerlink" title="Complete guide and tricks on how to connect to the MySQL instances remotely"></a>Complete guide and tricks on how to connect to the MySQL instances remotely</h2><p>In my previous article, I wrote about <a class="link"   href="https://medium.com/gitconnected/build-and-host-a-dynamic-web-site-for-only-1-per-month-1aa5aa3a7bd1" >hosting a site on Oracle always free offering <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. The Oracle always free is a generous offer. One of the eligible free services is:</p>
+<blockquote>
+<p>Arm-based Ampere A1 cores and 24 GB of memory usable as 1 VM or up to 4 VMs with 3,000 OCPU hours and 18,000 GB hours per month</p>
+</blockquote>
+<p>That means you can set up a free VM with 4 cores CPU and 24 GB of memory!</p>
+<p>Recently, I utilize the Oracle Arm-based VM to build a MySQL instance and migrate an existing MySQL database over. The migrated server runs very well.</p>
+<p>In this article, I will go through the process and share some tricks of configuring the database.</p>
+<h3 id="Setup-and-Access-the-VM"><a href="#Setup-and-Access-the-VM" class="headerlink" title="Setup and Access the VM"></a>Setup and Access the VM</h3><p>I won’t repeat the details of VM setup and access via SSH, as it can be found in <a class="link"   href="https://medium.com/gitconnected/build-and-host-a-dynamic-web-site-for-only-1-per-month-1aa5aa3a7bd1" >my previous article <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. The only difference in setup is to choose the AMPERE as Shape.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2072/1*MmzJDp-C5kpQC8ZcRUyY_A.png"
+                     
+                ></p>
+<p>Please note that I choose 3 core OCPU and 18 GB memory, although the max total limit is 4 cores and 24 GB memory. I leave some resources for my other free VM instance.</p>
+<p>The new VM is running as below.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/3824/1*NAa7kiGIefLFTZScNoX9rA.png"
+                     
+                ></p>
+<h3 id="Install-MySQL-Server"><a href="#Install-MySQL-Server" class="headerlink" title="Install MySQL Server"></a>Install MySQL Server</h3><p>After the new VM runs, we can log in to it via SSH.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2036/1*MNoWCLOvXgGzXZL0-B9wMg.png"
+                     
+                ></p>
+<p>It is time to install the MySQL server by running the following commands.</p>
+<pre><code># update apt
+sudo apt update
+# install the mysql server using the APT package repository
+sudo apt-get install mysql-server
+</code></pre>
+<p>After the installation is completed, we can verify the installation by checking the version.</p>
+<pre><code>mysql --version
+</code></pre>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2092/1*iisW-LZm9LZPuawW09nPnQ.png"
+                     
+                ></p>
+<h3 id="Secure-the-MySQL-instance"><a href="#Secure-the-MySQL-instance" class="headerlink" title="Secure the MySQL instance"></a>Secure the MySQL instance</h3><p>The next step is to secure the database by running the mysql_secure_installation script.</p>
+<pre><code>sudo mysql_secure_installation
+</code></pre>
+<p>The mysql_secure_installation script will go through a few steps, and modify MySQL’s default security options to make it more secure. The first step is to set the level of password policy.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2232/1*9t1AlMZBQl1UvBgMbcac6w.png"
+                     
+                ></p>
+<p>I choose the strong policy option, then was asked to set up the password of the root user. At this point, the following error is shown and blocks me from continuing.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2488/1*n8XkDiD3jiQ2rE8fryvtyA.png"
+                     
+                ></p>
+<p>After some googling, I found a solution: update the authentication method of the root user. Starts a new SSH session, and log in to MySQL using the following command.</p>
+<pre><code>mysql -u root -p
+#under mysql prompt
+ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED WITH mysql_native_password 
+BY &#39;[your passowrd]&#39;;
+
+exit;
+</code></pre>
+<p>Now, we can restart the mysql_secure_installation and should be able to complete the full process. In each question other than the password policy, I choose Yes and Enter for the default choice.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2504/1*ktmsja1IqmDdPXmvJCV0lA.png"
+                     
+                ></p>
+<p>The secure installation script performs these actions to tighten up the security.</p>
+<ul>
+<li><p>remove some anonymous users</p>
+</li>
+<li><p>remove the test database</p>
+</li>
+<li><p>disable root login remotely</p>
+</li>
+</ul>
+<p>We can verify the status of the newly installed database instance.</p>
+<pre><code>sudo systemctl status mysql.service
+</code></pre>
+<h3 id="Add-a-new-MySQL-User"><a href="#Add-a-new-MySQL-User" class="headerlink" title="Add a new MySQL User"></a>Add a new MySQL User</h3><p>Now, our new server is running with theroot user created. Since the root user is designed to be used for admin purposes only, we need to create another user which can be used from an external service or App.</p>
+<p>Firstly, connect to MySQL prompt via root user login. Then, execute the following SQL commands to create an appuser account.</p>
+<pre><code>mysql&gt; CREATE USER &#39;appuser&#39;@&#39;%&#39; IDENTIFIED BY &#39;[your password]&#39;;
+mysql&gt; GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES,
+ RELOAD on *.* TO &#39;appuser&#39;@&#39;%&#39; WITH GRANT OPTION; 
+mysql&gt; FLUSH PRIVILEGES;
+mysql&gt; exit;
+</code></pre>
+<p>Then, we can try to log in as the newly created user.</p>
+<pre><code>mysql -u appuser -p
+</code></pre>
+<h3 id="Connect-to-the-MySQL-instance-remotely"><a href="#Connect-to-the-MySQL-instance-remotely" class="headerlink" title="Connect to the MySQL instance remotely"></a>Connect to the MySQL instance remotely</h3><p>We have set up the MySQL instance with the necessary security options and user accounts in the Oracle cloud. At this point, you should be able to connect to the instance from the MySQL workbench using the public IP address via TCP&#x2F;IP+SSH.</p>
+<p>But you will receive an error if you try to connect to it via TCP&#x2F;IP only via the MySQL workbench or any clients. That is because by default MySQL server is only configured to listen to local connections.</p>
+<p>To allow remote access to the MySQL instance, we need to open up port 3306 which should be listened to by the MySQL server for external connections. It is a tricky step, as there are a few moving parts. The following are the steps involved:</p>
+<ul>
+<li><p>Add an ingress rule in the security list to allow port 3306</p>
+</li>
+<li><p>Update MySQL configuration to enable it to listen to external requests</p>
+</li>
+<li><p>Open the OS (Ubuntu) level firewall setting for port 3306</p>
+</li>
+</ul>
+<p>Let’s add the ingress access rule first. Navigate to the VM Instance Details page, clicks on the Virtual Cloud Network link will bring you to the VCN page. From the VCN page, navigate to the security list via “Subnet link” &gt; “Default Security List for vcn-xxx”, then clicks on the “Add ingress rule” button to add a new rule.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/3204/1*ZNa4aNgS4yNMCV6c6RkENQ.png"
+                      alt="Ingress rule"
+                ><em>Ingress rule</em></p>
+<p>Please note that the Source CIDR field should be the IP address you will use to connect to the MySQL instance from. It is possible to allow any IP addresses by 0.0.0.0&#x2F;0, but it is not recommended for obvious security reasons.</p>
+<h3 id="Update-MySQL-configuration"><a href="#Update-MySQL-configuration" class="headerlink" title="Update MySQL configuration"></a><strong>Update MySQL configuration</strong></h3><p>By default, there is a configuration in MySQL setting to only allow the server to listen to local connections.</p>
+<pre><code>bind-address   = 127.0.0.1
+</code></pre>
+<p>We need to either comment it out or change it to an external IP address. In the below example, 0.0.0.0 will allow any IP to connect. Since I already set up the ingress rule earlier, so only the whitelisted IP can reach the server, I use any IP setting here.</p>
+<pre><code>bind-address = 0.0.0.0
+</code></pre>
+<p>The location of the MySQL config varies depending on the distribution versions. In my case, the file can be found at &#x2F;etc&#x2F;mysql&#x2F;mysql.conf.d&#x2F;mysqld.cnf. It can be in my.cnf or mysql.cnf file in other MySQL distributions.</p>
+<p>After the file is updated, you will need to restart the server to make it effective.</p>
+<pre><code>sudo systemctl restart mysql
+</code></pre>
+<p>To verify the server is listening to port 3306 for any IP address after the change, run the following command</p>
+<pre><code>netstat -anutp | grep : 3306
+</code></pre>
+<p>You should see a line of output similar to below</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2520/1*bsJksYpJ4Lek4VwxS4Tg0g.png"
+                     
+                ></p>
+<p>The last step is to open up port 3306 at the OS level.</p>
+<h3 id="Configure-iptables"><a href="#Configure-iptables" class="headerlink" title="Configure iptables"></a><strong>Configure iptables</strong></h3><p>iptables is a firewall program that is used by ubuntu. The default Ubuntu distribution actually doesn’t apply any restrictions in iptables. In other words, port 3306 should be allowed by default setting. But the Oracle Ubuntu image takes a different approach, iptables is configured to deny all accesses by default. You can run this command to view the current rules:</p>
+<pre><code>sudo iptables -L
+</code></pre>
+<p>To allow port 3306 to pass through, you can run the following command</p>
+<pre><code>sudo apt install iptables-persistent
+sudo iptables -I INPUT 6 -m state --state NEW -p tcp --dport 3306 -j ACCEPT
+sudo netfilter-persistent save
+</code></pre>
+<p>Or for testing purposes, you can allow all ports temporary</p>
+<pre><code>sudo iptables -I INPUT -j ACCEPT
+</code></pre>
+<p>Finally, you should be able to connect to your new instance</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2516/1*a4SKHpree8Q675Sm8QvB7w.png"
+                      alt="MySQL Workbench test connection"
+                ><em>MySQL Workbench test connection</em></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2000/1*5vuWpHM3NGqtj_JYhkPCOQ.png"
+                     
+                ></p>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>So far, what we achieved are:</p>
+<ul>
+<li><p>Create an always free VM with 3 core CPU and 18 GB memory</p>
+</li>
+<li><p>Install and configure a MySQL server instance with proper security and user accounts</p>
+</li>
+<li><p>Update the VCN rules and allow the new server remotely accessible</p>
+</li>
+</ul>
+<p>The new MySQL server runs very fast. I can’t be happier with it.</p>
+<p>There are still some remaining works:</p>
+<ul>
+<li><p>migrate the existing database to the new DB instance</p>
+</li>
+<li><p>Set up automatic backups</p>
+</li>
+</ul>
+<p>But this article is already too long, I will write another post for those tasks.</p>
+<p>Thanks for reading!</p>
+]]></content>
+      <tags>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Don&#39;t Leave Your NestJS API Exposed</title>
+    <url>/2023/01/05/donnot-export-your-nestjs-endpoint/</url>
+    <content><![CDATA[<h2 id="Using-Reflect-and-the-NestJS-Undocumented-API-to-Identify-Unsecured-Endpoints-in-Unit-Tests"><a href="#Using-Reflect-and-the-NestJS-Undocumented-API-to-Identify-Unsecured-Endpoints-in-Unit-Tests" class="headerlink" title="Using Reflect and the NestJS Undocumented API to Identify Unsecured Endpoints in Unit Tests"></a>Using Reflect and the NestJS Undocumented API to Identify Unsecured Endpoints in Unit Tests</h2><p>It is a given that an API should be secured to prevent potential attacks. However, it is surprising how often simple human mistakes can lead to an API endpoint being unprotected. A recent example of this is the <a class="link"   href="https://www.acma.gov.au/optus-data-breach" >Optus data breach <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>, which was caused by “*an API that did not require authentication to access customer data.*”. This highlights the importance of thorough testing and strict security measures for APIs to prevent such incidents from occurring.</p>
+<p>Unprotected API is one of the top OWASP vulnerabilities. It is defined as below:</p>
+<blockquote>
+<p>Modern applications often involve rich client applications and APIs, such as JavaScript in the browser and mobile apps, that connect to an API of some kind. These APIs are often unprotected and contain numerous vulnerabilities.</p>
+</blockquote>
+<p>To avoid unprotected API, the first line of defense is via unit test. In this article, we are going to discuss how to ensure NestJS controllers and Endpoints are protected using the Unit test.</p>
+<h3 id="Guards"><a href="#Guards" class="headerlink" title="Guards"></a>Guards</h3><p>In NestJS, we use authentication&#x2F;authorization guards to protect controllers or endpoints. Using Guards, we can ensure only authorized users have access to the API. Below is an example of an authentication Guard.</p>
+<pre><code>@Injectable()
+export class AuthGuard implements CanActivate &#123;
+  canActivate(
+    context: ExecutionContext,
+  ): boolean | Promise&lt;boolean&gt; | Observable&lt;boolean&gt; &#123;
+    const request = context.switchToHttp().getRequest();
+    return this.validateRequest(request);
+  &#125;
+
+  private validateRequest(request: any) &#123;
+    // Authenticate user request to ensure it is authenticated 
+    // i.e. validate a token
+  &#125;
+&#125;
+</code></pre>
+<p>The AuthGuard class contains canActivate method which takes an ExecutionContext object as an argument. The method performs validation to determine whether the request should be allowed.</p>
+<p>To apply the AuthGuard to a controller, we can use the @UseGuards decorator</p>
+<pre><code>@UseGuards(AuthGuard)
+@Controller()
+export class AppController &#123;&#125;
+</code></pre>
+<p>If the @UseGuards decorator is accidentally removed, the API will become unprotected and vulnerable to unauthorized access. To ensure that the Guard is properly applied to the controller, we can use unit tests to verify its presence.</p>
+<p>To achieve that, we need to use the <a class="link"   href="https://www.npmjs.com/package/reflect-metadata" >reflect-metadata <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> library and NestJS undocumented DiscoveryService API. Let’s look at the <a class="link"   href="https://www.npmjs.com/package/reflect-metadata" >reflect-metadata <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> library first.</p>
+<h3 id="Reflect-MetaData"><a href="#Reflect-MetaData" class="headerlink" title="Reflect-MetaData"></a>Reflect-MetaData</h3><p>The reflect-metadata library provides support for the Reflect API, which is part of the ECMAScript specification. We can use it to get metadata at runtime. It is worth noting that NestJS also uses the <a class="link"   href="https://www.npmjs.com/package/reflect-metadata" >reflect-metadata <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> under the hood to work with metadata.</p>
+<p>The below example demonstrates how to retrieve the Guards metadata from the AppController.</p>
+<pre><code>const guards = Reflect.getMetadata(&#39;__guards__&#39;, AppController);
+</code></pre>
+<p>The getMetaData method takes two arguments:</p>
+<ul>
+<li><p>metadataKey: A key used to store and retrieve metadata. In this case, the key is <strong>guards</strong>, it is used by NestJs to reference the Guards.</p>
+</li>
+<li><p>target: The target object on which the metadata is defined.</p>
+</li>
+</ul>
+<p>with getMetadata method, we can write a simple Unit test to verify the AppController is protected.</p>
+<pre><code>   it(&#39;should AuthGard be applied to the AppController&#39;, async () =&gt; &#123;
+      const guards = Reflect.getMetadata(&#39;__guards__&#39;, AppController);
+      const guard = new guards[0]();
+      expect(guard).toBeInstanceOf(AuthGuard);
+    &#125;);
+</code></pre>
+<p>If there are multiple controllers in the app, it is possible to write a unit test that covers all of them at once? The answer is positive, but we need to use the NestJS Discovery Service.</p>
+<h3 id="Discovery-Service"><a href="#Discovery-Service" class="headerlink" title="Discovery Service"></a>Discovery Service</h3><p>The NestJS <a class="link"   href="https://github.com/nestjs/nest/blob/master/packages/core/discovery/discovery-service.ts" >discovery service <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> is an undocumented public API. It is important to note that an “undocumented” feature may be subject to change or breakage in the future. While it is a handy feature to use, it is generally best to avoid relying on undocumented features in your app. In my personal opinion, using it in unit test is acceptable as long as you are aware of the risk.</p>
+<p>As shown below, using this.discoveryService.getControllers(), we can get a collection of type InstanceWrapper &#x3D; { metatype, name, instance, … }.</p>
+<pre><code> const controllers = await discoveryService.getControllers(&#123;&#125;);
+</code></pre>
+<p>To extract the guards metadata from the InstanceWrapper, we can use the getEnhancersMetadata method. In the test below, we loop through each controller and verify that they are protected by the AuthGuard.</p>
+<pre><code>    it(&#39;should have AuthGard applied for all controllers&#39;, async () =&gt; &#123;
+      const controllers = await discoveryService.getControllers(&#123;&#125;);
+      controllers.map((c) =&gt; &#123;
+        const guard = c
+          .getEnhancersMetadata()
+          ?.filter(
+            (&#123; instance &#125;: InstanceWrapper) =&gt; instance instanceof AuthGuard,
+          );
+        expect(guard[0].name).toEqual(&#39;AuthGuard&#39;);
+      &#125;);
+    &#125;);
+</code></pre>
+<p>To achieve a fine level of access control, we can define a RoleGuard and apply it to individual endpoints. We use SetMetadata in the function below to assign metadata with a specific key. SetMetadata is an out-of-box NestJS decorator function.</p>
+<pre><code>import &#123; SetMetadata &#125; from &#39;@nestjs/common&#39;;
+
+export const Roles = (...roles: string[]) =&gt; SetMetadata(&#39;roles&#39;, roles);
+</code></pre>
+<p>To apply a Roles decorator to an endpoint, we need to pass in a role to the decorator</p>
+<pre><code>  @Get()
+  @Roles(&#39;Admin&#39;)
+  getAll() &#123;
+    return [];
+  &#125;
+</code></pre>
+<h3 id="Secure-an-Endpoint"><a href="#Secure-an-Endpoint" class="headerlink" title="Secure an Endpoint"></a>Secure an Endpoint</h3><p>To detect whether an endpoint is associated with the Roles decorator, we use the getMetadata as below.</p>
+<pre><code>      const decorators = Reflect.getMetadata(
+        &#39;roles&#39;,
+        DevController.prototype.getAll,
+      );
+</code></pre>
+<p>In a unit test, we can verify whether an endpoint is protected by the roles decorator with a role</p>
+<pre><code>    it(&#39;should getAll be accessible by Admin role only&#39;, () =&gt; &#123;
+      const decorators = Reflect.getMetadata(
+        &#39;roles&#39;,
+        DevController.prototype.getAll,
+      );
+      expect(decorators).toContain(&#39;Admin&#39;);
+    &#125;);
+</code></pre>
+<p>The Reflect API can be used to get other metadata of the endPoint.</p>
+<pre><code>  it(&#39;should getHello has correct path and http method&#39;, () =&gt; &#123;
+    const path = Reflect.getMetadata(&#39;path&#39;, appController.getHello);
+    expect(path).toBe(&#39;/&#39;);
+    const method = Reflect.getMetadata(&#39;method&#39;, appController.getHello);
+    expect(method).toBe(RequestMethod.GET);
+  &#125;);
+</code></pre>
+<p>In this above usage of getMetaData, the keys being used are ‘path’ and ‘method’, which corresponds to the path and HTTP method of the getHello method, respectively.</p>
+<h3 id="Bonus-Content-Use-Discovery-Service-to-dynamically-get-a-list-of-Services"><a href="#Bonus-Content-Use-Discovery-Service-to-dynamically-get-a-list-of-Services" class="headerlink" title="Bonus Content: Use Discovery Service to dynamically get a list of Services"></a>Bonus Content: Use Discovery Service to dynamically get a list of Services</h3><p>Discovery service can be a graceful solution to certain problems. For example, in one of my recent NestJS projects, there is a MapperResolver class:</p>
+<pre><code>@Injectable()
+export class MapperResolver &#123;
+  private mapperList: IMapper[];
+
+  constructor(
+    private serviceAMapper: ServiceAMapper,
+    private serviceBMapper: ServiceBMapper,
+    private serviceCMapper: ServiceCMapper,
+    private serviceDMapper: ServiceDMapper,
+  ) &#123;
+    this.mapperList= [
+      serviceAMapper,
+      serviceBMapper,
+      serviceCMapper,
+      serviceDMapper
+    ];
+  &#125;
+  public Resolve(serviceType: string):IMapper &#123;
+    const mapper = this.mapperList.find(c =&gt; c.serviceType=== serviceType);
+    if (mapper) &#123;
+      return mapper;
+    &#125;
+    throw new Error(`No Mapper found`);
+  &#125;
+</code></pre>
+<p>In the real-world project, there are more than 10 Mapper classes injected into the MapperResolver class constructor, this number continues to grow as new features are added. This has become a maintenance issue.</p>
+<p>We can use Discovery Service to solve this problem. As this topic is outside the scope of this article, I will only give a brief description of the solution.</p>
+<ul>
+<li><p>create a decorator @ServiceRegister that takes an argument</p>
+</li>
+<li><p>add the decorator to each Mapper class i.e. @ServiceRegister(‘Mapper’)</p>
+</li>
+<li><p>use discoveryService.getProviders() to retrieve all providers and filter out the mapper services using the metadata.</p>
+</li>
+</ul>
+<p>The end result is that we are able to remove all the injected Mapper services in the MapperResolver class. But again, please be careful in using DiscoveryService as it is an undocumented API.</p>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>It’s important to regularly test and monitor the security of your application to ensure that it is secure and reliable. By embedding the security checking into Unit tests, and regularly running these tests, we can catch any issues and fix them before they cause problems in production.</p>
+<p>Happy programming!</p>
+<p><em>More content at <a class="link"   href="https://plainenglish.io/" >**PlainEnglish.io <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><strong>. Sign up for our <a class="link"   href="http://newsletter.plainenglish.io/" >**free weekly newsletter <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></strong>. Follow us on <a class="link"   href="https://twitter.com/inPlainEngHQ" >**Twitter <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**</em>, <a class="link"   href="https://www.linkedin.com/company/inplainenglish/" >***LinkedIn <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><strong>, <a class="link"   href="https://www.youtube.com/channel/UCtipWUghju290NWcn8jhyAw" >**YouTube <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></strong>, and <a class="link"   href="https://discord.gg/GtDtUAvyhW" >**Discord <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.***</p>
+<p><em><strong>Interested in scaling your software startup</strong>? Check out <a class="link"   href="https://circuit.ooo/?utm=publication-post-cta" >**Circuit <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></em><em>.</em></p>
+]]></content>
+      <tags>
+        <tag>NestJS</tag>
+        <tag>Security</tag>
+      </tags>
+  </entry>
 </search>

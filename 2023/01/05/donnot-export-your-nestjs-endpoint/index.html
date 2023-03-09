@@ -9,18 +9,18 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/2022/12/21/maximize-code-security-in-your-nestjs-applications-part-1/"/>
+    <link rel="canonical" href="http://example.com/2023/01/05/donnot-export-your-nestjs-endpoint/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Maximize Code Security in Your NestJS Applications (Part 1)">
+    <meta property="og:title" content="Don&#39;t Leave Your NestJS API Exposed">
     <meta property="og:description" content="Hexo Theme Redefine">
-    <meta property="og:url" content="http://example.com2022/12/21/maximize-code-security-in-your-nestjs-applications-part-1/">
+    <meta property="og:url" content="http://example.com2023/01/05/donnot-export-your-nestjs-endpoint/">
     <meta property="og:image" content="/images/redefine-logo.svg">
     <meta property="og:site_name" content="Do What You Love">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Maximize Code Security in Your NestJS Applications (Part 1)">
+    <meta name="twitter:title" content="Don&#39;t Leave Your NestJS API Exposed">
     <meta name="twitter:description" content="Hexo Theme Redefine">
     <meta name="twitter:image" content="/images/redefine-logo.svg">
     <!--- Icon Part-->
@@ -31,7 +31,7 @@
     
     <title>
         
-            Maximize Code Security in Your NestJS Applications (Part 1) -
+            Don&#39;t Leave Your NestJS API Exposed -
         
         Do What You Love
     </title>
@@ -296,8 +296,8 @@
             
              
                 <div class="article-title">         
-                    <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*aN4-CbCjgxdmgjs_U6UqEw.png" alt="Maximize Code Security in Your NestJS Applications (Part 1)" />
-                    <h1 class="article-title-cover">Maximize Code Security in Your NestJS Applications (Part 1)</h1>
+                    <img src="https://cdn-images-1.medium.com/max/2000/1*SsPIZqAcoJvrZ5iHCqwQ5A.png" alt="Don&#39;t Leave Your NestJS API Exposed" />
+                    <h1 class="article-title-cover">Don&#39;t Leave Your NestJS API Exposed</h1>
                 </div>
             
                 
@@ -319,15 +319,15 @@
                             <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="pc">2022-12-21</span>
-        <span class="mobile">2022-12-21 00</span>
+        <span class="pc">2023-01-05</span>
+        <span class="mobile">2023-01-05 00</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="pc">2023-03-06 20:03:12</span>
-            <span class="mobile">2023-03-06 20:03</span>
+            <span class="pc">2023-03-09 19:41:05</span>
+            <span class="mobile">2023-03-09 19:41</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -339,11 +339,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/TypeScript/">TypeScript</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/NestJS/">NestJS</a>&nbsp;
+                        <a href="/tags/NestJS/">NestJS</a>&nbsp;
                     </li>
                 
                     <li>
@@ -357,12 +353,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-file-word"></i>&nbsp;<span>1.6k Words</span>
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>1.3k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>9 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>8 Mins</span>
         </span>
     
     
@@ -378,194 +374,149 @@
             
 
             <div class="article-content markdown-body">
-                <h4 id="Top-Secure-Code-Best-Practices-for-NestJS-Developers"><a href="#Top-Secure-Code-Best-Practices-for-NestJS-Developers" class="headerlink" title="Top Secure Code Best Practices for NestJS Developers"></a>Top Secure Code Best Practices for NestJS Developers</h4><p>As a developer, we all know how critical is code security. The recent data breaches at <a class="link"   target="_blank" rel="noopener" href="https://www.optus.com.au/about/media-centre/media-releases/2022/09/optus-notifies-customers-of-cyberattack" >Optus <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> and <a class="link"   target="_blank" rel="noopener" href="https://www.medibank.com.au/health-insurance/info/cyber-security/" >Medibank  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>highlight the importance of code security again. So, the question is: how can we write secure code to prevent various types of attacks in web applications? It is essential to follow best practices to write secure code, so our App is protected against vulnerabilities and threats.</p>
-<p>Before we dive into how to prevent the security risk? let’s first examine the most common types of security risks. This will give us a better understanding of the challenges to keep our App secure.</p>
-<p>The OWASP Top 10 is a widely accepted list of the most critical security risks for web applications, as determined through consensus among industry experts. Below is the list of the top 10 risks in 2017 and 2021.</p>
-<p><img src="https://cdn-images-1.medium.com/max/2250/1*ObUHh3Z9GbA8jFlBoTHaXg.png" alt="Source: [https://owasp.org/www-project-top-ten/](https://owasp.org/www-project-top-ten/)"><em>Source: <a class="link"   target="_blank" rel="noopener" href="https://owasp.org/www-project-top-ten/" >https://owasp.org/www-project-top-ten/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></em></p>
-<p>Many of the top 10 are critical for the security of web Apps.</p>
-<p>As part 1 of a two-part article, I will walk through a few risks and the best practices that you can follow to prevent the risk.</p>
-<p>They include:</p>
-<ul>
-<li><p><a href="#4d65">Broken access control</a></p>
-</li>
-<li><p><a href="#3fb4">Server-side request forgery (SSRF)</a></p>
-</li>
-<li><p><a href="#2dac">Mass assignment</a></p>
-</li>
-<li><p><a href="#ffd8">Sensitive information exposure</a></p>
-</li>
-</ul>
-<h3 id="Broken-access-control"><a href="#Broken-access-control" class="headerlink" title="Broken access control"></a>Broken access control</h3><p>Broken function access is one of the most common risks. It occurs when an attacker is able to access unauthorized functions or resources. One real-world example is the <a class="link"   target="_blank" rel="noopener" href="https://gibsonsec.org/snapchat/" >Snapchat incident on Jan 2014 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
-<p>To prevent this risk, it is important to follow the principle of <strong>least privilege</strong>. This means that access should always be denied by default, and privileges should only be granted on an as-needed basis.</p>
-<p>We can use access control mechanisms such as role-based access control (RBAC) or access control lists (ACLs) to restrict access to functions or resources based on a user’s role or permissions.</p>
-<p>Here’s an example of RBAC using <a class="link"   target="_blank" rel="noopener" href="https://docs.nestjs.com/guards" >Guards  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>in a NestJS application:</p>
-<pre><code>import &#123; Injectable, CanActivate, ExecutionContext &#125; from &#39;@nestjs/common&#39;;
-
-@Injectable()
-export class AdminRoleGuard implements CanActivate &#123;
-  canActivate(context: ExecutionContext): boolean &#123;
+                <h2 id="Using-Reflect-and-the-NestJS-Undocumented-API-to-Identify-Unsecured-Endpoints-in-Unit-Tests"><a href="#Using-Reflect-and-the-NestJS-Undocumented-API-to-Identify-Unsecured-Endpoints-in-Unit-Tests" class="headerlink" title="Using Reflect and the NestJS Undocumented API to Identify Unsecured Endpoints in Unit Tests"></a>Using Reflect and the NestJS Undocumented API to Identify Unsecured Endpoints in Unit Tests</h2><p>It is a given that an API should be secured to prevent potential attacks. However, it is surprising how often simple human mistakes can lead to an API endpoint being unprotected. A recent example of this is the <a class="link"   target="_blank" rel="noopener" href="https://www.acma.gov.au/optus-data-breach" >Optus data breach <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>, which was caused by “*an API that did not require authentication to access customer data.*”. This highlights the importance of thorough testing and strict security measures for APIs to prevent such incidents from occurring.</p>
+<p>Unprotected API is one of the top OWASP vulnerabilities. It is defined as below:</p>
+<blockquote>
+<p>Modern applications often involve rich client applications and APIs, such as JavaScript in the browser and mobile apps, that connect to an API of some kind. These APIs are often unprotected and contain numerous vulnerabilities.</p>
+</blockquote>
+<p>To avoid unprotected API, the first line of defense is via unit test. In this article, we are going to discuss how to ensure NestJS controllers and Endpoints are protected using the Unit test.</p>
+<h3 id="Guards"><a href="#Guards" class="headerlink" title="Guards"></a>Guards</h3><p>In NestJS, we use authentication&#x2F;authorization guards to protect controllers or endpoints. Using Guards, we can ensure only authorized users have access to the API. Below is an example of an authentication Guard.</p>
+<pre><code>@Injectable()
+export class AuthGuard implements CanActivate &#123;
+  canActivate(
+    context: ExecutionContext,
+  ): boolean | Promise&lt;boolean&gt; | Observable&lt;boolean&gt; &#123;
     const request = context.switchToHttp().getRequest();
-    const user = request.user;
-    return user.role === &#39;admin&#39;;
+    return this.validateRequest(request);
   &#125;
-&#125;
 
-@Controller(&#39;cats&#39;)
-export class CatsController &#123;
-  @UseGuards(AdminRoleGuard)
-  @Get()
-  async findAll(): Promise&lt;Cat[]&gt; &#123;
-    return this.catsService.findAll();
+  private validateRequest(request: any) &#123;
+    // Authenticate user request to ensure it is authenticated 
+    // i.e. validate a token
   &#125;
 &#125;
 </code></pre>
-<p>In the above code snippet, we create an AdminRoleGuard that implements the CanActivate interface provided by NestJS. It checks the role of the current user and returns true when the user is an admin. We then use the @UseGuards decorator to apply the AdminRoleGuard to the findAll method, which will restrict access to the endpoint for users withadmin role only.</p>
-<p>The access control mechanisms should be applied using centralized functions from a proven framework, to ensure it is safe and easy to maintain.</p>
-<p>It is also recommended to have unit tests that tests the necessary Guards being applied on a controller. Thus if the Guard is accidentally removed, the unit test will catch it.</p>
-<h3 id="Server-side-request-forgery-SSRF"><a href="#Server-side-request-forgery-SSRF" class="headerlink" title="Server-side request forgery (SSRF)"></a>Server-side request forgery (SSRF)</h3><p>SSRF is a type of cyber attack in which an attacker induces a server to make unintended requests on their behalf. These requests can be used to access restricted resources from internal networks.</p>
-<p>To prevent SSRF, It is essential to properly validate user input. Below is an example of an endpoint vulnerable to SSRF risk.</p>
-<pre><code>import &#123; Controller, Get, Res, HttpStatus, Query &#125; from &#39;@nestjs/common&#39;;
-
+<p>The AuthGuard class contains canActivate method which takes an ExecutionContext object as an argument. The method performs validation to determine whether the request should be allowed.</p>
+<p>To apply the AuthGuard to a controller, we can use the @UseGuards decorator</p>
+<pre><code>@UseGuards(AuthGuard)
 @Controller()
-export class CatsController &#123;
-  @Get()
-  async getData(@Query(&#39;url&#39;) url: string, @Res() res) &#123;
-    const response = await fetch(url);
-    return await response.json();
-  &#125;
-&#125;
+export class AppController &#123;&#125;
 </code></pre>
-<p>In the above example, the App makes a request to the URL sourced from url query parameter and returns the response data to the client. Obviously, it is vulnerable to SSRF attacks because an attacker can send a request to the server with a malicious URL that accesses restricted resources from the internal network.</p>
-<p>We should validate the URL parameter to prevent the risk as below.</p>
-<pre><code>import &#123; Controller, Get, Res, HttpStatus, Query &#125; from &#39;@nestjs/common&#39;;
-import &#123; isURL &#125; from &#39;validator&#39;;
+<p>If the @UseGuards decorator is accidentally removed, the API will become unprotected and vulnerable to unauthorized access. To ensure that the Guard is properly applied to the controller, we can use unit tests to verify its presence.</p>
+<p>To achieve that, we need to use the <a class="link"   target="_blank" rel="noopener" href="https://www.npmjs.com/package/reflect-metadata" >reflect-metadata <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> library and NestJS undocumented DiscoveryService API. Let’s look at the <a class="link"   target="_blank" rel="noopener" href="https://www.npmjs.com/package/reflect-metadata" >reflect-metadata <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> library first.</p>
+<h3 id="Reflect-MetaData"><a href="#Reflect-MetaData" class="headerlink" title="Reflect-MetaData"></a>Reflect-MetaData</h3><p>The reflect-metadata library provides support for the Reflect API, which is part of the ECMAScript specification. We can use it to get metadata at runtime. It is worth noting that NestJS also uses the <a class="link"   target="_blank" rel="noopener" href="https://www.npmjs.com/package/reflect-metadata" >reflect-metadata <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> under the hood to work with metadata.</p>
+<p>The below example demonstrates how to retrieve the Guards metadata from the AppController.</p>
+<pre><code>const guards = Reflect.getMetadata(&#39;__guards__&#39;, AppController);
+</code></pre>
+<p>The getMetaData method takes two arguments:</p>
+<ul>
+<li><p>metadataKey: A key used to store and retrieve metadata. In this case, the key is <strong>guards</strong>, it is used by NestJs to reference the Guards.</p>
+</li>
+<li><p>target: The target object on which the metadata is defined.</p>
+</li>
+</ul>
+<p>with getMetadata method, we can write a simple Unit test to verify the AppController is protected.</p>
+<pre><code>   it(&#39;should AuthGard be applied to the AppController&#39;, async () =&gt; &#123;
+      const guards = Reflect.getMetadata(&#39;__guards__&#39;, AppController);
+      const guard = new guards[0]();
+      expect(guard).toBeInstanceOf(AuthGuard);
+    &#125;);
+</code></pre>
+<p>If there are multiple controllers in the app, it is possible to write a unit test that covers all of them at once? The answer is positive, but we need to use the NestJS Discovery Service.</p>
+<h3 id="Discovery-Service"><a href="#Discovery-Service" class="headerlink" title="Discovery Service"></a>Discovery Service</h3><p>The NestJS <a class="link"   target="_blank" rel="noopener" href="https://github.com/nestjs/nest/blob/master/packages/core/discovery/discovery-service.ts" >discovery service <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> is an undocumented public API. It is important to note that an “undocumented” feature may be subject to change or breakage in the future. While it is a handy feature to use, it is generally best to avoid relying on undocumented features in your app. In my personal opinion, using it in unit test is acceptable as long as you are aware of the risk.</p>
+<p>As shown below, using this.discoveryService.getControllers(), we can get a collection of type InstanceWrapper &#x3D; { metatype, name, instance, … }.</p>
+<pre><code> const controllers = await discoveryService.getControllers(&#123;&#125;);
+</code></pre>
+<p>To extract the guards metadata from the InstanceWrapper, we can use the getEnhancersMetadata method. In the test below, we loop through each controller and verify that they are protected by the AuthGuard.</p>
+<pre><code>    it(&#39;should have AuthGard applied for all controllers&#39;, async () =&gt; &#123;
+      const controllers = await discoveryService.getControllers(&#123;&#125;);
+      controllers.map((c) =&gt; &#123;
+        const guard = c
+          .getEnhancersMetadata()
+          ?.filter(
+            (&#123; instance &#125;: InstanceWrapper) =&gt; instance instanceof AuthGuard,
+          );
+        expect(guard[0].name).toEqual(&#39;AuthGuard&#39;);
+      &#125;);
+    &#125;);
+</code></pre>
+<p>To achieve a fine level of access control, we can define a RoleGuard and apply it to individual endpoints. We use SetMetadata in the function below to assign metadata with a specific key. SetMetadata is an out-of-box NestJS decorator function.</p>
+<pre><code>import &#123; SetMetadata &#125; from &#39;@nestjs/common&#39;;
 
-@Controller()
-export class CatsController &#123;
-  @Get()
-  async getData(@Query(&#39;url&#39;) url: string, @Res() res) &#123;
-    if (!isURL(url)) &#123;
-      return res.status(HttpStatus.BAD_REQUEST).send(&#39;Invalid URL&#39;);
+export const Roles = (...roles: string[]) =&gt; SetMetadata(&#39;roles&#39;, roles);
+</code></pre>
+<p>To apply a Roles decorator to an endpoint, we need to pass in a role to the decorator</p>
+<pre><code>  @Get()
+  @Roles(&#39;Admin&#39;)
+  getAll() &#123;
+    return [];
+  &#125;
+</code></pre>
+<h3 id="Secure-an-Endpoint"><a href="#Secure-an-Endpoint" class="headerlink" title="Secure an Endpoint"></a>Secure an Endpoint</h3><p>To detect whether an endpoint is associated with the Roles decorator, we use the getMetadata as below.</p>
+<pre><code>      const decorators = Reflect.getMetadata(
+        &#39;roles&#39;,
+        DevController.prototype.getAll,
+      );
+</code></pre>
+<p>In a unit test, we can verify whether an endpoint is protected by the roles decorator with a role</p>
+<pre><code>    it(&#39;should getAll be accessible by Admin role only&#39;, () =&gt; &#123;
+      const decorators = Reflect.getMetadata(
+        &#39;roles&#39;,
+        DevController.prototype.getAll,
+      );
+      expect(decorators).toContain(&#39;Admin&#39;);
+    &#125;);
+</code></pre>
+<p>The Reflect API can be used to get other metadata of the endPoint.</p>
+<pre><code>  it(&#39;should getHello has correct path and http method&#39;, () =&gt; &#123;
+    const path = Reflect.getMetadata(&#39;path&#39;, appController.getHello);
+    expect(path).toBe(&#39;/&#39;);
+    const method = Reflect.getMetadata(&#39;method&#39;, appController.getHello);
+    expect(method).toBe(RequestMethod.GET);
+  &#125;);
+</code></pre>
+<p>In this above usage of getMetaData, the keys being used are ‘path’ and ‘method’, which corresponds to the path and HTTP method of the getHello method, respectively.</p>
+<h3 id="Bonus-Content-Use-Discovery-Service-to-dynamically-get-a-list-of-Services"><a href="#Bonus-Content-Use-Discovery-Service-to-dynamically-get-a-list-of-Services" class="headerlink" title="Bonus Content: Use Discovery Service to dynamically get a list of Services"></a>Bonus Content: Use Discovery Service to dynamically get a list of Services</h3><p>Discovery service can be a graceful solution to certain problems. For example, in one of my recent NestJS projects, there is a MapperResolver class:</p>
+<pre><code>@Injectable()
+export class MapperResolver &#123;
+  private mapperList: IMapper[];
+
+  constructor(
+    private serviceAMapper: ServiceAMapper,
+    private serviceBMapper: ServiceBMapper,
+    private serviceCMapper: ServiceCMapper,
+    private serviceDMapper: ServiceDMapper,
+  ) &#123;
+    this.mapperList= [
+      serviceAMapper,
+      serviceBMapper,
+      serviceCMapper,
+      serviceDMapper
+    ];
+  &#125;
+  public Resolve(serviceType: string):IMapper &#123;
+    const mapper = this.mapperList.find(c =&gt; c.serviceType=== serviceType);
+    if (mapper) &#123;
+      return mapper;
     &#125;
-
-    const response = await fetch(url);
-    return await response.json();
+    throw new Error(`No Mapper found`);
   &#125;
-&#125;
 </code></pre>
-<p>To further improve security, we shouldn’t allow users to pass in URLs directly in query parameters. Instead, we should use an existing service to retrieve the data from a trusted API.</p>
-<pre><code>@Controller()
-export class CatsController &#123;
-  @Get()
-  async getData(@Query(&#39;name&#39;) dataName: string, @Res() res) &#123;
-    const response = await dataService.GetDataByName(dataName);
-    return await response.json();
-  &#125;
-&#125;
-</code></pre>
-<p>There are other ways to prevent SSRF attacks:</p>
+<p>In the real-world project, there are more than 10 Mapper classes injected into the MapperResolver class constructor, this number continues to grow as new features are added. This has become a maintenance issue.</p>
+<p>We can use Discovery Service to solve this problem. As this topic is outside the scope of this article, I will only give a brief description of the solution.</p>
 <ul>
-<li><p>Only make requests to trusted sources (i.e. known APIs or services)</p>
+<li><p>create a decorator @ServiceRegister that takes an argument</p>
 </li>
-<li><p>Implement security headers (i.e. headers like “<a class="link"   target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options" >X-Frame-Options <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>”) to prevent clickjacking attacks and other types of malicious requests.</p>
+<li><p>add the decorator to each Mapper class i.e. @ServiceRegister(‘Mapper’)</p>
 </li>
-<li><p>Use a Content Security Policy(CSP) to specify which sources are allowed to make requests on behalf of your application.</p>
+<li><p>use discoveryService.getProviders() to retrieve all providers and filter out the mapper services using the metadata.</p>
 </li>
 </ul>
-<p>In NestJS, you can use <a class="link"   target="_blank" rel="noopener" href="https://docs.nestjs.com/security/helmet" >helmet  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>to easily set up security headers and a Content Security Policy.</p>
-<h3 id="Mass-Assignment"><a href="#Mass-Assignment" class="headerlink" title="Mass Assignment"></a>Mass Assignment</h3><p>Mass assignment is a vulnerability in that an attacker is able to modify multiple object properties by sending a malicious request to your App.</p>
-<p>In the below example, a new user is created based on the data coming from the request body. It is vulnerable to mass assignment attacks because an attacker can send a request with malicious data that overwrites sensitive fields in the Client object (i.e. role or password).</p>
-<pre><code>import &#123; Controller, Post, Body &#125; from &#39;@nestjs/common&#39;;
-
-@Controller(&quot;client&quot;)
-export class ClientController &#123;
-  @Post()
-  create(@Body() body) &#123;
-    const client = new Client(body);
-    return await client.save();
-  &#125;
-&#125;
-</code></pre>
-<p>To prevent mass assignment, we can define a whitelist of allowed properties for each object. In the below example, we implemented a white list of properties to prevent overwriting of sensitive fields.</p>
-<pre><code>import &#123; Entity, Column, PrimaryGeneratedColumn &#125; from &#39;typeorm&#39;;
-
-@Entity()
-export class Client&#123;
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column()
-  name: string;
-
-  @Column()
-  role: string;
-
-  @Column()
-  password: string;
-
-  @Column(&#125;)
-  email: string;
-&#125;
-
-@Controller(&#39;client&#39;)
-export class ClientController &#123;
-  constructor(private clientService: ClientService) &#123;&#125;
-
-  @Post()
-  async create(@Body() client: Pick&lt;User, &#39;name&#39; | &#39;email&#39;&gt;) &#123;
-    return await this.clientService.create(client);
-  &#125;
-&#125;
-</code></pre>
-<p>Here, we use the TypeScript Pick type to define a whitelist of properties for the User entity. The @Body decorator is then used to bind the request body to the user parameter, which will only include the allowed properties. This prevents an attacker from modifying other properties of the User entity through mass assignment.</p>
-<p>Other ways to prevent mass assignment include:</p>
-<ul>
-<li><p>Use a reduced DTO, instead of a general DTO. For example, create a InsertClientEntity and UpdateClientEntity. These DTOs only contain properties that are allowed in the insert and update operation.</p>
-</li>
-<li><p>Avoid directly binding to an object coming from the client side.</p>
-</li>
-</ul>
-<h3 id="Sensitive-information-exposure"><a href="#Sensitive-information-exposure" class="headerlink" title="Sensitive information exposure"></a>Sensitive information exposure</h3><p>Sensitive information includes things like passwords, API keys, and other confidential data. Any data that contains personal information or payment-related information are sensitive.</p>
-<p>Often, when designing web API, excessive data are returned to the client.</p>
-<pre><code>import &#123; Controller, Get, Param &#125; from &#39;@nestjs/common&#39;;
-import &#123; Client&#125; from &#39;./client/client.entity&#39;;
-
-@Controller()
-export class ClientController &#123;
-  @Get(&#39;clients/:id&#39;)
-  async getClient(@Param(&#39;id&#39;) id: string): Promise&lt;Client&gt; &#123;
-    // Return all fields for the client
-    return await Client.findById(id);
-  &#125;
-&#125;
-</code></pre>
-<p>In this example, the getClient method is returning all fields for the client including sensitive data like role or password. Although these data aren’t consumed or displayed by clients, they still can be intercepted and exposed by attackers.</p>
-<p>To prevent sensitive personal data exposure, we should only return the necessary data of the client, which is name and email fields in this case. In a nutshell, we should only expose the minimum amount of data.</p>
-<pre><code>import &#123; Controller, Get, Param, UseGuards &#125; from &#39;@nestjs/common&#39;;
-import &#123; Client&#125; from &#39;./client/client.entity&#39;;
-
-@Controller()
-export class ClientController &#123;
-  @Get(&#39;clients/:id&#39;)
-  async getClient(@Param(&#39;id&#39;) id: string): Promise&lt;Client&gt; &#123;
-    // Only return the name and email
-    return await Client.findById(id).map(c =&gt; &#123;c.name, c.email&#125;);
-  &#125;
-&#125;
-</code></pre>
-<p>To prevent sensitive data exposure, below are other guidelines to follow:</p>
-<ul>
-<li><p>Do NOT store sensitive information to version control. This information includes environment variables or configuration files</p>
-</li>
-<li><p>Identify sensitive information (<a class="link"   target="_blank" rel="noopener" href="https://gdpr-info.eu/" >GDPR <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>, <a class="link"   target="_blank" rel="noopener" href="https://www.pcisecuritystandards.org/" >PCI,  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>and <a class="link"   target="_blank" rel="noopener" href="https://www.cyber.gov.au/acsc/view-all-content/glossary/personally-identifiable-information-pii" >PII data <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>) in your system, and secure them through encryption.</p>
-</li>
-<li><p>Make sure that your App uses HTTPS between the client and the server. This will prevent sensitive data from being intercepted during transmission.</p>
-</li>
-</ul>
-<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>In this article, we walk through 4 common risks and the best practices to prevent those risks within the context of NestJS.</p>
-<p>By following these best practices, you can write secure code to ensure that your NestJS app is as secure as possible.</p>
-<p>In part 2 of the article, we continue the discussion on other top OWASP risks.<br><a target="_blank" rel="noopener" href="https://levelup.gitconnected.com/maximize-code-security-in-your-nestjs-applications-part-2-be707466b7ea"><strong>Maximize Code Security in Your NestJS Applications (Part 2)</strong><br><em>Secure Code Best Practices with Real-World Examples</em>levelup.gitconnected.com</a></p>
-<p>Happy Programming!</p>
+<p>The end result is that we are able to remove all the injected Mapper services in the MapperResolver class. But again, please be careful in using DiscoveryService as it is an undocumented API.</p>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>It’s important to regularly test and monitor the security of your application to ensure that it is secure and reliable. By embedding the security checking into Unit tests, and regularly running these tests, we can catch any issues and fix them before they cause problems in production.</p>
+<p>Happy programming!</p>
+<p><em>More content at <a class="link"   target="_blank" rel="noopener" href="https://plainenglish.io/" >**PlainEnglish.io <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><strong>. Sign up for our <a class="link"   target="_blank" rel="noopener" href="http://newsletter.plainenglish.io/" >**free weekly newsletter <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></strong>. Follow us on <a class="link"   target="_blank" rel="noopener" href="https://twitter.com/inPlainEngHQ" >**Twitter <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**</em>, <a class="link"   target="_blank" rel="noopener" href="https://www.linkedin.com/company/inplainenglish/" >***LinkedIn <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><strong>, <a class="link"   target="_blank" rel="noopener" href="https://www.youtube.com/channel/UCtipWUghju290NWcn8jhyAw" >**YouTube <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></strong>, and <a class="link"   target="_blank" rel="noopener" href="https://discord.gg/GtDtUAvyhW" >**Discord <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.***</p>
+<p><em><strong>Interested in scaling your software startup</strong>? Check out <a class="link"   target="_blank" rel="noopener" href="https://circuit.ooo/?utm=publication-post-cta" >**Circuit <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></em><em>.</em></p>
 
             </div>
 
@@ -573,10 +524,6 @@ export class ClientController &#123;
 
             
                 <ul class="post-tags-box">
-                    
-                        <li class="tag-item">
-                            <a href="/tags/TypeScript/">#TypeScript</a>&nbsp;
-                        </li>
                     
                         <li class="tag-item">
                             <a href="/tags/NestJS/">#NestJS</a>&nbsp;
@@ -597,13 +544,13 @@ export class ClientController &#123;
                         <div class="article-prev">
                             <a class="prev"
                             rel="prev"
-                            href="/2023/01/05/donnot-export-your-nestjs-endpoint/"
+                            href="/2023/02/05/install-config-your-own-mysql-on-oracle-free-vm/"
                             >
                                 <span class="left arrow-icon flex-center">
                                     <i class="fa-solid fa-chevron-left"></i>
                                 </span>
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">Don&#39;t Leave Your NestJS API Exposed</span>
+                                    <span class="post-nav-title-item">Install and ConfigureYour Own MySQL Server On Oracle Always Free Ubuntu VM</span>
                                     <span class="post-nav-item">Prev posts</span>
                                 </span>
                             </a>
@@ -613,10 +560,10 @@ export class ClientController &#123;
                         <div class="article-next">
                             <a class="next"
                             rel="next"
-                            href="/2022/09/21/build-a-high-performance-nestjs-app/"
+                            href="/2022/12/21/maximize-code-security-in-your-nestjs-applications-part-1/"
                             >
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">Turbocharge Your App with NestJS - Tips and Tricks</span>
+                                    <span class="post-nav-title-item">Maximize Code Security in Your NestJS Applications (Part 1)</span>
                                     <span class="post-nav-item">Next posts</span>
                                 </span>
                                 <span class="right arrow-icon flex-center">
@@ -637,8 +584,8 @@ export class ClientController &#123;
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">Maximize Code Security in Your NestJS Applications (Part 1)</div>
-        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Top-Secure-Code-Best-Practices-for-NestJS-Developers"><span class="nav-text">Top Secure Code Best Practices for NestJS Developers</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Broken-access-control"><span class="nav-text">Broken access control</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Server-side-request-forgery-SSRF"><span class="nav-text">Server-side request forgery (SSRF)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mass-Assignment"><span class="nav-text">Mass Assignment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sensitive-information-exposure"><span class="nav-text">Sensitive information exposure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a>
+        <div class="page-title">Don&#39;t Leave Your NestJS API Exposed</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-Reflect-and-the-NestJS-Undocumented-API-to-Identify-Unsecured-Endpoints-in-Unit-Tests"><span class="nav-text">Using Reflect and the NestJS Undocumented API to Identify Unsecured Endpoints in Unit Tests</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Guards"><span class="nav-text">Guards</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reflect-MetaData"><span class="nav-text">Reflect-MetaData</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Discovery-Service"><span class="nav-text">Discovery Service</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Secure-an-Endpoint"><span class="nav-text">Secure an Endpoint</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bonus-Content-Use-Discovery-Service-to-dynamically-get-a-list-of-Services"><span class="nav-text">Bonus Content: Use Discovery Service to dynamically get a list of Services</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a></li></ol></li></ol>
 
     </div>
 </div>
