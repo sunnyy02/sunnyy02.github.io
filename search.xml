@@ -2052,4 +2052,183 @@ export class MapperResolver &#123;
         <tag>Security</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Inject dynamic content in Angular components with portals</title>
+    <url>/2021/09/23/inject-dynamic-content-angular-components-with-portals/</url>
+    <content><![CDATA[<p>As an Angular developer, a large part of our daily job is putting components together to build our app. From time to time, we will need to inject a component or UI template into another component dynamically.</p>
+<p>In Angular, there are a couple of ways to render dynamic components into a host component before the CDK portals are released. These are:</p>
+<ul>
+<li>ngComponentOutlet)</li>
+<li>ComponentFactoryResolver<br>Both methods have a drawback: the host component needs to reference the injected component directly. The coupling between the host and injected component makes it hard to test and maintain.</li>
+</ul>
+<p>Portal provides a flexible and clean alternative method of injecting content into an Angular component.</p>
+<p>Let’s walk through an example of using Portal step-by-step.</p>
+<h3 id="Defining-the-problem"><a href="#Defining-the-problem" class="headerlink" title="Defining the problem"></a>Defining the problem</h3><p>Let’s say we’re enhancing the dashboard screen in an Angular app. The screen contains</p>
+<ul>
+<li>A parent component (dashboard): this is the container of the dashboard screen</li>
+<li>A dropdown selector: the change of selection will change the context of the dashboard</li>
+<li>A router outlet: this is used to load the components from subroutes</li>
+<li>Two subcomponents (the stats and action components): these display information related with current context of dashboard</li>
+</ul>
+<p>When the user picks an option from the selector, the app will navigate to different subroutes. As a result, the corresponding component will be loaded into the router outlet. The two subcomponents will then be updated with different content.</p>
+<p>Upon the selection change, the selected service type data is pushed into the serviceType$ observable in the DashboardService. In the action component, we subscribe to the serviceType$ observable.</p>
+<pre><code>
+// dashboard.component.ts
+// when user change a selection, new serviceType are broadcasted
+this.service.searchType$.next(serviceType);
+
+// dashboard.service.ts
+export class DashboardService &#123;
+  searchType$ = new BehaviorSubject('');
+  constructor() &#123; &#125;
+&#125;
+// action.component.ts
+export class ActionComponent &#123;
+  serviceType$ = this.service.searchType$;
+  constructor(private service: DashboardService) &#123;&#125;
+&#125;
+</code></pre>
+<p>We use ngSwitch to react to the observable serviceType$. In the following example, the action component content is updated when the observable value changes.</p>
+<pre><code>   <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><figcaption><span>class</span></figcaption><table><tr><td class="code"><pre><span class="line">  &lt;div [ngSwitch]=&quot;serviceType&quot;&gt;</span><br><span class="line">    &lt;div *ngSwitchCase=&quot;&#x27;client&#x27;&quot;&gt;</span><br><span class="line">      &lt;button (click)=&quot;registerNewClient()&quot; class=&quot;btn btn-primary&quot;&gt;</span><br><span class="line">        Register New Client</span><br><span class="line">      &lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div *ngSwitchCase=&quot;&#x27;order&#x27;&quot;&gt;</span><br><span class="line">      &lt;button (click)=&quot;registerNewOrder()&quot; class=&quot;btn btn-danger&quot;&gt;</span><br><span class="line">        Search order</span><br><span class="line">      &lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div *ngSwitchDefault&gt;default action&lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></div>
+</code></pre>
+<p>The dashboard works, but there are a couple of problems with the code:</p>
+<h4 id="The-two-subcomponents-are-smart-components"><a href="#The-two-subcomponents-are-smart-components" class="headerlink" title="The two subcomponents are smart components"></a>The two subcomponents are smart components</h4><p>These subcomponents are designed to present data, so they should be dumb, or presentational, components. Instead, the current design makes them aware of the external data entities</p>
+<h4 id="The-subcomponents-also-contain-side-effects"><a href="#The-subcomponents-also-contain-side-effects" class="headerlink" title="The subcomponents also contain side effects"></a>The subcomponents also contain side effects</h4><p>This means that they register event handling, which makes them hard to be reused. To add a new service type, we need to add ngSwitchCase into all of our subcomponents, and with more service types or subcomponents being added, the dashboard will become more complex and harder to maintain. What we want is to inject UI contents into the subcomponents while the subcomponents don’t know where the contents are coming from.</p>
+<h3 id="How-can-portals-help"><a href="#How-can-portals-help" class="headerlink" title="How can portals help?"></a>How can portals help?</h3><p>Portals are provided as part of the Angular Material CDK, which is internally developed by the Angular Material team. Its name was recently shortened to Angular CDK. The definition of portals in the official documentation is: portal is a piece of UI that can be dynamically rendered to an open slot on the page. There are two key parts:</p>
+<ul>
+<li>Portal: the UI element (component or template) to render. It can be a component, a templateRef or a DOM element.</li>
+<li>PortalOutlet: the slot where the content will be rendered. In the previous version, it was called PortalHost.<br>Let’s make use of the portals to solve the above problem.</li>
+</ul>
+<h3 id="Setting-up"><a href="#Setting-up" class="headerlink" title="Setting up"></a>Setting up</h3><p>To start using the Angular CDK portal, the following package needs to be installed.</p>
+<pre><code>
+        npm install @angular/cdk
+</code></pre>
+
+<p>Then in the app.module.ts file, we need to import the CDK module.</p>
+<pre><code>
+    import &#123;PortalModule&#125; from '@angular/cdk/portal';
+</code></pre>
+
+<h3 id="Types-of-portals"><a href="#Types-of-portals" class="headerlink" title="Types of portals"></a>Types of portals</h3><p>We have a few options to create a portal.</p>
+<ul>
+<li>ComponentPortal: create a portal from a component type.<pre><code>
+  this.portal = new ComponentPortal(StatsComponent);
+</code></pre></li>
+</ul>
+<p>*TemplatePortal: create a portal from a &lt;ng-template&gt;</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;ng-template #templatePortal&gt;</span><br><span class="line">&lt;ng-content&gt;&lt;/ng-content&gt;</span><br><span class="line">&lt;/ng-template&gt;</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>DomPortal: create a portal from a native DOM element. This allows us to take any DOM element and inject it to the host<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;div #domPortal&gt;Total clients&lt;/div&gt;</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<p>With DomPortal, the Angular binding within the content won’t be effective because it’s treated as a native DOM element.</p>
+<p>Angular CDK also provides a cdkPortal directive, which is a version of TemplatePortal. The cdkPortal directive saves some boilerplate code compared to TemplatePortal, as we don’t need to manually instantiate the portal.</p>
+<h3 id="Create-a-portal"><a href="#Create-a-portal" class="headerlink" title="Create a portal"></a>Create a portal</h3><p>In this example, we use the cdkPortal directive because it’s simpler and more declarative.</p>
+<p>As the below code shows, we wrap ng-content inside the ng-template in the ActionButtonComponent template. Then, we add the portal directive into the ng-template.</p>
+<p>There are two equivalent selectors for the cdkPortal directive: portal or cdk-portal. ng-content is used so we can project contents from the other components.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// Html   </span><br><span class="line">// ActionButtonComponent</span><br><span class="line">&lt;ng-template cdk-portal&gt;</span><br><span class="line">    &lt;ng-content&gt;&lt;/ng-content&gt;</span><br><span class="line">&lt;/ng-template&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p>Please note that the element with the cdkPortal directive will not be shown until it’s attached to CdkPortalOutlet. This applies to all elements, including div.</p>
+<p>In the ActionButtonComponent class, we can reference the template using the @ViewChild and CdkPortal directives.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">// ActionButtonComponent</span><br><span class="line">@ViewChild(CdkPortal)</span><br><span class="line">private portal: CdkPortal;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="Creating-the-PortalOutlet"><a href="#Creating-the-PortalOutlet" class="headerlink" title="Creating the PortalOutlet"></a>Creating the PortalOutlet</h3><p>In the ActionComponent, we created a placeholder with the ID set to action.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// Html</span><br><span class="line">// ActionComponent</span><br><span class="line">&lt;div id=&quot;action&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p>Now we can create the DomPortalOutlet. We use document.querySelector to get hold of the DOM element placeholder defined above. The rest of the parameters are injected via the component constructor.</p>
+<p>Please note that the DomPortalOutlet was previously called DomPortalHost. Since Angular 9, it’s been renamed to DomPortalOutlet.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// Html</span><br><span class="line">// ActionButtonComponent</span><br><span class="line"></span><br><span class="line">  private host: DomPortalOutlet;</span><br><span class="line"></span><br><span class="line">  constructor(</span><br><span class="line">    private cfr: ComponentFactoryResolver,</span><br><span class="line">    private appRef: ApplicationRef,</span><br><span class="line">    private injector: Injector</span><br><span class="line">  ) &#123;&#125;</span><br><span class="line">  </span><br><span class="line">  ngAfterViewInit(): void &#123;</span><br><span class="line">    this.host = new DomPortalOutlet(</span><br><span class="line">      document.querySelector(&#x27;#action),</span><br><span class="line">      this.cfr,</span><br><span class="line">      this.appRef,</span><br><span class="line">      this.injector</span><br><span class="line">    );</span><br></pre></td></tr></table></figure></div>
+
+<p>The creation of DomPortalOutlet occurs within the ngAfterViewInit lifecycle event. It’s necessary because ngAfterViewInit occurs right after the view is rendered.</p>
+<h3 id="Putting-them-together"><a href="#Putting-them-together" class="headerlink" title="Putting them together"></a>Putting them together</h3><p>After both portal and DomPortalOutlet are defined, we can attach the portal to the portalOutlet. This will inject the portal into the placeholder referenced by the portalOutlet.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">// ActionButtonComponent</span><br><span class="line">export class ActionButtonComponent implements AfterViewInit, OnDestroy&#123;</span><br><span class="line"></span><br><span class="line">  @ViewChild(CdkPortal)</span><br><span class="line">  private portal: CdkPortal;</span><br><span class="line">  private host: DomPortalOutlet;</span><br><span class="line"></span><br><span class="line">  constructor(</span><br><span class="line">    private cfr: ComponentFactoryResolver,</span><br><span class="line">    private appRef: ApplicationRef,</span><br><span class="line">    private injector: Injector</span><br><span class="line">  ) &#123;&#125;</span><br><span class="line">  </span><br><span class="line">  ngAfterViewInit(): void &#123;</span><br><span class="line">    this.host = new DomPortalOutlet(</span><br><span class="line">      document.querySelector(&#x27;#action),</span><br><span class="line">      this.cfr,</span><br><span class="line">      this.appRef,</span><br><span class="line">      this.injector</span><br><span class="line">    );</span><br><span class="line">    this.host.attach(this.portal);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>In this case, both the client and order components can project content into ActionButtonComponent. Those contents are shown in the portalOutlet in ActionComponent.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;app-action-button&gt;</span><br><span class="line">&lt;button (click)=&quot;registerClient()&quot; class=&quot;btn btn-primary&quot;&gt;Register New Client&lt;/button&gt;</span><br><span class="line">&lt;/app-action-button&gt;</span><br></pre></td></tr></table></figure></div>
+<p>Here is an overview of how the portal and portalOutlet work together.<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog.logrocket.com/wp-content/uploads/2021/09/how-portal-portaloutlet-work-together.png"
+                     
+                ></p>
+<h3 id="detach-method-vs-dispose-method"><a href="#detach-method-vs-dispose-method" class="headerlink" title="detach method vs. dispose method"></a>detach method vs. dispose method</h3><p>We use the detach method to remove the previously attached portal from the portalOutlet. It’s to clean things up when the parent component is removed.</p>
+<p>Another way is to use the dispose method. When calling dispose, we permanently remove the portalOutlet from DOM.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ngOnDestroy(): void &#123;</span><br><span class="line">this.host.detach();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>In our example, we use the detach method, as our intention is to detach the portal instead of removing the portalOutlet from DOM.</p>
+<h3 id="Passing-context-instead-of-contents"><a href="#Passing-context-instead-of-contents" class="headerlink" title="Passing context instead of contents"></a>Passing context instead of contents</h3><p>In the previous example, we don’t need to pass data because ng-content is used to project contents. But for other use cases, you may need to pass contextual data into the portal.</p>
+<p>To pass context data in templatePortal, we can use the context property.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">this.portal.context = &#123;&#125;; // Your context data</span><br></pre></td></tr></table></figure></div>
+
+<p>For ComponentPortal, we can use token injection shown in the code below.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">export const CONTEXT_TOKEN = new InjectionToken(&#123;...&#125;);</span><br><span class="line"></span><br><span class="line">// when creating the componentPortal, provide the token injector</span><br><span class="line">const injector = Injector.create(&#123;</span><br><span class="line">providers: [&#123; provide: CONTEXT_TOKEN, useValue: &#123;...&#125;, // context data variable</span><br><span class="line">&#125;);</span><br><span class="line">const portal = new ComponentPortal(ComponentClass, null, injector);</span><br><span class="line"></span><br><span class="line">//Inject the token into the constructor of the component, so it can be accessed</span><br><span class="line">constructor(@Inject(CONTEXT_TOKEN) private data: T)</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="Final-results"><a href="#Final-results" class="headerlink" title="Final results"></a>Final results</h3><p>Below is what the final result looks like. Our dashboard shows dynamic content when the dropdown selector changes. Best of all, the subcomponents (the stats and action components) are loosely coupled. They do not contain logic about clients or orders; instead, they only need to focus on rendering the content correctly.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog.logrocket.com/wp-content/uploads/2021/09/final-results-dashboard.gif"
+                     
+                ></p>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>In this article, we discussed how to use Angular CDK portals to inject dynamic contents to a few components in a dashboard. You can find the full example code on my GitHub.</p>
+<p>The CDK Portal is a powerful feature. Its major benefits include its flexibility and clean separations. It gives us the ability to “teleport” content to any component within the screen, even if it’s outside the current component tree.</p>
+<p>I hope this article can help you to apply this technique in your own awesome app!</p>
+]]></content>
+      <tags>
+        <tag>TypeScript</tag>
+        <tag>Angular</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Why I Choose To Be a Contract Programmer</title>
+    <url>/2021/07/14/why-i-choose-to-be-a-contract-programmer/</url>
+    <content><![CDATA[<h2 id="A-comparison-between-contract-and-permanent-jobs-based-on-my-personal-experience"><a href="#A-comparison-between-contract-and-permanent-jobs-based-on-my-personal-experience" class="headerlink" title="A comparison between contract and permanent jobs based on my personal experience"></a>A comparison between contract and permanent jobs based on my personal experience</h2><p>I was a permanent employee once. At the time, being a contractor seemed daunting. When I thought about the contractor option, worries about job security stopped me from pursuing the idea further. However, after completing a successful project as the lead developer, I felt I no longer had room to grow. Leading a team of contractors, I knew they were paid double my salary. I decided to make a change. Soon, I landed a contract for a large government IT project.</p>
+<p>After working as an IT contractor for more than ten years, here are some of my observations:</p>
+<ul>
+<li><p>Working as a contractor, I actually stayed at the same company longer than in my permanent job. The longest contract I had was five-and-a-half years vs. my longest permanent job of four years. I also left the contract voluntarily looking for a new challenge.</p>
+</li>
+<li><p>Despite the insecure nature of a contract job, I have been fortunate to not have any gaps between contracts so far.</p>
+</li>
+<li><p>I worked more hours in my last permanent job vs my contract job.</p>
+</li>
+</ul>
+<p>Let’s look into the comparison of contract vs. permanent jobs in more detail.</p>
+<h2 id="Money"><a href="#Money" class="headerlink" title="Money"></a>Money</h2><p>Let’s talk about money. Please note that this only applies to software developers in Australia. Things may be different in other industries and countries.</p>
+<p>As an IT contractor, I earn more compared to a similar permanent role, and I can claim tax benefits.</p>
+<p>In Melbourne, the salary for a mid-level developer is roughly $90K or $75&#x2F;hour at a permanent job and $110K or $100&#x2F;hour for a contractor. However, the contract rate can’t be considered at face value only because it doesn’t have benefits like sick&#x2F;annual leave. Even after factoring in all these things, the contract wage is still substantially higher.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2000/1*0dzdkPf88Oa2ypXBJa_d6A.png"
+                      alt="Source: Hudson Salary Guide 2019 Australia"
+                ><em>Source: Hudson Salary Guide 2019 Australia</em></p>
+<p>I am paid for overtime as a contractor. I didn’t have overtime pay in my last permanent role because “reasonable overtime is factored into your salary package.” My situation was probably different from yours, as I know most permanent jobs get overtime pay.</p>
+<p>I paid more taxes — much more. That motivated me to look for ways to invest my savings so I can pay less in taxes. Those investments have brought me comfortable cash flow and good capital gain in the last five years. Now I am mortgage-free and have savings for my kid’s education and an emergency fund.</p>
+<h2 id="I-Stopped-Worrying-About-Job-Security"><a href="#I-Stopped-Worrying-About-Job-Security" class="headerlink" title="I Stopped Worrying About Job Security"></a>I Stopped Worrying About Job Security</h2><p>A permanent job is meant to be stable and secure, but the job market is very different now. As a software developer, is there really such a thing as a permanent job anymore?</p>
+<p>Loyalty is dead these days for both the employee and employer. It’s simple supply and demand. If your company doesn’t need you anymore, you will be laid off.</p>
+<p>A permanent role can give you a false sense of security. Without a challenge and the motivation to keep learning, your skills will become outdated. A permanent role is also likely to narrow your scope to a specific area. Thus, your skill set will be limited.</p>
+<p>In the current dynamic environment, real job security is determined by your relevant and in-demand skills.</p>
+<p>As a contractor, I keep looking at what the job market demands and try to meet them by keeping my skills updated. Every contract switch is a chance to learn new skills, and every job interview is an opportunity to explore the job market. Picking up new skills quickly and hitting the ground running has become second nature to me.</p>
+<p>I’m not worried about job security now because I am confident in my skills.</p>
+<h2 id="No-or-Less-Office-Politics"><a href="#No-or-Less-Office-Politics" class="headerlink" title="No (or Less) Office Politics"></a>No (or Less) Office Politics</h2><p>When I was a permanent employee, the thing I hated the most was office politics.</p>
+<p>As a contractor, things are much simpler. Unlike in a permanent staff, a contract role is temporary. A contractor isn’t part of the permanent corporate hierarchy, so you’re not perceived as a “threat.”</p>
+<p>This simpler relationship (some call it a transactional relationship) makes it easier to work in a large hierarchical organization. I focus on how to get my job done, be part of the team, and keep a distance from internal politics. But sometimes in a long-term contract, you can still get caught in office politics.</p>
+<p>When things are difficult, I am still in a better position than the permanent staff because it’s much easier for me to switch to a new job.</p>
+<h2 id="Freedom-and-Flexibility"><a href="#Freedom-and-Flexibility" class="headerlink" title="Freedom and Flexibility"></a>Freedom and Flexibility</h2><p>As a contractor, I have choices.</p>
+<p>I feel lucky because skilled developers are in high demand. I apply only to the jobs that fit my career path and&#x2F;or use the technology stack I am interested in. Many times, the jobs requiring contractors are new projects needing new technologies or skill sets, and that suits me well.</p>
+<p>Another benefit is the flexibility to take a long break when my contract expires. With a bit of planning, I can take a long holiday in my dream destination or choose to work without taking any leave to make as much money as I can.</p>
+<h2 id="Overcome-Stress-and-Meet-Expectations"><a href="#Overcome-Stress-and-Meet-Expectations" class="headerlink" title="Overcome Stress and Meet Expectations"></a>Overcome Stress and Meet Expectations</h2><p>On the flip side, there are stressful times as a contractor.</p>
+<p>When I started my first contract, the worry was real. The fear of losing my job and the uncertainty of where to find the next contract was stressful. One of the symptoms of the insecurity was that I didn’t take a single day off in my first two years of contracting. That’s obviously not healthy. I learned to cope with the stress gradually by focusing on things that I can control. I keep learning and improving my skills, as well as building up my reputation and network. At the same time, I saved money and invested wisely to have a secure financial situation.</p>
+<p>Contracting is rewarding, but at the same time, the expectations for contractors are also high. We are paid to solve problems, to deliver on time and on budget. You need to prove yourself to be valuable and worth the paycheck. But when you deliver, you build your reputation and it can carry you forward.</p>
+<p>For a contractor, more disposable income also means you need the discipline to save and invest. Without discipline, you can easily spend all the extra cash and have no funds available for emergency situations.</p>
+<h2 id="Final-Thoughts"><a href="#Final-Thoughts" class="headerlink" title="Final Thoughts"></a>Final Thoughts</h2><p>If I could travel back in time, I would make the same choice. But I would be much less worried in the first couple of years and enjoy the ride more.</p>
+<p>Contracting isn’t for everyone, but with higher pay, less office politics, and more freedom, it’s definitely rewarding.</p>
+<p>At the end of the day, what matters is to have a job that you actually enjoy — regardless of if it’s a contract or permanent job. A job that gives you more fulfillment will make you happy.</p>
+<p>If you like this article, you may also like this one.<br><a href="https://betterprogramming.pub/what-i-hate-about-code-review-66a86e2e3d3f"><strong>5 Things I Dislike the Most About Code Reviews</strong><br><em>Opinionated comments, double standards, and more</em>betterprogramming.pub</a></p>
+<p><em>If you are not already a paid member of Medium, <a class="link"   href="https://sunnysun-5694.medium.com/membership" >**you can do so by visiting this link <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**. You’ll get unlimited full access to every story on Medium. I’ll receive a portion of your membership fees as a referral.</em></p>
+]]></content>
+      <tags>
+        <tag>Programming</tag>
+      </tags>
+  </entry>
 </search>
