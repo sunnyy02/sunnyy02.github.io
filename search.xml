@@ -2231,4 +2231,188 @@ export class ActionComponent &#123;
         <tag>Programming</tag>
       </tags>
   </entry>
+  <entry>
+    <title>How to map REST API data using Decorator pattern in Angular 6</title>
+    <url>/2018/12/11/how-to-map-restful_api-using-decorator/</url>
+    <content><![CDATA[<h2 id="A-cleaner-loosely-coupled-and-more-maintainable-solution"><a href="#A-cleaner-loosely-coupled-and-more-maintainable-solution" class="headerlink" title="A cleaner, loosely coupled, and more maintainable solution"></a>A cleaner, loosely coupled, and more maintainable solution</h2><p>To build a solid RESTful API, there are <a class="link"   href="https://medium.com/p/d3c752debd88" >well-established best practices and design patterns <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> we can use. In this article, I will talk about how to use the Decorator pattern to consume RESTful API in Angular.</p>
+<h3 id="HttpClient-Service"><a href="#HttpClient-Service" class="headerlink" title="HttpClient Service"></a>HttpClient Service</h3><p>To consume a REST API in Angular, we can use HttpClient . HttpClient Service handles the JSON data parsing under the cover and returns an Rxjs observable. It also supports generic typing functionality. For example, in the code snippet below, getAllTodos will return an observable with an array of objects that match the type TodoModel.</p>
+<pre><code>constructor(private http: HttpClient) &#123;&#125;
+
+getAllTodos(): Observable&lt;TodoModel[]&gt; &#123;
+       return this.http.get&lt;TodoModel[]&gt;(this.url);
+&#125;
+</code></pre>
+<p>It is straightforward to make use of HttpClient to call the REST API and get the data to bind to the view.</p>
+<h3 id="The-Problem"><a href="#The-Problem" class="headerlink" title="The Problem"></a>The Problem</h3><p>All seems good so far, but problems start to arise when the back end changes. Let’s say we have the TodoModel as below.</p>
+<pre><code>export class TodoModel&#123;
+  public name: string;
+  public id: number,
+  public completed: boolean,
+&#125;
+</code></pre>
+<p>Two changes are required</p>
+<ol>
+<li><p>We want to display a text description of “completed” when the value is true and display “pending” if the value is false.</p>
+</li>
+<li><p>The field name is changed from “name” to “title”.</p>
+</li>
+</ol>
+<p>The quick way to meet the requirements is to change the model.</p>
+<pre><code>export class TodoModel&#123;
+  public title: string;
+  public id: number,
+  public completed: string,
+&#125;
+</code></pre>
+<p>Then change the todo service to map the completed field.</p>
+<pre><code>getAllTodos(): Observable&lt;TodoModel[]&gt; &#123;
+   return this.http.get(this.url).pipe(
+      map((data: any[]) =&gt; data.map((item: any) =&gt; &#123;
+          const model = new TodoModel();
+          Object.assign(model, item);
+          if(item.completed)&#123;
+              model.completed = &#39;completed&#39;;
+           &#125;else&#123;
+              model.completed = &#39;pending&#39;;
+           &#125;
+          return model;
+       &#125;))
+       );
+&#125;
+</code></pre>
+<p>In the end, we also need to change the binding at the view to “title” instead of “name”.</p>
+<p>It works, but not ideal.</p>
+<p>Firstly, it is a simple change: rename one field in the backend. But this simple change requires updating the service, domain model, and view, it is an indication of bad design. Secondly, we may need to repeat the explicit mapping of data to every method that needs to retrieve TodoModel from the back end, which will pollute the code in the long term.</p>
+<h3 id="Decorator-Pattern"><a href="#Decorator-Pattern" class="headerlink" title="Decorator Pattern"></a>Decorator Pattern</h3><p>One way to avoid the above problem is to use the Decorator pattern.</p>
+<blockquote>
+<p>Decorator pattern allows you to change the behavior of an object, without changing the original object. This is done by wrapping the original object with a decorator that implements the same interface but adds behavior and&#x2F;or modifies input and output.</p>
+</blockquote>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2000/0*bkJlSQut_Vhfgqan.png"
+                     
+                ></p>
+<p>As the diagram illustrates, for the Decorator Pattern, we are not using inheritance to add functionality. Instead, we use composition. It is a more loose coupled pattern.</p>
+<p>In Typescript, the decorator is simply a function and will be called at run time. Different types of Decorators can be applied to different levels like Class Decorator, Method Decorator, or Property Decorator.</p>
+<p>Here, we use a custom Property Decorator to handle the REST API Data mapping.</p>
+<h3 id="StatusConverter-Decorator"><a href="#StatusConverter-Decorator" class="headerlink" title="StatusConverter Decorator"></a>StatusConverter Decorator</h3><p>Here is how we use the “statusConverter” decorator to handle transforming the “complete” status from Boolean to string.</p>
+<p>A property decorator takes two arguments:</p>
+<ul>
+<li><p><strong>target</strong>: the prototype of the class</p>
+</li>
+<li><p><strong>key</strong>: the name of the property</p>
+</li>
+</ul>
+<p>The below decorator function contains a getter and setter accessors, so we can manipulate the property value as required.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">export function statusConverter(target: any, key: string)</span><br><span class="line">&#123;</span><br><span class="line">    var value;</span><br><span class="line">    if (delete target[key]) &#123;</span><br><span class="line">        Object.defineProperty(target, key, &#123;</span><br><span class="line">        get: function() &#123;</span><br><span class="line">                if (this.value)</span><br><span class="line">                &#123;</span><br><span class="line">                    return &#x27;Completed&#x27;;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    return &#x27;Pending&#x27;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">      set: function(v) &#123; this.value = v; &#125;,</span><br><span class="line">      enumerable: true,</span><br><span class="line">      configurable: true</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>A property decorator is declared just before a property decoration.</p>
+<pre><code>@statusConverter
+public completed: string;
+</code></pre>
+<p>That is it, no need to manually set the property value in the service code, and We can apply the same decorator everywhere when necessary.</p>
+<p>In this case, the use of the statusConverter decorator is very limited, it only converts the true value to “Completed” and the false to “Pending”. However, it is for illustration only, there is no limitation on how the data can be transformed.</p>
+<h3 id="PropertyMap-Decorator"><a href="#PropertyMap-Decorator" class="headerlink" title="PropertyMap Decorator"></a>PropertyMap Decorator</h3><p>To handle the case of backend data field renaming, we created the PropertyMap decorator and ModelMapper utility class.</p>
+<p>The PropertyMap decorator provides a way to store the meta-data.</p>
+<iframe src="https://medium.com/media/c0f98a12da24036a646cfdf13fd122b1" frameborder=0></iframe>
+
+<p>To consume the metadata, ModelMapper class is added.</p>
+<iframe src="https://medium.com/media/989af8e2d89bc0e56ac846df6abeb17d" frameborder=0></iframe>
+
+<p>Now we have a ModelMapper class that can take any type, extract the predefined metadata, and performs data transformation.</p>
+<p>To use the decorator</p>
+<pre><code>@propertyMap(&#39;title&#39;)
+public name: string;
+</code></pre>
+<p>The updated service looks like the one below.</p>
+<pre><code>return this.http.get&lt;TodoModel[]&gt;(this.url).pipe(
+   map(data =&gt; data.map((item: any) =&gt; &#123;
+      return new ModelMapper(TodoModel).map(item);
+&#125;)));
+</code></pre>
+<h3 id="Further-refactoring"><a href="#Further-refactoring" class="headerlink" title="Further refactoring"></a>Further refactoring</h3><p>After we start to make use of the ModelMapper for the services, we will soon find that the code is duplicated in every service. Thus we can extract the modelMapper to a generic API Service class as the code snippet below.</p>
+<pre><code>// api.service.ts
+public get&lt;T&gt;(url: string, itemType: any): Observable&lt;T&gt; &#123;
+   return this.http.get&lt;T&gt;(this.url).pipe(
+       map(data =&gt; data.map((item: any) =&gt; &#123;
+       return new ModelMapper(itemType).map(item);
+   &#125;)));
+&#125;
+
+//todo.service.ts
+return this.api.get&lt;TodoModel[]&gt;(this.url, TodoModel);
+</code></pre>
+<h3 id="Benefits"><a href="#Benefits" class="headerlink" title="Benefits"></a>Benefits</h3><p>With the above decorators, when the back-end data field is renamed or changed, there is no need to change the service code. The only change required is to update the PropertyMap decorator meta-data argument in the model class.</p>
+<p>No matter how many services consume the TodoModel API, only a single change is required to apply it to all services.</p>
+<p>The code also becomes more readable as the name of the decorator shows the intent of the function clearly.</p>
+<h3 id="Be-declarative"><a href="#Be-declarative" class="headerlink" title="Be declarative"></a>Be declarative</h3><p>Using the Decorator pattern is a practice of declarative programming, it focuses on how the components&#x2F;services want to behave instead of how to accomplish the result. The declarative approach helps developers to produce a cleaner, loosely coupled, and more maintainable code base.</p>
+<p>The full demo code is available at this <a class="link"   href="https://stackblitz.com/edit/angular-7u2dgm" >stackblitz project <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<p>If you are not already a paid member of Medium, <a class="link"   href="https://sunnysun-5694.medium.com/membership" >**you can do so by visiting this link <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**. You’ll get unlimited full access to every story on Medium. I’ll receive a portion of your membership fees as a referral.</p>
+<p>Happy Programming!</p>
+]]></content>
+      <tags>
+        <tag>Angular</tag>
+        <tag>Web API</tag>
+        <tag>Decorator</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TypeScript’s Record Type Explained</title>
+    <url>/2021/06/19/record-type-explained/</url>
+    <content><![CDATA[<h2 id="Everything-you-want-to-know-about-the-Record-utility-type"><a href="#Everything-you-want-to-know-about-the-Record-utility-type" class="headerlink" title="Everything you want to know about the Record utility type"></a>Everything you want to know about the Record utility type</h2><p>Record is one of the TypeScript utility types and has been available out of the box since version 2.1.</p>
+<p>I have to admit that I was a little confused when I read the official definition for the first time:</p>
+<blockquote>
+<p>“<strong>Record&lt;Keys,Type&gt;</strong><br>Constructs an object type whose property keys are Keys and whose property values are Type. This utility can be used to map the properties of a type to another type.” — <a class="link"   href="https://www.typescriptlang.org/docs/handbook/utility-types.html" >TypeScript’s documentation <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</blockquote>
+<p>At face value, it says the Record type creates an object type that has properties of type Keys with corresponding values of type Type. But a similar feature can be achieved by using an index signature, so why would we want to use a Record type? What makes it different or useful?</p>
+<h2 id="Record-Type-vs-Index-Signature"><a href="#Record-Type-vs-Index-Signature" class="headerlink" title="Record Type vs. Index Signature"></a>Record Type vs. Index Signature</h2><p>In TypeScript, we call the way of accessing an object property with square brackets an <em>index signature</em>. It is widely used for object types with unknown string keys and a specific value type. Here is an example:</p>
+<pre><code>type studentScore= &#123; [name: string]: number &#125;;
+</code></pre>
+<p>The index signature example above can be expressed by a Record type as well:</p>
+<pre><code>type studentScore = Record&lt;string, number&gt;;
+</code></pre>
+<p>For this use case, the two type declarations are equivalent from a type-asserting perspective. But from the syntax perspective, the index signature is better. In the index signature approach, the name key expresses the intent more clearly, and another advantage is that it is shown in VisualCode IntelliSense.</p>
+<p>Then why do we want to use a Record type?</p>
+<h3 id="Why-is-the-Record-type-useful"><a href="#Why-is-the-Record-type-useful" class="headerlink" title="Why is the Record type useful?"></a>Why is the Record type useful?</h3><p>The benefit of Record types are <strong>conciseness</strong>. It is particularly useful when we want to limit the properties of an object. For example, we can use a union of string literals to specify the allowable keys for the Record type, as shown below:</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2000/1*7LB7CK4k-ssUrOkyMMXdCQ.png"
+                     
+                ></p>
+<p>In this example, we define a type with a union type constraint. If we try to access a property that is not in the roles union type, the VS Code compiler won’t be happy. The compile time check is very useful when we maintain a complex type, as the compiler will prevent these sorts of mistakes from happening.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2000/1*uI2COsqHhbjksip9j8JADA.png"
+                     
+                ></p>
+<p>Another useful feature is that the keys can be enums as well. In the following example, we use the staffTypes enum as a restricted key of the Record type, so it is more readable. Please note that enums are only supported after TypeScript 2.9. As such, the type of key is restricted to string type before version 2.9.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2000/1*z7tzFyX5CRF9m_hy9P6Jpw.png"
+                     
+                ></p>
+<h2 id="Combining-the-Record-Type-With-keyof-Operator"><a href="#Combining-the-Record-Type-With-keyof-Operator" class="headerlink" title="Combining the Record Type With keyof Operator"></a>Combining the Record Type With keyof Operator</h2><p>keyof operator is a type operator, which can extract the object keys as a union type. By using keyof** **to get all properties from an existing type and combine it with a string value, we could do something like the following:</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2000/1*uEJNjd5OfX3wao0LSjEZTg.png"
+                     
+                ></p>
+<p>It is handy when you want to keep the properties of an existing type but transform the value type to others.</p>
+<h2 id="Advanced-Usage-Example"><a href="#Advanced-Usage-Example" class="headerlink" title="Advanced Usage Example"></a>Advanced Usage Example</h2><p>A Record type can be used together with other utility types for more advanced use cases. Here is an example:</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">type seniorRole = &#x27;manager&#x27;;</span><br><span class="line">type technicalRole = &#x27;developer&#x27;;</span><br><span class="line">const benefits:  Partial&lt;Record&lt;seniorRole, &#x27;Free Parking&#x27;&gt; &amp; Record&lt;technicalRole, &#x27;Free Coffee&#x27;&gt;&gt; = &#123;&#125;;</span><br><span class="line">benefits.manager = &#x27;Free Parking&#x27;;</span><br><span class="line">benefits.developer = &#x27;Free Parking&#x27;;//ERROR: no free parking for dev</span><br></pre></td></tr></table></figure></div>
+
+<p>With Record, Partial, and Intersection types working together, this code creates a strongly typed benefits object with an association between keys and value types. The strongly typed object makes it possible to catch the error at compile time. It also makes it possible for the IDE to flag errors while typing and provides IntelliSense with auto-completion.</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Record is a handy and concise utility type that can make your code more robust. It is especially useful when dealing with a dynamic data structure. The goal of Record type is the same as the other wonderful TypeScript features: <a class="link"   href="https://levelup.gitconnected.com/achieve-type-safety-with-typescript-magic-fef5ff939c98" >better type safety <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<p>If you like this article, you may also like to read <a class="link"   href="https://sunnysun-5694.medium.com/typescript-infer-keyword-explained-76f4a7208cb0" >another article about infer keyword <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<p><em>If you are not already a paid member of Medium, <a class="link"   href="https://sunnysun-5694.medium.com/membership" >**you can do so by visiting this link <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**. You’ll get unlimited full access to every story on Medium. I’ll receive a portion of your membership fees as a referral.</em></p>
+]]></content>
+      <tags>
+        <tag>TypeScript</tag>
+      </tags>
+  </entry>
 </search>

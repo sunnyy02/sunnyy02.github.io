@@ -9,18 +9,18 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/2021/07/14/why-i-choose-to-be-a-contract-programmer/"/>
+    <link rel="canonical" href="http://example.com/2021/06/19/record-type-explained/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Why I Choose To Be a Contract Programmer">
+    <meta property="og:title" content="TypeScript’s Record Type Explained">
     <meta property="og:description" content="Hexo Theme Redefine">
-    <meta property="og:url" content="http://example.com2021/07/14/why-i-choose-to-be-a-contract-programmer/">
+    <meta property="og:url" content="http://example.com2021/06/19/record-type-explained/">
     <meta property="og:image" content="/images/redefine-logo.svg">
     <meta property="og:site_name" content="Do What You Love">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Why I Choose To Be a Contract Programmer">
+    <meta name="twitter:title" content="TypeScript’s Record Type Explained">
     <meta name="twitter:description" content="Hexo Theme Redefine">
     <meta name="twitter:image" content="/images/redefine-logo.svg">
     <!--- Icon Part-->
@@ -31,7 +31,7 @@
     
     <title>
         
-            Why I Choose To Be a Contract Programmer -
+            TypeScript’s Record Type Explained -
         
         Do What You Love
     </title>
@@ -296,8 +296,8 @@
             
              
                 <div class="article-title">         
-                    <img src="https://miro.medium.com/v2/resize:fit:786/format:webp/1*0NoydDNcwj1yc85u5IDU5A.png" alt="Why I Choose To Be a Contract Programmer" />
-                    <h1 class="article-title-cover">Why I Choose To Be a Contract Programmer</h1>
+                    <img src="https://cdn-images-1.medium.com/max/2000/1*bdsUHbM2L34QcDz32SFsXQ.png" alt="TypeScript’s Record Type Explained" />
+                    <h1 class="article-title-cover">TypeScript’s Record Type Explained</h1>
                 </div>
             
                 
@@ -319,15 +319,15 @@
                             <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="pc">2021-07-14</span>
-        <span class="mobile">2021-07-14 00</span>
+        <span class="pc">2021-06-19</span>
+        <span class="mobile">2021-06-19 00</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="pc">2023-03-12 16:31:11</span>
-            <span class="mobile">2023-03-12 16:31</span>
+            <span class="pc">2023-03-14 21:24:38</span>
+            <span class="mobile">2023-03-14 21:24</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -339,7 +339,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/Programming/">Programming</a>&nbsp;
+                        <a href="/tags/TypeScript/">TypeScript</a>&nbsp;
                     </li>
                 
             </ul>
@@ -349,12 +349,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-file-word"></i>&nbsp;<span>1.2k Words</span>
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>734 Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>7 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>4 Mins</span>
         </span>
     
     
@@ -370,49 +370,55 @@
             
 
             <div class="article-content markdown-body">
-                <h2 id="A-comparison-between-contract-and-permanent-jobs-based-on-my-personal-experience"><a href="#A-comparison-between-contract-and-permanent-jobs-based-on-my-personal-experience" class="headerlink" title="A comparison between contract and permanent jobs based on my personal experience"></a>A comparison between contract and permanent jobs based on my personal experience</h2><p>I was a permanent employee once. At the time, being a contractor seemed daunting. When I thought about the contractor option, worries about job security stopped me from pursuing the idea further. However, after completing a successful project as the lead developer, I felt I no longer had room to grow. Leading a team of contractors, I knew they were paid double my salary. I decided to make a change. Soon, I landed a contract for a large government IT project.</p>
-<p>After working as an IT contractor for more than ten years, here are some of my observations:</p>
-<ul>
-<li><p>Working as a contractor, I actually stayed at the same company longer than in my permanent job. The longest contract I had was five-and-a-half years vs. my longest permanent job of four years. I also left the contract voluntarily looking for a new challenge.</p>
-</li>
-<li><p>Despite the insecure nature of a contract job, I have been fortunate to not have any gaps between contracts so far.</p>
-</li>
-<li><p>I worked more hours in my last permanent job vs my contract job.</p>
-</li>
-</ul>
-<p>Let’s look into the comparison of contract vs. permanent jobs in more detail.</p>
-<h2 id="Money"><a href="#Money" class="headerlink" title="Money"></a>Money</h2><p>Let’s talk about money. Please note that this only applies to software developers in Australia. Things may be different in other industries and countries.</p>
-<p>As an IT contractor, I earn more compared to a similar permanent role, and I can claim tax benefits.</p>
-<p>In Melbourne, the salary for a mid-level developer is roughly $90K or $75&#x2F;hour at a permanent job and $110K or $100&#x2F;hour for a contractor. However, the contract rate can’t be considered at face value only because it doesn’t have benefits like sick&#x2F;annual leave. Even after factoring in all these things, the contract wage is still substantially higher.</p>
+                <h2 id="Everything-you-want-to-know-about-the-Record-utility-type"><a href="#Everything-you-want-to-know-about-the-Record-utility-type" class="headerlink" title="Everything you want to know about the Record utility type"></a>Everything you want to know about the Record utility type</h2><p>Record is one of the TypeScript utility types and has been available out of the box since version 2.1.</p>
+<p>I have to admit that I was a little confused when I read the official definition for the first time:</p>
+<blockquote>
+<p>“<strong>Record&lt;Keys,Type&gt;</strong><br>Constructs an object type whose property keys are Keys and whose property values are Type. This utility can be used to map the properties of a type to another type.” — <a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/utility-types.html" >TypeScript’s documentation <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</blockquote>
+<p>At face value, it says the Record type creates an object type that has properties of type Keys with corresponding values of type Type. But a similar feature can be achieved by using an index signature, so why would we want to use a Record type? What makes it different or useful?</p>
+<h2 id="Record-Type-vs-Index-Signature"><a href="#Record-Type-vs-Index-Signature" class="headerlink" title="Record Type vs. Index Signature"></a>Record Type vs. Index Signature</h2><p>In TypeScript, we call the way of accessing an object property with square brackets an <em>index signature</em>. It is widely used for object types with unknown string keys and a specific value type. Here is an example:</p>
+<pre><code>type studentScore= &#123; [name: string]: number &#125;;
+</code></pre>
+<p>The index signature example above can be expressed by a Record type as well:</p>
+<pre><code>type studentScore = Record&lt;string, number&gt;;
+</code></pre>
+<p>For this use case, the two type declarations are equivalent from a type-asserting perspective. But from the syntax perspective, the index signature is better. In the index signature approach, the name key expresses the intent more clearly, and another advantage is that it is shown in VisualCode IntelliSense.</p>
+<p>Then why do we want to use a Record type?</p>
+<h3 id="Why-is-the-Record-type-useful"><a href="#Why-is-the-Record-type-useful" class="headerlink" title="Why is the Record type useful?"></a>Why is the Record type useful?</h3><p>The benefit of Record types are <strong>conciseness</strong>. It is particularly useful when we want to limit the properties of an object. For example, we can use a union of string literals to specify the allowable keys for the Record type, as shown below:</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://cdn-images-1.medium.com/max/2000/1*0dzdkPf88Oa2ypXBJa_d6A.png"
-                      alt="Source: Hudson Salary Guide 2019 Australia"
-                ><em>Source: Hudson Salary Guide 2019 Australia</em></p>
-<p>I am paid for overtime as a contractor. I didn’t have overtime pay in my last permanent role because “reasonable overtime is factored into your salary package.” My situation was probably different from yours, as I know most permanent jobs get overtime pay.</p>
-<p>I paid more taxes — much more. That motivated me to look for ways to invest my savings so I can pay less in taxes. Those investments have brought me comfortable cash flow and good capital gain in the last five years. Now I am mortgage-free and have savings for my kid’s education and an emergency fund.</p>
-<h2 id="I-Stopped-Worrying-About-Job-Security"><a href="#I-Stopped-Worrying-About-Job-Security" class="headerlink" title="I Stopped Worrying About Job Security"></a>I Stopped Worrying About Job Security</h2><p>A permanent job is meant to be stable and secure, but the job market is very different now. As a software developer, is there really such a thing as a permanent job anymore?</p>
-<p>Loyalty is dead these days for both the employee and employer. It’s simple supply and demand. If your company doesn’t need you anymore, you will be laid off.</p>
-<p>A permanent role can give you a false sense of security. Without a challenge and the motivation to keep learning, your skills will become outdated. A permanent role is also likely to narrow your scope to a specific area. Thus, your skill set will be limited.</p>
-<p>In the current dynamic environment, real job security is determined by your relevant and in-demand skills.</p>
-<p>As a contractor, I keep looking at what the job market demands and try to meet them by keeping my skills updated. Every contract switch is a chance to learn new skills, and every job interview is an opportunity to explore the job market. Picking up new skills quickly and hitting the ground running has become second nature to me.</p>
-<p>I’m not worried about job security now because I am confident in my skills.</p>
-<h2 id="No-or-Less-Office-Politics"><a href="#No-or-Less-Office-Politics" class="headerlink" title="No (or Less) Office Politics"></a>No (or Less) Office Politics</h2><p>When I was a permanent employee, the thing I hated the most was office politics.</p>
-<p>As a contractor, things are much simpler. Unlike in a permanent staff, a contract role is temporary. A contractor isn’t part of the permanent corporate hierarchy, so you’re not perceived as a “threat.”</p>
-<p>This simpler relationship (some call it a transactional relationship) makes it easier to work in a large hierarchical organization. I focus on how to get my job done, be part of the team, and keep a distance from internal politics. But sometimes in a long-term contract, you can still get caught in office politics.</p>
-<p>When things are difficult, I am still in a better position than the permanent staff because it’s much easier for me to switch to a new job.</p>
-<h2 id="Freedom-and-Flexibility"><a href="#Freedom-and-Flexibility" class="headerlink" title="Freedom and Flexibility"></a>Freedom and Flexibility</h2><p>As a contractor, I have choices.</p>
-<p>I feel lucky because skilled developers are in high demand. I apply only to the jobs that fit my career path and&#x2F;or use the technology stack I am interested in. Many times, the jobs requiring contractors are new projects needing new technologies or skill sets, and that suits me well.</p>
-<p>Another benefit is the flexibility to take a long break when my contract expires. With a bit of planning, I can take a long holiday in my dream destination or choose to work without taking any leave to make as much money as I can.</p>
-<h2 id="Overcome-Stress-and-Meet-Expectations"><a href="#Overcome-Stress-and-Meet-Expectations" class="headerlink" title="Overcome Stress and Meet Expectations"></a>Overcome Stress and Meet Expectations</h2><p>On the flip side, there are stressful times as a contractor.</p>
-<p>When I started my first contract, the worry was real. The fear of losing my job and the uncertainty of where to find the next contract was stressful. One of the symptoms of the insecurity was that I didn’t take a single day off in my first two years of contracting. That’s obviously not healthy. I learned to cope with the stress gradually by focusing on things that I can control. I keep learning and improving my skills, as well as building up my reputation and network. At the same time, I saved money and invested wisely to have a secure financial situation.</p>
-<p>Contracting is rewarding, but at the same time, the expectations for contractors are also high. We are paid to solve problems, to deliver on time and on budget. You need to prove yourself to be valuable and worth the paycheck. But when you deliver, you build your reputation and it can carry you forward.</p>
-<p>For a contractor, more disposable income also means you need the discipline to save and invest. Without discipline, you can easily spend all the extra cash and have no funds available for emergency situations.</p>
-<h2 id="Final-Thoughts"><a href="#Final-Thoughts" class="headerlink" title="Final Thoughts"></a>Final Thoughts</h2><p>If I could travel back in time, I would make the same choice. But I would be much less worried in the first couple of years and enjoy the ride more.</p>
-<p>Contracting isn’t for everyone, but with higher pay, less office politics, and more freedom, it’s definitely rewarding.</p>
-<p>At the end of the day, what matters is to have a job that you actually enjoy — regardless of if it’s a contract or permanent job. A job that gives you more fulfillment will make you happy.</p>
-<p>If you like this article, you may also like this one.<br><a target="_blank" rel="noopener" href="https://betterprogramming.pub/what-i-hate-about-code-review-66a86e2e3d3f"><strong>5 Things I Dislike the Most About Code Reviews</strong><br><em>Opinionated comments, double standards, and more</em>betterprogramming.pub</a></p>
+                     data-src="https://cdn-images-1.medium.com/max/2000/1*7LB7CK4k-ssUrOkyMMXdCQ.png"
+                     
+                ></p>
+<p>In this example, we define a type with a union type constraint. If we try to access a property that is not in the roles union type, the VS Code compiler won’t be happy. The compile time check is very useful when we maintain a complex type, as the compiler will prevent these sorts of mistakes from happening.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2000/1*uI2COsqHhbjksip9j8JADA.png"
+                     
+                ></p>
+<p>Another useful feature is that the keys can be enums as well. In the following example, we use the staffTypes enum as a restricted key of the Record type, so it is more readable. Please note that enums are only supported after TypeScript 2.9. As such, the type of key is restricted to string type before version 2.9.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2000/1*z7tzFyX5CRF9m_hy9P6Jpw.png"
+                     
+                ></p>
+<h2 id="Combining-the-Record-Type-With-keyof-Operator"><a href="#Combining-the-Record-Type-With-keyof-Operator" class="headerlink" title="Combining the Record Type With keyof Operator"></a>Combining the Record Type With keyof Operator</h2><p>keyof operator is a type operator, which can extract the object keys as a union type. By using keyof** **to get all properties from an existing type and combine it with a string value, we could do something like the following:</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2000/1*uEJNjd5OfX3wao0LSjEZTg.png"
+                     
+                ></p>
+<p>It is handy when you want to keep the properties of an existing type but transform the value type to others.</p>
+<h2 id="Advanced-Usage-Example"><a href="#Advanced-Usage-Example" class="headerlink" title="Advanced Usage Example"></a>Advanced Usage Example</h2><p>A Record type can be used together with other utility types for more advanced use cases. Here is an example:</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type seniorRole = &#x27;manager&#x27;;</span><br><span class="line">type technicalRole = &#x27;developer&#x27;;</span><br><span class="line">const benefits:  Partial&lt;Record&lt;seniorRole, &#x27;Free Parking&#x27;&gt; &amp; Record&lt;technicalRole, &#x27;Free Coffee&#x27;&gt;&gt; = &#123;&#125;;</span><br><span class="line">benefits.manager = &#x27;Free Parking&#x27;;</span><br><span class="line">benefits.developer = &#x27;Free Parking&#x27;;//ERROR: no free parking for dev</span><br></pre></td></tr></table></figure></div>
+
+<p>With Record, Partial, and Intersection types working together, this code creates a strongly typed benefits object with an association between keys and value types. The strongly typed object makes it possible to catch the error at compile time. It also makes it possible for the IDE to flag errors while typing and provides IntelliSense with auto-completion.</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Record is a handy and concise utility type that can make your code more robust. It is especially useful when dealing with a dynamic data structure. The goal of Record type is the same as the other wonderful TypeScript features: <a class="link"   target="_blank" rel="noopener" href="https://levelup.gitconnected.com/achieve-type-safety-with-typescript-magic-fef5ff939c98" >better type safety <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<p>If you like this article, you may also like to read <a class="link"   target="_blank" rel="noopener" href="https://sunnysun-5694.medium.com/typescript-infer-keyword-explained-76f4a7208cb0" >another article about infer keyword <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
 <p><em>If you are not already a paid member of Medium, <a class="link"   target="_blank" rel="noopener" href="https://sunnysun-5694.medium.com/membership" >**you can do so by visiting this link <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**. You’ll get unlimited full access to every story on Medium. I’ll receive a portion of your membership fees as a referral.</em></p>
 
             </div>
@@ -423,7 +429,7 @@
                 <ul class="post-tags-box">
                     
                         <li class="tag-item">
-                            <a href="/tags/Programming/">#Programming</a>&nbsp;
+                            <a href="/tags/TypeScript/">#TypeScript</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -437,13 +443,13 @@
                         <div class="article-prev">
                             <a class="prev"
                             rel="prev"
-                            href="/2021/07/25/how-to-share-constannts/"
+                            href="/2021/07/14/why-i-choose-to-be-a-contract-programmer/"
                             >
                                 <span class="left arrow-icon flex-center">
                                     <i class="fa-solid fa-chevron-left"></i>
                                 </span>
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">How to Share Constants in Typescript Project</span>
+                                    <span class="post-nav-title-item">Why I Choose To Be a Contract Programmer</span>
                                     <span class="post-nav-item">Prev posts</span>
                                 </span>
                             </a>
@@ -453,10 +459,10 @@
                         <div class="article-next">
                             <a class="next"
                             rel="next"
-                            href="/2021/06/19/record-type-explained/"
+                            href="/2020/10/05/deep-clone-an-object-and-preserve-its-type-with-typescript/"
                             >
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">TypeScript’s Record Type Explained</span>
+                                    <span class="post-nav-title-item">Deep clone an Object and preserve its type with TypeScript</span>
                                     <span class="post-nav-item">Next posts</span>
                                 </span>
                                 <span class="right arrow-icon flex-center">
@@ -477,8 +483,8 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">Why I Choose To Be a Contract Programmer</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#A-comparison-between-contract-and-permanent-jobs-based-on-my-personal-experience"><span class="nav-text">A comparison between contract and permanent jobs based on my personal experience</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Money"><span class="nav-text">Money</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#I-Stopped-Worrying-About-Job-Security"><span class="nav-text">I Stopped Worrying About Job Security</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#No-or-Less-Office-Politics"><span class="nav-text">No (or Less) Office Politics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Freedom-and-Flexibility"><span class="nav-text">Freedom and Flexibility</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Overcome-Stress-and-Meet-Expectations"><span class="nav-text">Overcome Stress and Meet Expectations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Final-Thoughts"><span class="nav-text">Final Thoughts</span></a></li></ol>
+        <div class="page-title">TypeScript’s Record Type Explained</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Everything-you-want-to-know-about-the-Record-utility-type"><span class="nav-text">Everything you want to know about the Record utility type</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Record-Type-vs-Index-Signature"><span class="nav-text">Record Type vs. Index Signature</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-is-the-Record-type-useful"><span class="nav-text">Why is the Record type useful?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Combining-the-Record-Type-With-keyof-Operator"><span class="nav-text">Combining the Record Type With keyof Operator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Advanced-Usage-Example"><span class="nav-text">Advanced Usage Example</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a></li></ol>
 
     </div>
 </div>

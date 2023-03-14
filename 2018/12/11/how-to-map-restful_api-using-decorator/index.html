@@ -9,18 +9,18 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/2021/07/14/why-i-choose-to-be-a-contract-programmer/"/>
+    <link rel="canonical" href="http://example.com/2018/12/11/how-to-map-restful_api-using-decorator/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Why I Choose To Be a Contract Programmer">
+    <meta property="og:title" content="How to map REST API data using Decorator pattern in Angular 6">
     <meta property="og:description" content="Hexo Theme Redefine">
-    <meta property="og:url" content="http://example.com2021/07/14/why-i-choose-to-be-a-contract-programmer/">
+    <meta property="og:url" content="http://example.com2018/12/11/how-to-map-restful_api-using-decorator/">
     <meta property="og:image" content="/images/redefine-logo.svg">
     <meta property="og:site_name" content="Do What You Love">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Why I Choose To Be a Contract Programmer">
+    <meta name="twitter:title" content="How to map REST API data using Decorator pattern in Angular 6">
     <meta name="twitter:description" content="Hexo Theme Redefine">
     <meta name="twitter:image" content="/images/redefine-logo.svg">
     <!--- Icon Part-->
@@ -31,7 +31,7 @@
     
     <title>
         
-            Why I Choose To Be a Contract Programmer -
+            How to map REST API data using Decorator pattern in Angular 6 -
         
         Do What You Love
     </title>
@@ -296,8 +296,8 @@
             
              
                 <div class="article-title">         
-                    <img src="https://miro.medium.com/v2/resize:fit:786/format:webp/1*0NoydDNcwj1yc85u5IDU5A.png" alt="Why I Choose To Be a Contract Programmer" />
-                    <h1 class="article-title-cover">Why I Choose To Be a Contract Programmer</h1>
+                    <img src="https://cdn-images-1.medium.com/max/10944/1*9YGR9yH8hAekhD99J9BPrg.jpeg" alt="How to map REST API data using Decorator pattern in Angular 6" />
+                    <h1 class="article-title-cover">How to map REST API data using Decorator pattern in Angular 6</h1>
                 </div>
             
                 
@@ -319,15 +319,15 @@
                             <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="pc">2021-07-14</span>
-        <span class="mobile">2021-07-14 00</span>
+        <span class="pc">2018-12-11</span>
+        <span class="mobile">2018-12-11 00</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="pc">2023-03-12 16:31:11</span>
-            <span class="mobile">2023-03-12 16:31</span>
+            <span class="pc">2023-03-14 21:19:51</span>
+            <span class="mobile">2023-03-14 21:19</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -339,7 +339,15 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/Programming/">Programming</a>&nbsp;
+                        <a href="/tags/Angular/">Angular</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Web-API/">Web API</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Decorator/">Decorator</a>&nbsp;
                     </li>
                 
             </ul>
@@ -349,12 +357,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-file-word"></i>&nbsp;<span>1.2k Words</span>
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>1.1k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>7 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>6 Mins</span>
         </span>
     
     
@@ -370,50 +378,122 @@
             
 
             <div class="article-content markdown-body">
-                <h2 id="A-comparison-between-contract-and-permanent-jobs-based-on-my-personal-experience"><a href="#A-comparison-between-contract-and-permanent-jobs-based-on-my-personal-experience" class="headerlink" title="A comparison between contract and permanent jobs based on my personal experience"></a>A comparison between contract and permanent jobs based on my personal experience</h2><p>I was a permanent employee once. At the time, being a contractor seemed daunting. When I thought about the contractor option, worries about job security stopped me from pursuing the idea further. However, after completing a successful project as the lead developer, I felt I no longer had room to grow. Leading a team of contractors, I knew they were paid double my salary. I decided to make a change. Soon, I landed a contract for a large government IT project.</p>
-<p>After working as an IT contractor for more than ten years, here are some of my observations:</p>
-<ul>
-<li><p>Working as a contractor, I actually stayed at the same company longer than in my permanent job. The longest contract I had was five-and-a-half years vs. my longest permanent job of four years. I also left the contract voluntarily looking for a new challenge.</p>
+                <h2 id="A-cleaner-loosely-coupled-and-more-maintainable-solution"><a href="#A-cleaner-loosely-coupled-and-more-maintainable-solution" class="headerlink" title="A cleaner, loosely coupled, and more maintainable solution"></a>A cleaner, loosely coupled, and more maintainable solution</h2><p>To build a solid RESTful API, there are <a class="link"   target="_blank" rel="noopener" href="https://medium.com/p/d3c752debd88" >well-established best practices and design patterns <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> we can use. In this article, I will talk about how to use the Decorator pattern to consume RESTful API in Angular.</p>
+<h3 id="HttpClient-Service"><a href="#HttpClient-Service" class="headerlink" title="HttpClient Service"></a>HttpClient Service</h3><p>To consume a REST API in Angular, we can use HttpClient . HttpClient Service handles the JSON data parsing under the cover and returns an Rxjs observable. It also supports generic typing functionality. For example, in the code snippet below, getAllTodos will return an observable with an array of objects that match the type TodoModel.</p>
+<pre><code>constructor(private http: HttpClient) &#123;&#125;
+
+getAllTodos(): Observable&lt;TodoModel[]&gt; &#123;
+       return this.http.get&lt;TodoModel[]&gt;(this.url);
+&#125;
+</code></pre>
+<p>It is straightforward to make use of HttpClient to call the REST API and get the data to bind to the view.</p>
+<h3 id="The-Problem"><a href="#The-Problem" class="headerlink" title="The Problem"></a>The Problem</h3><p>All seems good so far, but problems start to arise when the back end changes. Let’s say we have the TodoModel as below.</p>
+<pre><code>export class TodoModel&#123;
+  public name: string;
+  public id: number,
+  public completed: boolean,
+&#125;
+</code></pre>
+<p>Two changes are required</p>
+<ol>
+<li><p>We want to display a text description of “completed” when the value is true and display “pending” if the value is false.</p>
 </li>
-<li><p>Despite the insecure nature of a contract job, I have been fortunate to not have any gaps between contracts so far.</p>
+<li><p>The field name is changed from “name” to “title”.</p>
 </li>
-<li><p>I worked more hours in my last permanent job vs my contract job.</p>
-</li>
-</ul>
-<p>Let’s look into the comparison of contract vs. permanent jobs in more detail.</p>
-<h2 id="Money"><a href="#Money" class="headerlink" title="Money"></a>Money</h2><p>Let’s talk about money. Please note that this only applies to software developers in Australia. Things may be different in other industries and countries.</p>
-<p>As an IT contractor, I earn more compared to a similar permanent role, and I can claim tax benefits.</p>
-<p>In Melbourne, the salary for a mid-level developer is roughly $90K or $75&#x2F;hour at a permanent job and $110K or $100&#x2F;hour for a contractor. However, the contract rate can’t be considered at face value only because it doesn’t have benefits like sick&#x2F;annual leave. Even after factoring in all these things, the contract wage is still substantially higher.</p>
+</ol>
+<p>The quick way to meet the requirements is to change the model.</p>
+<pre><code>export class TodoModel&#123;
+  public title: string;
+  public id: number,
+  public completed: string,
+&#125;
+</code></pre>
+<p>Then change the todo service to map the completed field.</p>
+<pre><code>getAllTodos(): Observable&lt;TodoModel[]&gt; &#123;
+   return this.http.get(this.url).pipe(
+      map((data: any[]) =&gt; data.map((item: any) =&gt; &#123;
+          const model = new TodoModel();
+          Object.assign(model, item);
+          if(item.completed)&#123;
+              model.completed = &#39;completed&#39;;
+           &#125;else&#123;
+              model.completed = &#39;pending&#39;;
+           &#125;
+          return model;
+       &#125;))
+       );
+&#125;
+</code></pre>
+<p>In the end, we also need to change the binding at the view to “title” instead of “name”.</p>
+<p>It works, but not ideal.</p>
+<p>Firstly, it is a simple change: rename one field in the backend. But this simple change requires updating the service, domain model, and view, it is an indication of bad design. Secondly, we may need to repeat the explicit mapping of data to every method that needs to retrieve TodoModel from the back end, which will pollute the code in the long term.</p>
+<h3 id="Decorator-Pattern"><a href="#Decorator-Pattern" class="headerlink" title="Decorator Pattern"></a>Decorator Pattern</h3><p>One way to avoid the above problem is to use the Decorator pattern.</p>
+<blockquote>
+<p>Decorator pattern allows you to change the behavior of an object, without changing the original object. This is done by wrapping the original object with a decorator that implements the same interface but adds behavior and&#x2F;or modifies input and output.</p>
+</blockquote>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://cdn-images-1.medium.com/max/2000/1*0dzdkPf88Oa2ypXBJa_d6A.png"
-                      alt="Source: Hudson Salary Guide 2019 Australia"
-                ><em>Source: Hudson Salary Guide 2019 Australia</em></p>
-<p>I am paid for overtime as a contractor. I didn’t have overtime pay in my last permanent role because “reasonable overtime is factored into your salary package.” My situation was probably different from yours, as I know most permanent jobs get overtime pay.</p>
-<p>I paid more taxes — much more. That motivated me to look for ways to invest my savings so I can pay less in taxes. Those investments have brought me comfortable cash flow and good capital gain in the last five years. Now I am mortgage-free and have savings for my kid’s education and an emergency fund.</p>
-<h2 id="I-Stopped-Worrying-About-Job-Security"><a href="#I-Stopped-Worrying-About-Job-Security" class="headerlink" title="I Stopped Worrying About Job Security"></a>I Stopped Worrying About Job Security</h2><p>A permanent job is meant to be stable and secure, but the job market is very different now. As a software developer, is there really such a thing as a permanent job anymore?</p>
-<p>Loyalty is dead these days for both the employee and employer. It’s simple supply and demand. If your company doesn’t need you anymore, you will be laid off.</p>
-<p>A permanent role can give you a false sense of security. Without a challenge and the motivation to keep learning, your skills will become outdated. A permanent role is also likely to narrow your scope to a specific area. Thus, your skill set will be limited.</p>
-<p>In the current dynamic environment, real job security is determined by your relevant and in-demand skills.</p>
-<p>As a contractor, I keep looking at what the job market demands and try to meet them by keeping my skills updated. Every contract switch is a chance to learn new skills, and every job interview is an opportunity to explore the job market. Picking up new skills quickly and hitting the ground running has become second nature to me.</p>
-<p>I’m not worried about job security now because I am confident in my skills.</p>
-<h2 id="No-or-Less-Office-Politics"><a href="#No-or-Less-Office-Politics" class="headerlink" title="No (or Less) Office Politics"></a>No (or Less) Office Politics</h2><p>When I was a permanent employee, the thing I hated the most was office politics.</p>
-<p>As a contractor, things are much simpler. Unlike in a permanent staff, a contract role is temporary. A contractor isn’t part of the permanent corporate hierarchy, so you’re not perceived as a “threat.”</p>
-<p>This simpler relationship (some call it a transactional relationship) makes it easier to work in a large hierarchical organization. I focus on how to get my job done, be part of the team, and keep a distance from internal politics. But sometimes in a long-term contract, you can still get caught in office politics.</p>
-<p>When things are difficult, I am still in a better position than the permanent staff because it’s much easier for me to switch to a new job.</p>
-<h2 id="Freedom-and-Flexibility"><a href="#Freedom-and-Flexibility" class="headerlink" title="Freedom and Flexibility"></a>Freedom and Flexibility</h2><p>As a contractor, I have choices.</p>
-<p>I feel lucky because skilled developers are in high demand. I apply only to the jobs that fit my career path and&#x2F;or use the technology stack I am interested in. Many times, the jobs requiring contractors are new projects needing new technologies or skill sets, and that suits me well.</p>
-<p>Another benefit is the flexibility to take a long break when my contract expires. With a bit of planning, I can take a long holiday in my dream destination or choose to work without taking any leave to make as much money as I can.</p>
-<h2 id="Overcome-Stress-and-Meet-Expectations"><a href="#Overcome-Stress-and-Meet-Expectations" class="headerlink" title="Overcome Stress and Meet Expectations"></a>Overcome Stress and Meet Expectations</h2><p>On the flip side, there are stressful times as a contractor.</p>
-<p>When I started my first contract, the worry was real. The fear of losing my job and the uncertainty of where to find the next contract was stressful. One of the symptoms of the insecurity was that I didn’t take a single day off in my first two years of contracting. That’s obviously not healthy. I learned to cope with the stress gradually by focusing on things that I can control. I keep learning and improving my skills, as well as building up my reputation and network. At the same time, I saved money and invested wisely to have a secure financial situation.</p>
-<p>Contracting is rewarding, but at the same time, the expectations for contractors are also high. We are paid to solve problems, to deliver on time and on budget. You need to prove yourself to be valuable and worth the paycheck. But when you deliver, you build your reputation and it can carry you forward.</p>
-<p>For a contractor, more disposable income also means you need the discipline to save and invest. Without discipline, you can easily spend all the extra cash and have no funds available for emergency situations.</p>
-<h2 id="Final-Thoughts"><a href="#Final-Thoughts" class="headerlink" title="Final Thoughts"></a>Final Thoughts</h2><p>If I could travel back in time, I would make the same choice. But I would be much less worried in the first couple of years and enjoy the ride more.</p>
-<p>Contracting isn’t for everyone, but with higher pay, less office politics, and more freedom, it’s definitely rewarding.</p>
-<p>At the end of the day, what matters is to have a job that you actually enjoy — regardless of if it’s a contract or permanent job. A job that gives you more fulfillment will make you happy.</p>
-<p>If you like this article, you may also like this one.<br><a target="_blank" rel="noopener" href="https://betterprogramming.pub/what-i-hate-about-code-review-66a86e2e3d3f"><strong>5 Things I Dislike the Most About Code Reviews</strong><br><em>Opinionated comments, double standards, and more</em>betterprogramming.pub</a></p>
-<p><em>If you are not already a paid member of Medium, <a class="link"   target="_blank" rel="noopener" href="https://sunnysun-5694.medium.com/membership" >**you can do so by visiting this link <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**. You’ll get unlimited full access to every story on Medium. I’ll receive a portion of your membership fees as a referral.</em></p>
+                     data-src="https://cdn-images-1.medium.com/max/2000/0*bkJlSQut_Vhfgqan.png"
+                     
+                ></p>
+<p>As the diagram illustrates, for the Decorator Pattern, we are not using inheritance to add functionality. Instead, we use composition. It is a more loose coupled pattern.</p>
+<p>In Typescript, the decorator is simply a function and will be called at run time. Different types of Decorators can be applied to different levels like Class Decorator, Method Decorator, or Property Decorator.</p>
+<p>Here, we use a custom Property Decorator to handle the REST API Data mapping.</p>
+<h3 id="StatusConverter-Decorator"><a href="#StatusConverter-Decorator" class="headerlink" title="StatusConverter Decorator"></a>StatusConverter Decorator</h3><p>Here is how we use the “statusConverter” decorator to handle transforming the “complete” status from Boolean to string.</p>
+<p>A property decorator takes two arguments:</p>
+<ul>
+<li><p><strong>target</strong>: the prototype of the class</p>
+</li>
+<li><p><strong>key</strong>: the name of the property</p>
+</li>
+</ul>
+<p>The below decorator function contains a getter and setter accessors, so we can manipulate the property value as required.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">export function statusConverter(target: any, key: string)</span><br><span class="line">&#123;</span><br><span class="line">    var value;</span><br><span class="line">    if (delete target[key]) &#123;</span><br><span class="line">        Object.defineProperty(target, key, &#123;</span><br><span class="line">        get: function() &#123;</span><br><span class="line">                if (this.value)</span><br><span class="line">                &#123;</span><br><span class="line">                    return &#x27;Completed&#x27;;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    return &#x27;Pending&#x27;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">      set: function(v) &#123; this.value = v; &#125;,</span><br><span class="line">      enumerable: true,</span><br><span class="line">      configurable: true</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>A property decorator is declared just before a property decoration.</p>
+<pre><code>@statusConverter
+public completed: string;
+</code></pre>
+<p>That is it, no need to manually set the property value in the service code, and We can apply the same decorator everywhere when necessary.</p>
+<p>In this case, the use of the statusConverter decorator is very limited, it only converts the true value to “Completed” and the false to “Pending”. However, it is for illustration only, there is no limitation on how the data can be transformed.</p>
+<h3 id="PropertyMap-Decorator"><a href="#PropertyMap-Decorator" class="headerlink" title="PropertyMap Decorator"></a>PropertyMap Decorator</h3><p>To handle the case of backend data field renaming, we created the PropertyMap decorator and ModelMapper utility class.</p>
+<p>The PropertyMap decorator provides a way to store the meta-data.</p>
+<iframe src="https://medium.com/media/c0f98a12da24036a646cfdf13fd122b1" frameborder=0></iframe>
+
+<p>To consume the metadata, ModelMapper class is added.</p>
+<iframe src="https://medium.com/media/989af8e2d89bc0e56ac846df6abeb17d" frameborder=0></iframe>
+
+<p>Now we have a ModelMapper class that can take any type, extract the predefined metadata, and performs data transformation.</p>
+<p>To use the decorator</p>
+<pre><code>@propertyMap(&#39;title&#39;)
+public name: string;
+</code></pre>
+<p>The updated service looks like the one below.</p>
+<pre><code>return this.http.get&lt;TodoModel[]&gt;(this.url).pipe(
+   map(data =&gt; data.map((item: any) =&gt; &#123;
+      return new ModelMapper(TodoModel).map(item);
+&#125;)));
+</code></pre>
+<h3 id="Further-refactoring"><a href="#Further-refactoring" class="headerlink" title="Further refactoring"></a>Further refactoring</h3><p>After we start to make use of the ModelMapper for the services, we will soon find that the code is duplicated in every service. Thus we can extract the modelMapper to a generic API Service class as the code snippet below.</p>
+<pre><code>// api.service.ts
+public get&lt;T&gt;(url: string, itemType: any): Observable&lt;T&gt; &#123;
+   return this.http.get&lt;T&gt;(this.url).pipe(
+       map(data =&gt; data.map((item: any) =&gt; &#123;
+       return new ModelMapper(itemType).map(item);
+   &#125;)));
+&#125;
+
+//todo.service.ts
+return this.api.get&lt;TodoModel[]&gt;(this.url, TodoModel);
+</code></pre>
+<h3 id="Benefits"><a href="#Benefits" class="headerlink" title="Benefits"></a>Benefits</h3><p>With the above decorators, when the back-end data field is renamed or changed, there is no need to change the service code. The only change required is to update the PropertyMap decorator meta-data argument in the model class.</p>
+<p>No matter how many services consume the TodoModel API, only a single change is required to apply it to all services.</p>
+<p>The code also becomes more readable as the name of the decorator shows the intent of the function clearly.</p>
+<h3 id="Be-declarative"><a href="#Be-declarative" class="headerlink" title="Be declarative"></a>Be declarative</h3><p>Using the Decorator pattern is a practice of declarative programming, it focuses on how the components&#x2F;services want to behave instead of how to accomplish the result. The declarative approach helps developers to produce a cleaner, loosely coupled, and more maintainable code base.</p>
+<p>The full demo code is available at this <a class="link"   target="_blank" rel="noopener" href="https://stackblitz.com/edit/angular-7u2dgm" >stackblitz project <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<p>If you are not already a paid member of Medium, <a class="link"   target="_blank" rel="noopener" href="https://sunnysun-5694.medium.com/membership" >**you can do so by visiting this link <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**. You’ll get unlimited full access to every story on Medium. I’ll receive a portion of your membership fees as a referral.</p>
+<p>Happy Programming!</p>
 
             </div>
 
@@ -423,7 +503,15 @@
                 <ul class="post-tags-box">
                     
                         <li class="tag-item">
-                            <a href="/tags/Programming/">#Programming</a>&nbsp;
+                            <a href="/tags/Angular/">#Angular</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Web-API/">#Web API</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Decorator/">#Decorator</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -437,33 +525,18 @@
                         <div class="article-prev">
                             <a class="prev"
                             rel="prev"
-                            href="/2021/07/25/how-to-share-constannts/"
+                            href="/2019/10/05/integrate-with-dynamics-crm-online-using-web-api/"
                             >
                                 <span class="left arrow-icon flex-center">
                                     <i class="fa-solid fa-chevron-left"></i>
                                 </span>
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">How to Share Constants in Typescript Project</span>
+                                    <span class="post-nav-title-item">Integrate with Dynamics CRM Online using Web API</span>
                                     <span class="post-nav-item">Prev posts</span>
                                 </span>
                             </a>
                         </div>
                     
-                    
-                        <div class="article-next">
-                            <a class="next"
-                            rel="next"
-                            href="/2021/06/19/record-type-explained/"
-                            >
-                                <span class="title flex-center">
-                                    <span class="post-nav-title-item">TypeScript’s Record Type Explained</span>
-                                    <span class="post-nav-item">Next posts</span>
-                                </span>
-                                <span class="right arrow-icon flex-center">
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                </span>
-                            </a>
-                        </div>
                     
                 </div>
             
@@ -477,8 +550,8 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">Why I Choose To Be a Contract Programmer</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#A-comparison-between-contract-and-permanent-jobs-based-on-my-personal-experience"><span class="nav-text">A comparison between contract and permanent jobs based on my personal experience</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Money"><span class="nav-text">Money</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#I-Stopped-Worrying-About-Job-Security"><span class="nav-text">I Stopped Worrying About Job Security</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#No-or-Less-Office-Politics"><span class="nav-text">No (or Less) Office Politics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Freedom-and-Flexibility"><span class="nav-text">Freedom and Flexibility</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Overcome-Stress-and-Meet-Expectations"><span class="nav-text">Overcome Stress and Meet Expectations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Final-Thoughts"><span class="nav-text">Final Thoughts</span></a></li></ol>
+        <div class="page-title">How to map REST API data using Decorator pattern in Angular 6</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#A-cleaner-loosely-coupled-and-more-maintainable-solution"><span class="nav-text">A cleaner, loosely coupled, and more maintainable solution</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HttpClient-Service"><span class="nav-text">HttpClient Service</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Problem"><span class="nav-text">The Problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Decorator-Pattern"><span class="nav-text">Decorator Pattern</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StatusConverter-Decorator"><span class="nav-text">StatusConverter Decorator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PropertyMap-Decorator"><span class="nav-text">PropertyMap Decorator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Further-refactoring"><span class="nav-text">Further refactoring</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Benefits"><span class="nav-text">Benefits</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Be-declarative"><span class="nav-text">Be declarative</span></a></li></ol></li></ol>
 
     </div>
 </div>
