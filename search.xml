@@ -2609,4 +2609,122 @@ return this.api.get&lt;TodoModel[]&gt;(this.url, TodoModel);
         <tag>TypeScript</tag>
       </tags>
   </entry>
+  <entry>
+    <title>TypeScript Index Signature Explained</title>
+    <url>/2024/02/01/typescript-index-signature-explained/</url>
+    <content><![CDATA[<h1 id="TypeScript-Index-Signature-Explained"><a href="#TypeScript-Index-Signature-Explained" class="headerlink" title="TypeScript Index Signature Explained"></a>TypeScript Index Signature Explained</h1><p>Demystifying TypeScript Index Signatures for Enhanced Code Flexibility</p>
+<p><img src="https://cdn-images-1.medium.com/max/4976/1*U1VoIpghZrD4mkPg7MfZJw.png" alt="Photo by [Maksym Kaharlytskyi](https://unsplash.com/@qwitka?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/file-cabinet-Q9y3LRuuxmg?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash)"><em>Photo by <a class="link"   href="https://unsplash.com/@qwitka?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" >Maksym Kaharlytskyi <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> on <a class="link"   href="https://unsplash.com/photos/file-cabinet-Q9y3LRuuxmg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" >Unsplash <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></em></p>
+<p>Index signatures in TypeScript provide a way to define a dynamic data structure when the properties of an object aren’t known beforehand, but the types of properties are known. They allow for dynamic property access and are particularly useful when working with objects with a variable set of keys.</p>
+<p>This post will delve into the index signature, how to use it, and when to use it in TypeScript.</p>
+<h3 id="What-is-the-index-signature"><a href="#What-is-the-index-signature" class="headerlink" title="What is the index signature?"></a>What is the index signature?</h3><p>An index signature is defined using square brackets [] and the type for keys, followed by a colon and the type for corresponding values. It enables TypeScript to understand and enforce the expected structure of the object.</p>
+<pre><code>interface MyStats &#123;
+  [key: string]: number;
+&#125;
+const scores: MyStats = &#123;
+  total: 50,
+  average:80
+&#125;
+// index siganture enforce the type constraint
+// here, the value must be a number
+const scores2: MyStats = &#123;
+  total: &quot;50&quot;, //Type &#39;string&#39; is not assignable to type &#39;number&#39;.(2322)
+  average:80
+&#125;
+</code></pre>
+<p>In this example, MyStats can have any string keys, and the values associated with those keys must be of type number.</p>
+<p>The syntax for index signatures involves using the [] notation within the interface or type declaration. The below example shows the same index signature for interface and type.</p>
+<pre><code>interface Car &#123;
+  [key: string]: boolean;
+&#125;
+
+type CarType = &#123;
+  [key: string]: boolean;
+&#125;
+</code></pre>
+<p>Note that index signatures can use different key types, such as string, number, symbol or literal typeand the associated value type can be any valid TypeScript type.</p>
+<h3 id="Mixing-an-index-signature-with-explicit-members"><a href="#Mixing-an-index-signature-with-explicit-members" class="headerlink" title="Mixing an index signature with explicit members"></a>Mixing an index signature with explicit members</h3><p>In TypeScript, we can mix an index signature with explicit member declarations. It is helpful for cases requiring a combination of known and dynamic properties.</p>
+<pre><code>interface CarConfiguration &#123;
+  [feature: string]: number;
+  price: number;
+&#125;
+</code></pre>
+<p>When we mix the index signature with explicit members, all explicit members need to conform to the index signature types.<br>    &#x2F;&#x2F; invalid case<br>    interface CarConfiguration {<br>      [feature: string]: number;<br>      price: number;<br>      model: string; &#x2F;&#x2F; Error: Property ‘model’ of type ‘string’ is not assignable to ‘string’ index type ‘number’<br>    }</p>
+<pre><code>// valid
+interface CarConfiguration &#123;
+  [feature: string]: number | string;
+  price: number;
+  model: string;
+&#125;
+</code></pre>
+<h3 id="Readonly-index-signature"><a href="#Readonly-index-signature" class="headerlink" title="Readonly index signature"></a>Readonly index signature</h3><p>Index signature supports readonly modifier. By applying the readonly modifier, the properties in the object will be immutable.<br>    interface Car {<br>      readonly [key: string]: boolean;<br>    }</p>
+<pre><code>const toyota: Car = &#123;hybrid: true, luxury: false&#125;;
+toyota.hybrid = false; //Error: Index signature in type &#39;Car&#39; only permits reading.(2542)
+</code></pre>
+<p>In the above example, an error occurs when trying to modify the ‘hybrid’ property because the interface allows only reading, not writing.</p>
+<h3 id="How-to-use-index-signature"><a href="#How-to-use-index-signature" class="headerlink" title="How to use index signature"></a>How to use index signature</h3><p>Let’s see a real-world example of how index signatures can be used. Imagine we’re developing a web application with various features. Each feature includes its own set of settings. We are also able to enable or disable these features.<br>    interface FeatureConfig {<br>      [feature: string]: {<br>        enabled: boolean;<br>        settings: Record&lt;string, boolean&gt;;<br>      }<br>    }<br>In this example, we define an interface named FeatureConfig. It uses an index signature to allow dynamic property names of type string associated with anenabled boolean property and a settings object. It is handy for representing configurations with dynamic feature names and associated settings. For example, we can apply the interface to the following object.</p>
+<pre><code>const features: FeatureConfig = &#123;
+  profile: &#123;
+    enabled: true,
+    settings: &#123;
+      showPhoto: true,
+      allowEdit: false,
+    &#125;,
+  &#125;,
+  notification: &#123;
+    enabled: false,
+    settings: &#123;
+      richText: true,
+      batchMode: true
+    &#125;,
+  &#125;
+&#125;;
+</code></pre>
+<p>In the features object, the feature names can vary, but the structure for each feature remains consistent. Each feature is expected to have an enabled boolean and a settings object.   </p>
+<p>To improve the type safety, can we apply a union-type constraint to the feature name in the above interface?</p>
+<p>If the set of features in our application is known, we can define the union of string literals namedFeatureType.<br>    type FeatureType &#x3D; ‘profile’ | ‘notification’ | ‘reporting’;  </p>
+<p>The key of the index signature does not support the union type, but we can work around it using a mapped type.</p>
+<pre><code>type FeatureConfig2 = &#123;
+  [feature in FeatureType]: &#123;
+    enabled: boolean;
+    settings: Record&lt;string, boolean&gt;;
+  &#125;
+&#125;
+</code></pre>
+<p>[feature in FeatureType]is a mapped type that iterates over each string literal in the union type FeatureType (which includes ‘profile’, ‘notification’, and ‘reporting’), and it uses each value as the resulting type’s property name.</p>
+<p>Here’s an example of how we might use it:<br>    const allFeatures: FeatureConfig2 &#x3D; {<br>      profile: {<br>        enabled: true,<br>        settings: {<br>          showPhoto: true,<br>          allowEdit: false,<br>        },<br>      },<br>      notification: {<br>        enabled: false,<br>        settings: {<br>          richText: true,<br>          batchMode: true<br>        },<br>      },<br>        reporting: {<br>        enabled: true,<br>        settings: {<br>          template: false,<br>          advanceExport: true<br>        },<br>      },<br>    };</p>
+<p>Note that we need to include all features defined in FeatureType to the object to match the type expectations.</p>
+<p>If we want to allow a subset of the features as the key, we need to modify the index signature type with an “?” as an optional flag. Then, we could use the FeatureConfig2 type for an object that only contains a subset of features.</p>
+<p>type FeatureType &#x3D; ‘profile’ | ‘notification’ | ‘reporting’;</p>
+<pre><code>type FeatureConfig2 = &#123;
+  [feature in FeatureType]?: &#123;
+    enabled: boolean;
+    settings: Record&lt;string, boolean&gt;;
+  &#125;
+&#125;
+
+const subsetFeatures: FeatureConfig2 = &#123;
+  profile: &#123;
+    enabled: true,
+    settings: &#123;
+      showPhoto: true,
+      allowEdit: false,
+    &#125;,
+  &#125;
+&#125;;
+</code></pre>
+<h3 id="How-to-use-index-signatures-effectively"><a href="#How-to-use-index-signatures-effectively" class="headerlink" title="How to use index signatures effectively"></a>How to use index signatures effectively</h3><p>Some commonly used scenarios include:</p>
+<ul>
+<li>Configuration Objects: As the above example illustrates, index signatures excel in scenarios where configuration objects may have dynamic keys and associated values.</li>
+<li>Data Transformation: Index signatures can be beneficial when dealing with data transformations or parsing. They allow for flexible handling of input data with varying structures.</li>
+<li>Extensibility: In projects where extensibility is a priority, such as plugin architectures or modular systems, index signatures enable adding new components without modifying existing code.</li>
+</ul>
+<p>While powerful, index signatures should not be overused. Before implementing an index signature, consider whether a more explicit interface or type definition could better represent the data structure, especially when the keys have specific meanings.</p>
+<p>Another consideration is to apply rigorously test scenarios involving index signatures. This includes testing various key-value combinations to ensure that the dynamic nature of the structure does not introduce unforeseen issues.</p>
+<p>By avoiding common mistakes and following best practices, we can use index signatures to make TypeScript code more flexible and resilient.</p>
+<p>Happy programming!</p>
+]]></content>
+      <tags>
+        <tag>TypeScript</tag>
+      </tags>
+  </entry>
 </search>

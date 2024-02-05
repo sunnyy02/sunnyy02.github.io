@@ -9,18 +9,18 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/2019/12/11/how-to-resolve-certifcate-error-in-nodejs-app/"/>
+    <link rel="canonical" href="http://example.com/2024/02/01/typescript-index-signature-explained/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="How to Resolve Certificate Errors in a Node.js App with SSL Calls">
+    <meta property="og:title" content="TypeScript Index Signature Explained">
     <meta property="og:description" content="Hexo Theme Redefine">
-    <meta property="og:url" content="http://example.com2019/12/11/how-to-resolve-certifcate-error-in-NodeJS-App/">
+    <meta property="og:url" content="http://example.com2024/02/01/typescript-index-signature-explained/">
     <meta property="og:image" content="/images/redefine-logo.svg">
     <meta property="og:site_name" content="Do What You Love">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="How to Resolve Certificate Errors in a Node.js App with SSL Calls">
+    <meta name="twitter:title" content="TypeScript Index Signature Explained">
     <meta name="twitter:description" content="Hexo Theme Redefine">
     <meta name="twitter:image" content="/images/redefine-logo.svg">
     <!--- Icon Part-->
@@ -31,7 +31,7 @@
     
     <title>
         
-            How to Resolve Certificate Errors in a Node.js App with SSL Calls -
+            TypeScript Index Signature Explained -
         
         Do What You Love
     </title>
@@ -294,9 +294,10 @@
         <div class="article-content-container">
 
             
-            
-                <div class="article-title">
-                    <h1 class="article-title-regular">How to Resolve Certificate Errors in a Node.js App with SSL Calls</h1>
+             
+                <div class="article-title">         
+                    <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*U1VoIpghZrD4mkPg7MfZJw.png" alt="TypeScript Index Signature Explained" />
+                    <h1 class="article-title-cover">TypeScript Index Signature Explained</h1>
                 </div>
             
                 
@@ -318,15 +319,15 @@
                             <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="pc">2019-12-11</span>
-        <span class="mobile">2019-12-11 00</span>
+        <span class="pc">2024-02-01</span>
+        <span class="mobile">2024-02-01 00</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="pc">2023-03-06 20:03:12</span>
-            <span class="mobile">2023-03-06 20:03</span>
+            <span class="pc">2024-02-05 21:33:55</span>
+            <span class="mobile">2024-02-05 21:33</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -338,15 +339,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/JavaScript/">JavaScript</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/Security/">Security</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/Certificate/">Certificate</a>&nbsp;
+                        <a href="/tags/TypeScript/">TypeScript</a>&nbsp;
                     </li>
                 
             </ul>
@@ -356,12 +349,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-file-word"></i>&nbsp;<span>937 Words</span>
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>1k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>5 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>6 Mins</span>
         </span>
     
     
@@ -377,76 +370,116 @@
             
 
             <div class="article-content markdown-body">
-                <h5 id="A-practical-guide-to-resolving-SSL-certificate-errors"><a href="#A-practical-guide-to-resolving-SSL-certificate-errors" class="headerlink" title="A practical guide to resolving SSL certificate errors"></a>A practical guide to resolving SSL certificate errors</h5><p>In a non-production environment, setting up a NodeJS App with HTTPS and a Server Certificate is relatively straightforward. In a production environment, if your Node&#x2F;Express App sits behind a reverse proxy like Nginx which serves certificates, and it does not need to call other external services, then HTTPS and a Server Certificate are not required.</p>
-<p>However, in reality, your Node app will need to call various back-end services protected by HTTPS. By default, NodeJs is built with <a class="link"   target="_blank" rel="noopener" href="https://github.com/nodejs/node-v0.x-archive/blob/master/src/node_root_certs.h" >a bundle of commonly used CA root certificates <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. Even with these certificates, we still may be bashed with HTTPS-related errors if your back-end services are hosted with self-signed certificates (i.e. company-specific private CA).</p>
-<p>Some of these errors include:</p>
-<blockquote>
-<p><em>UNABLE_TO_GET_ISSUER_CERT_LOCALLY</em><br><em>UNABLE_TO_VERIFY_LEAF_SIGNATURE</em><br><em>DEPTH_ZERO_SELF_SIGNED_CERT</em></p>
-</blockquote>
-<p>We need to understand these errors before they can be resolved.</p>
-<p>Let’s dive deep into these errors.</p>
-<h3 id="SSL-Handshake"><a href="#SSL-Handshake" class="headerlink" title="SSL Handshake"></a>SSL Handshake</h3><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://cdn-images-1.medium.com/max/2000/1*JJq75jP6uG4tXoJBdj1zCQ.png"
-                     
-                ></p>
-<p>These errors originate from the SSL handshake process. When a client begins to establish a connection to the server, a TLS handshake happens. It is a series of messages exchanged between the client and server. In these messages, they agree with the version of the TLS and cipher suites to use, verify the identity of the server, and generate the session keys.</p>
-<p>In step 2 of the above diagram, the server sends a message containing the server’s SSL certificate. Then the client verifies the certificate with the CA (Certificate authority) that issued it. This step confirms that the server is who it says it is, and the client is interacting with the actual owner of the domain.</p>
-<p>The above SSL errors are thrown because the client is not able to verify the trust chain of the self-signed server certificate sent in step 2.</p>
-<blockquote>
-<p>TLS handshake is a complex process, you may like to read the article below for more details.<br><a target="_blank" rel="noopener" href="https://levelup.gitconnected.com/deep-dive-into-tls-handshake-e029e28e2eb3"><strong>Deep Dive Into TLS Handshake</strong><br><em>TLS 1.2 Handshake process explained step by step</em>levelup.gitconnected.com</a></p>
-</blockquote>
-<h3 id="Quick-and-Dirty-Fix-rejectUnauthorized"><a href="#Quick-and-Dirty-Fix-rejectUnauthorized" class="headerlink" title="Quick and Dirty Fix: rejectUnauthorized"></a>Quick and Dirty Fix: rejectUnauthorized</h3><p>The easiest solution to resolve these errors is to use the “rejectUnauthorized” option as below.</p>
-<pre><code>https.request(&#123; 
-      ....,
-      rejectUnauthorized: false,
-    &#125;,
-...)
-</code></pre>
-<p>or set it as an environment variable</p>
-<pre><code>NODE_TLS_REJECT_UNAUTHORIZED=0
-</code></pre>
-<p>However, this method is unsafe because it disables the server certificate verification, making the Node app open to <a class="link"   target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Man-in-the-middle_attack" >MITM  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>attack. Thus, it is strongly recommended only to disable certificate verification in a development environment, and never apply this approach in production.</p>
-<h3 id="Use-CA-Option"><a href="#Use-CA-Option" class="headerlink" title="Use CA Option"></a>Use CA Option</h3><p>A safer way is to specify the CA certificate that is expected from the server. In other words, the common name of the certificate needs to match the server certificate.</p>
-<pre><code>request(&#123; 
-   ca: [fs.readFileSync([certificate path])],
-   rejectUnauthorized: true,
+                <h1 id="TypeScript-Index-Signature-Explained"><a href="#TypeScript-Index-Signature-Explained" class="headerlink" title="TypeScript Index Signature Explained"></a>TypeScript Index Signature Explained</h1><p>Demystifying TypeScript Index Signatures for Enhanced Code Flexibility</p>
+<p><img src="https://cdn-images-1.medium.com/max/4976/1*U1VoIpghZrD4mkPg7MfZJw.png" alt="Photo by [Maksym Kaharlytskyi](https://unsplash.com/@qwitka?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/file-cabinet-Q9y3LRuuxmg?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash)"><em>Photo by <a class="link"   target="_blank" rel="noopener" href="https://unsplash.com/@qwitka?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" >Maksym Kaharlytskyi <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> on <a class="link"   target="_blank" rel="noopener" href="https://unsplash.com/photos/file-cabinet-Q9y3LRuuxmg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" >Unsplash <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></em></p>
+<p>Index signatures in TypeScript provide a way to define a dynamic data structure when the properties of an object aren’t known beforehand, but the types of properties are known. They allow for dynamic property access and are particularly useful when working with objects with a variable set of keys.</p>
+<p>This post will delve into the index signature, how to use it, and when to use it in TypeScript.</p>
+<h3 id="What-is-the-index-signature"><a href="#What-is-the-index-signature" class="headerlink" title="What is the index signature?"></a>What is the index signature?</h3><p>An index signature is defined using square brackets [] and the type for keys, followed by a colon and the type for corresponding values. It enables TypeScript to understand and enforce the expected structure of the object.</p>
+<pre><code>interface MyStats &#123;
+  [key: string]: number;
+&#125;
+const scores: MyStats = &#123;
+  total: 50,
+  average:80
+&#125;
+// index siganture enforce the type constraint
+// here, the value must be a number
+const scores2: MyStats = &#123;
+  total: &quot;50&quot;, //Type &#39;string&#39; is not assignable to type &#39;number&#39;.(2322)
+  average:80
 &#125;
 </code></pre>
-<p>As you can see, the ca option is an array, thus you can set multiple certificate files if required. Hardcoding the certificate files in the code can make it difficult to update or rotate the certificates as needed. To avoid these issues, consider using a configuration management tool to handle the installation and updates of certificates.</p>
-<h3 id="NODE-EXTRA-CA-CERTS"><a href="#NODE-EXTRA-CA-CERTS" class="headerlink" title="NODE_EXTRA_CA_CERTS"></a>NODE_EXTRA_CA_CERTS</h3><p>From Node version 7.3.0, NODE_EXTRA_CA_CERTS environment variable is introduced to specify the location of any additional certificate authority (CA) certificates that are needed. This allows the “root” CAs to be extended with the extra certificates in the file. The file should consist of one or more trusted certificates in **PEM **format.</p>
-<p>To use the NODE_EXTRA_CA_CERTS environment variable, you can specify the path to the certificate file when starting your Node.js app. For example, you could use the following command :</p>
-<pre><code>NODE_EXTRA_CA_CERTS=path/to/ca/certificates.pem node app.js
+<p>In this example, MyStats can have any string keys, and the values associated with those keys must be of type number.</p>
+<p>The syntax for index signatures involves using the [] notation within the interface or type declaration. The below example shows the same index signature for interface and type.</p>
+<pre><code>interface Car &#123;
+  [key: string]: boolean;
+&#125;
+
+type CarType = &#123;
+  [key: string]: boolean;
+&#125;
 </code></pre>
-<p>This command sets the NODE_EXTRA_CA_CERTS variable and then starts the app.js Node.js app. The Node.js app will then use the CA certificates when making SSL calls, which will help to resolve the certificate errors.</p>
-<p>Please note that the extra certificates won’t be effective if the ca options property is explicitly specified for an HTTPS client or server.</p>
-<h3 id="How-to-troubleshoot"><a href="#How-to-troubleshoot" class="headerlink" title="How to troubleshoot?"></a>How to troubleshoot?</h3><p>If you have used either the ca option or the NODE_EXTRA_CA_CERTS, but still, receive the same errors. It is normally caused by the incorrect certificate being used.</p>
-<p>Firstly, let’s check the certificate chain to make sure that all of the necessary intermediate certificates are included in the certificate chain. The certificate chain should include the server certificate, the intermediate CA certificate, and the root CA certificate.</p>
-<p>For the ca option or the extra certs to work, we need to get the full CA Chain or at least the Root CA certificate.</p>
-<p>You can use <a class="link"   target="_blank" rel="noopener" href="https://www.openssl.org/" >OpenSSL <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> to retrieve the Full CA Chain as follows:</p>
-<pre><code>openssl s_client -connect $&#123;REMHOST&#125;:$&#123;REMPORT&#125;
+<p>Note that index signatures can use different key types, such as string, number, symbol or literal typeand the associated value type can be any valid TypeScript type.</p>
+<h3 id="Mixing-an-index-signature-with-explicit-members"><a href="#Mixing-an-index-signature-with-explicit-members" class="headerlink" title="Mixing an index signature with explicit members"></a>Mixing an index signature with explicit members</h3><p>In TypeScript, we can mix an index signature with explicit member declarations. It is helpful for cases requiring a combination of known and dynamic properties.</p>
+<pre><code>interface CarConfiguration &#123;
+  [feature: string]: number;
+  price: number;
+&#125;
 </code></pre>
-<p>An example of the certificate chain is shown below.</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://cdn-images-1.medium.com/max/2000/1*7mINu9NCxlhQPfNqCYjVIw.png"
-                      alt="Google CA Certificate Chain"
-                ><em>Google CA Certificate Chain</em></p>
-<blockquote>
-<p>Please note that the *showcerts *command may not work if the command is executed behind a proxy or the remote server uses <a class="link"   target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Server_Name_Indication" >SNI <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
-</blockquote>
-<p>If the error still persists, below are other things to check</p>
+<p>When we mix the index signature with explicit members, all explicit members need to conform to the index signature types.<br>    &#x2F;&#x2F; invalid case<br>    interface CarConfiguration {<br>      [feature: string]: number;<br>      price: number;<br>      model: string; &#x2F;&#x2F; Error: Property ‘model’ of type ‘string’ is not assignable to ‘string’ index type ‘number’<br>    }</p>
+<pre><code>// valid
+interface CarConfiguration &#123;
+  [feature: string]: number | string;
+  price: number;
+  model: string;
+&#125;
+</code></pre>
+<h3 id="Readonly-index-signature"><a href="#Readonly-index-signature" class="headerlink" title="Readonly index signature"></a>Readonly index signature</h3><p>Index signature supports readonly modifier. By applying the readonly modifier, the properties in the object will be immutable.<br>    interface Car {<br>      readonly [key: string]: boolean;<br>    }</p>
+<pre><code>const toyota: Car = &#123;hybrid: true, luxury: false&#125;;
+toyota.hybrid = false; //Error: Index signature in type &#39;Car&#39; only permits reading.(2542)
+</code></pre>
+<p>In the above example, an error occurs when trying to modify the ‘hybrid’ property because the interface allows only reading, not writing.</p>
+<h3 id="How-to-use-index-signature"><a href="#How-to-use-index-signature" class="headerlink" title="How to use index signature"></a>How to use index signature</h3><p>Let’s see a real-world example of how index signatures can be used. Imagine we’re developing a web application with various features. Each feature includes its own set of settings. We are also able to enable or disable these features.<br>    interface FeatureConfig {<br>      [feature: string]: {<br>        enabled: boolean;<br>        settings: Record&lt;string, boolean&gt;;<br>      }<br>    }<br>In this example, we define an interface named FeatureConfig. It uses an index signature to allow dynamic property names of type string associated with anenabled boolean property and a settings object. It is handy for representing configurations with dynamic feature names and associated settings. For example, we can apply the interface to the following object.</p>
+<pre><code>const features: FeatureConfig = &#123;
+  profile: &#123;
+    enabled: true,
+    settings: &#123;
+      showPhoto: true,
+      allowEdit: false,
+    &#125;,
+  &#125;,
+  notification: &#123;
+    enabled: false,
+    settings: &#123;
+      richText: true,
+      batchMode: true
+    &#125;,
+  &#125;
+&#125;;
+</code></pre>
+<p>In the features object, the feature names can vary, but the structure for each feature remains consistent. Each feature is expected to have an enabled boolean and a settings object.   </p>
+<p>To improve the type safety, can we apply a union-type constraint to the feature name in the above interface?</p>
+<p>If the set of features in our application is known, we can define the union of string literals namedFeatureType.<br>    type FeatureType &#x3D; ‘profile’ | ‘notification’ | ‘reporting’;  </p>
+<p>The key of the index signature does not support the union type, but we can work around it using a mapped type.</p>
+<pre><code>type FeatureConfig2 = &#123;
+  [feature in FeatureType]: &#123;
+    enabled: boolean;
+    settings: Record&lt;string, boolean&gt;;
+  &#125;
+&#125;
+</code></pre>
+<p>[feature in FeatureType]is a mapped type that iterates over each string literal in the union type FeatureType (which includes ‘profile’, ‘notification’, and ‘reporting’), and it uses each value as the resulting type’s property name.</p>
+<p>Here’s an example of how we might use it:<br>    const allFeatures: FeatureConfig2 &#x3D; {<br>      profile: {<br>        enabled: true,<br>        settings: {<br>          showPhoto: true,<br>          allowEdit: false,<br>        },<br>      },<br>      notification: {<br>        enabled: false,<br>        settings: {<br>          richText: true,<br>          batchMode: true<br>        },<br>      },<br>        reporting: {<br>        enabled: true,<br>        settings: {<br>          template: false,<br>          advanceExport: true<br>        },<br>      },<br>    };</p>
+<p>Note that we need to include all features defined in FeatureType to the object to match the type expectations.</p>
+<p>If we want to allow a subset of the features as the key, we need to modify the index signature type with an “?” as an optional flag. Then, we could use the FeatureConfig2 type for an object that only contains a subset of features.</p>
+<p>type FeatureType &#x3D; ‘profile’ | ‘notification’ | ‘reporting’;</p>
+<pre><code>type FeatureConfig2 = &#123;
+  [feature in FeatureType]?: &#123;
+    enabled: boolean;
+    settings: Record&lt;string, boolean&gt;;
+  &#125;
+&#125;
+
+const subsetFeatures: FeatureConfig2 = &#123;
+  profile: &#123;
+    enabled: true,
+    settings: &#123;
+      showPhoto: true,
+      allowEdit: false,
+    &#125;,
+  &#125;
+&#125;;
+</code></pre>
+<h3 id="How-to-use-index-signatures-effectively"><a href="#How-to-use-index-signatures-effectively" class="headerlink" title="How to use index signatures effectively"></a>How to use index signatures effectively</h3><p>Some commonly used scenarios include:</p>
 <ul>
-<li><p>Check the certificate path to ensure the certificate path is correct and readable by the app.</p>
-</li>
-<li><p>Verify the certificate is in the correct format (normally PEM or DER). You can use openssl command to convert the certificate to the required format.</p>
-</li>
+<li>Configuration Objects: As the above example illustrates, index signatures excel in scenarios where configuration objects may have dynamic keys and associated values.</li>
+<li>Data Transformation: Index signatures can be beneficial when dealing with data transformations or parsing. They allow for flexible handling of input data with varying structures.</li>
+<li>Extensibility: In projects where extensibility is a priority, such as plugin architectures or modular systems, index signatures enable adding new components without modifying existing code.</li>
 </ul>
-<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>In this article, We discuss how to resolve the certificate errors in NodeJs App in detail. If you still can’t fix the error after trying everything, then StackOverflow is your best friend :).</p>
-<p>If you are not already a paid Medium member, <a class="link"   target="_blank" rel="noopener" href="https://sunnysun-5694.medium.com/membership" >**you can do so by visiting this link <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**. You’ll get unlimited full access to every story on Medium. I’ll receive a portion of your membership fees as a referral.</p>
-<p>Thanks for reading, and happy programming!</p>
+<p>While powerful, index signatures should not be overused. Before implementing an index signature, consider whether a more explicit interface or type definition could better represent the data structure, especially when the keys have specific meanings.</p>
+<p>Another consideration is to apply rigorously test scenarios involving index signatures. This includes testing various key-value combinations to ensure that the dynamic nature of the structure does not introduce unforeseen issues.</p>
+<p>By avoiding common mistakes and following best practices, we can use index signatures to make TypeScript code more flexible and resilient.</p>
+<p>Happy programming!</p>
 
             </div>
 
@@ -456,15 +489,7 @@
                 <ul class="post-tags-box">
                     
                         <li class="tag-item">
-                            <a href="/tags/JavaScript/">#JavaScript</a>&nbsp;
-                        </li>
-                    
-                        <li class="tag-item">
-                            <a href="/tags/Security/">#Security</a>&nbsp;
-                        </li>
-                    
-                        <li class="tag-item">
-                            <a href="/tags/Certificate/">#Certificate</a>&nbsp;
+                            <a href="/tags/TypeScript/">#TypeScript</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -475,29 +500,14 @@
             
                 <div class="article-nav">
                     
-                        <div class="article-prev">
-                            <a class="prev"
-                            rel="prev"
-                            href="/2020/10/05/deep-clone-an-object-and-preserve-its-type-with-typescript/"
-                            >
-                                <span class="left arrow-icon flex-center">
-                                    <i class="fa-solid fa-chevron-left"></i>
-                                </span>
-                                <span class="title flex-center">
-                                    <span class="post-nav-title-item">Deep clone an Object and preserve its type with TypeScript</span>
-                                    <span class="post-nav-item">Prev posts</span>
-                                </span>
-                            </a>
-                        </div>
-                    
                     
                         <div class="article-next">
                             <a class="next"
                             rel="next"
-                            href="/2019/10/05/integrate-with-dynamics-crm-online-using-web-api/"
+                            href="/2023/04/06/type-interface-ts/"
                             >
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">Integrate with Dynamics CRM Online using Web API</span>
+                                    <span class="post-nav-title-item">Types vs. interfaces in TypeScript</span>
                                     <span class="post-nav-item">Next posts</span>
                                 </span>
                                 <span class="right arrow-icon flex-center">
@@ -518,8 +528,8 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">How to Resolve Certificate Errors in a Node.js App with SSL Calls</div>
-        <ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#A-practical-guide-to-resolving-SSL-certificate-errors"><span class="nav-text">A practical guide to resolving SSL certificate errors</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSL-Handshake"><span class="nav-text">SSL Handshake</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Quick-and-Dirty-Fix-rejectUnauthorized"><span class="nav-text">Quick and Dirty Fix: rejectUnauthorized</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-CA-Option"><span class="nav-text">Use CA Option</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NODE-EXTRA-CA-CERTS"><span class="nav-text">NODE_EXTRA_CA_CERTS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-troubleshoot"><span class="nav-text">How to troubleshoot?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a>
+        <div class="page-title">TypeScript Index Signature Explained</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TypeScript-Index-Signature-Explained"><span class="nav-text">TypeScript Index Signature Explained</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#What-is-the-index-signature"><span class="nav-text">What is the index signature?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mixing-an-index-signature-with-explicit-members"><span class="nav-text">Mixing an index signature with explicit members</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Readonly-index-signature"><span class="nav-text">Readonly index signature</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-use-index-signature"><span class="nav-text">How to use index signature</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-use-index-signatures-effectively"><span class="nav-text">How to use index signatures effectively</span></a></li></ol></li></ol></li></ol>
 
     </div>
 </div>
