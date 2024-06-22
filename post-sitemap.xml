@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    <url>
+        <loc>http://example.com/</loc>
+        <changefreq>daily</changefreq>
+        <priority>1</priority>
+    </url>
+
+
+    <url>
+        <loc>http://example.com/2024/06/15/restapi/</loc>
+        <lastmod>2024-06-22T07:19:21.528Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2024/06/21/friend-or-foe-examining-the-pros-and-cons-of-feature-toggles/</loc>
+        <lastmod>2024-06-22T07:19:01.151Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2024/02/01/typescript-index-signature-explained/</loc>
+        <lastmod>2024-06-22T05:50:04.668Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2022/09/12/upload-files-to-s3-using-angular-and-nestjs/</loc>
+        <lastmod>2024-06-22T05:50:04.668Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2021/07/14/why-i-choose-to-be-a-contract-programmer/</loc>
+        <lastmod>2024-06-22T05:50:04.668Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2021/06/19/record-type-explained/</loc>
+        <lastmod>2024-06-22T05:50:04.667Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2022/12/21/maximize-code-security-in-your-nestjs-applications-part-1/</loc>
+        <lastmod>2024-06-22T05:50:04.667Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2021/08/19/type-flowing-rethinking-typescript-typing-system/</loc>
+        <lastmod>2024-06-22T05:50:04.667Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2023/04/06/type-interface-ts/</loc>
+        <lastmod>2024-06-22T05:50:04.667Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2019/12/11/how-to-resolve-certifcate-error-in-NodeJS-App/</loc>
+        <lastmod>2024-06-22T05:50:04.666Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2021/07/25/how-to-share-constannts/</loc>
+        <lastmod>2024-06-22T05:50:04.666Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2023/02/05/install-config-your-own-mysql-on-oracle-free-vm/</loc>
+        <lastmod>2024-06-22T05:50:04.666Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2021/09/23/inject-dynamic-content-angular-components-with-portals/</loc>
+        <lastmod>2024-06-22T05:50:04.666Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2019/10/05/integrate-with-dynamics-crm-online-using-web-api/</loc>
+        <lastmod>2024-06-22T05:50:04.666Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2022/09/21/build-a-high-performance-nestjs-app/</loc>
+        <lastmod>2024-06-22T05:50:04.665Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2022/07/01/comparing-four-popular-nestjs-ORM/</loc>
+        <lastmod>2024-06-22T05:50:04.665Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2020/10/05/deep-clone-an-object-and-preserve-its-type-with-typescript/</loc>
+        <lastmod>2024-06-22T05:50:04.665Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2023/01/05/donnot-export-your-nestjs-endpoint/</loc>
+        <lastmod>2024-06-22T05:50:04.665Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2022/07/11/how-i-passed-the-ckad-exam-certified-kubernetes-application-developer/</loc>
+        <lastmod>2024-06-22T05:50:04.665Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2018/12/11/how-to-map-restful_api-using-decorator/</loc>
+        <lastmod>2024-06-22T05:50:04.665Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2021/09/21/4-simple-and-effective-ways-to-avoid-too-many-ifs-with-typescript/</loc>
+        <lastmod>2024-06-22T05:50:04.664Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2021/11/06/6-typescript-code-patterns-to-make-your-code-more-robust/</loc>
+        <lastmod>2024-06-22T05:50:04.664Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2023/03/05/all-you-need-to-know-about-angular-proxy-configuration/</loc>
+        <lastmod>2024-06-22T05:50:04.664Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+</urlset>
+<!-- XML Sitemap generated by Hexo SEO Friendly Sitemap Generator -->
