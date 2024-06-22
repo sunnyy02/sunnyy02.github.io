@@ -2780,9 +2780,9 @@ bootstrap();
 <p>Remember, feature toggles are for temporary control, not a long-term architectural solution. In other words, don’t forget to remove the feature toggle in the end! Use them wisely to keep your application on the cutting edge.</p>
 ]]></content>
       <tags>
-        <tag>TypeScript</tag>
         <tag>Best Practice</tag>
-        <tag>Refactoring</tag>
+        <tag>Software development</tag>
+        <tag>Agile</tag>
       </tags>
   </entry>
   <entry>
@@ -2821,8 +2821,8 @@ bootstrap();
 ]]></content>
       <tags>
         <tag>TypeScript</tag>
-        <tag>Best Practice</tag>
-        <tag>Refactoring</tag>
+        <tag>NestJS</tag>
+        <tag>Course</tag>
       </tags>
   </entry>
 </search>
