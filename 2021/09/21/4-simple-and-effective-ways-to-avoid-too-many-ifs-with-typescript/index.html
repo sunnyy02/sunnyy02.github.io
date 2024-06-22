@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="Sunny Sun">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2021/09/21/4-simple-and-effective-ways-to-avoid-too-many-ifs-with-typescript/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="4 Simple and Effective Ways To Avoid Too Many Ifs With TypeScript">
+    <meta property="og:description" content="Hexo Theme Redefine">
+    <meta property="og:url" content="http://example.com2021/09/21/4-simple-and-effective-ways-to-avoid-too-many-ifs-with-typescript/">
+    <meta property="og:image" content="/images/redefine-logo.svg">
+    <meta property="og:site_name" content="Do What You Love">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="4 Simple and Effective Ways To Avoid Too Many Ifs With TypeScript">
+    <meta name="twitter:description" content="Hexo Theme Redefine">
+    <meta name="twitter:image" content="/images/redefine-logo.svg">
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-logo.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-logo.svg">
+    <meta name="theme-color" content="#0066cc">
+    <link rel="shortcut icon" href="/images/redefine-logo.svg">
+    
+    <title>
+        
+            4 Simple and Effective Ways To Avoid Too Many Ifs With TypeScript -
+        
+        Do What You Love
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/assets/fonts.css">
+
+    
+    
+    
+    
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/icons8-stormtrooper.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78700","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":false,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"Love What You Do","custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.1.6","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}},"plugins":{"aplayer":{"enable":false,"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]}}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg#%20logo%20image%20on%20the%20left%20of%20the%20navigation%20bar">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Do What You Love
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/about">ME
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/about">ME</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET</a>
+                            </li>
+                        
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+             
+                <div class="article-title">         
+                    <img src="https://cdn-images-1.medium.com/max/3588/1*igV9dW6Ciq6w2JEiLcrwQQ.png" alt="4 Simple and Effective Ways To Avoid Too Many Ifs With TypeScript" />
+                    <h1 class="article-title-cover">4 Simple and Effective Ways To Avoid Too Many Ifs With TypeScript</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/icons8-stormtrooper.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Sunny Sun</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2021-09-21</span>
+        <span class="mobile">2021-09-21 00</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="pc">2024-06-22 15:50:04</span>
+            <span class="mobile">2024-06-22 15:50</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/TypeScript/">TypeScript</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Best-Practice/">Best Practice</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Refactoring/">Refactoring</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>1.5k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>9 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h4>If…else is not bad — excessive usage is</h4>
+
+
+<p>If…else exists in all programming languages. They’re not bad practices if used properly. It’s a simple, easy-to-understand, and flexible logic control structure.</p>
+<p>But in reality, it’s often used excessively. They can be bad in the following cases:</p>
+<ul>
+<li><p>Nested if-else or multiple-level nesting (worse)</p>
+</li>
+<li><p>Too many if-else cause large numbers of condition branches</p>
+</li>
+<li><p>Complex condition statement with mixed flags</p>
+</li>
+</ul>
+<p>The excessive usages of if…else are code smells. It makes your codebase hard to read and maintain, as there are more branching paths to consider.</p>
+<p>As a developer, we always look to<a class="link"   target="_blank" rel="noopener" href="https://sunnysun-5694.medium.com/path-to-functional-style-a-typescript-refactoring-example-f5f052fe4d84" > improve the code by refactoring <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. In this article, we will go through four different approaches in the context of TypeScript.</p>
+<h2 id="1-Guard-and-Early-Return"><a href="#1-Guard-and-Early-Return" class="headerlink" title="1. Guard and Early Return"></a>1. Guard and Early Return</h2><p><strong>Problem</strong>: In this nested if…else code snippet, it can be challenging to follow the changes to the status value. Even in this simplified example, the control flow is not straightforward. You can imagine the code quickly growing into a hard-to-maintain state when more condition logic is added.</p>
+<pre>
+<code>
+  getStatus(response: &#123; status: string, error: any &#125;) &#123;
+    let status = '';
+    if (response.status === '200') &#123;
+      this.process();
+      status = 'success';
+    &#125; else &#123;
+      if (response.error) &#123;
+        status = response.error.message;
+      &#125; else &#123;
+        status =  'unexpected error';
+      &#125;
+    &#125;
+    return status;
+  &#125;
+</code>
+</pre>
+<p><strong>The solution</strong>: <a class="link"   target="_blank" rel="noopener" href="https://refactoring.guru/replace-nested-conditional-with-guard-clauses" >Guard <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> and early return is my favorite refactoring method. It’s simple to implement and gives you quick and immediate results.</p>
+<p>In the code below, we move the edge cases to the beginning of the function. We also simplified the nested if into a flat statement with a ternary operator. When the edge case condition is met, the error status is immediately returned.</p>
+<pre>
+<code>
+   getStatus(response: &#123; status: string, error: any &#125;) &#123;
+    if (response.status !== '200') &#123;
+      return response.error ? response.error.message : 'unexpected error';
+    &#125;
+    this.process();
+    return 'success';
+  &#125; 
+</code>
+</pre>
+<p>After refactoring, the code becomes linear. The early return handles failure cases first, making the code easier to test and less error-prone. The result is better readability and better maintainability.</p>
+<p>Another similar way is to use the “Data guard” <a class="link"   target="_blank" rel="noopener" href="https://sunnysun-5694.medium.com/how-to-map-rest-api-data-using-decorator-pattern-in-angular-6-94eb49ba16b1" >decorator <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> which contains the validation logic. The main function is only invoked after the validation passing.</p>
+<h2 id="2-Table-Driven-Method"><a href="#2-Table-Driven-Method" class="headerlink" title="2. Table-Driven Method"></a>2. Table-Driven Method</h2><p><strong>Problem</strong>: The intention of the code snippet below is to get the number of days for a month. Obviously, it’s error-prone and hard to change. For example, what happens if we need support in leap years? It will be a maintenance nightmare.</p>
+<pre>
+<code>
+     if (month === 1) return 31;
+    if (month === 2) return 29;
+    if (month === 3) return 31;
+    if (month === 4) return 30;
+    if (month === 5) return 31;
+    if (month === 6) return 30;
+    if (month === 7) return 31;
+    if (month === 8) return 31;
+    if (month === 9) return 30;
+    if (month === 10) return 31;
+    if (month === 11) return 30;
+    if (month === 12) return 31; 
+</code>
+</pre>
+<p><strong>The solution</strong>: We use the <a class="link"   target="_blank" rel="noopener" href="https://rads.stackoverflow.com/amzn/click/com/0735619670" >Table-driven method <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> to improve the above code snippet.</p>
+<blockquote>
+<p>Table-driven methods are schemes that allow you to look up information in a table rather than using logic statements (i.e. case, if). — dev.to</p>
+</blockquote>
+<pre>
+<code>
+     const monthDays= [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    return monthDays[month - 1]; 
+</code>
+</pre>
+<p>Here we define an array monthDays that maps the possible values of a month. The result is much more compact and readable. Please note that this method is more suitable when input parameters are mutually exclusive.</p>
+<p>The same method can be applied to a group of functions.</p>
+<pre>
+<code>
+ // many ifs
+function performActions(actionName: string) &#123;
+  if (actionName === "save") &#123;
+    // save...
+  &#125; else if (actionName === "update") &#123;
+    // update ...
+  &#125; else if (actionName === "delete") &#123;
+    // delete...
+  &#125;
+&#125;
+
+// refactor with table driven methods
+const funcs: Record<string, () => void> = &#123;
+  save: () => &#123;
+    // save ...
+  &#125;,
+  update: () => &#123;
+    // update ...
+  &#125;,
+  delete: () => &#123;
+    //delete ...
+  &#125;
+&#125;;
+
+function performActions2(actionName: string) &#123;
+  const action = funcs[actionName];
+  if (action) &#123;
+    action();
+  &#125;
+&#125;
+ 
+</code>
+</pre>
+<p>In the above code sample, the performAction function contains multiple ifs. It can be difficult to extend when more actions need to be added into. We use the funcs <a class="link"   target="_blank" rel="noopener" href="https://betterprogramming.pub/typescripts-record-type-explained-691372b1a449" >RecordType  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>to map the actionName matching function. Thus we avoid the multiple ifs, and it can be extended to additional actions easily.</p>
+<p>The table-driven method can be applied beyond just one-to-one key-value mappings. In the following example, the ifs statement is used to rating by a given score range. How can we refactor this method?</p>
+<pre><code>  getRating(score: number) &#123;
+    if (score &gt; 12) &#123;
+      return 5;
+    &#125; else if (score &gt; 9) &#123;
+      return 4;
+    &#125; else if (score &gt; 6) &#123;
+      return 3;
+    &#125; else if (score &gt; 3) &#123;
+      return 2;
+    &#125; else &#123;
+      return 1;
+    &#125;
+  &#125;
+</code></pre>
+<p>we can apply the Table-driven method using Object.keys as below:</p>
+<pre><code>  getRating(score: number) &#123;
+    const ratingScoreMap = &#123;
+      12: 5,
+      9: 4,
+      6: 3,
+      3: 2,
+      1: 1
+    &#125;;
+    const sortedRating = Object.keys(ratingScoreMap)
+      .map(Number)
+      .sort((a, b) =&gt; b - a);
+    for (const threshold of sortedRating) &#123;
+      if (score &gt; Number(threshold)) &#123;
+        return ratingScoreMap[threshold];
+      &#125;
+    &#125;
+    return 1;
+  &#125;
+</code></pre>
+<p>By using a lookup table to store the mapping relationships, the table-driven method allows for efficient and flexible value mapping in a variety of contexts.</p>
+<h2 id="3-Extract"><a href="#3-Extract" class="headerlink" title="3. Extract"></a>3. Extract</h2><p><strong>Problem</strong>: Complex conditions aren’t a problem as long as they are readable. The below example contains a nested and complex if condition statement. It’s hard to figure out what the condition is.</p>
+<pre>
+<code>
+    transfer(fromAccount, toAccount, amount: number) &#123;
+    if (fromAccount.status === 'Active' && toAccount.status === 'Active' && amount > 0) &#123;
+      if (amount < fromAccount.dailyLimit && amount < fromAccount.amount) &#123;
+        fromAccount.amout -= amount;
+        fromAccount.transactions.add(amount, 'debit');
+        toAccount.amout += amount;
+        toAccount.transactions.add(amount, 'credit');
+      &#125;
+      this.logTransaction();
+    &#125;
+  &#125;
+</code>
+</pre>
+<p><strong>Solution</strong>: The extract method is a way to refactor conditional logic into a more modular form. In the code snippet below, we use the extract method to refactor the above example.</p>
+<p>The multiple checks in the nested ifs are wrapped into a separate function with a meaningful name. The nested ifs are replaced by a single if with a simple condition function.</p>
+<pre>
+<code>
+   transfer(fromAccount, toAccount, amount: number) &#123;
+    if(this.validateTransactoin(fromAccount, toAccount, amount))&#123;
+      this.performTransaction();
+    &#125;
+    this.logTransaction();
+  &#125; 
+</code>
+</pre>
+<p>The improved version is much easier to understand and change.</p>
+<h2 id="4-Default-Value-and-operators"><a href="#4-Default-Value-and-operators" class="headerlink" title="4. Default Value and || operators"></a>4. Default Value and || operators</h2><p><strong>Problem</strong>: The following if..else is used to perform the null checks, but the code is unnecessarily complex and not very readable.</p>
+<pre>
+<code>
+   getStatusMessage(status: string, errorCode: number) &#123;
+    if (!status) return 'NA';
+    if(errorCode) &#123;
+      return `Status:$&#123;status&#125;, err:&#123;errorCode&#125;`;
+    &#125; else &#123;
+      return `Status:$&#123;status&#125;, err: -1`;
+    &#125;
+  &#125; 
+</code>
+</pre>
+<p><strong>The solution</strong>: Giving parameters a default value is another of my personal favorite refactoring methods.</p>
+<p>Default value combined with the || operator is a simple and effective way of reducing code complexity.</p>
+<p>In this example, we give the status a default value and use the || operator to handle the null check. Thanks to the flexibility of JavaScript, the result is less code duplication and more readable code.</p>
+<pre>
+<code>
+   getStatusMessage(status = 'NA', errorCode: number) &#123;
+    return `Status:$&#123;status&#125;, err: $&#123;errorCode || -1&#125;`;
+  &#125; 
+</code>
+</pre>
+<h2 id="Focus-on-the-Root-Cause"><a href="#Focus-on-the-Root-Cause" class="headerlink" title="Focus on the Root Cause"></a>Focus on the Root Cause</h2><p>Excessive usage of if…else can be a symptom of other issues. When working on refactoring, we should focus on the root cause instead of just fixing the symptom.</p>
+<p>A function is composed of input, internal state, and output. The function takes the input parameters, executes the internal state mutation, and returns the output result. The excessive usage of if..else can be the result of:</p>
+<ul>
+<li><p><strong>Excessive logic for the internal state</strong>: All the above four methods may be applied to improve the code.</p>
+</li>
+<li><p><strong>Complex input parameters with mixed flags</strong>: In this case, the default value method may help. But the root cause may be the function interface abstraction. We may need to review and improve the abstraction.</p>
+</li>
+<li><p><strong>Too many different return paths and complex output</strong>: It’s a sign that the function may be doing too many things. The focus should be refactoring the function instead of reducing the if..else statements.</p>
+</li>
+</ul>
+<p>To do a clean refactoring, we should focus on formulating a clear interface so that the function is doing one single thing. (<a class="link"   target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Single-responsibility_principle#:~:text=The%20single%2Dresponsibility%20principle%20(SRP,it%20should%20encapsulate%20that%20part.&text=Hence%2C%20each%20module%20should%20be%20responsible%20for%20each%20role.)" >Single responsibility principle <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>We discussed four simple and effective ways to remove the excessive usage of if…else. Applying these methods will help you write cleaner, more readable code.</p>
+<p>There are other approaches to refactor the if..else, like using a <a class="link"   target="_blank" rel="noopener" href="https://medium.com/codex/factory-pattern-type-script-implementation-with-type-map-ea422f38862" >factory pattern <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> or responsibility chain pattern. They are not covered in this article because I want to focus on simpler and more practical solutions.</p>
+<p>There is no one size fits all solution as every approach has its own pros and cons. The ability to pick the right tool for a particular job separates a <a class="link"   target="_blank" rel="noopener" href="https://betterprogramming.pub/5-attributes-of-a-top-developer-bf5ae55a2b67" >top developer <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> from an average one.</p>
+<p>If you like this article, you may also like to read another TypeScript article.<br><a target="_blank" rel="noopener" href="https://betterprogramming.pub/apply-builder-pattern-to-generate-query-filter-in-typescript-651a6b13da38"><strong>Apply Builder Pattern To Generate Query Filter In TypeScript</strong><br><em>Implement an immutable and strongly typed filter builder</em>betterprogramming.pub</a></p>
+<p>Happy programming!</p>
+
+            </div>
+
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/TypeScript/">#TypeScript</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Best-Practice/">#Best Practice</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Refactoring/">#Refactoring</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2021/09/23/inject-dynamic-content-angular-components-with-portals/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Inject dynamic content in Angular components with portals</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2021/08/19/type-flowing-rethinking-typescript-typing-system/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Type flowing - a new perspective on the TypeScript typing system</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">4 Simple and Effective Ways To Avoid Too Many Ifs With TypeScript</div>
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-text">If…else is not bad — excessive usage is</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Guard-and-Early-Return"><span class="nav-text">1. Guard and Early Return</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Table-Driven-Method"><span class="nav-text">2. Table-Driven Method</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Extract"><span class="nav-text">3. Extract</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Default-Value-and-operators"><span class="nav-text">4. Default Value and || operators</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Focus-on-the-Root-Cause"><span class="nav-text">Focus on the Root Cause</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-regular fa-computer-classic"></i>&nbsp;&nbsp;<a href="/">Sunny Sun</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br> 
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.1.6</a>
+        </div>
+        
+        
+        
+            <div id="start_time_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="right-bottom-tools rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                <i class="fa-regular fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/menu-shrink.js"></script>
+
+<script src="/js/tools/go-top-bottom.js"></script>
+
+<script src="/js/tools/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/tools/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/tools/code-block.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/layouts/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

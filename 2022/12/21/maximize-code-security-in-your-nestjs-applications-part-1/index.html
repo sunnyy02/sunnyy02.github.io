@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="Sunny Sun">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2022/12/21/maximize-code-security-in-your-nestjs-applications-part-1/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Maximize Code Security in Your NestJS Applications (Part 1)">
+    <meta property="og:description" content="Hexo Theme Redefine">
+    <meta property="og:url" content="http://example.com2022/12/21/maximize-code-security-in-your-nestjs-applications-part-1/">
+    <meta property="og:image" content="/images/redefine-logo.svg">
+    <meta property="og:site_name" content="Do What You Love">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Maximize Code Security in Your NestJS Applications (Part 1)">
+    <meta name="twitter:description" content="Hexo Theme Redefine">
+    <meta name="twitter:image" content="/images/redefine-logo.svg">
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-logo.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-logo.svg">
+    <meta name="theme-color" content="#0066cc">
+    <link rel="shortcut icon" href="/images/redefine-logo.svg">
+    
+    <title>
+        
+            Maximize Code Security in Your NestJS Applications (Part 1) -
+        
+        Do What You Love
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/assets/fonts.css">
+
+    
+    
+    
+    
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/icons8-stormtrooper.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78700","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":false,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"Love What You Do","custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.1.6","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}},"plugins":{"aplayer":{"enable":false,"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]}}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg#%20logo%20image%20on%20the%20left%20of%20the%20navigation%20bar">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Do What You Love
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/about">ME
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/about">ME</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET</a>
+                            </li>
+                        
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+             
+                <div class="article-title">         
+                    <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*aN4-CbCjgxdmgjs_U6UqEw.png" alt="Maximize Code Security in Your NestJS Applications (Part 1)" />
+                    <h1 class="article-title-cover">Maximize Code Security in Your NestJS Applications (Part 1)</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/icons8-stormtrooper.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Sunny Sun</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2022-12-21</span>
+        <span class="mobile">2022-12-21 00</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="pc">2024-06-22 15:50:04</span>
+            <span class="mobile">2024-06-22 15:50</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/TypeScript/">TypeScript</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/NestJS/">NestJS</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Security/">Security</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>1.6k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>9 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h4 id="Top-Secure-Code-Best-Practices-for-NestJS-Developers"><a href="#Top-Secure-Code-Best-Practices-for-NestJS-Developers" class="headerlink" title="Top Secure Code Best Practices for NestJS Developers"></a>Top Secure Code Best Practices for NestJS Developers</h4><p>As a developer, we all know how critical is code security. The recent data breaches at <a class="link"   target="_blank" rel="noopener" href="https://www.optus.com.au/about/media-centre/media-releases/2022/09/optus-notifies-customers-of-cyberattack" >Optus <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> and <a class="link"   target="_blank" rel="noopener" href="https://www.medibank.com.au/health-insurance/info/cyber-security/" >Medibank  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>highlight the importance of code security again. So, the question is: how can we write secure code to prevent various types of attacks in web applications? It is essential to follow best practices to write secure code, so our App is protected against vulnerabilities and threats.</p>
+<p>Before we dive into how to prevent the security risk? let’s first examine the most common types of security risks. This will give us a better understanding of the challenges to keep our App secure.</p>
+<p>The OWASP Top 10 is a widely accepted list of the most critical security risks for web applications, as determined through consensus among industry experts. Below is the list of the top 10 risks in 2017 and 2021.</p>
+<p><img src="https://cdn-images-1.medium.com/max/2250/1*ObUHh3Z9GbA8jFlBoTHaXg.png" alt="Source: [https://owasp.org/www-project-top-ten/](https://owasp.org/www-project-top-ten/)"><em>Source: <a class="link"   target="_blank" rel="noopener" href="https://owasp.org/www-project-top-ten/" >https://owasp.org/www-project-top-ten/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></em></p>
+<p>Many of the top 10 are critical for the security of web Apps.</p>
+<p>As part 1 of a two-part article, I will walk through a few risks and the best practices that you can follow to prevent the risk.</p>
+<p>They include:</p>
+<ul>
+<li><p><a href="#4d65">Broken access control</a></p>
+</li>
+<li><p><a href="#3fb4">Server-side request forgery (SSRF)</a></p>
+</li>
+<li><p><a href="#2dac">Mass assignment</a></p>
+</li>
+<li><p><a href="#ffd8">Sensitive information exposure</a></p>
+</li>
+</ul>
+<h3 id="Broken-access-control"><a href="#Broken-access-control" class="headerlink" title="Broken access control"></a>Broken access control</h3><p>Broken function access is one of the most common risks. It occurs when an attacker is able to access unauthorized functions or resources. One real-world example is the <a class="link"   target="_blank" rel="noopener" href="https://gibsonsec.org/snapchat/" >Snapchat incident on Jan 2014 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<p>To prevent this risk, it is important to follow the principle of <strong>least privilege</strong>. This means that access should always be denied by default, and privileges should only be granted on an as-needed basis.</p>
+<p>We can use access control mechanisms such as role-based access control (RBAC) or access control lists (ACLs) to restrict access to functions or resources based on a user’s role or permissions.</p>
+<p>Here’s an example of RBAC using <a class="link"   target="_blank" rel="noopener" href="https://docs.nestjs.com/guards" >Guards  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>in a NestJS application:</p>
+<pre><code>import &#123; Injectable, CanActivate, ExecutionContext &#125; from &#39;@nestjs/common&#39;;
+
+@Injectable()
+export class AdminRoleGuard implements CanActivate &#123;
+  canActivate(context: ExecutionContext): boolean &#123;
+    const request = context.switchToHttp().getRequest();
+    const user = request.user;
+    return user.role === &#39;admin&#39;;
+  &#125;
+&#125;
+
+@Controller(&#39;cats&#39;)
+export class CatsController &#123;
+  @UseGuards(AdminRoleGuard)
+  @Get()
+  async findAll(): Promise&lt;Cat[]&gt; &#123;
+    return this.catsService.findAll();
+  &#125;
+&#125;
+</code></pre>
+<p>In the above code snippet, we create an AdminRoleGuard that implements the CanActivate interface provided by NestJS. It checks the role of the current user and returns true when the user is an admin. We then use the @UseGuards decorator to apply the AdminRoleGuard to the findAll method, which will restrict access to the endpoint for users withadmin role only.</p>
+<p>The access control mechanisms should be applied using centralized functions from a proven framework, to ensure it is safe and easy to maintain.</p>
+<p>It is also recommended to have unit tests that tests the necessary Guards being applied on a controller. Thus if the Guard is accidentally removed, the unit test will catch it.</p>
+<h3 id="Server-side-request-forgery-SSRF"><a href="#Server-side-request-forgery-SSRF" class="headerlink" title="Server-side request forgery (SSRF)"></a>Server-side request forgery (SSRF)</h3><p>SSRF is a type of cyber attack in which an attacker induces a server to make unintended requests on their behalf. These requests can be used to access restricted resources from internal networks.</p>
+<p>To prevent SSRF, It is essential to properly validate user input. Below is an example of an endpoint vulnerable to SSRF risk.</p>
+<pre><code>import &#123; Controller, Get, Res, HttpStatus, Query &#125; from &#39;@nestjs/common&#39;;
+
+@Controller()
+export class CatsController &#123;
+  @Get()
+  async getData(@Query(&#39;url&#39;) url: string, @Res() res) &#123;
+    const response = await fetch(url);
+    return await response.json();
+  &#125;
+&#125;
+</code></pre>
+<p>In the above example, the App makes a request to the URL sourced from url query parameter and returns the response data to the client. Obviously, it is vulnerable to SSRF attacks because an attacker can send a request to the server with a malicious URL that accesses restricted resources from the internal network.</p>
+<p>We should validate the URL parameter to prevent the risk as below.</p>
+<pre><code>import &#123; Controller, Get, Res, HttpStatus, Query &#125; from &#39;@nestjs/common&#39;;
+import &#123; isURL &#125; from &#39;validator&#39;;
+
+@Controller()
+export class CatsController &#123;
+  @Get()
+  async getData(@Query(&#39;url&#39;) url: string, @Res() res) &#123;
+    if (!isURL(url)) &#123;
+      return res.status(HttpStatus.BAD_REQUEST).send(&#39;Invalid URL&#39;);
+    &#125;
+
+    const response = await fetch(url);
+    return await response.json();
+  &#125;
+&#125;
+</code></pre>
+<p>To further improve security, we shouldn’t allow users to pass in URLs directly in query parameters. Instead, we should use an existing service to retrieve the data from a trusted API.</p>
+<pre><code>@Controller()
+export class CatsController &#123;
+  @Get()
+  async getData(@Query(&#39;name&#39;) dataName: string, @Res() res) &#123;
+    const response = await dataService.GetDataByName(dataName);
+    return await response.json();
+  &#125;
+&#125;
+</code></pre>
+<p>There are other ways to prevent SSRF attacks:</p>
+<ul>
+<li><p>Only make requests to trusted sources (i.e. known APIs or services)</p>
+</li>
+<li><p>Implement security headers (i.e. headers like “<a class="link"   target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options" >X-Frame-Options <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>”) to prevent clickjacking attacks and other types of malicious requests.</p>
+</li>
+<li><p>Use a Content Security Policy(CSP) to specify which sources are allowed to make requests on behalf of your application.</p>
+</li>
+</ul>
+<p>In NestJS, you can use <a class="link"   target="_blank" rel="noopener" href="https://docs.nestjs.com/security/helmet" >helmet  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>to easily set up security headers and a Content Security Policy.</p>
+<h3 id="Mass-Assignment"><a href="#Mass-Assignment" class="headerlink" title="Mass Assignment"></a>Mass Assignment</h3><p>Mass assignment is a vulnerability in that an attacker is able to modify multiple object properties by sending a malicious request to your App.</p>
+<p>In the below example, a new user is created based on the data coming from the request body. It is vulnerable to mass assignment attacks because an attacker can send a request with malicious data that overwrites sensitive fields in the Client object (i.e. role or password).</p>
+<pre><code>import &#123; Controller, Post, Body &#125; from &#39;@nestjs/common&#39;;
+
+@Controller(&quot;client&quot;)
+export class ClientController &#123;
+  @Post()
+  create(@Body() body) &#123;
+    const client = new Client(body);
+    return await client.save();
+  &#125;
+&#125;
+</code></pre>
+<p>To prevent mass assignment, we can define a whitelist of allowed properties for each object. In the below example, we implemented a white list of properties to prevent overwriting of sensitive fields.</p>
+<pre><code>import &#123; Entity, Column, PrimaryGeneratedColumn &#125; from &#39;typeorm&#39;;
+
+@Entity()
+export class Client&#123;
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  name: string;
+
+  @Column()
+  role: string;
+
+  @Column()
+  password: string;
+
+  @Column(&#125;)
+  email: string;
+&#125;
+
+@Controller(&#39;client&#39;)
+export class ClientController &#123;
+  constructor(private clientService: ClientService) &#123;&#125;
+
+  @Post()
+  async create(@Body() client: Pick&lt;User, &#39;name&#39; | &#39;email&#39;&gt;) &#123;
+    return await this.clientService.create(client);
+  &#125;
+&#125;
+</code></pre>
+<p>Here, we use the TypeScript Pick type to define a whitelist of properties for the User entity. The @Body decorator is then used to bind the request body to the user parameter, which will only include the allowed properties. This prevents an attacker from modifying other properties of the User entity through mass assignment.</p>
+<p>Other ways to prevent mass assignment include:</p>
+<ul>
+<li><p>Use a reduced DTO, instead of a general DTO. For example, create a InsertClientEntity and UpdateClientEntity. These DTOs only contain properties that are allowed in the insert and update operation.</p>
+</li>
+<li><p>Avoid directly binding to an object coming from the client side.</p>
+</li>
+</ul>
+<h3 id="Sensitive-information-exposure"><a href="#Sensitive-information-exposure" class="headerlink" title="Sensitive information exposure"></a>Sensitive information exposure</h3><p>Sensitive information includes things like passwords, API keys, and other confidential data. Any data that contains personal information or payment-related information are sensitive.</p>
+<p>Often, when designing web API, excessive data are returned to the client.</p>
+<pre><code>import &#123; Controller, Get, Param &#125; from &#39;@nestjs/common&#39;;
+import &#123; Client&#125; from &#39;./client/client.entity&#39;;
+
+@Controller()
+export class ClientController &#123;
+  @Get(&#39;clients/:id&#39;)
+  async getClient(@Param(&#39;id&#39;) id: string): Promise&lt;Client&gt; &#123;
+    // Return all fields for the client
+    return await Client.findById(id);
+  &#125;
+&#125;
+</code></pre>
+<p>In this example, the getClient method is returning all fields for the client including sensitive data like role or password. Although these data aren’t consumed or displayed by clients, they still can be intercepted and exposed by attackers.</p>
+<p>To prevent sensitive personal data exposure, we should only return the necessary data of the client, which is name and email fields in this case. In a nutshell, we should only expose the minimum amount of data.</p>
+<pre><code>import &#123; Controller, Get, Param, UseGuards &#125; from &#39;@nestjs/common&#39;;
+import &#123; Client&#125; from &#39;./client/client.entity&#39;;
+
+@Controller()
+export class ClientController &#123;
+  @Get(&#39;clients/:id&#39;)
+  async getClient(@Param(&#39;id&#39;) id: string): Promise&lt;Client&gt; &#123;
+    // Only return the name and email
+    return await Client.findById(id).map(c =&gt; &#123;c.name, c.email&#125;);
+  &#125;
+&#125;
+</code></pre>
+<p>To prevent sensitive data exposure, below are other guidelines to follow:</p>
+<ul>
+<li><p>Do NOT store sensitive information to version control. This information includes environment variables or configuration files</p>
+</li>
+<li><p>Identify sensitive information (<a class="link"   target="_blank" rel="noopener" href="https://gdpr-info.eu/" >GDPR <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>, <a class="link"   target="_blank" rel="noopener" href="https://www.pcisecuritystandards.org/" >PCI,  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>and <a class="link"   target="_blank" rel="noopener" href="https://www.cyber.gov.au/acsc/view-all-content/glossary/personally-identifiable-information-pii" >PII data <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>) in your system, and secure them through encryption.</p>
+</li>
+<li><p>Make sure that your App uses HTTPS between the client and the server. This will prevent sensitive data from being intercepted during transmission.</p>
+</li>
+</ul>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>In this article, we walk through 4 common risks and the best practices to prevent those risks within the context of NestJS.</p>
+<p>By following these best practices, you can write secure code to ensure that your NestJS app is as secure as possible.</p>
+<p>In part 2 of the article, we continue the discussion on other top OWASP risks.<br><a target="_blank" rel="noopener" href="https://levelup.gitconnected.com/maximize-code-security-in-your-nestjs-applications-part-2-be707466b7ea"><strong>Maximize Code Security in Your NestJS Applications (Part 2)</strong><br><em>Secure Code Best Practices with Real-World Examples</em>levelup.gitconnected.com</a></p>
+<p>Happy Programming!</p>
+
+            </div>
+
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/TypeScript/">#TypeScript</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/NestJS/">#NestJS</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Security/">#Security</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/01/05/donnot-export-your-nestjs-endpoint/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Don&#39;t Leave Your NestJS API Exposed</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2022/09/21/build-a-high-performance-nestjs-app/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Turbocharge Your App with NestJS - Tips and Tricks</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">Maximize Code Security in Your NestJS Applications (Part 1)</div>
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Top-Secure-Code-Best-Practices-for-NestJS-Developers"><span class="nav-text">Top Secure Code Best Practices for NestJS Developers</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Broken-access-control"><span class="nav-text">Broken access control</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Server-side-request-forgery-SSRF"><span class="nav-text">Server-side request forgery (SSRF)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mass-Assignment"><span class="nav-text">Mass Assignment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sensitive-information-exposure"><span class="nav-text">Sensitive information exposure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-regular fa-computer-classic"></i>&nbsp;&nbsp;<a href="/">Sunny Sun</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br> 
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.1.6</a>
+        </div>
+        
+        
+        
+            <div id="start_time_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="right-bottom-tools rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                <i class="fa-regular fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/menu-shrink.js"></script>
+
+<script src="/js/tools/go-top-bottom.js"></script>
+
+<script src="/js/tools/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/tools/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/tools/code-block.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/layouts/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

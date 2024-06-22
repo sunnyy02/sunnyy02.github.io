@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="Sunny Sun">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2018/12/11/how-to-map-restful_api-using-decorator/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How to map REST API data using Decorator pattern in Angular 6">
+    <meta property="og:description" content="Hexo Theme Redefine">
+    <meta property="og:url" content="http://example.com2018/12/11/how-to-map-restful_api-using-decorator/">
+    <meta property="og:image" content="/images/redefine-logo.svg">
+    <meta property="og:site_name" content="Do What You Love">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How to map REST API data using Decorator pattern in Angular 6">
+    <meta name="twitter:description" content="Hexo Theme Redefine">
+    <meta name="twitter:image" content="/images/redefine-logo.svg">
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-logo.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-logo.svg">
+    <meta name="theme-color" content="#0066cc">
+    <link rel="shortcut icon" href="/images/redefine-logo.svg">
+    
+    <title>
+        
+            How to map REST API data using Decorator pattern in Angular 6 -
+        
+        Do What You Love
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/assets/fonts.css">
+
+    
+    
+    
+    
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/icons8-stormtrooper.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78700","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":false,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"Love What You Do","custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.1.6","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}},"plugins":{"aplayer":{"enable":false,"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]}}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg#%20logo%20image%20on%20the%20left%20of%20the%20navigation%20bar">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Do What You Love
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/about">ME
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/about">ME</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET</a>
+                            </li>
+                        
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+             
+                <div class="article-title">         
+                    <img src="https://cdn-images-1.medium.com/max/10944/1*9YGR9yH8hAekhD99J9BPrg.jpeg" alt="How to map REST API data using Decorator pattern in Angular 6" />
+                    <h1 class="article-title-cover">How to map REST API data using Decorator pattern in Angular 6</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/icons8-stormtrooper.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Sunny Sun</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2018-12-11</span>
+        <span class="mobile">2018-12-11 00</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="pc">2024-06-22 15:50:04</span>
+            <span class="mobile">2024-06-22 15:50</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Angular/">Angular</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Web-API/">Web API</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Decorator/">Decorator</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>1.1k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>6 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="A-cleaner-loosely-coupled-and-more-maintainable-solution"><a href="#A-cleaner-loosely-coupled-and-more-maintainable-solution" class="headerlink" title="A cleaner, loosely coupled, and more maintainable solution"></a>A cleaner, loosely coupled, and more maintainable solution</h2><p>To build a solid RESTful API, there are <a class="link"   target="_blank" rel="noopener" href="https://medium.com/p/d3c752debd88" >well-established best practices and design patterns <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> we can use. In this article, I will talk about how to use the Decorator pattern to consume RESTful API in Angular.</p>
+<h3 id="HttpClient-Service"><a href="#HttpClient-Service" class="headerlink" title="HttpClient Service"></a>HttpClient Service</h3><p>To consume a REST API in Angular, we can use HttpClient . HttpClient Service handles the JSON data parsing under the cover and returns an Rxjs observable. It also supports generic typing functionality. For example, in the code snippet below, getAllTodos will return an observable with an array of objects that match the type TodoModel.</p>
+<pre><code>constructor(private http: HttpClient) &#123;&#125;
+
+getAllTodos(): Observable&lt;TodoModel[]&gt; &#123;
+       return this.http.get&lt;TodoModel[]&gt;(this.url);
+&#125;
+</code></pre>
+<p>It is straightforward to make use of HttpClient to call the REST API and get the data to bind to the view.</p>
+<h3 id="The-Problem"><a href="#The-Problem" class="headerlink" title="The Problem"></a>The Problem</h3><p>All seems good so far, but problems start to arise when the back end changes. Let’s say we have the TodoModel as below.</p>
+<pre><code>export class TodoModel&#123;
+  public name: string;
+  public id: number,
+  public completed: boolean,
+&#125;
+</code></pre>
+<p>Two changes are required</p>
+<ol>
+<li><p>We want to display a text description of “completed” when the value is true and display “pending” if the value is false.</p>
+</li>
+<li><p>The field name is changed from “name” to “title”.</p>
+</li>
+</ol>
+<p>The quick way to meet the requirements is to change the model.</p>
+<pre><code>export class TodoModel&#123;
+  public title: string;
+  public id: number,
+  public completed: string,
+&#125;
+</code></pre>
+<p>Then change the todo service to map the completed field.</p>
+<pre><code>getAllTodos(): Observable&lt;TodoModel[]&gt; &#123;
+   return this.http.get(this.url).pipe(
+      map((data: any[]) =&gt; data.map((item: any) =&gt; &#123;
+          const model = new TodoModel();
+          Object.assign(model, item);
+          if(item.completed)&#123;
+              model.completed = &#39;completed&#39;;
+           &#125;else&#123;
+              model.completed = &#39;pending&#39;;
+           &#125;
+          return model;
+       &#125;))
+       );
+&#125;
+</code></pre>
+<p>In the end, we also need to change the binding at the view to “title” instead of “name”.</p>
+<p>It works, but not ideal.</p>
+<p>Firstly, it is a simple change: rename one field in the backend. But this simple change requires updating the service, domain model, and view, it is an indication of bad design. Secondly, we may need to repeat the explicit mapping of data to every method that needs to retrieve TodoModel from the back end, which will pollute the code in the long term.</p>
+<h3 id="Decorator-Pattern"><a href="#Decorator-Pattern" class="headerlink" title="Decorator Pattern"></a>Decorator Pattern</h3><p>One way to avoid the above problem is to use the Decorator pattern.</p>
+<blockquote>
+<p>Decorator pattern allows you to change the behavior of an object, without changing the original object. This is done by wrapping the original object with a decorator that implements the same interface but adds behavior and&#x2F;or modifies input and output.</p>
+</blockquote>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2000/0*bkJlSQut_Vhfgqan.png"
+                     
+                ></p>
+<p>As the diagram illustrates, for the Decorator Pattern, we are not using inheritance to add functionality. Instead, we use composition. It is a more loose coupled pattern.</p>
+<p>In Typescript, the decorator is simply a function and will be called at run time. Different types of Decorators can be applied to different levels like Class Decorator, Method Decorator, or Property Decorator.</p>
+<p>Here, we use a custom Property Decorator to handle the REST API Data mapping.</p>
+<h3 id="StatusConverter-Decorator"><a href="#StatusConverter-Decorator" class="headerlink" title="StatusConverter Decorator"></a>StatusConverter Decorator</h3><p>Here is how we use the “statusConverter” decorator to handle transforming the “complete” status from Boolean to string.</p>
+<p>A property decorator takes two arguments:</p>
+<ul>
+<li><p><strong>target</strong>: the prototype of the class</p>
+</li>
+<li><p><strong>key</strong>: the name of the property</p>
+</li>
+</ul>
+<p>The below decorator function contains a getter and setter accessors, so we can manipulate the property value as required.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">export function statusConverter(target: any, key: string)</span><br><span class="line">&#123;</span><br><span class="line">    var value;</span><br><span class="line">    if (delete target[key]) &#123;</span><br><span class="line">        Object.defineProperty(target, key, &#123;</span><br><span class="line">        get: function() &#123;</span><br><span class="line">                if (this.value)</span><br><span class="line">                &#123;</span><br><span class="line">                    return &#x27;Completed&#x27;;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    return &#x27;Pending&#x27;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">      set: function(v) &#123; this.value = v; &#125;,</span><br><span class="line">      enumerable: true,</span><br><span class="line">      configurable: true</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>A property decorator is declared just before a property decoration.</p>
+<pre><code>@statusConverter
+public completed: string;
+</code></pre>
+<p>That is it, no need to manually set the property value in the service code, and We can apply the same decorator everywhere when necessary.</p>
+<p>In this case, the use of the statusConverter decorator is very limited, it only converts the true value to “Completed” and the false to “Pending”. However, it is for illustration only, there is no limitation on how the data can be transformed.</p>
+<h3 id="PropertyMap-Decorator"><a href="#PropertyMap-Decorator" class="headerlink" title="PropertyMap Decorator"></a>PropertyMap Decorator</h3><p>To handle the case of backend data field renaming, we created the PropertyMap decorator and ModelMapper utility class.</p>
+<p>The PropertyMap decorator provides a way to store the meta-data.</p>
+<iframe src="https://medium.com/media/c0f98a12da24036a646cfdf13fd122b1" frameborder=0></iframe>
+
+<p>To consume the metadata, ModelMapper class is added.</p>
+<iframe src="https://medium.com/media/989af8e2d89bc0e56ac846df6abeb17d" frameborder=0></iframe>
+
+<p>Now we have a ModelMapper class that can take any type, extract the predefined metadata, and performs data transformation.</p>
+<p>To use the decorator</p>
+<pre><code>@propertyMap(&#39;title&#39;)
+public name: string;
+</code></pre>
+<p>The updated service looks like the one below.</p>
+<pre><code>return this.http.get&lt;TodoModel[]&gt;(this.url).pipe(
+   map(data =&gt; data.map((item: any) =&gt; &#123;
+      return new ModelMapper(TodoModel).map(item);
+&#125;)));
+</code></pre>
+<h3 id="Further-refactoring"><a href="#Further-refactoring" class="headerlink" title="Further refactoring"></a>Further refactoring</h3><p>After we start to make use of the ModelMapper for the services, we will soon find that the code is duplicated in every service. Thus we can extract the modelMapper to a generic API Service class as the code snippet below.</p>
+<pre><code>// api.service.ts
+public get&lt;T&gt;(url: string, itemType: any): Observable&lt;T&gt; &#123;
+   return this.http.get&lt;T&gt;(this.url).pipe(
+       map(data =&gt; data.map((item: any) =&gt; &#123;
+       return new ModelMapper(itemType).map(item);
+   &#125;)));
+&#125;
+
+//todo.service.ts
+return this.api.get&lt;TodoModel[]&gt;(this.url, TodoModel);
+</code></pre>
+<h3 id="Benefits"><a href="#Benefits" class="headerlink" title="Benefits"></a>Benefits</h3><p>With the above decorators, when the back-end data field is renamed or changed, there is no need to change the service code. The only change required is to update the PropertyMap decorator meta-data argument in the model class.</p>
+<p>No matter how many services consume the TodoModel API, only a single change is required to apply it to all services.</p>
+<p>The code also becomes more readable as the name of the decorator shows the intent of the function clearly.</p>
+<h3 id="Be-declarative"><a href="#Be-declarative" class="headerlink" title="Be declarative"></a>Be declarative</h3><p>Using the Decorator pattern is a practice of declarative programming, it focuses on how the components&#x2F;services want to behave instead of how to accomplish the result. The declarative approach helps developers to produce a cleaner, loosely coupled, and more maintainable code base.</p>
+<p>The full demo code is available at this <a class="link"   target="_blank" rel="noopener" href="https://stackblitz.com/edit/angular-7u2dgm" >stackblitz project <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<p>If you are not already a paid member of Medium, <a class="link"   target="_blank" rel="noopener" href="https://sunnysun-5694.medium.com/membership" >**you can do so by visiting this link <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**. You’ll get unlimited full access to every story on Medium. I’ll receive a portion of your membership fees as a referral.</p>
+<p>Happy Programming!</p>
+
+            </div>
+
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Angular/">#Angular</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Web-API/">#Web API</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Decorator/">#Decorator</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2019/10/05/integrate-with-dynamics-crm-online-using-web-api/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Integrate with Dynamics CRM Online using Web API</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">How to map REST API data using Decorator pattern in Angular 6</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#A-cleaner-loosely-coupled-and-more-maintainable-solution"><span class="nav-text">A cleaner, loosely coupled, and more maintainable solution</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HttpClient-Service"><span class="nav-text">HttpClient Service</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Problem"><span class="nav-text">The Problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Decorator-Pattern"><span class="nav-text">Decorator Pattern</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StatusConverter-Decorator"><span class="nav-text">StatusConverter Decorator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PropertyMap-Decorator"><span class="nav-text">PropertyMap Decorator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Further-refactoring"><span class="nav-text">Further refactoring</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Benefits"><span class="nav-text">Benefits</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Be-declarative"><span class="nav-text">Be declarative</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-regular fa-computer-classic"></i>&nbsp;&nbsp;<a href="/">Sunny Sun</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br> 
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.1.6</a>
+        </div>
+        
+        
+        
+            <div id="start_time_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="right-bottom-tools rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                <i class="fa-regular fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/menu-shrink.js"></script>
+
+<script src="/js/tools/go-top-bottom.js"></script>
+
+<script src="/js/tools/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/tools/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/tools/code-block.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/layouts/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

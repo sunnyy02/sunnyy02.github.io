@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="Sunny Sun">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2024/06/22/friend-or-foe-examining-the-pros-and-cons-of-feature-toggles/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Hexo">
+    <meta property="og:description" content="Hexo Theme Redefine">
+    <meta property="og:url" content="http://example.com2024/06/22/friend-or-foe-examining-the-pros-and-cons-of-feature-toggles/">
+    <meta property="og:image" content="/images/redefine-logo.svg">
+    <meta property="og:site_name" content="Do What You Love">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Hexo">
+    <meta name="twitter:description" content="Hexo Theme Redefine">
+    <meta name="twitter:image" content="/images/redefine-logo.svg">
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-logo.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-logo.svg">
+    <meta name="theme-color" content="#0066cc">
+    <link rel="shortcut icon" href="/images/redefine-logo.svg">
+    
+    <title>
+        
+        Do What You Love
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/assets/fonts.css">
+
+    
+    
+    
+    
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/icons8-stormtrooper.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78700","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":false,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"Love What You Do","custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.1.6","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}},"plugins":{"aplayer":{"enable":false,"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]}}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg#%20logo%20image%20on%20the%20left%20of%20the%20navigation%20bar">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Do What You Love
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/about">ME
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/about">ME</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET</a>
+                            </li>
+                        
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular"></h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/icons8-stormtrooper.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Sunny Sun</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2024-06-22 15:58:05</span>
+        <span class="mobile">2024-06-22 15:58</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="pc">2024-06-22 16:10:38</span>
+            <span class="mobile">2024-06-22 16:10</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>1.1k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>6 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h1 id="Friend-or-Foe-Examining-the-Pros-and-Cons-of-Feature-Toggles-and-Trunk-Based-Development"><a href="#Friend-or-Foe-Examining-the-Pros-and-Cons-of-Feature-Toggles-and-Trunk-Based-Development" class="headerlink" title="Friend or Foe? Examining the Pros and Cons of Feature Toggles and Trunk-Based Development"></a>Friend or Foe? Examining the Pros and Cons of Feature Toggles and Trunk-Based Development</h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://miro.medium.com/v2/resize:fit:1120/1*md8ptcB7nbqro_81fuizyg.png"
+                     
+                ></p>
+<p>Photo by  <a class="link"   target="_blank" rel="noopener" href="https://unsplash.com/@midwestiscool?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" >Josh Carter <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  on  <a class="link"   target="_blank" rel="noopener" href="https://unsplash.com/photos/green-leaf-covering-tree-branch-lD2Ah5thV2U?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" >Unsplash <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>My experience at  <a class="link"   target="_blank" rel="noopener" href="https://www.thoughtworks.com/en-au" >ThoughtWorks <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>, a pioneer in Agile development, exposed me to “<a class="link"   target="_blank" rel="noopener" href="https://www.thoughtworks.com/en-au/insights/blog/digital-transformation/Digital-talent-defaults-for-agile-org" >sensible defaults <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>” — a set of best practices that ensure efficient software delivery. Two of the most impactful practices I learned are Feature Toggles and Trunk-Based Development (TBD). These approaches are considered foundational to ThoughtWorks’ methodology due to their effectiveness in streamlining development and enabling rapid iteration.</p>
+<p>Although TBD is somehow debatable, even within ThoughtWorks, there is no double that it delivers lots of benefits when used in the right project with proper implementation.</p>
+<p>In this blog, I’ll discuss Feature Toggles and TBD, their benefits, and when they should and shouldn’t be used.</p>
+<h2 id="What-is-a-feature-toggle"><a href="#What-is-a-feature-toggle" class="headerlink" title="What is a feature toggle?"></a>What is a feature toggle?</h2><blockquote>
+<p><em>Feature Toggles (often also refered to as Feature Flags) is a technique, allowing teams to modify system behavior without changing code.</em></p>
+</blockquote>
+<p>Feature toggle allows specific features of an application to be activated or deactivated at will. This allows developers to safely “toggle” new features on or off for testing. Feature toggles have many use cases beyond testing, such as the targeted rollout or quick rollback of new features in production, experimentation, canary releases, operations, or activation of premium features.</p>
+<p>Feature Toggles complement Trunk-Based Development by safely integrating incomplete features into the main branch. This way, the main branch is always in a deployable state, and teams can work on features without long-lived branches.</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>Let’s consider a simple .NET Core application where we want to toggle a new feature.</p>
+<p><strong>Setting up the Feature Toggle</strong></p>
+<p>First, we define a feature toggle service. For simplicity, we can use a configuration-based approach.</p>
+<p>&#x2F;&#x2F; IFeatureToggleService.cs<br>public interface IFeatureToggleService<br>{<br>    bool IsFeatureEnabled(string feature);<br>}</p>
+<p>&#x2F;&#x2F; FeatureToggleService.cs<br>public class FeatureToggleService : IFeatureToggleService<br>{<br>    private readonly IConfiguration _configuration; public FeatureToggleService(IConfiguration configuration)<br>    {<br>        _configuration &#x3D; configuration;<br>    } public bool IsFeatureEnabled(string feature)<br>    {<br>        return _configuration.GetValue<bool>($”Features:{feature}”);<br>    }<br>}</p>
+<p><strong>Configure and use the Feature Toggle</strong></p>
+<p>In  <code>appsettings.json</code>, we add our feature flags.</p>
+<p>{<br>  “Features”: {<br>    “NewFeature”: true<br>  }<br>}</p>
+<p>Here, we store the feature toggle setting in the config file for simplicity. In real-world projects, it is recommended that the settings be stored in a database. By storing the feature toggle settings in the database, you can change the state of a feature (on&#x2F;off) and see those changes reflected instantly within your application.</p>
+<p>This is particularly important because it allows product owners and stakeholders to have instant control over the visibility of new features, enabling them to be showcased and explored in isolation before being released to production users.</p>
+<p>To use the feature toggle service is as simple as injecting the feature toggle service and an if statement, as in the example below.</p>
+<p> public HomeController(IFeatureToggleService featureToggleService)<br>    {<br>        _featureToggleService &#x3D; featureToggleService;<br>    } public IActionResult Index()<br>    {<br>        if (_featureToggleService.IsFeatureEnabled(“NewFeature”))<br>        {<br>            ViewBag.Message &#x3D; “New Feature is Enabled!”;<br>        }<br>        else<br>        {<br>            ViewBag.Message &#x3D; “Welcome to our website!”;<br>        } return View();<br>    }<br>}</p>
+<h2 id="When-Not-to-Use-Feature-Toggles"><a href="#When-Not-to-Use-Feature-Toggles" class="headerlink" title="When Not to Use Feature Toggles"></a><strong>When Not to Use Feature Toggles</strong></h2><p>While feature toggles offer flexibility, they shouldn’t be a permanent solution. Here’s when to consider alternatives:</p>
+<ul>
+<li><strong>Core Functionality:</strong>  Don’t toggle essential features that define your application’s core behavior.</li>
+<li><strong>Complex Logic:</strong>  Avoid intricate logic based on toggles, which can lead to maintenance headaches.</li>
+<li><strong>Short-Lived Features</strong>: If a feature is very short-lived or experimental, the overhead of adding and managing a toggle might not be worth it.</li>
+</ul>
+<h2 id="Trunk-Based-Development"><a href="#Trunk-Based-Development" class="headerlink" title="Trunk-Based Development"></a>Trunk-Based Development</h2><p>Trunk-based development (TBD) is a source-control branching model in which developers integrate small, frequent changes into the main branch (trunk). With trunk-based development, your team integrates changes directly into the main branch (trunk), whereas other branching strategies like GitFlow involve integrating into multiple feature branches.</p>
+<p>TBD doesn’t mean we completely ditch feature branches. Instead, these branches are kept short-lived. We can still use them for code review, merge requests, and branch builds to get quick feedback. The key difference is that you avoid long-lived branches like release branches.</p>
+<p>TBD and feature toggles are complementary practices used in Agile development. We can use feature toggles in development without adapting TBD, but they are often combined together, as the feature toggle is a must-have tool for TBD.</p>
+<h2 id="Prerequisite-for-TBD"><a href="#Prerequisite-for-TBD" class="headerlink" title="Prerequisite for TBD"></a>Prerequisite for TBD</h2><p>Trunk-based development can be a very efficient and powerful tool only if the team meets the conditions below:</p>
+<ul>
+<li>A capable team with a high level of trust between the members. TBD often works well with a small and skillful team. It is key to have a strong dev team. Without it, the TBD will cause more harm than good.</li>
+<li>Automated unit and integration testing in place with good test coverage.</li>
+<li>A solid CI pipeline</li>
+</ul>
+<p>Implementing trunk-based development without those is a recipe for disaster. The common symptoms include frequent broken builds and code churn.</p>
+<p>Some can argue that the benefits of Trunk-Based Development (TBD) are more a result of its prerequisites, like good unit test coverage, rather than TBD itself. This argument is not wrong. However, TBD acts as a framework that enforces practices like good test coverage, continuous integration, early feedback, and clear communication. These practices, in turn, create an environment where good unit test coverage flourishes and delivers its benefits.</p>
+<h2 id="TBD-only-works-with-a-strong-team"><a href="#TBD-only-works-with-a-strong-team" class="headerlink" title="TBD only works with a strong team"></a>TBD only works with a strong team</h2><p>The success of trunk-based development hinges on a strong, well-coordinated team. Without a culture of clear communication, mutual respect, and a willingness to learn from each other, especially for less experienced developers, the challenges of trunk-based development can quickly become overwhelming.</p>
+<p>The clear communication between teams is essential. The team members must talk openly to fix problems quickly and share any changes affecting the main codebase (trunk).</p>
+<p>Another good practice that complements TBD is  <strong>pair programming</strong>. As developers work together, code reviews become part of the development process. This allows for immediate feedback, early bug detection, and knowledge sharing. However, to avoid burnout, pair programming should be an opt-in approach. Developers should choose when collaboration can be most beneficial.</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p>Feature toggles and trunk-based development empower developers to deliver features faster and more reliably. By understanding their benefits and limitations, we can leverage them effectively to streamline our development process and deliver faster and more frequently.</p>
+<p>Remember, feature toggles are for temporary control, not a long-term architectural solution. In other words, don’t forget to remove the feature toggle in the end! Use them wisely to keep your application on the cutting edge.</p>
+
+            </div>
+
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2024/02/01/typescript-index-signature-explained/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">TypeScript Index Signature Explained</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title"></div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Friend-or-Foe-Examining-the-Pros-and-Cons-of-Feature-Toggles-and-Trunk-Based-Development"><span class="nav-text">Friend or Foe? Examining the Pros and Cons of Feature Toggles and Trunk-Based Development</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-a-feature-toggle"><span class="nav-text">What is a feature toggle?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example"><span class="nav-text">Example</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#When-Not-to-Use-Feature-Toggles"><span class="nav-text">When Not to Use Feature Toggles</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Trunk-Based-Development"><span class="nav-text">Trunk-Based Development</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prerequisite-for-TBD"><span class="nav-text">Prerequisite for TBD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TBD-only-works-with-a-strong-team"><span class="nav-text">TBD only works with a strong team</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-text">Conclusion</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-regular fa-computer-classic"></i>&nbsp;&nbsp;<a href="/">Sunny Sun</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br> 
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.1.6</a>
+        </div>
+        
+        
+        
+            <div id="start_time_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="right-bottom-tools rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                <i class="fa-regular fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/menu-shrink.js"></script>
+
+<script src="/js/tools/go-top-bottom.js"></script>
+
+<script src="/js/tools/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/tools/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/tools/code-block.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/layouts/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

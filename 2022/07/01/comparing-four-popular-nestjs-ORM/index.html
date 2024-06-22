@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="Sunny Sun">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2022/07/01/comparing-four-popular-nestjs-orm/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Comparing four popular NestJS ORMs">
+    <meta property="og:description" content="Hexo Theme Redefine">
+    <meta property="og:url" content="http://example.com2022/07/01/comparing-four-popular-nestjs-ORM/">
+    <meta property="og:image" content="/images/redefine-logo.svg">
+    <meta property="og:site_name" content="Do What You Love">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Comparing four popular NestJS ORMs">
+    <meta name="twitter:description" content="Hexo Theme Redefine">
+    <meta name="twitter:image" content="/images/redefine-logo.svg">
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-logo.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-logo.svg">
+    <meta name="theme-color" content="#0066cc">
+    <link rel="shortcut icon" href="/images/redefine-logo.svg">
+    
+    <title>
+        
+            Comparing four popular NestJS ORMs -
+        
+        Do What You Love
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/assets/fonts.css">
+
+    
+    
+    
+    
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/icons8-stormtrooper.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78700","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":false,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"Love What You Do","custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.1.6","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}},"plugins":{"aplayer":{"enable":false,"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]}}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg#%20logo%20image%20on%20the%20left%20of%20the%20navigation%20bar">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Do What You Love
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/about">ME
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/about">ME</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET</a>
+                            </li>
+                        
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">Comparing four popular NestJS ORMs</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/icons8-stormtrooper.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Sunny Sun</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2022-07-01</span>
+        <span class="mobile">2022-07-01 00</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="pc">2024-06-22 15:50:04</span>
+            <span class="mobile">2024-06-22 15:50</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/TypeScript/">TypeScript</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/NestJS/">NestJS</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/ORM/">ORM</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>2.4k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>15 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h1 id=""><a href="#" class="headerlink" title=""></a></h1><p>NestJS is a popular Node.js server-side framework. It’s highly customizable, comes with a rich ecosystem, and is compatible with most Node.js libraries, including the ORM libraries.</p>
+<h2 id="ORMs-in-NestJS"><a href="#ORMs-in-NestJS" class="headerlink" title="ORMs in NestJS"></a>ORMs in NestJS</h2><p>Object-relational mapping (ORM) is a technique that abstracts your database tables to data objects in memory. It allows you to query and write data to databases using data objects. ORMs are used to make database access easier, as developers won’t need to write raw queries. </p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://blog.logrocket.com/why-you-should-avoid-orms-with-examples-in-node-js-e0baab73fa5/" >ORMs have their limitations <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>, such as performance issues with complex queries, but they can still make your life easier when used in the right places.</p>
+<p>NestJS is database-agnostic. For convenience, NestJS provides tight integrations with TypeORM and Sequelize out of the box with the @nestjs&#x2F;typeorm and @nestjs&#x2F;sequelize packages. You can also directly use any general purpose Node.js database integration library or ORM, but the ecosystem of NestJS ORMs is so massive, it can be daunting to choose the right one for your project. </p>
+<p>In this article, we are going to walk through using four common ORMs with NestJS. They are:</p>
+<ul>
+<li>Sequelize</li>
+<li>TypeORM</li>
+<li>MikroORM</li>
+<li>Prisma</li>
+</ul>
+<p>Our intention is to summarize their common characteristics, like popularity, features, documentation, and maturity, and for each ORM, a code snippet will be provided to give you the simplest example of applying the framework.</p>
+<h2 id="NestJS-and-Sequelize"><a href="#NestJS-and-Sequelize" class="headerlink" title="NestJS and Sequelize"></a>NestJS and Sequelize</h2><p>Introduced around 2014, <a class="link"   target="_blank" rel="noopener" href="https://github.com/sequelize/sequelize" >Sequelize <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> is an easy-to-use and Promise-based ORM for Node.js.</p>
+<p>It supports many databases, including PostgreSQL, MySQL, MariaDB, SQLite, DB2 and MSSQL. Its limitations include a lack of NoSQL support and only supporting the Active Record pattern.</p>
+<h3 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h3><p>Sequelize provides a rich set of features: transaction and migration support, model validations, eager and lazy loading, and read replication, among others. Sequelize has reasonable documentation with rich information and good examples, but sometimes I find it’s not easy to search for a particular topic.</p>
+<p>Sequelize comes with a CLI that can create a database, initialize configuration and seeders, or manage migration. It also uses the <a class="link"   target="_blank" rel="noopener" href="https://www.martinfowler.com/eaaCatalog/activeRecord.html" >Active Record <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> pattern. In the Active Record pattern, a database row is mapped into an object in application, and a database table is represented by a class. Thus, when we create an entity object and call the <code>save</code> method, a new row is added to the database table. </p>
+<p>The main benefit of the Active Record pattern is its simplicity: you can directly use the entity classes to represent and interact with the database tables.</p>
+<h3 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h3><p>Sequelize is easy to set up and use. Below is an example of the basic database configuration and operation. </p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">// Firstly, we create a Sequelize instance with an options object</span><br><span class="line">export const databaseProviders = [</span><br><span class="line">  &#123;</span><br><span class="line">    provide: &#x27;SEQUELIZE&#x27;,</span><br><span class="line">    useFactory: async () =&gt; &#123;</span><br><span class="line">      const sequelize = new Sequelize(&#123;</span><br><span class="line">        dialect: &#x27;postgres&#x27;,</span><br><span class="line">        host: &#x27;localhost&#x27;,</span><br><span class="line">        port: 5432,</span><br><span class="line">        username: &#x27;postgres&#x27;,</span><br><span class="line">        password: &#x27;postgres&#x27;,</span><br><span class="line">        database: &#x27;postgres&#x27;,</span><br><span class="line">      &#125;);</span><br><span class="line">      sequelize.addModels([Cat]); // Add all models</span><br><span class="line">      await sequelize.sync(); // Sync database tables</span><br><span class="line">      return sequelize;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">// Then, export the provider to make it accessible</span><br><span class="line">@Module(&#123;</span><br><span class="line">  providers: [...databaseProviders],</span><br><span class="line">  exports: [...databaseProviders],</span><br><span class="line">&#125;)</span><br><span class="line">export class DatabaseModule &#123;&#125;</span><br><span class="line"></span><br><span class="line">// Define model entity, each represent a table in the database</span><br><span class="line">@Table</span><br><span class="line">export class Cat extends Model &#123;</span><br><span class="line">  @Column</span><br><span class="line">  name: string;</span><br><span class="line"></span><br><span class="line">  @Column</span><br><span class="line">  age: number;</span><br><span class="line"></span><br><span class="line">  @Column</span><br><span class="line">  breed: string;</span><br><span class="line">&#125;</span><br><span class="line">// Create a repository provider</span><br><span class="line">export const catsProviders = [</span><br><span class="line">  &#123;</span><br><span class="line">    provide: &#x27;CATS_REPOSITORY&#x27;,</span><br><span class="line">    useValue: Cat,</span><br><span class="line">  &#125;,</span><br><span class="line">];</span><br><span class="line">// In CatsService, we inject the repository</span><br><span class="line">export class CatsService &#123;</span><br><span class="line">  constructor(</span><br><span class="line">    @Inject(&#x27;CATS_REPOSITORY&#x27;)</span><br><span class="line">    private catsRepository: typeof Cat,</span><br><span class="line">  ) &#123;&#125;</span><br><span class="line"></span><br><span class="line">// Then, we can perform database operations</span><br><span class="line">this.catsRepository.findAll&lt;Cat&gt;();</span><br></pre></td></tr></table></figure></div>
+
+
+<p>In some cases, where it’s just easier to execute raw SQL queries, you can use the function <code>sequelize.query</code>.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// SQL Script. Source https://sequelize.org/docs/v6/core-concepts/raw-queries/</span><br><span class="line">const [results, metadata] = await sequelize.query(&quot;UPDATE users SET y = 42 WHERE x = 12&quot;);</span><br><span class="line">// Results will be an empty array and metadata will contain the number of affected rows.</span><br></pre></td></tr></table></figure></div>
+
+
+<p>Sequelize is hard at work <a class="link"   target="_blank" rel="noopener" href="https://sequelize.org/docs/v7/other-topics/typescript/" >making official TypeScript support possible <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>, but for now, it is still recommended that you use the <code><a class="link"   target="_blank" rel="noopener" href="https://www.npmjs.com/package/sequelize-typescript" >sequelize-typescript package <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></code> to work with TypeScript in your project.</p>
+<h3 id="Community-and-popularity"><a href="#Community-and-popularity" class="headerlink" title="Community and popularity"></a>Community and popularity</h3><p>Sequelize is a very mature and stable ORM. It has an active community and a wide array of necessary tooling. As one of the most popular ORM frameworks, Sequelize has 26K stars and 4K forks on GitHub. It’s also directly supported by NestJS with <code>@nestjs/sequelize</code>.</p>
+<h3 id="Use-cases"><a href="#Use-cases" class="headerlink" title="Use cases"></a>Use cases</h3><p>Sequelize is a general purpose ORM for Node.js apps. If you are looking for a stable, easy-to-use ORM, it is worth your consideration.</p>
+<h2 id="TypeORM"><a href="#TypeORM" class="headerlink" title="TypeORM"></a>TypeORM</h2><p><a class="link"   target="_blank" rel="noopener" href="https://typeorm.io/" >TypeORM <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> is another mature ORM for Node.js. It has a rich feature set, including an entity manager, connection pooling, replication, and query caching. It’s also directly supported by NestJS with its own package, <code>@nestjs/typeorm</code>.</p>
+<p>Released in 2016, TypeORM supports the dialects PostgreSQL, MySQL, MariaDB, SQLite, MSSQL, and MongoDB. That means that you can use both NoSQL and SQL databases at the same time with TypeORM. </p>
+<h3 id="Features-1"><a href="#Features-1" class="headerlink" title="Features"></a>Features</h3><p>TypeORM provides a CLI that can create entities, projects, and subscribers or manage migration. It supports both <a class="link"   target="_blank" rel="noopener" href="https://www.martinfowler.com/eaaCatalog/activeRecord.html" >Active Record <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> and <a class="link"   target="_blank" rel="noopener" href="https://martinfowler.com/eaaCatalog/dataMapper.html" >Data Mapper <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> patterns.</p>
+<p>The Data Mapper pattern adds a data access layer (DAL) between the business domain of your application and the database. Using the Data Mapper pattern provides more flexibility and better performance, as it makes more efficient use of the database than a naive Active Record implementation. Providing both approaches gives you a choice of pattern that suits your application.</p>
+<p>Much like some open source projects, its documentation has room for improvement. One of the common issues is a lack of necessary API details.</p>
+<h3 id="Setup-1"><a href="#Setup-1" class="headerlink" title="Setup"></a>Setup</h3><p>Below is the basic database configuration and operation for TypeORM using the Active Record pattern.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">// Firstly, we setup Database Connection</span><br><span class="line">@Module(&#123;</span><br><span class="line">  imports: [</span><br><span class="line">    TypeOrmModule.forRoot(&#123;</span><br><span class="line">      type: &#x27;postgres&#x27;,</span><br><span class="line">      host: &#x27;localhost&#x27;,</span><br><span class="line">      port: 5432,</span><br><span class="line">      username: &#x27;postgres&#x27;,</span><br><span class="line">      password: &#x27;postgres&#x27;,</span><br><span class="line">      database: &#x27;postgres&#x27;,</span><br><span class="line">      entities: [Cat],</span><br><span class="line">      synchronize: true, // Sync the entities with the database every time the application runs</span><br><span class="line">    &#125;),</span><br><span class="line">    CatsModule,</span><br><span class="line">  ],</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// Then you can define the data entity</span><br><span class="line">@Entity()</span><br><span class="line">export class Cat &#123;</span><br><span class="line">  @PrimaryGeneratedColumn()</span><br><span class="line">  id: number;</span><br><span class="line"></span><br><span class="line">  @Column()</span><br><span class="line">  name: string;</span><br><span class="line"></span><br><span class="line">  @Column()</span><br><span class="line">  breed: string;</span><br><span class="line">&#125;</span><br><span class="line">// We can use the repository design pattern which means each entity has its own repository.</span><br><span class="line">// Here, we inject the catRepository into your service</span><br><span class="line">export class CatsService &#123;</span><br><span class="line">  constructor(</span><br><span class="line">    @InjectRepository(Cat)</span><br><span class="line">    private catsRepository: Repository&lt;Cat&gt;,</span><br><span class="line">  ) &#123;&#125;</span><br><span class="line">  </span><br><span class="line">// Then you can use the injected repo to perform database operation</span><br><span class="line">  this.catsRepository.find();</span><br><span class="line">  this.catsRepository.save&lt;Cat&gt;(cat);</span><br></pre></td></tr></table></figure></div>
+
+
+<p>To run a raw SQL query, you can use the <code>@InjectConnection</code> decorator and use the <code>query</code> method to run a custom query script.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// Inject the connection</span><br><span class="line">constructor(@InjectConnection() private readonly connection: Connection) </span><br><span class="line">&#123;&#125; </span><br><span class="line">// Run the query</span><br><span class="line">this.connection.query(&#x27;SELECT * FROM [TableName];&#x27;); </span><br></pre></td></tr></table></figure></div>
+
+
+<p>You can use either JavaScript or TypeScript with TypeORM. <a class="link"   target="_blank" rel="noopener" href="https://blog.logrocket.com/typeorm-object-relational-mapping-node-js/" >Using TypeORM <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> with TypeScript is more natural as compared to other ORMs, as it’s written by TypeScript.</p>
+<h3 id="Community-and-popularity-1"><a href="#Community-and-popularity-1" class="headerlink" title="Community and popularity"></a>Community and popularity</h3><p>It’s one of the most popular ORM libraries, with 28.2K stars and 5.1K forks on GitHub.</p>
+<p>With its rich feature set and flexibility, TypeORM is one of the best ORMs for NestJS.</p>
+<h3 id="Use-cases-1"><a href="#Use-cases-1" class="headerlink" title="Use cases"></a>Use cases</h3><p>TypeORM can run on Node.js and a number of other platforms. It is a great choice if your application requires one or more of the following features:</p>
+<ul>
+<li>Scalable to a large, enterprise-grade app</li>
+<li>Support for multiple databases</li>
+<li>Support for both SQL and NoSQL databases</li>
+<li>Support for multiple platforms, including Node.js, Ionic, Cordova, React Native, NativeScript, Expo, or Electron</li>
+</ul>
+<h2 id="MikroORM"><a href="#MikroORM" class="headerlink" title="MikroORM"></a>MikroORM</h2><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/mikro-orm/mikro-orm" >MikroORM <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> is another TypeScript ORM for Node.js based on the Data Mapper, Unit of Work, and Identity Map patterns.</p>
+<p>Launched in 2018, it’s a relatively young ORM. MikroORM supports both SQL and NoSQL databases, including MongoDB, MySQL, PostgreSQL and SQLite databases. MikroORM also has its own NestJS support, <code><a class="link"   target="_blank" rel="noopener" href="https://mikro-orm.io/docs/usage-with-nestjs/" >@mikro-orm/nestjs package <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></code>, which is a third-party package and not managed by the NestJS team.</p>
+<h3 id="Features-2"><a href="#Features-2" class="headerlink" title="Features"></a>Features</h3><p>MikroORM provides an impressive list of features, including transactions, support for the Identity Map pattern, cascading persist and remove, a query builder, and more. It’s a fully-featured ORM with all the major database options, and is easily migrated to from TypeORM, if you’re looking to switch.</p>
+<p>It comes with a CLI tool that can create&#x2F;update&#x2F;drop database schema, manage database migration, and generate entities.</p>
+<p>MikroORM supports the Data Mapper pattern. It’s also built based on <a class="link"   target="_blank" rel="noopener" href="https://martinfowler.com/eaaCatalog/unitOfWork.html" >Unit of Work <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> and <a class="link"   target="_blank" rel="noopener" href="https://martinfowler.com/eaaCatalog/identityMap.html" >Identity Map <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> patterns. Implementing Unit of Work allows us to handle transactions automatically. It’s also optimized for transactions via Identity Map patterns, which makes it possible to prevent unnecessary round-trips to the database. Those patterns also help MikroORM achieve good performance: <a class="link"   target="_blank" rel="noopener" href="https://mikro-orm.io/blog/mikro-orm-4-1-released" >a recent benchmark <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> shows it only takes around 70ms for inserting 10K entities with SQLite.</p>
+<h3 id="Setup-2"><a href="#Setup-2" class="headerlink" title="Setup"></a>Setup</h3><p>The syntax of MikroORM is very simple and straightforward. Below is an example of using MikroORM for the simplest database operations in NestJS.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">// Firstly, import MikroOrmModule in App.module</span><br><span class="line">@Module(&#123;</span><br><span class="line">  imports: [MikroOrmModule.forRoot(), CatsModule],</span><br><span class="line">&#125;)</span><br><span class="line">// The Database configuration is store in mikro-orm.config.ts</span><br><span class="line">const config: Options = &#123;</span><br><span class="line">  entities: [Cat],</span><br><span class="line">  dbName: &#x27;postgres&#x27;,</span><br><span class="line">  type: &#x27;postgresql&#x27;,</span><br><span class="line">  port: 5432,</span><br><span class="line">  host: &#x27;localhost&#x27;,</span><br><span class="line">  debug: true,</span><br><span class="line">  user: &#x27;postgres&#x27;,</span><br><span class="line">  password: &#x27;postgres&#x27;,</span><br><span class="line">&#125; as Options;</span><br><span class="line"></span><br><span class="line">// The config paths are defined in package.json</span><br><span class="line">  &quot;mikro-orm&quot;: &#123;</span><br><span class="line">    &quot;useTsNode&quot;: true,</span><br><span class="line">    &quot;configPaths&quot;: [</span><br><span class="line">      &quot;./src/mikro-orm.config.ts&quot;,</span><br><span class="line">      &quot;./dist/mikro-orm.config.js&quot;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">// To use repository pattern, we register entities via forFeature() in feature module</span><br><span class="line">@Module(&#123;</span><br><span class="line">  imports: [MikroOrmModule.forFeature(&#123; entities: [Cat] &#125;)],</span><br><span class="line">&#125;)</span><br><span class="line">export class CatsModule &#123;&#125;</span><br><span class="line"></span><br><span class="line">// We inject the repository into service</span><br><span class="line">  constructor(</span><br><span class="line">    @InjectRepository(Cat)</span><br><span class="line">    private readonly catRepository: EntityRepository&lt;Cat&gt;,</span><br><span class="line">  ) &#123;&#125;</span><br><span class="line"></span><br><span class="line"> // Then, we can perform database operation</span><br><span class="line">this.catRepository.findOne(findOneOptions);</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="Community-and-popularity-2"><a href="#Community-and-popularity-2" class="headerlink" title="Community and popularity"></a>Community and popularity</h3><p>The documentation of MikroORM is actively maintained and easy to navigate. Although it’s one of the youngest ORMs, it doesn’t have a long list of open issues in GitHub. The repo is actively maintained, and issues are normally resolved quickly.</p>
+<p>MikroORM is built to overcome some existing issues of other Node.js ORMs, like lack of transaction support. It’s fast growing and offers strong type safety in addition to a list of great features.</p>
+<h3 id="Use-cases-2"><a href="#Use-cases-2" class="headerlink" title="Use cases"></a>Use cases</h3><p>MikroORM stands out because of its unique features, strong typing and good support. It’s worth considering if you are looking for an ORM for:</p>
+<ul>
+<li>A greenfield app that needs good transaction support</li>
+<li>An app that needs regular batch data updates and fast performance</li>
+</ul>
+<h2 id="Prisma"><a href="#Prisma" class="headerlink" title="Prisma"></a>Prisma</h2><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/prisma/prisma" >Prisma <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> is an open source ORM for Node.js. It currently supports PostgreSQL, MySQL, SQL Server, SQLite, MongoDB, and CockroachDB (which is still available for preview only).</p>
+<p>Prisma integrates smoothly with NestJS. Unlike the other ORMs, there is no need to have a separate package for the NestJS-ORM integration. Instead, the Prisma CLI package is the only thing we need to use Prisma in NestJS.</p>
+<h3 id="Features-3"><a href="#Features-3" class="headerlink" title="Features"></a>Features</h3><p>Prisma is a unique library compared with other ORMs discussed in this article. Instead of using entity models as other ORMs do, it uses a schema definition language. Developers can define the data models with Prisma schema, and the models are used to generate the migration files for the chosen database. It also generates strongly typed code to interact with the database.</p>
+<p>Schema files are used as a single source of truth for both database and application, and the code generation based on it helps to build type-safe queries to catch errors during compile time. </p>
+<p>Prisma provides good tooling, including Prisma CLI and Prisma Studio. You can use the CLI to create migrations, or use the Studio to inspect databases, which works well with the Entity structure of Prisma. It also provides a Prisma data platform for database hosting.</p>
+<p>The documentation of Prisma is nicely formatted and actively maintained.</p>
+<h3 id="Setup-3"><a href="#Setup-3" class="headerlink" title="Setup"></a>Setup</h3><p>Using Prisma, developers can simply define their schemas and not worry about specific ORM frameworks. Below is the most basic usage of PrismaORM with NestJS.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">// Firstly, we need a schema file to model the database</span><br><span class="line">generator client &#123;</span><br><span class="line">  provider = &quot;prisma-client-js&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">datasource db &#123;</span><br><span class="line">  provider = &quot;postgresql&quot;</span><br><span class="line">  url      = env(&quot;DATABASE_URL&quot;) // the DATABASE_URL is stored in .env file</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">model Cat &#123;</span><br><span class="line">  id            Int         @default(autoincrement()) @id</span><br><span class="line">  name          String</span><br><span class="line">  age           Int</span><br><span class="line">  breed         String   </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// To generates SQL files and also runs them on the configured database, run following command</span><br><span class="line"> npx prisma migrate dev --name init</span><br><span class="line"></span><br><span class="line">// Create a Database service to interact with the Prisma Client API</span><br><span class="line">@Injectable()</span><br><span class="line">export class PrismaService extends PrismaClient implements OnModuleInit &#123;</span><br><span class="line">  async onModuleInit() &#123;</span><br><span class="line">    await this.$connect();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  async enableShutdownHooks(app: INestApplication) &#123;</span><br><span class="line">    this.$on(&#x27;beforeExit&#x27;, async () =&gt; &#123;</span><br><span class="line">      await app.close();</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// In service layer, we inject the DatabaseService</span><br><span class="line">constructor(private prisma: PrismaService) &#123;&#125;</span><br><span class="line"></span><br><span class="line">// We can perform database operation via Prisma client api as below</span><br><span class="line">// Please note that we use Prisma Client&#x27;s generated types, like the &quot;Cat&quot;</span><br><span class="line">  async cat(</span><br><span class="line">    catWhereUniqueInput: Prisma.CatWhereUniqueInput,</span><br><span class="line">  ): Promise&lt;Cat | null&gt; &#123;</span><br><span class="line">    return this.prisma.cat.findUnique(&#123;</span><br><span class="line">      where: catWhereUniqueInput,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="Community-and-popularity-3"><a href="#Community-and-popularity-3" class="headerlink" title="Community and popularity"></a>Community and popularity</h3><p>First released in 2019, Prisma is the newest ORM of the four we discussed. It will need time to get to a more mature state. Recently, the release of version 3 introduced a few <a class="link"   target="_blank" rel="noopener" href="https://www.prisma.io/docs/guides/upgrade-guides/upgrading-versions/upgrading-to-prisma-3" >breaking changes <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. There are also some existing issues noted in GitHub, such as that it <a class="link"   target="_blank" rel="noopener" href="https://github.com/prisma/prisma1/issues/2466" >does not support some Postgres column types <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<p>With 23.3K GitHub stars and 828 forks, it’s grown rapidly in popularity.</p>
+<h3 id="Use-cases-3"><a href="#Use-cases-3" class="headerlink" title="Use cases"></a>Use cases</h3><p>Overall, Prisma is a very promising ORM. It’s designed to mitigate existing problems in traditional ORMs and can be used with either JavaScript or TypeScript. The advantage of using TypeScript is that you can leverage the Prisma Client’s generated types for better type-safety.</p>
+<p>Some good use cases for Prisma are:</p>
+<ul>
+<li>Rapid prototype development for new apps</li>
+<li>Apps that require good database tooling and strong typing support</li>
+</ul>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>There are a number of ORMs that can be used together with NestJS. Thus, choosing a suitable ORM for your NestJS application can be a hard decision. In this article, we have walked through four popular ORMs, and discussed their strengths and weaknesses.</p>
+<p>I also created a repo with the most basic sample code for each ORM, so it will be easier for you to have a direct impression if you have not used them. You can find the source code <a class="link"   target="_blank" rel="noopener" href="https://github.com/sunnyy02/nestjs-orms" >here <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+
+            </div>
+
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/TypeScript/">#TypeScript</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/NestJS/">#NestJS</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/ORM/">#ORM</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2022/07/11/how-i-passed-the-ckad-exam-certified-kubernetes-application-developer/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">My Journey to Becoming a Certified Kubernetes Application Developer</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2021/11/06/6-typescript-code-patterns-to-make-your-code-more-robust/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">6 TypeScript Code Patterns To Make Your Code More Robust</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">Comparing four popular NestJS ORMs</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ORMs-in-NestJS"><span class="nav-text">ORMs in NestJS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NestJS-and-Sequelize"><span class="nav-text">NestJS and Sequelize</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Features"><span class="nav-text">Features</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setup"><span class="nav-text">Setup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Community-and-popularity"><span class="nav-text">Community and popularity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-cases"><span class="nav-text">Use cases</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeORM"><span class="nav-text">TypeORM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Features-1"><span class="nav-text">Features</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setup-1"><span class="nav-text">Setup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Community-and-popularity-1"><span class="nav-text">Community and popularity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-cases-1"><span class="nav-text">Use cases</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MikroORM"><span class="nav-text">MikroORM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Features-2"><span class="nav-text">Features</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setup-2"><span class="nav-text">Setup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Community-and-popularity-2"><span class="nav-text">Community and popularity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-cases-2"><span class="nav-text">Use cases</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prisma"><span class="nav-text">Prisma</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Features-3"><span class="nav-text">Features</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setup-3"><span class="nav-text">Setup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Community-and-popularity-3"><span class="nav-text">Community and popularity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-cases-3"><span class="nav-text">Use cases</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-regular fa-computer-classic"></i>&nbsp;&nbsp;<a href="/">Sunny Sun</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br> 
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.1.6</a>
+        </div>
+        
+        
+        
+            <div id="start_time_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="right-bottom-tools rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                <i class="fa-regular fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/menu-shrink.js"></script>
+
+<script src="/js/tools/go-top-bottom.js"></script>
+
+<script src="/js/tools/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/tools/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/tools/code-block.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/layouts/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

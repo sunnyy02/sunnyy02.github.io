@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="Sunny Sun">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2019/12/11/how-to-resolve-certifcate-error-in-nodejs-app/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How to Resolve Certificate Errors in a Node.js App with SSL Calls">
+    <meta property="og:description" content="Hexo Theme Redefine">
+    <meta property="og:url" content="http://example.com2019/12/11/how-to-resolve-certifcate-error-in-NodeJS-App/">
+    <meta property="og:image" content="/images/redefine-logo.svg">
+    <meta property="og:site_name" content="Do What You Love">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How to Resolve Certificate Errors in a Node.js App with SSL Calls">
+    <meta name="twitter:description" content="Hexo Theme Redefine">
+    <meta name="twitter:image" content="/images/redefine-logo.svg">
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-logo.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-logo.svg">
+    <meta name="theme-color" content="#0066cc">
+    <link rel="shortcut icon" href="/images/redefine-logo.svg">
+    
+    <title>
+        
+            How to Resolve Certificate Errors in a Node.js App with SSL Calls -
+        
+        Do What You Love
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/assets/fonts.css">
+
+    
+    
+    
+    
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/icons8-stormtrooper.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78700","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":false,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"Love What You Do","custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.1.6","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}},"plugins":{"aplayer":{"enable":false,"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]}}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg#%20logo%20image%20on%20the%20left%20of%20the%20navigation%20bar">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Do What You Love
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/about">ME
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/about">ME</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET</a>
+                            </li>
+                        
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">How to Resolve Certificate Errors in a Node.js App with SSL Calls</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/icons8-stormtrooper.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Sunny Sun</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2019-12-11</span>
+        <span class="mobile">2019-12-11 00</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="pc">2024-06-22 15:50:04</span>
+            <span class="mobile">2024-06-22 15:50</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Security/">Security</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/JavaScript/">JavaScript</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Certificate/">Certificate</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>937 Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>5 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h5 id="A-practical-guide-to-resolving-SSL-certificate-errors"><a href="#A-practical-guide-to-resolving-SSL-certificate-errors" class="headerlink" title="A practical guide to resolving SSL certificate errors"></a>A practical guide to resolving SSL certificate errors</h5><p>In a non-production environment, setting up a NodeJS App with HTTPS and a Server Certificate is relatively straightforward. In a production environment, if your Node&#x2F;Express App sits behind a reverse proxy like Nginx which serves certificates, and it does not need to call other external services, then HTTPS and a Server Certificate are not required.</p>
+<p>However, in reality, your Node app will need to call various back-end services protected by HTTPS. By default, NodeJs is built with <a class="link"   target="_blank" rel="noopener" href="https://github.com/nodejs/node-v0.x-archive/blob/master/src/node_root_certs.h" >a bundle of commonly used CA root certificates <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. Even with these certificates, we still may be bashed with HTTPS-related errors if your back-end services are hosted with self-signed certificates (i.e. company-specific private CA).</p>
+<p>Some of these errors include:</p>
+<blockquote>
+<p><em>UNABLE_TO_GET_ISSUER_CERT_LOCALLY</em><br><em>UNABLE_TO_VERIFY_LEAF_SIGNATURE</em><br><em>DEPTH_ZERO_SELF_SIGNED_CERT</em></p>
+</blockquote>
+<p>We need to understand these errors before they can be resolved.</p>
+<p>Let’s dive deep into these errors.</p>
+<h3 id="SSL-Handshake"><a href="#SSL-Handshake" class="headerlink" title="SSL Handshake"></a>SSL Handshake</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2000/1*JJq75jP6uG4tXoJBdj1zCQ.png"
+                     
+                ></p>
+<p>These errors originate from the SSL handshake process. When a client begins to establish a connection to the server, a TLS handshake happens. It is a series of messages exchanged between the client and server. In these messages, they agree with the version of the TLS and cipher suites to use, verify the identity of the server, and generate the session keys.</p>
+<p>In step 2 of the above diagram, the server sends a message containing the server’s SSL certificate. Then the client verifies the certificate with the CA (Certificate authority) that issued it. This step confirms that the server is who it says it is, and the client is interacting with the actual owner of the domain.</p>
+<p>The above SSL errors are thrown because the client is not able to verify the trust chain of the self-signed server certificate sent in step 2.</p>
+<blockquote>
+<p>TLS handshake is a complex process, you may like to read the article below for more details.<br><a target="_blank" rel="noopener" href="https://levelup.gitconnected.com/deep-dive-into-tls-handshake-e029e28e2eb3"><strong>Deep Dive Into TLS Handshake</strong><br><em>TLS 1.2 Handshake process explained step by step</em>levelup.gitconnected.com</a></p>
+</blockquote>
+<h3 id="Quick-and-Dirty-Fix-rejectUnauthorized"><a href="#Quick-and-Dirty-Fix-rejectUnauthorized" class="headerlink" title="Quick and Dirty Fix: rejectUnauthorized"></a>Quick and Dirty Fix: rejectUnauthorized</h3><p>The easiest solution to resolve these errors is to use the “rejectUnauthorized” option as below.</p>
+<pre><code>https.request(&#123; 
+      ....,
+      rejectUnauthorized: false,
+    &#125;,
+...)
+</code></pre>
+<p>or set it as an environment variable</p>
+<pre><code>NODE_TLS_REJECT_UNAUTHORIZED=0
+</code></pre>
+<p>However, this method is unsafe because it disables the server certificate verification, making the Node app open to <a class="link"   target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Man-in-the-middle_attack" >MITM  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>attack. Thus, it is strongly recommended only to disable certificate verification in a development environment, and never apply this approach in production.</p>
+<h3 id="Use-CA-Option"><a href="#Use-CA-Option" class="headerlink" title="Use CA Option"></a>Use CA Option</h3><p>A safer way is to specify the CA certificate that is expected from the server. In other words, the common name of the certificate needs to match the server certificate.</p>
+<pre><code>request(&#123; 
+   ca: [fs.readFileSync([certificate path])],
+   rejectUnauthorized: true,
+&#125;
+</code></pre>
+<p>As you can see, the ca option is an array, thus you can set multiple certificate files if required. Hardcoding the certificate files in the code can make it difficult to update or rotate the certificates as needed. To avoid these issues, consider using a configuration management tool to handle the installation and updates of certificates.</p>
+<h3 id="NODE-EXTRA-CA-CERTS"><a href="#NODE-EXTRA-CA-CERTS" class="headerlink" title="NODE_EXTRA_CA_CERTS"></a>NODE_EXTRA_CA_CERTS</h3><p>From Node version 7.3.0, NODE_EXTRA_CA_CERTS environment variable is introduced to specify the location of any additional certificate authority (CA) certificates that are needed. This allows the “root” CAs to be extended with the extra certificates in the file. The file should consist of one or more trusted certificates in **PEM **format.</p>
+<p>To use the NODE_EXTRA_CA_CERTS environment variable, you can specify the path to the certificate file when starting your Node.js app. For example, you could use the following command :</p>
+<pre><code>NODE_EXTRA_CA_CERTS=path/to/ca/certificates.pem node app.js
+</code></pre>
+<p>This command sets the NODE_EXTRA_CA_CERTS variable and then starts the app.js Node.js app. The Node.js app will then use the CA certificates when making SSL calls, which will help to resolve the certificate errors.</p>
+<p>Please note that the extra certificates won’t be effective if the ca options property is explicitly specified for an HTTPS client or server.</p>
+<h3 id="How-to-troubleshoot"><a href="#How-to-troubleshoot" class="headerlink" title="How to troubleshoot?"></a>How to troubleshoot?</h3><p>If you have used either the ca option or the NODE_EXTRA_CA_CERTS, but still, receive the same errors. It is normally caused by the incorrect certificate being used.</p>
+<p>Firstly, let’s check the certificate chain to make sure that all of the necessary intermediate certificates are included in the certificate chain. The certificate chain should include the server certificate, the intermediate CA certificate, and the root CA certificate.</p>
+<p>For the ca option or the extra certs to work, we need to get the full CA Chain or at least the Root CA certificate.</p>
+<p>You can use <a class="link"   target="_blank" rel="noopener" href="https://www.openssl.org/" >OpenSSL <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> to retrieve the Full CA Chain as follows:</p>
+<pre><code>openssl s_client -connect $&#123;REMHOST&#125;:$&#123;REMPORT&#125;
+</code></pre>
+<p>An example of the certificate chain is shown below.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2000/1*7mINu9NCxlhQPfNqCYjVIw.png"
+                      alt="Google CA Certificate Chain"
+                ><em>Google CA Certificate Chain</em></p>
+<blockquote>
+<p>Please note that the *showcerts *command may not work if the command is executed behind a proxy or the remote server uses <a class="link"   target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Server_Name_Indication" >SNI <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+</blockquote>
+<p>If the error still persists, below are other things to check</p>
+<ul>
+<li><p>Check the certificate path to ensure the certificate path is correct and readable by the app.</p>
+</li>
+<li><p>Verify the certificate is in the correct format (normally PEM or DER). You can use openssl command to convert the certificate to the required format.</p>
+</li>
+</ul>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>In this article, We discuss how to resolve the certificate errors in NodeJs App in detail. If you still can’t fix the error after trying everything, then StackOverflow is your best friend :).</p>
+<p>If you are not already a paid Medium member, <a class="link"   target="_blank" rel="noopener" href="https://sunnysun-5694.medium.com/membership" >**you can do so by visiting this link <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**. You’ll get unlimited full access to every story on Medium. I’ll receive a portion of your membership fees as a referral.</p>
+<p>Thanks for reading, and happy programming!</p>
+
+            </div>
+
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Security/">#Security</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/JavaScript/">#JavaScript</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Certificate/">#Certificate</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2020/10/05/deep-clone-an-object-and-preserve-its-type-with-typescript/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Deep clone an Object and preserve its type with TypeScript</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2019/10/05/integrate-with-dynamics-crm-online-using-web-api/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Integrate with Dynamics CRM Online using Web API</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">How to Resolve Certificate Errors in a Node.js App with SSL Calls</div>
+        <ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#A-practical-guide-to-resolving-SSL-certificate-errors"><span class="nav-text">A practical guide to resolving SSL certificate errors</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSL-Handshake"><span class="nav-text">SSL Handshake</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Quick-and-Dirty-Fix-rejectUnauthorized"><span class="nav-text">Quick and Dirty Fix: rejectUnauthorized</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-CA-Option"><span class="nav-text">Use CA Option</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NODE-EXTRA-CA-CERTS"><span class="nav-text">NODE_EXTRA_CA_CERTS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-troubleshoot"><span class="nav-text">How to troubleshoot?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-regular fa-computer-classic"></i>&nbsp;&nbsp;<a href="/">Sunny Sun</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br> 
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.1.6</a>
+        </div>
+        
+        
+        
+            <div id="start_time_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="right-bottom-tools rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                <i class="fa-regular fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/menu-shrink.js"></script>
+
+<script src="/js/tools/go-top-bottom.js"></script>
+
+<script src="/js/tools/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/tools/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/tools/code-block.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/layouts/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

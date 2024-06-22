@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="Sunny Sun">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2021/09/23/inject-dynamic-content-angular-components-with-portals/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Inject dynamic content in Angular components with portals">
+    <meta property="og:description" content="Hexo Theme Redefine">
+    <meta property="og:url" content="http://example.com2021/09/23/inject-dynamic-content-angular-components-with-portals/">
+    <meta property="og:image" content="/images/redefine-logo.svg">
+    <meta property="og:site_name" content="Do What You Love">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Inject dynamic content in Angular components with portals">
+    <meta name="twitter:description" content="Hexo Theme Redefine">
+    <meta name="twitter:image" content="/images/redefine-logo.svg">
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-logo.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-logo.svg">
+    <meta name="theme-color" content="#0066cc">
+    <link rel="shortcut icon" href="/images/redefine-logo.svg">
+    
+    <title>
+        
+            Inject dynamic content in Angular components with portals -
+        
+        Do What You Love
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/assets/fonts.css">
+
+    
+    
+    
+    
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/icons8-stormtrooper.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78700","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":false,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"Love What You Do","custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.1.6","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}},"plugins":{"aplayer":{"enable":false,"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]}}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg#%20logo%20image%20on%20the%20left%20of%20the%20navigation%20bar">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Do What You Love
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/about">ME
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/about">ME</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET</a>
+                            </li>
+                        
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+             
+                <div class="article-title">         
+                    <img src="https://blog.logrocket.com/wp-content/uploads/2021/09/rendering-dynamic-content-angular-components-using-angular-cdk-portal.png" alt="Inject dynamic content in Angular components with portals" />
+                    <h1 class="article-title-cover">Inject dynamic content in Angular components with portals</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/icons8-stormtrooper.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Sunny Sun</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2021-09-23</span>
+        <span class="mobile">2021-09-23 00</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="pc">2024-06-22 15:50:04</span>
+            <span class="mobile">2024-06-22 15:50</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/TypeScript/">TypeScript</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Angular/">Angular</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>1.6k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>9 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <p>As an Angular developer, a large part of our daily job is putting components together to build our app. From time to time, we will need to inject a component or UI template into another component dynamically.</p>
+<p>In Angular, there are a couple of ways to render dynamic components into a host component before the CDK portals are released. These are:</p>
+<ul>
+<li>ngComponentOutlet)</li>
+<li>ComponentFactoryResolver<br>Both methods have a drawback: the host component needs to reference the injected component directly. The coupling between the host and injected component makes it hard to test and maintain.</li>
+</ul>
+<p>Portal provides a flexible and clean alternative method of injecting content into an Angular component.</p>
+<p>Let’s walk through an example of using Portal step-by-step.</p>
+<h3 id="Defining-the-problem"><a href="#Defining-the-problem" class="headerlink" title="Defining the problem"></a>Defining the problem</h3><p>Let’s say we’re enhancing the dashboard screen in an Angular app. The screen contains</p>
+<ul>
+<li>A parent component (dashboard): this is the container of the dashboard screen</li>
+<li>A dropdown selector: the change of selection will change the context of the dashboard</li>
+<li>A router outlet: this is used to load the components from subroutes</li>
+<li>Two subcomponents (the stats and action components): these display information related with current context of dashboard</li>
+</ul>
+<p>When the user picks an option from the selector, the app will navigate to different subroutes. As a result, the corresponding component will be loaded into the router outlet. The two subcomponents will then be updated with different content.</p>
+<p>Upon the selection change, the selected service type data is pushed into the serviceType$ observable in the DashboardService. In the action component, we subscribe to the serviceType$ observable.</p>
+<pre><code>
+// dashboard.component.ts
+// when user change a selection, new serviceType are broadcasted
+this.service.searchType$.next(serviceType);
+
+// dashboard.service.ts
+export class DashboardService &#123;
+  searchType$ = new BehaviorSubject('');
+  constructor() &#123; &#125;
+&#125;
+// action.component.ts
+export class ActionComponent &#123;
+  serviceType$ = this.service.searchType$;
+  constructor(private service: DashboardService) &#123;&#125;
+&#125;
+</code></pre>
+<p>We use ngSwitch to react to the observable serviceType$. In the following example, the action component content is updated when the observable value changes.</p>
+<pre><code>   <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><figcaption><span>class</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">  &lt;div [ngSwitch]=&quot;serviceType&quot;&gt;</span><br><span class="line">    &lt;div *ngSwitchCase=&quot;&#x27;client&#x27;&quot;&gt;</span><br><span class="line">      &lt;button (click)=&quot;registerNewClient()&quot; class=&quot;btn btn-primary&quot;&gt;</span><br><span class="line">        Register New Client</span><br><span class="line">      &lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div *ngSwitchCase=&quot;&#x27;order&#x27;&quot;&gt;</span><br><span class="line">      &lt;button (click)=&quot;registerNewOrder()&quot; class=&quot;btn btn-danger&quot;&gt;</span><br><span class="line">        Search order</span><br><span class="line">      &lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div *ngSwitchDefault&gt;default action&lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></div>
+</code></pre>
+<p>The dashboard works, but there are a couple of problems with the code:</p>
+<h4 id="The-two-subcomponents-are-smart-components"><a href="#The-two-subcomponents-are-smart-components" class="headerlink" title="The two subcomponents are smart components"></a>The two subcomponents are smart components</h4><p>These subcomponents are designed to present data, so they should be dumb, or presentational, components. Instead, the current design makes them aware of the external data entities</p>
+<h4 id="The-subcomponents-also-contain-side-effects"><a href="#The-subcomponents-also-contain-side-effects" class="headerlink" title="The subcomponents also contain side effects"></a>The subcomponents also contain side effects</h4><p>This means that they register event handling, which makes them hard to be reused. To add a new service type, we need to add ngSwitchCase into all of our subcomponents, and with more service types or subcomponents being added, the dashboard will become more complex and harder to maintain. What we want is to inject UI contents into the subcomponents while the subcomponents don’t know where the contents are coming from.</p>
+<h3 id="How-can-portals-help"><a href="#How-can-portals-help" class="headerlink" title="How can portals help?"></a>How can portals help?</h3><p>Portals are provided as part of the Angular Material CDK, which is internally developed by the Angular Material team. Its name was recently shortened to Angular CDK. The definition of portals in the official documentation is: portal is a piece of UI that can be dynamically rendered to an open slot on the page. There are two key parts:</p>
+<ul>
+<li>Portal: the UI element (component or template) to render. It can be a component, a templateRef or a DOM element.</li>
+<li>PortalOutlet: the slot where the content will be rendered. In the previous version, it was called PortalHost.<br>Let’s make use of the portals to solve the above problem.</li>
+</ul>
+<h3 id="Setting-up"><a href="#Setting-up" class="headerlink" title="Setting up"></a>Setting up</h3><p>To start using the Angular CDK portal, the following package needs to be installed.</p>
+<pre><code>
+        npm install @angular/cdk
+</code></pre>
+
+<p>Then in the app.module.ts file, we need to import the CDK module.</p>
+<pre><code>
+    import &#123;PortalModule&#125; from '@angular/cdk/portal';
+</code></pre>
+
+<h3 id="Types-of-portals"><a href="#Types-of-portals" class="headerlink" title="Types of portals"></a>Types of portals</h3><p>We have a few options to create a portal.</p>
+<ul>
+<li>ComponentPortal: create a portal from a component type.<pre><code>
+  this.portal = new ComponentPortal(StatsComponent);
+</code></pre></li>
+</ul>
+<p>*TemplatePortal: create a portal from a &lt;ng-template&gt;</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;ng-template #templatePortal&gt;</span><br><span class="line">&lt;ng-content&gt;&lt;/ng-content&gt;</span><br><span class="line">&lt;/ng-template&gt;</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>DomPortal: create a portal from a native DOM element. This allows us to take any DOM element and inject it to the host<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div #domPortal&gt;Total clients&lt;/div&gt;</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<p>With DomPortal, the Angular binding within the content won’t be effective because it’s treated as a native DOM element.</p>
+<p>Angular CDK also provides a cdkPortal directive, which is a version of TemplatePortal. The cdkPortal directive saves some boilerplate code compared to TemplatePortal, as we don’t need to manually instantiate the portal.</p>
+<h3 id="Create-a-portal"><a href="#Create-a-portal" class="headerlink" title="Create a portal"></a>Create a portal</h3><p>In this example, we use the cdkPortal directive because it’s simpler and more declarative.</p>
+<p>As the below code shows, we wrap ng-content inside the ng-template in the ActionButtonComponent template. Then, we add the portal directive into the ng-template.</p>
+<p>There are two equivalent selectors for the cdkPortal directive: portal or cdk-portal. ng-content is used so we can project contents from the other components.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// Html   </span><br><span class="line">// ActionButtonComponent</span><br><span class="line">&lt;ng-template cdk-portal&gt;</span><br><span class="line">    &lt;ng-content&gt;&lt;/ng-content&gt;</span><br><span class="line">&lt;/ng-template&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p>Please note that the element with the cdkPortal directive will not be shown until it’s attached to CdkPortalOutlet. This applies to all elements, including div.</p>
+<p>In the ActionButtonComponent class, we can reference the template using the @ViewChild and CdkPortal directives.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">// ActionButtonComponent</span><br><span class="line">@ViewChild(CdkPortal)</span><br><span class="line">private portal: CdkPortal;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="Creating-the-PortalOutlet"><a href="#Creating-the-PortalOutlet" class="headerlink" title="Creating the PortalOutlet"></a>Creating the PortalOutlet</h3><p>In the ActionComponent, we created a placeholder with the ID set to action.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// Html</span><br><span class="line">// ActionComponent</span><br><span class="line">&lt;div id=&quot;action&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p>Now we can create the DomPortalOutlet. We use document.querySelector to get hold of the DOM element placeholder defined above. The rest of the parameters are injected via the component constructor.</p>
+<p>Please note that the DomPortalOutlet was previously called DomPortalHost. Since Angular 9, it’s been renamed to DomPortalOutlet.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// Html</span><br><span class="line">// ActionButtonComponent</span><br><span class="line"></span><br><span class="line">  private host: DomPortalOutlet;</span><br><span class="line"></span><br><span class="line">  constructor(</span><br><span class="line">    private cfr: ComponentFactoryResolver,</span><br><span class="line">    private appRef: ApplicationRef,</span><br><span class="line">    private injector: Injector</span><br><span class="line">  ) &#123;&#125;</span><br><span class="line">  </span><br><span class="line">  ngAfterViewInit(): void &#123;</span><br><span class="line">    this.host = new DomPortalOutlet(</span><br><span class="line">      document.querySelector(&#x27;#action),</span><br><span class="line">      this.cfr,</span><br><span class="line">      this.appRef,</span><br><span class="line">      this.injector</span><br><span class="line">    );</span><br></pre></td></tr></table></figure></div>
+
+<p>The creation of DomPortalOutlet occurs within the ngAfterViewInit lifecycle event. It’s necessary because ngAfterViewInit occurs right after the view is rendered.</p>
+<h3 id="Putting-them-together"><a href="#Putting-them-together" class="headerlink" title="Putting them together"></a>Putting them together</h3><p>After both portal and DomPortalOutlet are defined, we can attach the portal to the portalOutlet. This will inject the portal into the placeholder referenced by the portalOutlet.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">// ActionButtonComponent</span><br><span class="line">export class ActionButtonComponent implements AfterViewInit, OnDestroy&#123;</span><br><span class="line"></span><br><span class="line">  @ViewChild(CdkPortal)</span><br><span class="line">  private portal: CdkPortal;</span><br><span class="line">  private host: DomPortalOutlet;</span><br><span class="line"></span><br><span class="line">  constructor(</span><br><span class="line">    private cfr: ComponentFactoryResolver,</span><br><span class="line">    private appRef: ApplicationRef,</span><br><span class="line">    private injector: Injector</span><br><span class="line">  ) &#123;&#125;</span><br><span class="line">  </span><br><span class="line">  ngAfterViewInit(): void &#123;</span><br><span class="line">    this.host = new DomPortalOutlet(</span><br><span class="line">      document.querySelector(&#x27;#action),</span><br><span class="line">      this.cfr,</span><br><span class="line">      this.appRef,</span><br><span class="line">      this.injector</span><br><span class="line">    );</span><br><span class="line">    this.host.attach(this.portal);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>In this case, both the client and order components can project content into ActionButtonComponent. Those contents are shown in the portalOutlet in ActionComponent.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;app-action-button&gt;</span><br><span class="line">&lt;button (click)=&quot;registerClient()&quot; class=&quot;btn btn-primary&quot;&gt;Register New Client&lt;/button&gt;</span><br><span class="line">&lt;/app-action-button&gt;</span><br></pre></td></tr></table></figure></div>
+<p>Here is an overview of how the portal and portalOutlet work together.<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog.logrocket.com/wp-content/uploads/2021/09/how-portal-portaloutlet-work-together.png"
+                     
+                ></p>
+<h3 id="detach-method-vs-dispose-method"><a href="#detach-method-vs-dispose-method" class="headerlink" title="detach method vs. dispose method"></a>detach method vs. dispose method</h3><p>We use the detach method to remove the previously attached portal from the portalOutlet. It’s to clean things up when the parent component is removed.</p>
+<p>Another way is to use the dispose method. When calling dispose, we permanently remove the portalOutlet from DOM.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ngOnDestroy(): void &#123;</span><br><span class="line">this.host.detach();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>In our example, we use the detach method, as our intention is to detach the portal instead of removing the portalOutlet from DOM.</p>
+<h3 id="Passing-context-instead-of-contents"><a href="#Passing-context-instead-of-contents" class="headerlink" title="Passing context instead of contents"></a>Passing context instead of contents</h3><p>In the previous example, we don’t need to pass data because ng-content is used to project contents. But for other use cases, you may need to pass contextual data into the portal.</p>
+<p>To pass context data in templatePortal, we can use the context property.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.portal.context = &#123;&#125;; // Your context data</span><br></pre></td></tr></table></figure></div>
+
+<p>For ComponentPortal, we can use token injection shown in the code below.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">export const CONTEXT_TOKEN = new InjectionToken(&#123;...&#125;);</span><br><span class="line"></span><br><span class="line">// when creating the componentPortal, provide the token injector</span><br><span class="line">const injector = Injector.create(&#123;</span><br><span class="line">providers: [&#123; provide: CONTEXT_TOKEN, useValue: &#123;...&#125;, // context data variable</span><br><span class="line">&#125;);</span><br><span class="line">const portal = new ComponentPortal(ComponentClass, null, injector);</span><br><span class="line"></span><br><span class="line">//Inject the token into the constructor of the component, so it can be accessed</span><br><span class="line">constructor(@Inject(CONTEXT_TOKEN) private data: T)</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="Final-results"><a href="#Final-results" class="headerlink" title="Final results"></a>Final results</h3><p>Below is what the final result looks like. Our dashboard shows dynamic content when the dropdown selector changes. Best of all, the subcomponents (the stats and action components) are loosely coupled. They do not contain logic about clients or orders; instead, they only need to focus on rendering the content correctly.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog.logrocket.com/wp-content/uploads/2021/09/final-results-dashboard.gif"
+                     
+                ></p>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>In this article, we discussed how to use Angular CDK portals to inject dynamic contents to a few components in a dashboard. You can find the full example code on my GitHub.</p>
+<p>The CDK Portal is a powerful feature. Its major benefits include its flexibility and clean separations. It gives us the ability to “teleport” content to any component within the screen, even if it’s outside the current component tree.</p>
+<p>I hope this article can help you to apply this technique in your own awesome app!</p>
+
+            </div>
+
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/TypeScript/">#TypeScript</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Angular/">#Angular</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2021/11/06/6-typescript-code-patterns-to-make-your-code-more-robust/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">6 TypeScript Code Patterns To Make Your Code More Robust</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2021/09/21/4-simple-and-effective-ways-to-avoid-too-many-ifs-with-typescript/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">4 Simple and Effective Ways To Avoid Too Many Ifs With TypeScript</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">Inject dynamic content in Angular components with portals</div>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Defining-the-problem"><span class="nav-text">Defining the problem</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#The-two-subcomponents-are-smart-components"><span class="nav-text">The two subcomponents are smart components</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-subcomponents-also-contain-side-effects"><span class="nav-text">The subcomponents also contain side effects</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-can-portals-help"><span class="nav-text">How can portals help?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setting-up"><span class="nav-text">Setting up</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Types-of-portals"><span class="nav-text">Types of portals</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-portal"><span class="nav-text">Create a portal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Creating-the-PortalOutlet"><span class="nav-text">Creating the PortalOutlet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Putting-them-together"><span class="nav-text">Putting them together</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#detach-method-vs-dispose-method"><span class="nav-text">detach method vs. dispose method</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Passing-context-instead-of-contents"><span class="nav-text">Passing context instead of contents</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Final-results"><span class="nav-text">Final results</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-regular fa-computer-classic"></i>&nbsp;&nbsp;<a href="/">Sunny Sun</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br> 
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.1.6</a>
+        </div>
+        
+        
+        
+            <div id="start_time_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="right-bottom-tools rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                <i class="fa-regular fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/menu-shrink.js"></script>
+
+<script src="/js/tools/go-top-bottom.js"></script>
+
+<script src="/js/tools/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/tools/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/tools/code-block.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/layouts/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

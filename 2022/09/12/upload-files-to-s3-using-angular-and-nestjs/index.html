@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="Sunny Sun">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2022/09/12/upload-files-to-s3-using-angular-and-nestjs/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Upload Files to S3 Using Angular and NestJS">
+    <meta property="og:description" content="Hexo Theme Redefine">
+    <meta property="og:url" content="http://example.com2022/09/12/upload-files-to-s3-using-angular-and-nestjs/">
+    <meta property="og:image" content="/images/redefine-logo.svg">
+    <meta property="og:site_name" content="Do What You Love">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Upload Files to S3 Using Angular and NestJS">
+    <meta name="twitter:description" content="Hexo Theme Redefine">
+    <meta name="twitter:image" content="/images/redefine-logo.svg">
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-logo.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-logo.svg">
+    <meta name="theme-color" content="#0066cc">
+    <link rel="shortcut icon" href="/images/redefine-logo.svg">
+    
+    <title>
+        
+            Upload Files to S3 Using Angular and NestJS -
+        
+        Do What You Love
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/assets/fonts.css">
+
+    
+    
+    
+    
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/icons8-stormtrooper.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78700","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":false,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"Love What You Do","custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.1.6","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}},"plugins":{"aplayer":{"enable":false,"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]}}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg#%20logo%20image%20on%20the%20left%20of%20the%20navigation%20bar">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Do What You Love
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/about">ME
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/about">ME</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET</a>
+                            </li>
+                        
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+             
+                <div class="article-title">         
+                    <img src="https://cdn-images-1.medium.com/max/2714/1*76MfwqJzRTxBT_B09ak-6A.png" alt="Upload Files to S3 Using Angular and NestJS" />
+                    <h1 class="article-title-cover">Upload Files to S3 Using Angular and NestJS</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/icons8-stormtrooper.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Sunny Sun</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2022-09-12</span>
+        <span class="mobile">2022-09-12 00</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="pc">2024-06-22 15:50:04</span>
+            <span class="mobile">2024-06-22 15:50</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/TypeScript/">TypeScript</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Angular/">Angular</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/NestJS/">NestJS</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>1.3k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>8 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="An-End-to-End-Example-using-Angular-and-NestJS"><a href="#An-End-to-End-Example-using-Angular-and-NestJS" class="headerlink" title="An End to End Example using Angular and NestJS"></a>An End to End Example using Angular and NestJS</h2><p>Recently, I worked on an S3 file-uploading feature for an Angular&#x2F;NestJS App. To my surprise, I have difficulty finding a tutorial with complete and working examples. Thus, I thought it might be useful to walk through the process of file uploading to the S3 (Amazon Simple Storage Service) bucket with Angular and NestJS.</p>
+<p>I assume that you have basic knowledge of Angular and NestJS. So I will skip those initial App Setups and focus on the file uploading part.</p>
+<h2 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h2><p>You will need these technologies to follow along:</p>
+<ul>
+<li><p>Angular 14</p>
+</li>
+<li><p>NestJS version 9</p>
+</li>
+<li><p>NodeJS v14 or above</p>
+</li>
+<li><p>An AWS account</p>
+</li>
+</ul>
+<h3 id="S3-bucket-and-Access-Key-x2F-Secret-Access-Key"><a href="#S3-bucket-and-Access-Key-x2F-Secret-Access-Key" class="headerlink" title="S3 bucket and Access Key&#x2F;Secret Access Key"></a>S3 bucket and Access Key&#x2F;Secret Access Key</h3><p>To upload files to S3, we need to set up the S3 bucket and IAM user required for NestJS API to access it.</p>
+<p>If you don’t have an S3 bucket yet, follow <a class="link"   target="_blank" rel="noopener" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-bucket.html" >this instruction <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> to create one.</p>
+<p>The next step is to log in to your AWS account and navigate to IAM to add a user. Enter a user name and tick the “Access key -Programmatic access” option.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2000/1*gTTzcQ0WjgRi6hvn5RwJvw.png"
+                      alt="Create IAM User"
+                ><em>Create IAM User</em></p>
+<p>Then, click on the “Next: Permission” button to attach the “AmazonS3FullAccess” policy to the IAM user.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2486/1*y72uqoq2Ig1uzhWHQCR39g.png"
+                      alt="Attach existing policy"
+                ><em>Attach existing policy</em></p>
+<p>Click on the “Next” button to accept the default setting and create the user. The Access key ID and Secret access key will be shown on the success screen. We can download the CSV file to keep the key values for later use.</p>
+<p>Here we create an IAM user with full access to all the S3 buckets under your AWS account. In the production environment, we should create a custom policy to restrict the IAM user to access the particular S3 bucket for file uploading only. But for sake of simplicity, we skip this step in this article.</p>
+<p>Now, we have the S3 bucket ready. Let’s build the file upload API with NestJS.</p>
+<h3 id="NestJS-file-uploading"><a href="#NestJS-file-uploading" class="headerlink" title="NestJS file uploading"></a>NestJS file uploading</h3><p>We can create a new NestJS App using Nest CLI.</p>
+<pre><code>nest new ng-nest-upload
+</code></pre>
+<p>We need to install the aws-sdk package.</p>
+<pre><code>npm install aws-sdk @types/aws-sdk
+</code></pre>
+<p>We also need to install the type definition of multer</p>
+<pre><code>npm i -D @types/multer
+</code></pre>
+<blockquote>
+<p>NestJs makes use of <a class="link"   target="_blank" rel="noopener" href="https://www.npmjs.com/package/multer" >Multer <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> to handle the file upload. Multer is a node.js middleware for handling multipart&#x2F;form-data, which is primarily used for uploading files. Multer extracts the values of the form text fields into a body object. It also creates a new object for file or multiple files in the request.file or request.files object. The body object contains the values of the text fields of the form, and the file or files object contains the files uploaded via the form.</p>
+</blockquote>
+<p>Let’s create the file upload endpoint which captures and saves the file from FileInterceptor.</p>
+<pre><code>
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadFile(
+    @UploadedFile() file: Express.Multer.File,
+    @Request() req,
+  ): Promise<any> &#123;
+    const result = await this.fileservice.uploadPublicFile(
+      file.buffer,
+      file.originalname,
+    );
+    return new ResponseModel(result); 
+  &#125;
+</code></pre>
+
+<p>We use two decorators here:</p>
+<ul>
+<li><p>FileInterceptor: It takes the field name as the first parameter to extract the uploaded file. The field name is sent from the client multipart&#x2F;form-data, thus you will need to update it to match the name of the field in your code. The FileInterceptor uses Multer under the hood.</p>
+</li>
+<li><p>UploadedFile: It is used to reference the file payload from request.</p>
+</li>
+</ul>
+<h3 id="Save-the-file-to-S3-Bucket"><a href="#Save-the-file-to-S3-Bucket" class="headerlink" title="Save the file to S3 Bucket"></a>Save the file to S3 Bucket</h3><p>In the above controller, we also use FileService to save the file to S3. In FileService, we use aws-sdk v3 to upload a stream object to an S3 bucket. As shown below, we need to specify 3 parameters</p>
+<ul>
+<li><p>Bucket: name of the S3 bucket</p>
+</li>
+<li><p>Body: a buffer object representing the file</p>
+</li>
+<li><p>Key: Unique key for the file</p>
+</li>
+</ul>
+<pre><code>
+@Injectable()
+export class FileService &#123;
+  async uploadPublicFile(dataBuffer: Buffer, filename: string) &#123;
+    try &#123;
+      const s3 = new S3();
+      const uploadResult = await s3
+        .upload(&#123;
+          Bucket: 'file-uploads',
+          Body: dataBuffer,
+          Key: `$&#123;uuid()&#125;-$&#123;filename&#125;`
+        &#125;)
+        .promise();
+
+      return  &#123;
+        key: uploadResult.Key,
+        url: uploadResult.Location,
+      &#125;;
+    &#125; catch (err) &#123;
+      console.log(err);
+      return &#123; key: 'error', url: err.message &#125;;
+    &#125;
+  &#125;
+&#125;
+</code></pre>
+<p>How is the access configuration to S3 set up in NestJS API? we initialize these configurations at thebootstrap method of main.ts.</p>
+<pre><code>
+async function bootstrap() &#123;
+  const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('api');
+   config.update(&#123;
+        accessKeyId: '[your S3 Access key]',
+        secretAccessKey: '[your S3 secret]',
+        region: '[your S3 region]',
+      &#125;);
+  await app.listen(3000);
+&#125;
+bootstrap();
+</code></pre>
+
+<p>Again for Sake of simplicity, the Access Key and Secret are hardcoded in the above example. In the real-life App, they should come from environment variables.</p>
+<h3 id="Angular-client"><a href="#Angular-client" class="headerlink" title="Angular client"></a>Angular client</h3><p>To upload files from an Angular App, we use the <a class="link"   target="_blank" rel="noopener" href="https://medium.com/gitconnected/3-ways-to-access-local-files-from-web-browser-70f57fa57e50" >*File *interface <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> that provides information about files and allows JavaScript on a web page to access their content.</p>
+<p>The following<input type="file"> represents a file select field and a “Choose file” button. This plain button allows users to access local files from a browser. We can use the accept attribute to limit the type of files to upload.</p>
+<pre><code>&lt;input type=&quot;file&quot; [accept]=&quot;acceptedFileExtensions&quot; (change)=&quot;attachFile($event)&quot;&gt;
+</code></pre>
+<p>Unfortunately, we can’t change the style of the default file select button. The solution is to use another custom button to invoke the default button. In the code below, we hide the default button and style the custom button with CSS class fileButton.</p>
+<pre><code>
+  <input #fileInput type="file" class="file-input" [accept]="acceptedFileExtensions" (change)="attachFile($event)" />
+  <div class="row document-type">
+    <div class="col-xs-12">
+      <button class="fileButton" action="file" (click)="onSelectFile()" type="submit">Upload document</button>
+      allowed file types(JPG, PNG, GIF)
+    </div>
+  </div>
+</code></pre>
+
+<p>In the UploadComponent, we use @ViewChild decorator to get a reference to the hidden file select button in the template.</p>
+<pre><code>@ViewChild(‘fileInput’, &#123; static: false &#125;)
+ fileInput: ElementRef | undefined;
+</code></pre>
+<p>Instead of calling the click handler within the Html template, we can invoke the hidden button click within the component class as below.</p>
+<pre><code>this.fileInput.nativeElement.click();
+</code></pre>
+<p>To send the file to the NestJS API, we construct the formData and post a request to the NestJS endpoint as below.</p>
+<pre><code>
+  attachFile(event: any) &#123;
+    const file: File = event.target.files?.[0];
+    if (file && this.isValid(file)) &#123;
+      this.errorMessage = '';
+      const formData = new FormData();
+      formData.append('file', file, file.name);
+      const uploadFileHeaders = new HttpHeaders(&#123;
+        Accept: `application/json, text/plain, */*`,
+      &#125;);
+      this.httpClient
+        .post('/api/file-upload/upload', formData, &#123;
+          headers: uploadFileHeaders,
+        &#125;)
+        .subscribe(&#123;
+          next: (response) => &#123;
+            this.successMessage = `Document $&#123;file.name&#125; is uploaded successfully`;
+          &#125;,
+          error: (error) => &#123;
+            this.errorMessage = `failed to upload document.`;
+            return error;
+          &#125;,
+        &#125;);
+    &#125;
+  &#125;
+</code></pre>
+
+<p>Please note that the post request header should not include the content type.</p>
+<h3 id="Further-consideration"><a href="#Further-consideration" class="headerlink" title="Further consideration"></a>Further consideration</h3><p>In this contrived example, authentication isn’t being implemented. In real-life applications, you may consider using a JWT token to <a class="link"   target="_blank" rel="noopener" href="https://medium.com/gitconnected/maximize-code-security-in-your-nestjs-applications-part-2-be707466b7ea" >enforce security <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> between the Angular client and the backend.</p>
+<p>Another thing to consider is the safety of the uploaded files. Although we have implemented the validation of file extensions in the Angular client, it isn’t enough. It is still possible for a file with malicious content to slip in. A better approach is to set up a staging S3 bucket with an anti-virus scanning service. Any uploaded file will need to be scanned before it is moved to the final bucket for consumption. But this topic is out of the scope of this article and <a class="link"   target="_blank" rel="noopener" href="https://aws.amazon.com/blogs/apn/integrating-amazon-s3-malware-scanning-into-your-application-workflow-with-cloud-storage-security/" >here  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>is a good starting point.</p>
+<p>By performing these checks on the uploaded file, you can ensure that it is not malicious and protect your system from potential harm.</p>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>In this article, we walk through an end-to-end example of uploading a file to S3 Bucket from an Angular client via NestJS API. With the built-in decorators, NestJS makes it really easy to handle the file-uploading process.</p>
+<p>The complete source code can be found in this <a class="link"   target="_blank" rel="noopener" href="https://github.com/sunnyy02/ng-nest-s3-upload" >GitHub repo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<p>Happy programming!</p>
+
+            </div>
+
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/TypeScript/">#TypeScript</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Angular/">#Angular</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/NestJS/">#NestJS</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2022/09/21/build-a-high-performance-nestjs-app/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Turbocharge Your App with NestJS - Tips and Tricks</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2022/07/11/how-i-passed-the-ckad-exam-certified-kubernetes-application-developer/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">My Journey to Becoming a Certified Kubernetes Application Developer</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">Upload Files to S3 Using Angular and NestJS</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#An-End-to-End-Example-using-Angular-and-NestJS"><span class="nav-text">An End to End Example using Angular and NestJS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prerequisites"><span class="nav-text">Prerequisites</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#S3-bucket-and-Access-Key-x2F-Secret-Access-Key"><span class="nav-text">S3 bucket and Access Key&#x2F;Secret Access Key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NestJS-file-uploading"><span class="nav-text">NestJS file uploading</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Save-the-file-to-S3-Bucket"><span class="nav-text">Save the file to S3 Bucket</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Angular-client"><span class="nav-text">Angular client</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Further-consideration"><span class="nav-text">Further consideration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-regular fa-computer-classic"></i>&nbsp;&nbsp;<a href="/">Sunny Sun</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br> 
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.1.6</a>
+        </div>
+        
+        
+        
+            <div id="start_time_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="right-bottom-tools rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                <i class="fa-regular fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/menu-shrink.js"></script>
+
+<script src="/js/tools/go-top-bottom.js"></script>
+
+<script src="/js/tools/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/tools/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/tools/code-block.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/layouts/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

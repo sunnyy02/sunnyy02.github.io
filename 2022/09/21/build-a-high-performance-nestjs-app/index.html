@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="Sunny Sun">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2022/09/21/build-a-high-performance-nestjs-app/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Turbocharge Your App with NestJS - Tips and Tricks">
+    <meta property="og:description" content="Hexo Theme Redefine">
+    <meta property="og:url" content="http://example.com2022/09/21/build-a-high-performance-nestjs-app/">
+    <meta property="og:image" content="/images/redefine-logo.svg">
+    <meta property="og:site_name" content="Do What You Love">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Turbocharge Your App with NestJS - Tips and Tricks">
+    <meta name="twitter:description" content="Hexo Theme Redefine">
+    <meta name="twitter:image" content="/images/redefine-logo.svg">
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-logo.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-logo.svg">
+    <meta name="theme-color" content="#0066cc">
+    <link rel="shortcut icon" href="/images/redefine-logo.svg">
+    
+    <title>
+        
+            Turbocharge Your App with NestJS - Tips and Tricks -
+        
+        Do What You Love
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/assets/fonts.css">
+
+    
+    
+    
+    
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/icons8-stormtrooper.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78700","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":false,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"Love What You Do","custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.1.6","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}},"plugins":{"aplayer":{"enable":false,"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]}}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg#%20logo%20image%20on%20the%20left%20of%20the%20navigation%20bar">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Do What You Love
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/about">ME
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/about">ME</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET</a>
+                            </li>
+                        
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+             
+                <div class="article-title">         
+                    <img src="https://cdn-images-1.medium.com/max/2156/1*5UmbCAgI31gKpqN11w73hQ.png" alt="Turbocharge Your App with NestJS - Tips and Tricks" />
+                    <h1 class="article-title-cover">Turbocharge Your App with NestJS - Tips and Tricks</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/icons8-stormtrooper.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Sunny Sun</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2022-09-21</span>
+        <span class="mobile">2022-09-21 00</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="pc">2024-06-22 15:50:04</span>
+            <span class="mobile">2024-06-22 15:50</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/TypeScript/">TypeScript</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/NestJS/">NestJS</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Performance/">Performance</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>1.1k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>6 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="4-Performance-Boosting-Techniques-to-Get-the-Most-Out-of-NestJS"><a href="#4-Performance-Boosting-Techniques-to-Get-the-Most-Out-of-NestJS" class="headerlink" title="4 Performance Boosting Techniques to Get the Most Out of NestJS"></a>4 Performance Boosting Techniques to Get the Most Out of NestJS</h2><p>As a powerful Node.js application framework, NestJS offers a wide range of features for building server-side apps. Its popularity continues to grow as more developers discover its benefits.</p>
+<p>However, when it comes to building a NestJS app, performance is often an overlooked aspect. In this article, I will discuss a few practical techniques for crafting a high-performance NestJS application</p>
+<h3 id="Architecture-Choice"><a href="#Architecture-Choice" class="headerlink" title="Architecture Choice"></a>Architecture Choice</h3><p>By default, NestJS runs on top of <a class="link"   target="_blank" rel="noopener" href="https://expressjs.com/" >Express <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> primary due to its popularity. Although there are some overheads, NestJS’s performance isn’t far away from Express. Express is considered to be a well-performed framework. Thus the default option: Nest-Express is good enough for a normal server-side App.</p>
+<p>But if performance is the first priority, a better option is to use F<a class="link"   target="_blank" rel="noopener" href="https://docs.nestjs.com/techniques/performance" >astify <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> which is much faster than Express.</p>
+<p>Below is a recent benchmark test results for Nest-Express vs Nest-Fastify vs Express alone. We can see that Nest-Fastify is more than 3 times faster than Nest-Express.</p>
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*1LITO4dK7Uw3AJEuPrh-3g.png" alt="A recent benchmark ([https://github.com/nestjs/nest/pull/10276/checks?check_run_id=8318006381](https://github.com/nestjs/nest/pull/10276/checks?check_run_id=8318006381))"><em>A recent benchmark (<a class="link"   target="_blank" rel="noopener" href="https://github.com/nestjs/nest/pull/10276/checks?check_run_id=8318006381" >https://github.com/nestjs/nest/pull/10276/checks?check_run_id&#x3D;8318006381 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>)</em></p>
+<p>If you are building a new NestJS App, one of the first things to consider is whether you should stick to the Express, or start with Fastify. For existing Apps, it is also possible to migrate to Fastify from Express since Nest provides framework independence using<a class="link"   target="_blank" rel="noopener" href="https://docs.nestjs.com/techniques/performance" > adapter <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<h3 id="Caching"><a href="#Caching" class="headerlink" title="Caching"></a>Caching</h3><p>Caching can improve your NestJS app or any web app performance dramatically. It is a complex topic and is considered to be one of the <a class="link"   target="_blank" rel="noopener" href="https://martinfowler.com/bliki/TwoHardThings.html" >two hard things in computing <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. However, NestJS has made it easier with its well-abstracted API.</p>
+<p>NestJS provides an out-of-box<a class="link"   target="_blank" rel="noopener" href="https://docs.nestjs.com/techniques/caching" > cache manager. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> The cache manager provides an API for various cache storage providers. The default storage provider is an in-memory data store and it is built-in. To enable in-memory caching, we need to import the CacheModule as below.</p>
+<pre><code>import &#123; CacheModule, Module &#125; from &#39;@nestjs/common&#39;;
+import &#123; AppController &#125; from &#39;./app.controller&#39;;
+
+@Module(&#123;
+  imports: [CacheModule.register()],
+  controllers: [AppController],
+&#125;)
+export class AppModule &#123;&#125;
+</code></pre>
+<p>For more configuration options, refer to the <a class="link"   target="_blank" rel="noopener" href="https://docs.nestjs.com/techniques/caching" >official documentation <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<p>You can switch to a number of other storage providers, for example, <a class="link"   target="_blank" rel="noopener" href="https://github.com/dabroek/node-cache-manager-redis-store" >redis store <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<p>Regardless of which storage provider you choose, you can set up a cache interceptor to automatically cache the get response.</p>
+<pre><code>import * as redisStore from &#39;cache-manager-redis-store&#39;;
+@Module(&#123;
+  imports: [CacheModule.register(&#123;store: redisStore&#125;)],
+  controllers: [AppController],
+  providers: [
+    &#123;
+      provide: APP_INTERCEPTOR,
+      useClass: CacheInterceptor,
+    &#125;,
+  ],
+&#125;)
+</code></pre>
+<p>The above configuration will import CacheInterceptor, and bind it to all endpoints globally. Alternatively, you also can use UseInterceptors to bind the CacheInterceptor at the controller level.</p>
+<h3 id="Enable-Gzip"><a href="#Enable-Gzip" class="headerlink" title="Enable Gzip"></a>Enable Gzip</h3><p>Enabling Gzip compression can greatly improve API performance. It doesn’t only work with NestJS, instead, it is applicable to any common Web API service. It is easy to implement and very effective, but at the same time also easily to be forgotten.</p>
+<p>Gzip compresses API requests and responses. The result is up to 10x reduced payload.</p>
+<p>You can either enable Gzip compression via Nginx. Most NestJS apps sit behind Nginx, and you can configure Nginx to use gzip to compress the HTTP response on the fly. The following is an example to enable Gzip in nginx.conf.</p>
+<pre><code>gzip on;
+gzip_disable &quot;msie6&quot;;
+</code></pre>
+<p>Another way is to enable Gzip within the NestJS app. In your NestJs App, you can make use of the compression middleware package provided to compress and serve content.</p>
+<pre><code>import * as compression from &#39;compression&#39;;
+// somewhere in your initialization file
+app.use(compression());
+</code></pre>
+<p>In the above example, the compression middleware is imported from the @nestjs&#x2F;common package and used to enable gzip compression for all requests to the app. This allows the app to compress the response using gzip if the client supports it, which can improve the performance and efficiency of the app.</p>
+<h3 id="Cluster-Mode"><a href="#Cluster-Mode" class="headerlink" title="Cluster Mode"></a>Cluster Mode</h3><p>By default, the NestJS App instance runs in a single thread. Since all servers have multiple CPU cores, the single-thread instance doesn’t take full advantage of the server resources.</p>
+<p>To utilize the multiple cores to improve performance, we can use the Cluster<a class="link"   target="_blank" rel="noopener" href="https://nodejs.org/api/cluster.html" > module <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> in NodeJS. Under cluster mode, the child processes run as a cluster, thus incoming requests are handled simultaneously. It results in better throughput.</p>
+<p>It is straightforward to create a cluster service in NestJS. Below is an example of implementation.</p>
+<pre>
+<code>
+import &#123; NestFactory &#125; from '@nestjs/core';
+import &#123; AppModule &#125; from './app.module';
+import * as os from 'os';
+
+const cluster = require('node:cluster');
+const numCPUs = os.cpus().length;
+
+async function bootstrap() &#123;
+  const app = await NestFactory.create(AppModule);
+  await app.listen(3000);
+&#125;
+if(cluster.isMaster)&#123;
+  console.log(`Master server started on $&#123;process.pid&#125;`);
+  for (let i = 0; i < numCPUs; i++) &#123;
+      cluster.fork();
+  &#125;
+  cluster.on('exit', (worker, code, signal) => &#123;
+      console.log(`Worker $&#123;worker.process.pid&#125; died. Restarting`);
+      cluster.fork();
+  &#125;)
+&#125; else &#123;
+  console.log(`Cluster server started on $&#123;process.pid&#125;`)
+  bootstrap();
+&#125;
+</code>
+</pre>
+<p>The gist of the above code is</p>
+<ul>
+<li><p>Firstly, we import the cluster module and get the number of CPU cores</p>
+</li>
+<li><p>The master process is responsible for creating the worker processes, and the worker processes are responsible for running the NestJS app.</p>
+</li>
+<li><p>For the master process, a worker process is created for each CPU available. We also listen to the exit of a worker process, when any worker process crashes, the master process will fork a new one.</p>
+</li>
+<li><p>For the child process, we can use the bootstrap function to start the server instance.</p>
+</li>
+</ul>
+<p>In the production environment, you can use pm2 to run the App in cluster mode. The command below will start the app with cluster mode for 8 CPU cores.</p>
+<pre><code>pm2 start dist/main.js -i 8
+</code></pre>
+<p>Overall, using cluster mode in a NestJS app can provide improved performance and scalability by sharing the workload across multiple worker processes.</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Optimizing the performance of a NestJS application is a complex and multifaceted task. In this article, we discussed how to utilize the built-in NestJS features like Fastify, and Cache Manager to improve performance. Gzip and Cluster modules are also commonly used to optimize not only NestJS but also other NodeJS web apps.</p>
+<p>If you found this article useful, you may also like to check out my other NestJS-related articles on <a class="link"   target="_blank" rel="noopener" href="https://medium.com/p/be6bc77e789e" >how to build efficient and maintainable NestJS apps <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> and <a class="link"   target="_blank" rel="noopener" href="https://medium.com/gitconnected/maximize-code-security-in-your-nestjs-applications-part-1-b7abb99fa048" >NestJS security <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<p>Happy programming!</p>
+
+            </div>
+
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/TypeScript/">#TypeScript</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/NestJS/">#NestJS</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Performance/">#Performance</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2022/12/21/maximize-code-security-in-your-nestjs-applications-part-1/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Maximize Code Security in Your NestJS Applications (Part 1)</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2022/09/12/upload-files-to-s3-using-angular-and-nestjs/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Upload Files to S3 Using Angular and NestJS</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">Turbocharge Your App with NestJS - Tips and Tricks</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Performance-Boosting-Techniques-to-Get-the-Most-Out-of-NestJS"><span class="nav-text">4 Performance Boosting Techniques to Get the Most Out of NestJS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Architecture-Choice"><span class="nav-text">Architecture Choice</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Caching"><span class="nav-text">Caching</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Enable-Gzip"><span class="nav-text">Enable Gzip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cluster-Mode"><span class="nav-text">Cluster Mode</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-regular fa-computer-classic"></i>&nbsp;&nbsp;<a href="/">Sunny Sun</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br> 
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.1.6</a>
+        </div>
+        
+        
+        
+            <div id="start_time_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="right-bottom-tools rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                <i class="fa-regular fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/menu-shrink.js"></script>
+
+<script src="/js/tools/go-top-bottom.js"></script>
+
+<script src="/js/tools/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/tools/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/tools/code-block.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/layouts/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

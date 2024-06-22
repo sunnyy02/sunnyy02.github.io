@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="Sunny Sun">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2019/10/05/integrate-with-dynamics-crm-online-using-web-api/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Integrate with Dynamics CRM Online using Web API">
+    <meta property="og:description" content="Hexo Theme Redefine">
+    <meta property="og:url" content="http://example.com2019/10/05/integrate-with-dynamics-crm-online-using-web-api/">
+    <meta property="og:image" content="/images/redefine-logo.svg">
+    <meta property="og:site_name" content="Do What You Love">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Integrate with Dynamics CRM Online using Web API">
+    <meta name="twitter:description" content="Hexo Theme Redefine">
+    <meta name="twitter:image" content="/images/redefine-logo.svg">
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-logo.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-logo.svg">
+    <meta name="theme-color" content="#0066cc">
+    <link rel="shortcut icon" href="/images/redefine-logo.svg">
+    
+    <title>
+        
+            Integrate with Dynamics CRM Online using Web API -
+        
+        Do What You Love
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/assets/fonts.css">
+
+    
+    
+    
+    
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/icons8-stormtrooper.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78700","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":false,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"Love What You Do","custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.1.6","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}},"plugins":{"aplayer":{"enable":false,"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]}}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg#%20logo%20image%20on%20the%20left%20of%20the%20navigation%20bar">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Do What You Love
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/about">ME
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/about">ME</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET</a>
+                            </li>
+                        
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+             
+                <div class="article-title">         
+                    <img src="https://cdn-images-1.medium.com/max/2000/1*WOe6CGZoRboZn1wTL6zjGw.jpeg" alt="Integrate with Dynamics CRM Online using Web API" />
+                    <h1 class="article-title-cover">Integrate with Dynamics CRM Online using Web API</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/icons8-stormtrooper.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Sunny Sun</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2019-10-05 11:14:56</span>
+        <span class="mobile">2019-10-05 11:14</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="pc">2024-06-22 15:50:04</span>
+            <span class="mobile">2024-06-22 15:50</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/WebAPI/">WebAPI</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/DynamicsCRM/">DynamicsCRM</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>1.6k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>9 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="Build-a-REST-service-layer-as-an-integration-point-to-CRM"><a href="#Build-a-REST-service-layer-as-an-integration-point-to-CRM" class="headerlink" title="Build a REST service layer as an integration point to CRM"></a>Build a REST service layer as an integration point to CRM</h2><h3 id="Why-integration"><a href="#Why-integration" class="headerlink" title="Why integration"></a>Why integration</h3><p>The Enterprise Information System is like modern warfare, both are composed of highly sophisticated elements. In the modern battlefield, simply adding new weapons like stealth aircraft can not win a war, situational awareness with information sharing, and collaboration between military assets from ballistic missile submarines to special forces on the ground is the “game changer”. In the current business environment, to gain an edge, just implementing a top-rank application like Dynamics CRM is not enough, the key is to collaborate with vital business data to help business users to make informed decisions.</p>
+<p>In military terms, it is called “Network Centric Warfare”, in Business, it is called Integration.</p>
+<h3 id="Integration-with-CRM"><a href="#Integration-with-CRM" class="headerlink" title="Integration with CRM"></a>Integration with CRM</h3><p>Recently I have been working on a project to integrate Dynamics CRM into an Enterprise Service Bus system. I found the process of integration to CRM as a whole is not well documented for beginners, the purpose of this article is to share my experience in building a REST service layer as an integration point to CRM 2016.</p>
+<h3 id="Scenario"><a href="#Scenario" class="headerlink" title="Scenario"></a>Scenario</h3><p>To illustrate the integration process, let’s assume a company recently implemented Dynamics CRM 2016. The sales team wants to integrate an enterprise mobile app with CRM. The Mobile app will retrieve client contacts from CRM, so salesmen can contact the client. Salesmen may also post new leads to CRM. After the lead is posted, the default workflow will be activated to process the lead.</p>
+<h3 id="The-Solution"><a href="#The-Solution" class="headerlink" title="The Solution"></a>The Solution</h3><p>The above scenario requires the mobile app to retrieve data from and write data to CRM. A REST service layer is introduced to provide a facade to CRM Web API. By using the REST layer as the integration point, we encapsulate the details of connecting to Web API, thus if there is any change in the future version of CRM, the REST service is the only place that needs to be updated.</p>
+<p>The canonical data model is applied in the REST Service layer to provide a common data format. The following code snippet illustrates this approach with the leads entity data model.</p>
+<pre><code>   /// &lt;summary&gt;
+   /// a common lead data format to all consumer apps
+   /// &lt;/summary&gt;
+    public class LeadDto
+    &#123;
+        public string FirstName &#123; get; set; &#125;
+        public string MiddleName &#123; get; set; &#125;
+        public string LastName &#123; get; set; &#125;
+        public string PhoneNumber &#123; get; set; &#125;
+    &#125;
+    /// &lt;summary&gt;
+    /// Lead data model used to posted to CRM web api
+    /// &lt;/summary&gt;
+    public class CRMLeadModel
+    &#123;
+        public string firstname &#123; get; set; &#125;
+        public string middlename &#123; get; set; &#125;
+        public string lastname &#123; get; set; &#125;
+        public string telephone1 &#123; get; set; &#125;
+    &#125;
+</code></pre>
+<h3 id="Dynamics-Server-to-Server-S2S-Authentication"><a href="#Dynamics-Server-to-Server-S2S-Authentication" class="headerlink" title="Dynamics Server-to-Server (S2S) Authentication"></a>Dynamics Server-to-Server (S2S) Authentication</h3><p>The REST service needs to authenticate to CRM first before it can connect to Web API, S2S is used because it is secure and doesn’t need to use a paid Dynamics 365 user license. As illustrated in the diagram below, an application user account is created and associated with a custom security role, rather than user credentials, the application is authenticated based on a service principal identified by an Azure AD Object ID value which is stored in the created application user account. Please note that S2S authentication is only available to CRM Online.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2000/1*A8ql7dBE8dxJhN-GZzqDkw.jpeg"
+                      alt="CRM 2016 S2S Authentication"
+                ><em>CRM 2016 S2S Authentication</em></p>
+<h3 id="Setup-S2S"><a href="#Setup-S2S" class="headerlink" title="Setup S2S"></a>Setup S2S</h3><blockquote>
+<p><strong>Registering the App in Azure to get ClientID and Client Secret</strong></p>
+<ol>
+<li>Add a new application registration in Azure portal with your Dynamics CRM subscription. After saving, a new Application ID should be shown.</li>
+<li>Select the registered app just created, add new Settings&#x2F;Key and copy the value of the Key</li>
+<li>Go to Required Permissions, Add “Dynamics CRM online” and tick “Access CRM online as organisation users”</li>
+</ol>
+</blockquote>
+<p>After completing the above steps, you should have the following keys</p>
+<ul>
+<li><p>ApplicationID(ClientID): generated in Step 1</p>
+</li>
+<li><p>Client Secret: generated in Step 2</p>
+</li>
+<li><p>TenantID: go to Azure Active Directory -&gt; Properties -&gt; Directory ID</p>
+</li>
+<li><p>AADInstanceUrl: <a class="link"   target="_blank" rel="noopener" href="https://login.microsoftonline.com/" >https://login.microsoftonline.com <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</li>
+<li><p>OrganizationUrl: CRM online root Url, i.e. <a class="link"   target="_blank" rel="noopener" href="https://cofcqldsba.api.crm6.dynamics.com/" >https:&#x2F;&#x2F;[your org name].api.crm6.dynamics.com&#x2F; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<blockquote>
+<p><strong>Create CRM Application User and Security Role</strong></p>
+<ol>
+<li>Go to CRM &gt; Security Roles, create a new Security Role</li>
+<li>Create a new CRM application user, and enter the Application ID obtained in the previous step. Note: Select “Application Users” before clicking on “New” button.</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn-images-1.medium.com/max/2000/1*5T8oj9HRx7eeIYdOdiRVOg.png"
+                     
+                ></p>
+<blockquote>
+<ol start="3">
+<li>Assign the newly created user with the custom security role created in step 1.</li>
+</ol>
+</blockquote>
+<p>Now we should be able to use the ADAL Nuget package, to obtain the Access Token.</p>
+<pre><code>**protected** **async** Task&lt;**string**&gt; GetAccessToken()
+&#123;
+    **var** clientcred = **new** ClientCredential(applicationId, clientSecret);
+    **var** authenticationContext = **new** AuthenticationContext($&quot;&#123;aadInstanceUrl&#125;/&#123;tenantId&#125;&quot;);
+    **var** authenticationResult = **await** authenticationContext.AcquireTokenAsync(organizationUrl, clientcred);
+    **return** authenticationResult.AccessToken;
+  &#125;
+</code></pre>
+<h3 id="Read-data-from-CRM"><a href="#Read-data-from-CRM" class="headerlink" title="Read data from CRM"></a>Read data from CRM</h3><p>After obtaining the access token, it needs to be added to the HTTP request header.</p>
+<pre><code>var client = new HttpClient();
+client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(&quot;Bearer&quot;, accessToken);
+</code></pre>
+<p>Retrieving data from CRM is simply a Get HTTP request via OData. To retrieve a contact entity, the request looks like the one below. Please note that this example will return every field in the contact record, which is not a good practice, in real-life cases, $Select should be used to only return the data you need.</p>
+<pre><code>GET http://[Organization URI]/api/data/v9.0/contacts(9cdbf27c-8efb-e511-80d2-00155db07c77)
+</code></pre>
+<p>To retrieve a list of options set, the request looks like below</p>
+<pre><code>GET http://[ORG URI]/api/data/v9.0/
+GlobalOptionSetDefinitions(Name=&#39;&#123;OptionSetName&#125;&#39;)
+</code></pre>
+<p>In REST Service, the Get HTTP Request is sent using HttpClient, and the response will be received and deserialized.</p>
+<pre><code>var client = new HttpClient();
+**var** response = **await** client.GetAsync(url);
+**var** result = **await** response.Content.ReadAsStringAsync();
+</code></pre>
+<h3 id="Write-Data-to-CRM"><a href="#Write-Data-to-CRM" class="headerlink" title="Write Data to CRM"></a>Write Data to CRM</h3><p>To create an entity in CRM, we use a POST request. The following code snippet is simplified for illustration purposes only.</p>
+<pre><code>CRMLeadModel leadModel = **new** CRMLeadModel()
+            &#123;
+                firstname = leadDto.FirstName,
+                lastname = leadDto.LastName,
+                middlename = leadDto.MiddleName
+            &#125;;
+**var** leadUrl = $&quot;[Organization URI]/api/data/v9.0/leads&quot;;
+
+HttpContent content = **new** StringContent(JsonConvert.SerializeObject(leadModel), Encoding.UTF8, &quot;application/json&quot;);
+var client = new HttpClient();
+**var response = await** client.PostAsync(url, content);
+</code></pre>
+<p>The response header contains the Uri of the newly created entity.</p>
+<p>You can create multiple related entities in a single operation by defining them as navigation properties values. For example, the following Lead Entity contains an object property of the single-valued navigation property <em>PrimaryPreference</em>, when the Lead entity is posted, it will create a lead entity as well as Perference entity.</p>
+<pre><code>CRMLeadModel leadModel = **new** CRMLeadModel()
+            &#123;
+                *PrimaryPreference = new CRMPreferenceModel()&#123;
+                  // populate the preference model properties
+                 &#125;
+*            &#125;*;*
+</code></pre>
+<h3 id="Activate-a-Process-flow-in-CRM"><a href="#Activate-a-Process-flow-in-CRM" class="headerlink" title="Activate a Process flow in CRM"></a>Activate a Process flow in CRM</h3><p>In Dynamics CRM 2016, the new “SetProcessRequest” is introduced to allow the setting of default business process flow. In this demo, after a salesman post leads to a CRM, we want to activate the default workflow associated with the Lead entity.</p>
+<p>Firstly, to get the default workflow Id, we use the following OData call:</p>
+<pre><code>[ORG URI]/api/data/v9.0/workflows?$filter=primaryentity eq &#39;lead&#39;
+</code></pre>
+<p>To set the BPF, two parameters: New Process and Target need to be passed to the request as the following code snippet.</p>
+<pre><code>**var** setProcessAction = **new** SetProcessAction();
+setProcessAction.target = **new** Target()
+            &#123;
+                leadid = leadId,
+                odatatype = &quot;Microsoft.Dynamics.CRM.lead&quot;
+            &#125;;
+setProcessAction.newprocess = **new** NewProcess()
+            &#123;
+                workflowid = wrokflowId, 
+                odatatype = &quot;Microsoft.Dynamics.CRM.workflow&quot;
+            &#125;;
+ **var** qualificationUrl = $&quot;[ORG URI]/api/data/v9.0/SetProcess&quot;;
+</code></pre>
+<p>The result of the above SetProcessRequest is that the BPF is activated for the newly created lead entity.</p>
+<h3 id="Devil-is-in-the-details"><a href="#Devil-is-in-the-details" class="headerlink" title="Devil is in the details"></a>Devil is in the details</h3><p>A few little tricks&#x2F;trips that will make your integration journey easier.</p>
+<h3 id="Navigation-properties"><a href="#Navigation-properties" class="headerlink" title="Navigation properties"></a>Navigation properties</h3><p>CRM 2016 Web Api support OData V4, one of the very useful feature is the navigation properties which allow you to retrieve or update data associated with the current entity. In the HTTP Request Content, it needs to be used with @odata.bind annotation. For example, the “parentcontactid” field in Lead Entity is a lookup to contact entity, the JSON representation of the field in HTTP request is like below</p>
+<pre><code>&quot;parentcontactid@odata.bind&quot;: &quot;/contacts(735bea55-a421-e811-a830-000d3ae09197)&quot;
+
+// To serialize the JSON name with @, we need to use the JSONProperty attributes
+[JsonProperty(&quot;parentcontactid@odata.bind&quot;)]
+</code></pre>
+<h3 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h3><p>CRM REST builder is a great tool when working with Web API. It is a code generator that creates JavaScript to perform actions against CRM’s REST endpoints. It installs as a managed solution in your organization so you’ll get the benefit of working with the entities and attributes that you’ve created.<br><a target="_blank" rel="noopener" href="https://github.com/jlattimer/CRMRESTBuilder"><strong>jlattimer&#x2F;CRMRESTBuilder</strong><br><em>CRMRESTBuilder - A tool for CRM 2011&#x2F;2013&#x2F;2015&#x2F;2016&#x2F;365 Online &amp; On Premise to generate JavaScript code using the 2011…</em>github.com</a></p>
+<h3 id="English-like-Plural"><a href="#English-like-Plural" class="headerlink" title="English like Plural"></a>English like Plural</h3><p>You may already have noticed that when querying with CRM API, you need to add “s” to the entity name. but there are exceptions, for example, anything ending in “s” is pluralized as “ses”, and “y” is pluralized as “ies”. so the following request will return a “Resource not found” error.</p>
+<pre><code>https://[ORG URI]/api/data/v9.0/opportunitys
+</code></pre>
+<p>The correct OData call is</p>
+<pre><code>https://[ORG URI]/api/data/v9.0/opportunities
+</code></pre>
+<p>Enjoy your journey in CRM integration!</p>
+<p><em>If you are not already a paid member of Medium, <a class="link"   target="_blank" rel="noopener" href="https://sunnysun-5694.medium.com/membership" >**you can do so by visiting this link <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**. You’ll get unlimited full access to every story on Medium. I’ll receive a portion of your membership fees as a referral.</em></p>
+
+            </div>
+
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/WebAPI/">#WebAPI</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/DynamicsCRM/">#DynamicsCRM</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2019/12/11/how-to-resolve-certifcate-error-in-NodeJS-App/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">How to Resolve Certificate Errors in a Node.js App with SSL Calls</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2018/12/11/how-to-map-restful_api-using-decorator/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">How to map REST API data using Decorator pattern in Angular 6</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">Integrate with Dynamics CRM Online using Web API</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Build-a-REST-service-layer-as-an-integration-point-to-CRM"><span class="nav-text">Build a REST service layer as an integration point to CRM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-integration"><span class="nav-text">Why integration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Integration-with-CRM"><span class="nav-text">Integration with CRM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scenario"><span class="nav-text">Scenario</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Solution"><span class="nav-text">The Solution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dynamics-Server-to-Server-S2S-Authentication"><span class="nav-text">Dynamics Server-to-Server (S2S) Authentication</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setup-S2S"><span class="nav-text">Setup S2S</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Read-data-from-CRM"><span class="nav-text">Read data from CRM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Write-Data-to-CRM"><span class="nav-text">Write Data to CRM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activate-a-Process-flow-in-CRM"><span class="nav-text">Activate a Process flow in CRM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Devil-is-in-the-details"><span class="nav-text">Devil is in the details</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Navigation-properties"><span class="nav-text">Navigation properties</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tools"><span class="nav-text">Tools</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#English-like-Plural"><span class="nav-text">English like Plural</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-regular fa-computer-classic"></i>&nbsp;&nbsp;<a href="/">Sunny Sun</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br> 
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.1.6</a>
+        </div>
+        
+        
+        
+            <div id="start_time_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="right-bottom-tools rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                <i class="fa-regular fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/menu-shrink.js"></script>
+
+<script src="/js/tools/go-top-bottom.js"></script>
+
+<script src="/js/tools/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/tools/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/tools/code-block.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/layouts/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

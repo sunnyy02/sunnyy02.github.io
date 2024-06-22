@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="Sunny Sun">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2023/01/05/donnot-export-your-nestjs-endpoint/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Don&#39;t Leave Your NestJS API Exposed">
+    <meta property="og:description" content="Hexo Theme Redefine">
+    <meta property="og:url" content="http://example.com2023/01/05/donnot-export-your-nestjs-endpoint/">
+    <meta property="og:image" content="/images/redefine-logo.svg">
+    <meta property="og:site_name" content="Do What You Love">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Don&#39;t Leave Your NestJS API Exposed">
+    <meta name="twitter:description" content="Hexo Theme Redefine">
+    <meta name="twitter:image" content="/images/redefine-logo.svg">
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-logo.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-logo.svg">
+    <meta name="theme-color" content="#0066cc">
+    <link rel="shortcut icon" href="/images/redefine-logo.svg">
+    
+    <title>
+        
+            Don&#39;t Leave Your NestJS API Exposed -
+        
+        Do What You Love
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/assets/fonts.css">
+
+    
+    
+    
+    
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/icons8-stormtrooper.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78700","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":false,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"Love What You Do","custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.1.6","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}},"plugins":{"aplayer":{"enable":false,"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]}}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg#%20logo%20image%20on%20the%20left%20of%20the%20navigation%20bar">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Do What You Love
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/about">ME
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/about">ME</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET</a>
+                            </li>
+                        
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+             
+                <div class="article-title">         
+                    <img src="https://cdn-images-1.medium.com/max/2000/1*SsPIZqAcoJvrZ5iHCqwQ5A.png" alt="Don&#39;t Leave Your NestJS API Exposed" />
+                    <h1 class="article-title-cover">Don&#39;t Leave Your NestJS API Exposed</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/icons8-stormtrooper.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Sunny Sun</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2023-01-05</span>
+        <span class="mobile">2023-01-05 00</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="pc">2024-06-22 15:50:04</span>
+            <span class="mobile">2024-06-22 15:50</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/NestJS/">NestJS</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Security/">Security</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>1.3k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>8 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="Using-Reflect-and-the-NestJS-Undocumented-API-to-Identify-Unsecured-Endpoints-in-Unit-Tests"><a href="#Using-Reflect-and-the-NestJS-Undocumented-API-to-Identify-Unsecured-Endpoints-in-Unit-Tests" class="headerlink" title="Using Reflect and the NestJS Undocumented API to Identify Unsecured Endpoints in Unit Tests"></a>Using Reflect and the NestJS Undocumented API to Identify Unsecured Endpoints in Unit Tests</h2><p>It is a given that an API should be secured to prevent potential attacks. However, it is surprising how often simple human mistakes can lead to an API endpoint being unprotected. A recent example of this is the <a class="link"   target="_blank" rel="noopener" href="https://www.acma.gov.au/optus-data-breach" >Optus data breach <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>, which was caused by “*an API that did not require authentication to access customer data.*”. This highlights the importance of thorough testing and strict security measures for APIs to prevent such incidents from occurring.</p>
+<p>Unprotected API is one of the top OWASP vulnerabilities. It is defined as below:</p>
+<blockquote>
+<p>Modern applications often involve rich client applications and APIs, such as JavaScript in the browser and mobile apps, that connect to an API of some kind. These APIs are often unprotected and contain numerous vulnerabilities.</p>
+</blockquote>
+<p>To avoid unprotected API, the first line of defense is via unit test. In this article, we are going to discuss how to ensure NestJS controllers and Endpoints are protected using the Unit test.</p>
+<h3 id="Guards"><a href="#Guards" class="headerlink" title="Guards"></a>Guards</h3><p>In NestJS, we use authentication&#x2F;authorization guards to protect controllers or endpoints. Using Guards, we can ensure only authorized users have access to the API. Below is an example of an authentication Guard.</p>
+<pre><code>@Injectable()
+export class AuthGuard implements CanActivate &#123;
+  canActivate(
+    context: ExecutionContext,
+  ): boolean | Promise&lt;boolean&gt; | Observable&lt;boolean&gt; &#123;
+    const request = context.switchToHttp().getRequest();
+    return this.validateRequest(request);
+  &#125;
+
+  private validateRequest(request: any) &#123;
+    // Authenticate user request to ensure it is authenticated 
+    // i.e. validate a token
+  &#125;
+&#125;
+</code></pre>
+<p>The AuthGuard class contains canActivate method which takes an ExecutionContext object as an argument. The method performs validation to determine whether the request should be allowed.</p>
+<p>To apply the AuthGuard to a controller, we can use the @UseGuards decorator</p>
+<pre><code>@UseGuards(AuthGuard)
+@Controller()
+export class AppController &#123;&#125;
+</code></pre>
+<p>If the @UseGuards decorator is accidentally removed, the API will become unprotected and vulnerable to unauthorized access. To ensure that the Guard is properly applied to the controller, we can use unit tests to verify its presence.</p>
+<p>To achieve that, we need to use the <a class="link"   target="_blank" rel="noopener" href="https://www.npmjs.com/package/reflect-metadata" >reflect-metadata <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> library and NestJS undocumented DiscoveryService API. Let’s look at the <a class="link"   target="_blank" rel="noopener" href="https://www.npmjs.com/package/reflect-metadata" >reflect-metadata <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> library first.</p>
+<h3 id="Reflect-MetaData"><a href="#Reflect-MetaData" class="headerlink" title="Reflect-MetaData"></a>Reflect-MetaData</h3><p>The reflect-metadata library provides support for the Reflect API, which is part of the ECMAScript specification. We can use it to get metadata at runtime. It is worth noting that NestJS also uses the <a class="link"   target="_blank" rel="noopener" href="https://www.npmjs.com/package/reflect-metadata" >reflect-metadata <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> under the hood to work with metadata.</p>
+<p>The below example demonstrates how to retrieve the Guards metadata from the AppController.</p>
+<pre><code>const guards = Reflect.getMetadata(&#39;__guards__&#39;, AppController);
+</code></pre>
+<p>The getMetaData method takes two arguments:</p>
+<ul>
+<li><p>metadataKey: A key used to store and retrieve metadata. In this case, the key is <strong>guards</strong>, it is used by NestJs to reference the Guards.</p>
+</li>
+<li><p>target: The target object on which the metadata is defined.</p>
+</li>
+</ul>
+<p>with getMetadata method, we can write a simple Unit test to verify the AppController is protected.</p>
+<pre><code>   it(&#39;should AuthGard be applied to the AppController&#39;, async () =&gt; &#123;
+      const guards = Reflect.getMetadata(&#39;__guards__&#39;, AppController);
+      const guard = new guards[0]();
+      expect(guard).toBeInstanceOf(AuthGuard);
+    &#125;);
+</code></pre>
+<p>If there are multiple controllers in the app, it is possible to write a unit test that covers all of them at once? The answer is positive, but we need to use the NestJS Discovery Service.</p>
+<h3 id="Discovery-Service"><a href="#Discovery-Service" class="headerlink" title="Discovery Service"></a>Discovery Service</h3><p>The NestJS <a class="link"   target="_blank" rel="noopener" href="https://github.com/nestjs/nest/blob/master/packages/core/discovery/discovery-service.ts" >discovery service <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> is an undocumented public API. It is important to note that an “undocumented” feature may be subject to change or breakage in the future. While it is a handy feature to use, it is generally best to avoid relying on undocumented features in your app. In my personal opinion, using it in unit test is acceptable as long as you are aware of the risk.</p>
+<p>As shown below, using this.discoveryService.getControllers(), we can get a collection of type InstanceWrapper &#x3D; { metatype, name, instance, … }.</p>
+<pre><code> const controllers = await discoveryService.getControllers(&#123;&#125;);
+</code></pre>
+<p>To extract the guards metadata from the InstanceWrapper, we can use the getEnhancersMetadata method. In the test below, we loop through each controller and verify that they are protected by the AuthGuard.</p>
+<pre><code>    it(&#39;should have AuthGard applied for all controllers&#39;, async () =&gt; &#123;
+      const controllers = await discoveryService.getControllers(&#123;&#125;);
+      controllers.map((c) =&gt; &#123;
+        const guard = c
+          .getEnhancersMetadata()
+          ?.filter(
+            (&#123; instance &#125;: InstanceWrapper) =&gt; instance instanceof AuthGuard,
+          );
+        expect(guard[0].name).toEqual(&#39;AuthGuard&#39;);
+      &#125;);
+    &#125;);
+</code></pre>
+<p>To achieve a fine level of access control, we can define a RoleGuard and apply it to individual endpoints. We use SetMetadata in the function below to assign metadata with a specific key. SetMetadata is an out-of-box NestJS decorator function.</p>
+<pre><code>import &#123; SetMetadata &#125; from &#39;@nestjs/common&#39;;
+
+export const Roles = (...roles: string[]) =&gt; SetMetadata(&#39;roles&#39;, roles);
+</code></pre>
+<p>To apply a Roles decorator to an endpoint, we need to pass in a role to the decorator</p>
+<pre><code>  @Get()
+  @Roles(&#39;Admin&#39;)
+  getAll() &#123;
+    return [];
+  &#125;
+</code></pre>
+<h3 id="Secure-an-Endpoint"><a href="#Secure-an-Endpoint" class="headerlink" title="Secure an Endpoint"></a>Secure an Endpoint</h3><p>To detect whether an endpoint is associated with the Roles decorator, we use the getMetadata as below.</p>
+<pre><code>      const decorators = Reflect.getMetadata(
+        &#39;roles&#39;,
+        DevController.prototype.getAll,
+      );
+</code></pre>
+<p>In a unit test, we can verify whether an endpoint is protected by the roles decorator with a role</p>
+<pre><code>    it(&#39;should getAll be accessible by Admin role only&#39;, () =&gt; &#123;
+      const decorators = Reflect.getMetadata(
+        &#39;roles&#39;,
+        DevController.prototype.getAll,
+      );
+      expect(decorators).toContain(&#39;Admin&#39;);
+    &#125;);
+</code></pre>
+<p>The Reflect API can be used to get other metadata of the endPoint.</p>
+<pre><code>  it(&#39;should getHello has correct path and http method&#39;, () =&gt; &#123;
+    const path = Reflect.getMetadata(&#39;path&#39;, appController.getHello);
+    expect(path).toBe(&#39;/&#39;);
+    const method = Reflect.getMetadata(&#39;method&#39;, appController.getHello);
+    expect(method).toBe(RequestMethod.GET);
+  &#125;);
+</code></pre>
+<p>In this above usage of getMetaData, the keys being used are ‘path’ and ‘method’, which corresponds to the path and HTTP method of the getHello method, respectively.</p>
+<h3 id="Bonus-Content-Use-Discovery-Service-to-dynamically-get-a-list-of-Services"><a href="#Bonus-Content-Use-Discovery-Service-to-dynamically-get-a-list-of-Services" class="headerlink" title="Bonus Content: Use Discovery Service to dynamically get a list of Services"></a>Bonus Content: Use Discovery Service to dynamically get a list of Services</h3><p>Discovery service can be a graceful solution to certain problems. For example, in one of my recent NestJS projects, there is a MapperResolver class:</p>
+<pre><code>@Injectable()
+export class MapperResolver &#123;
+  private mapperList: IMapper[];
+
+  constructor(
+    private serviceAMapper: ServiceAMapper,
+    private serviceBMapper: ServiceBMapper,
+    private serviceCMapper: ServiceCMapper,
+    private serviceDMapper: ServiceDMapper,
+  ) &#123;
+    this.mapperList= [
+      serviceAMapper,
+      serviceBMapper,
+      serviceCMapper,
+      serviceDMapper
+    ];
+  &#125;
+  public Resolve(serviceType: string):IMapper &#123;
+    const mapper = this.mapperList.find(c =&gt; c.serviceType=== serviceType);
+    if (mapper) &#123;
+      return mapper;
+    &#125;
+    throw new Error(`No Mapper found`);
+  &#125;
+</code></pre>
+<p>In the real-world project, there are more than 10 Mapper classes injected into the MapperResolver class constructor, this number continues to grow as new features are added. This has become a maintenance issue.</p>
+<p>We can use Discovery Service to solve this problem. As this topic is outside the scope of this article, I will only give a brief description of the solution.</p>
+<ul>
+<li><p>create a decorator @ServiceRegister that takes an argument</p>
+</li>
+<li><p>add the decorator to each Mapper class i.e. @ServiceRegister(‘Mapper’)</p>
+</li>
+<li><p>use discoveryService.getProviders() to retrieve all providers and filter out the mapper services using the metadata.</p>
+</li>
+</ul>
+<p>The end result is that we are able to remove all the injected Mapper services in the MapperResolver class. But again, please be careful in using DiscoveryService as it is an undocumented API.</p>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>It’s important to regularly test and monitor the security of your application to ensure that it is secure and reliable. By embedding the security checking into Unit tests, and regularly running these tests, we can catch any issues and fix them before they cause problems in production.</p>
+<p>Happy programming!</p>
+<p><em>More content at <a class="link"   target="_blank" rel="noopener" href="https://plainenglish.io/" >**PlainEnglish.io <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><strong>. Sign up for our <a class="link"   target="_blank" rel="noopener" href="http://newsletter.plainenglish.io/" >**free weekly newsletter <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></strong>. Follow us on <a class="link"   target="_blank" rel="noopener" href="https://twitter.com/inPlainEngHQ" >**Twitter <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**</em>, <a class="link"   target="_blank" rel="noopener" href="https://www.linkedin.com/company/inplainenglish/" >***LinkedIn <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><strong>, <a class="link"   target="_blank" rel="noopener" href="https://www.youtube.com/channel/UCtipWUghju290NWcn8jhyAw" >**YouTube <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></strong>, and <a class="link"   target="_blank" rel="noopener" href="https://discord.gg/GtDtUAvyhW" >**Discord <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.***</p>
+<p><em><strong>Interested in scaling your software startup</strong>? Check out <a class="link"   target="_blank" rel="noopener" href="https://circuit.ooo/?utm=publication-post-cta" >**Circuit <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></em><em>.</em></p>
+
+            </div>
+
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/NestJS/">#NestJS</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Security/">#Security</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/02/05/install-config-your-own-mysql-on-oracle-free-vm/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Install and ConfigureYour Own MySQL Server On Oracle Always Free Ubuntu VM</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2022/12/21/maximize-code-security-in-your-nestjs-applications-part-1/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Maximize Code Security in Your NestJS Applications (Part 1)</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">Don&#39;t Leave Your NestJS API Exposed</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-Reflect-and-the-NestJS-Undocumented-API-to-Identify-Unsecured-Endpoints-in-Unit-Tests"><span class="nav-text">Using Reflect and the NestJS Undocumented API to Identify Unsecured Endpoints in Unit Tests</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Guards"><span class="nav-text">Guards</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reflect-MetaData"><span class="nav-text">Reflect-MetaData</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Discovery-Service"><span class="nav-text">Discovery Service</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Secure-an-Endpoint"><span class="nav-text">Secure an Endpoint</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bonus-Content-Use-Discovery-Service-to-dynamically-get-a-list-of-Services"><span class="nav-text">Bonus Content: Use Discovery Service to dynamically get a list of Services</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-regular fa-computer-classic"></i>&nbsp;&nbsp;<a href="/">Sunny Sun</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br> 
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.1.6</a>
+        </div>
+        
+        
+        
+            <div id="start_time_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="right-bottom-tools rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                <i class="fa-regular fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/menu-shrink.js"></script>
+
+<script src="/js/tools/go-top-bottom.js"></script>
+
+<script src="/js/tools/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/tools/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/tools/code-block.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/layouts/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

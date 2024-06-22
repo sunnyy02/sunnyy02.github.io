@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="Sunny Sun">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2021/08/19/type-flowing-rethinking-typescript-typing-system/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Type flowing - a new perspective on the TypeScript typing system">
+    <meta property="og:description" content="Hexo Theme Redefine">
+    <meta property="og:url" content="http://example.com2021/08/19/type-flowing-rethinking-typescript-typing-system/">
+    <meta property="og:image" content="/images/redefine-logo.svg">
+    <meta property="og:site_name" content="Do What You Love">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Type flowing - a new perspective on the TypeScript typing system">
+    <meta name="twitter:description" content="Hexo Theme Redefine">
+    <meta name="twitter:image" content="/images/redefine-logo.svg">
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-logo.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-logo.svg">
+    <meta name="theme-color" content="#0066cc">
+    <link rel="shortcut icon" href="/images/redefine-logo.svg">
+    
+    <title>
+        
+            Type flowing - a new perspective on the TypeScript typing system -
+        
+        Do What You Love
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/assets/fonts.css">
+
+    
+    
+    
+    
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/icons8-stormtrooper.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78700","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":false,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"Love What You Do","custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.1.6","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}},"plugins":{"aplayer":{"enable":false,"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]}}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg#%20logo%20image%20on%20the%20left%20of%20the%20navigation%20bar">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Do What You Love
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/about">ME
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/about">ME</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET</a>
+                            </li>
+                        
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">Type flowing - a new perspective on the TypeScript typing system</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/icons8-stormtrooper.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Sunny Sun</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2021-08-19</span>
+        <span class="mobile">2021-08-19 00</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="pc">2024-06-22 15:50:04</span>
+            <span class="mobile">2024-06-22 15:50</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/TypeScript/">TypeScript</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>2.5k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>15 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <p>TypeScript provides a very rich toolbox. It includes mapped types, conditional types with control flow-based analysis, type inference, and many more.</p>
+<p>It’s not an easy task for many JavaScript developers who are new to TypeScript to switch from loose typing to static typing.  Even for developers who have been working in TypeScript for years, it can be confusing as the typing system continuously evolves. </p>
+<p>A common myth about advanced types is that it should mainly be used for building type libraries and is not required for day-to-day TypeScript work.</p>
+<p>The truth is that TypeScript advanced types are very useful for daily TypeScript work. They’re a great tool for building a strongly typed system into your code, expressing your intentions clearly, and making your code safer.</p>
+<p>The purpose of introducing the type flowing concept is to think about the typing system in a way that’s similar to how we think about reactive programming data flow. </p>
+<p>By looking at the typing system from a new perspective, it will help us to “think in types” and utilize the more advanced tools in the TypeScript toolbox in a systematic way.</p>
+<h2 id="Types-can-flow"><a href="#Types-can-flow" class="headerlink" title="Types can flow"></a>Types can flow</h2><p>In reactive programming, data flows between reactive components. In the TypeScript typing system, types can flow as well.</p>
+<p>The first time I encountered the concept of “Type flowing” was in <a class="link"   target="_blank" rel="noopener" href="https://github.com/basarat/typescript-book/blob/master/docs/types/type-inference.md" >PranshuKhandal’s TypeScript book <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. He explains this idea in the following way: </p>
+<p><em>The types flowing is just how I imagine in my brain the flow of type information.</em></p>
+<p>Inspired by this, I wanted to expand the type flowing concept to the typing system level. My definition of type flowing is:</p>
+<pre><code>_Type flowing is when one or more subtypes are mapped and transformed from a source type. These types form a strongly constrained typing system through type operations._
+</code></pre>
+<p>The basic form of type flowing can be done via type aliases. </p>
+<p>Type aliases allow you to create a new type name for an existing type. In the example below, the type alias <code>TargetType</code> is assigned as a reference to the <code>SourceType</code>, so the type is transferred.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type SourceType = &#123; id: string, quantity: number &#125;;</span><br><span class="line">type TargetType= SourceType; // &#123; id: string, quantity: number &#125;;</span><br></pre></td></tr></table></figure></div>
+
+
+<p>Thanks to the power of type inferences, types can flow in a few different ways. These include:</p>
+<ul>
+<li>Through data assignment </li>
+<li>With the <code>return type</code> function, which is inferred by the <code>return</code> statements; e.g., the following function is inferred to return a <code>number</code> type</li>
+<li>Pattern matching with function parameters: as illustrated in the below example, annotating the <code>decrease</code> function with “<code>DecreaseType</code>” type converts the <code>a,b</code> value to a <code>number</code> type</li>
+</ul>
+<p>The following code snippets illustrate the above cases.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">const quantity: number = 4;</span><br><span class="line">const stockQuantity = quantity;</span><br><span class="line">type StockType= typeof stockQuantity; // number</span><br><span class="line"></span><br><span class="line">// function return type</span><br><span class="line">function increase(a: number) &#123;</span><br><span class="line">    return a + 1;</span><br><span class="line">&#125;</span><br><span class="line">const result = increase(2); // number</span><br><span class="line"></span><br><span class="line">// function parameters matching</span><br><span class="line">type DecreaseType = (start: number, offset: number) =&gt; number;</span><br><span class="line">const decrease: DecreaseType = (a,b) =&gt; &#123; // a: number, b: number</span><br><span class="line">    return a- b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h2 id="Reactive-programming-data-flow-vs-type-flowing"><a href="#Reactive-programming-data-flow-vs-type-flowing" class="headerlink" title="Reactive programming data flow vs. type flowing"></a>Reactive programming data flow vs. type flowing</h2><p>The core of reactive programming is the flowing of data between the source and the reactive components. Some of its concepts are very similar to the TypeScript typing system, as you can see in the chart below. </p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog.logrocket.com/wp-content/uploads/2021/08/rxjs-operator-vs-typescript-type-1.png"
+                      alt="alt_text" title="image_tooltip"
+                ></p>
+<p>You can see a comparison between the RxJS operator concepts and TypeScript typing. In the typing system, the type can be transformed, filtered, and mapped to one or more subtypes. </p>
+<p>These subtypes are “reactive” as well. When the source type changes, the subtypes will be updated automatically. </p>
+<p>A well-designed type system will add strongly typed constraints to the data and functions in the app, so any breaking changes made to the source type definition will show an immediate compile time error.</p>
+<p>While there are some similarities between RxJS and TypeScript typing, there are still a lot of differences between the two. For example, the data flow in RxJS occurs at runtime, while type flowing in TypeScript occurs at compile time. </p>
+<p>The purpose of referencing RxJS here is to illustrate the flow concept in RxJS, which will hopefully help us build a shared understanding of “thinking with types.”</p>
+<h2 id="Type-operations-in-type-flowing"><a href="#Type-operations-in-type-flowing" class="headerlink" title="Type operations in type flowing"></a>Type operations in type flowing</h2><h3 id="Map-and-filter"><a href="#Map-and-filter" class="headerlink" title="Map and filter"></a>Map and filter</h3><p>The two most frequently used operators in reactive programming are <code>map</code> and <code>filter</code>. How should we perform these two operations for types in TypeScript?</p>
+<p>The <a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/2/mapped-types.html" >mapped type <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> is the equivalent of the <a class="link"   target="_blank" rel="noopener" href="https://rxjs.dev/api/operators/map" >map operator in RxJS <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. It allows us to create a type that is based on another type using the first one’s index signature and generic types. </p>
+<p>When you combine conditional types with type inference, the type transformations you can achieve with mapped types are beyond imagination. We’ll discuss how to use mapped types later in the article.</p>
+<p>The equivalent of arrays in type flowing is the union type. To apply filters on union types, we need to use conditional types and the <code>never</code> type. As <code>filter</code> is such a common need, TypeScript provides the <code>exclude</code> and <code>extract</code> utility types right out of the box. </p>
+<p>The below code uses conditional types to remove types from <code>T</code> that are not assignable to <code>U</code>. The <code>never<em> </em></code>type is used here for type narrowing, or filtering out the options of a union type.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type Exclude&lt;T, U&gt; = T extends U ? never : T;</span><br><span class="line">type T1 = Exclude&lt;&quot;a&quot; | &quot;b&quot; | &quot;c&quot; , &quot;a&quot; &gt;; // &quot;b&quot; | &quot;c&quot;</span><br><span class="line">type Extract&lt;T, U&gt; = T extends U ? T: never;</span><br><span class="line">type T2 = Extract&lt;&quot;a&quot; | &quot;b&quot; | &quot;c&quot; , &quot;a&quot; &gt;; // &quot;a&quot;</span><br></pre></td></tr></table></figure></div>
+
+
+<p>We can also filter the type properties using the out-of-the-box TypeScript utility types.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type Omit&lt;T, K extends string | number | symbol&gt; = &#123;[P in Exclude&lt;keyof T, K&gt;]: T[P]; &#125;</span><br><span class="line">type T1 = Omit&lt;&#123; a: string, b: string &#125;, &quot;a&quot;&gt; //  &#123; b: string; &#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="Pipe-the-flow-with-control-flow-analysis"><a href="#Pipe-the-flow-with-control-flow-analysis" class="headerlink" title="Pipe the flow with control flow analysis"></a>Pipe the flow with control flow analysis</h3><p>Using <a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/2/narrowing.html#control-flow-analysis" >control flow analysis with type guard <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>, we can pipe the flow the way the pipe operator does in RxJS.</p>
+<p>Below is an example using type guard to perform type checks, which narrow the type to a more specific one and control the logic flow.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">function doSomething(x: A | B) &#123;</span><br><span class="line"> if (x instanceof A) &#123;</span><br><span class="line">   // x is A</span><br><span class="line"> &#125; else &#123;</span><br><span class="line">   // x is B</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+<p>In the above example, the TypeScript compiler analyzes all possible flows of control for the expression. It looks at the <code>x instance of A</code> to determine the type of <code>x</code> to be <code>A</code> within the <code>if</code> block, and narrows the type to <code>B</code> in the <code>else</code> block. </p>
+<p>If we think of that as the logic branching, it can be used in a connective way, similar to the way water flows through a pipe and can be redirected to a different, connected pipe to reach its destination.</p>
+<h2 id="Building-strong-constraints-using-type-flowing"><a href="#Building-strong-constraints-using-type-flowing" class="headerlink" title="Building strong constraints using type flowing"></a>Building strong constraints using type flowing</h2><p>With the theory out of the way, let’s put this idea into practice. Below, we’ll look at how the type flowing concept can be put into practice by mapping, filtering, and transforming the types to implement a well-constrained typing system. </p>
+<h3 id="Defining-the-mapper-methods"><a href="#Defining-the-mapper-methods" class="headerlink" title="Defining the mapper methods"></a>Defining the mapper methods</h3><p>We are building a Node.js app with the mapper pattern. To implement the pattern, we must first define some mapper methods, which take data entity objects and map them to a data transfer object (DTO). </p>
+<p>On the flip side, there is another set of methods to convert the DTOs to corresponding entity objects.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">export class myMapper &#123;</span><br><span class="line">   toClient(args: ClientEntity) : ClientDto &#123; ...&#125;;</span><br><span class="line">   fromClient(args: ClientDto) : ClientEntity&#123; ...&#125;;</span><br><span class="line">   toOrder(args: OrderEntity) : OrderDto &#123; ...&#125;;</span><br><span class="line">   fromOrder(args: OrderDto) : OrderEntity&#123; ...&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+<p>We’ll use a simplified, contrived example to demonstrate the following two goals with our strong typing system:</p>
+<ol>
+<li>Create a type for the mapper with all the methods and interfaces from the data schema</li>
+<li>Create a union type to represent entity names for type safety</li>
+</ol>
+<h3 id="Defining-the-data-entity-and-DTO-types"><a href="#Defining-the-data-entity-and-DTO-types" class="headerlink" title="Defining the data entity and DTO types"></a>Defining the data entity and DTO types</h3><p>First, we need to define the types for the entities and DTOs.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type DataSchema = &#123;</span><br><span class="line">  client: &#123;</span><br><span class="line">      dto:  &#123; id: string, name: string&#125;,</span><br><span class="line">      entity: &#123;clientId: string, clientName: string&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  order:  &#123;</span><br><span class="line">      dto:  &#123; id: string, amount: number&#125;,</span><br><span class="line">      entity: &#123;orderId: string, quantity: number&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+<p>Now that we have the raw data types defined, how do we extract each entity and DTO type from them? </p>
+<p>We’ll use conditional types and <code>never<em> </em></code>to filter out the required data type definitions.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type PropertyType&lt;T, Path extends string&gt; = Path extends keyof T ? T[Path] : never;</span><br><span class="line"></span><br><span class="line">type lookup&lt;T, Key extends keyof T, prop extends string&gt; = PropertyType&lt;T[Key], prop&gt;;</span><br></pre></td></tr></table></figure></div>
+
+
+<p>We can simplify the above by merging them into a single <code>lookup</code> type. </p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type lookup&lt;T, Key extends keyof T, prop extends string&gt; = prop</span><br><span class="line">extends keyof T[Key] ? T[Key][prop] : never;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="Support-for-nested-properties"><a href="#Support-for-nested-properties" class="headerlink" title="Support for nested properties"></a>Support for nested properties</h3><p>The above <code>lookup</code> type only works for a single-level property. What happens when the source type has more depth? </p>
+<p>To access a property type with more depth, we’ll create a new type with recursive type aliases. </p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type PropertyType&lt;T, Path extends string&gt; =</span><br><span class="line">    Path extends keyof T ? T[Path] :</span><br><span class="line">        Path extends `$&#123;infer K&#125;.$&#123;infer R&#125;` ? K extends keyof T ? PropertyType&lt;T[K], R&gt; : </span><br><span class="line">        never :</span><br><span class="line">    never;</span><br><span class="line"></span><br><span class="line">type lookup&lt;T, Key, prop extends string&gt; = Key extends keyof T? PropertyType&lt;T[Key], prop&gt;: never;</span><br></pre></td></tr></table></figure></div>
+
+
+<p>When <code>Path extends keyof T</code> is truthy, it means the full path is matched. Thus, we return the current property type.</p>
+<p>When  <code>Path extends keyof T</code> is falsy, we use the <code>infer</code> keyword to build a pattern to match the <code>Path</code>. If it matches, we make a recursive call to the next-level property. Otherwise, it will return a <code>never<em> </em></code>and that means the <code>Path</code> does not match with the type</p>
+<p>If it does not match, continue recursively with the current property as the first parameter.</p>
+<h3 id="Defining-the-mapper-type-and-methods"><a href="#Defining-the-mapper-type-and-methods" class="headerlink" title="Defining the mapper type and methods"></a>Defining the mapper type and methods</h3><p>Now, it’s time to create the mapper methods. Here, we use <a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/literal-types.html" >string literal types <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> to form <code>MapTo</code> and <code>MapFrom</code> with the help of the Capitalize utility type.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">// MapTo and MapFrom</span><br><span class="line">type MapTo&lt;T extends string&gt; = `to$&#123;Capitalize&lt;T&gt;&#125;`;</span><br><span class="line">type MapFrom&lt;T extends string&gt; = `from$&#123;Capitalize&lt;T&gt;&#125;`;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="Putting-it-all-together"><a href="#Putting-it-all-together" class="headerlink" title="Putting it all together"></a>Putting it all together</h3><p>When we assemble the previous parts, our first goal is achieved! </p>
+<p>We make use of the <a class="link"   target="_blank" rel="noopener" href="https://devblogs.microsoft.com/typescript/announcing-typescript-4-1/#key-remapping-mapped-types" >key remapping <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> feature (i.e., the <code>as</code> clause in the below code block), which has only been available since the release of TypeScript 4.1.</p>
+<p>Please also note that <code>Key extends string ? Key : never</code> is needed because the type of object keys can vary among strings, numbers, and symbols. We are only interested in the string cases here.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type ExtractMapperTo&lt;T&gt; = &#123;</span><br><span class="line">  [Key in keyof T as MapTo&lt;Key extends string ? Key : never&gt;]: (args: lookup&lt;T, Key, &#x27;dto&#x27;&gt;) =&gt; lookup&lt;T, Key, &#x27;entity&#x27;&gt;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">type ExtractMapperFrom&lt;T&gt; = &#123;</span><br><span class="line">  [Key in keyof T as MapFrom&lt;Key extends string ? Key : never&gt;]:(args: lookup&lt;T, Key, &#x27;entity&#x27;&gt;) =&gt; lookup&lt;T, Key, &#x27;dto&#x27;&gt;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// Then all these mapper methods are automatically created </span><br><span class="line">type mapper = ExtractMapperTo&lt;DataSchema&gt; &amp; ExtractMapperFrom&lt;DataSchema&gt;;</span><br></pre></td></tr></table></figure></div>
+
+
+<p>We can see below that all of the mapper method interfaces are automatically created.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">// Our first goal achieved!</span><br><span class="line">declare const m: mapper;</span><br><span class="line">m.toClient(&#123;id: &#x27;123&#x27;, name: &#x27;John&#x27;&#125;);</span><br><span class="line">m.fromClient(&#123;clientId: &#x27;123&#x27;, clientName: &#x27;John&#x27;&#125;);</span><br><span class="line">m.toOrder(&#123;id: &#x27;123&#x27;, amount: 3&#125;);</span><br><span class="line">m.fromOrder(&#123;orderId: &#x27;345&#x27;,quantity: 4&#125;);</span><br></pre></td></tr></table></figure></div>
+
+
+<p>We have nice IDE IntelliSense support as well.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog.logrocket.com/wp-content/uploads/2021/08/ide-intellisense-support.png"
+                      alt="alt_text" title="image_tooltip"
+                ></p>
+<h3 id="Converting-an-object-type-to-a-union-type"><a href="#Converting-an-object-type-to-a-union-type" class="headerlink" title="Converting an object type to a union type"></a>Converting an object type to a union type</h3><p>Our next goal is to create a union type to represent data type names from the source <code>DataSchema</code> type. </p>
+<p>The key to the solution is the <code>PropToUnion&amp;lt;T&gt;</code> type.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">// Derive the data type names into a union type</span><br><span class="line">type PropToUnion&lt;T&gt; = &#123;[k in keyof T]: k&#125;[keyof T];</span><br><span class="line"></span><br><span class="line">type DataTypes = PropToUnion&lt;DataSchema&gt;; // &#x27;client&#x27; | &#x27;order&#x27;</span><br></pre></td></tr></table></figure></div>
+
+
+<p>First, <code>&#123;[k in keyof T]: k&#125;</code> extracts the key of <code>T</code> as both key and value using <code>keyof</code>. The output is:</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">&#123;</span><br><span class="line">   client: &quot;client&quot;;</span><br><span class="line">   order: &quot;order&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+<p>Then, we use the index signature <code>[keyof T]</code> to extract the values as a union type.</p>
+<p>The generated union type can help us enforce type safety. Let’s say we have placed the following function in another module far away from the source type. In the <code>getProcessName</code> function, the <code>switch</code> statement triggers the type guard and <code>never<em> </em></code>is returned in the default case to tell the compiler that it should never be reached.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">// Second goal achieved</span><br><span class="line">function getProcessName(c: DataTypes): string &#123;</span><br><span class="line">    switch(c) &#123;</span><br><span class="line">        case &#x27;client&#x27;:</span><br><span class="line">            return &#x27;register&#x27; + c;</span><br><span class="line">        case &#x27;order&#x27;:</span><br><span class="line">            return &#x27;process&#x27; + c;</span><br><span class="line">        default:</span><br><span class="line">        return assertUnreachable(c);</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br><span class="line">function assertUnreachable(x: never): never &#123;</span><br><span class="line">    throw new Error(&quot;something is very wrong&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+<p>This is how the union type and <code>never<em> </em></code>help to enforce type safety. </p>
+<p>Now, let’s assume there’s been a change to the data schema — we add a new data type called <code>account</code>. In a large team, the developer adding the new type may not be aware of the impact of the change. Without typing constraints, it could result in a hidden runtime error that is hard to find. </p>
+<p>If we use type flowing to build the typing constraints, the downstream subtypes will be automatically updated as below.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type DataTypes = &quot;client&quot; | &quot;order&quot; | &quot;Account&quot;</span><br></pre></td></tr></table></figure></div>
+
+
+<p>The TypeScript compiler will also show an error in the <code>getProcessName</code> function to prompt us that a breaking change has occurred.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog.logrocket.com/wp-content/uploads/2021/08/breaking-change-error-demo.png"
+                      alt="alt_text" title="image_tooltip"
+                ></p>
+<p>Our second goal is achieved! We have a union type that now represents entity names and contributes to type safety.</p>
+<p>To recap, this diagram shows the main steps we took to achieve the first goal of type flowing.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://blog.logrocket.com/wp-content/uploads/2021/08/recap-type-flow-diagram.png"
+                      alt="alt_text" title="image_tooltip"
+                ></p>
+<p>Overall, we created several new types based on the original source type. Any changes to the source type will trigger updates to all of the downstream types automatically, and we will get an instant error prompt if the change breaks the functions that depend on it.<strong>_ _</strong></p>
+<p>The full example code can be found<a class="link"   target="_blank" rel="noopener" href="https://gist.github.com/sunnyy02/7b0a768380057f2ed7541aba4d9f8d22" > here <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>This article discusses the TypeScript type flowing concept with reference to reactive programming in RxJS. We applied the type flowing concept to a practical example by building a well-constrained type system to maximize the benefits of type safety. </p>
+<p>I hope this discussion helps to change the idea that TypeScript’s advanced types are only for developing type libraries or for complex framework-level programming. I also hope it can help you to start applying the typing system more creatively in your daily TypeScript work.</p>
+<p>Happy typing!</p>
+
+            </div>
+
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/TypeScript/">#TypeScript</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2021/09/21/4-simple-and-effective-ways-to-avoid-too-many-ifs-with-typescript/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">4 Simple and Effective Ways To Avoid Too Many Ifs With TypeScript</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2021/07/25/how-to-share-constannts/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">How to Share Constants in Typescript Project</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">Type flowing - a new perspective on the TypeScript typing system</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Types-can-flow"><span class="nav-text">Types can flow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reactive-programming-data-flow-vs-type-flowing"><span class="nav-text">Reactive programming data flow vs. type flowing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Type-operations-in-type-flowing"><span class="nav-text">Type operations in type flowing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Map-and-filter"><span class="nav-text">Map and filter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pipe-the-flow-with-control-flow-analysis"><span class="nav-text">Pipe the flow with control flow analysis</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Building-strong-constraints-using-type-flowing"><span class="nav-text">Building strong constraints using type flowing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Defining-the-mapper-methods"><span class="nav-text">Defining the mapper methods</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Defining-the-data-entity-and-DTO-types"><span class="nav-text">Defining the data entity and DTO types</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Support-for-nested-properties"><span class="nav-text">Support for nested properties</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Defining-the-mapper-type-and-methods"><span class="nav-text">Defining the mapper type and methods</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Putting-it-all-together"><span class="nav-text">Putting it all together</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Converting-an-object-type-to-a-union-type"><span class="nav-text">Converting an object type to a union type</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-regular fa-computer-classic"></i>&nbsp;&nbsp;<a href="/">Sunny Sun</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br> 
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.1.6</a>
+        </div>
+        
+        
+        
+            <div id="start_time_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="right-bottom-tools rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                <i class="fa-regular fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/menu-shrink.js"></script>
+
+<script src="/js/tools/go-top-bottom.js"></script>
+
+<script src="/js/tools/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/tools/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/tools/code-block.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/layouts/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="Sunny Sun">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2021/11/06/6-typescript-code-patterns-to-make-your-code-more-robust/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="6 TypeScript Code Patterns To Make Your Code More Robust">
+    <meta property="og:description" content="Hexo Theme Redefine">
+    <meta property="og:url" content="http://example.com2021/11/06/6-typescript-code-patterns-to-make-your-code-more-robust/">
+    <meta property="og:image" content="/images/redefine-logo.svg">
+    <meta property="og:site_name" content="Do What You Love">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="6 TypeScript Code Patterns To Make Your Code More Robust">
+    <meta name="twitter:description" content="Hexo Theme Redefine">
+    <meta name="twitter:image" content="/images/redefine-logo.svg">
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-logo.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-logo.svg">
+    <meta name="theme-color" content="#0066cc">
+    <link rel="shortcut icon" href="/images/redefine-logo.svg">
+    
+    <title>
+        
+            6 TypeScript Code Patterns To Make Your Code More Robust -
+        
+        Do What You Love
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/assets/fonts.css">
+
+    
+    
+    
+    
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","avatar":"/images/icons8-stormtrooper.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78700","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":false,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"Love What You Do","custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.1.6","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}},"plugins":{"aplayer":{"enable":false,"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]}}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg#%20logo%20image%20on%20the%20left%20of%20the%20navigation%20bar">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Do What You Love
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/about">ME
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/about">ME</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET</a>
+                            </li>
+                        
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+             
+                <div class="article-title">         
+                    <img src="https://cdn-images-1.medium.com/max/2442/1*V2kpjhBqkLBD-xF3p1fT-A.png" alt="6 TypeScript Code Patterns To Make Your Code More Robust" />
+                    <h1 class="article-title-cover">6 TypeScript Code Patterns To Make Your Code More Robust</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/icons8-stormtrooper.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Sunny Sun</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2021-11-06</span>
+        <span class="mobile">2021-11-06 00</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="pc">2024-06-22 15:50:04</span>
+            <span class="mobile">2024-06-22 15:50</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/TypeScript/">TypeScript</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Design-Pattern/">Design Pattern</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>1.5k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>9 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h3 id="Simple-and-practical-solutions-you-can-apply-in-daily-work"><a href="#Simple-and-practical-solutions-you-can-apply-in-daily-work" class="headerlink" title="Simple and practical solutions you can apply in daily work"></a>Simple and practical solutions you can apply in daily work</h3><p>I found out that I repeatedly use some TypeScript code patterns in daily work. Those code patterns aren’t heavy or complex, and they also don’t require a lot of boilerplate code. They’re just simple and practical solutions to resolve a few common problems.</p>
+<p>In the next few sections, I’ll share my six favorite TypeScript code patterns.</p>
+<h2 id="Use-Pick-To-Implement-Interface-Segregation-Principle"><a href="#Use-Pick-To-Implement-Interface-Segregation-Principle" class="headerlink" title="Use Pick To Implement Interface Segregation Principle"></a>Use Pick To Implement Interface Segregation Principle</h2><p>The interface segregation principle is defined as:</p>
+<blockquote>
+<p>Clients should not be forced to implement interfaces they do not use.</p>
+</blockquote>
+<p>Let’s say we have a Client type, it’s used in multiple places. Sometimes only a subset of properties is used. According to the interface segregation principle, the function parameter with the type should be the minimal type required.</p>
+<p>We can use <a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/utility-types.html#picktype-keys" >Pick <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> utility type to exclude unused properties from the Client type. As shown in the code snippet below, only the name and active properties are picked. Thus the ClientSummary type represents a smaller, more specific interface that only includes the properties that it needs.</p>
+<pre><code>
+interface Client &#123;
+  name: string;
+  dateOfBirth: Date;
+  active: boolean;
+&#125;
+ 
+type ClientSummary = Pick<Client, "name" | "active">;
+ 
+const clients: ClientSummary = &#123;
+  name: 'John',
+  active: true,
+&#125;;
+</code></pre>
+<p>An alternative way is to use <a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/utility-types.html#excludetype-excludedunion" >Exclude <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> utility type as below:</p>
+<pre><code>type ClientSummary = Exclude&lt;Client, &#39;dateOfBirth&#39;&gt;;
+</code></pre>
+<p>However, Pick is more robust because no changes are required when additional properties are added to the Client type.</p>
+<h2 id="Const-Assertion-To-Derive-Types-From-Literal-Expressions"><a href="#Const-Assertion-To-Derive-Types-From-Literal-Expressions" class="headerlink" title="Const Assertion To Derive Types From Literal Expressions"></a>Const Assertion To Derive Types From Literal Expressions</h2><p>as const is a TypeScript construct for literal values called<a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-4.html#const-assertions" > const assertion <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. When as const is applied, we get a const object with every property as a non-widen literal type. We can use it to derive types from the declared constants with const assertion.</p>
+<p>The following code snippet is an example that I<a class="link"   target="_blank" rel="noopener" href="https://medium.com/codex/how-to-share-constants-in-typescript-project-8f76a2e40352?sk=4d6297705c65d9c6db493d251d9a7666" > discussed in another article <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. In a nutshell, we derived payGradeType and payValueType from the payGrades constant. These types form a constraint-type system. When the source constant is modified, all related types will be automatically updated.</p>
+<pre><code>
+export const payGrades = &#123; 
+  low: "1", 
+  average: "2", 
+  high: "3"
+&#125; as const;
+
+type t = typeof payGrades;
+type payGradeType = keyof t; // 'low' | 'average' | 'high'
+type payValueType =  t[keyof t]; // '1' | '2' | '3'
+
+const hisPay: payValueType = '3'; //okay
+const myPay:  payValueType = '4'; // error
+</code></pre>
+<p>By using const assertions to derive types from literal expressions, you can create variables with more specific and accurate types, which can help to improve the type-safety and correctness of your Type.</p>
+<h2 id="Exhaustive-Checks-With-“never”-Type"><a href="#Exhaustive-Checks-With-“never”-Type" class="headerlink" title="Exhaustive Checks With “never” Type"></a>Exhaustive Checks With “never” Type</h2><p>The never type represents the type of values that never occur. It can be useful for performing exhaustive checks, as you can use the never type to ensure that all possible cases are handled in a switch statement or other control flow construct.</p>
+<p>A good application of never type is as the type guard for impossible types.</p>
+<p>The following example shows how to cover all possible literal type values. Since the DataTypes includes only the two literal types client and order, assertUnreachable will never be reached.</p>
+<p>If another developer adds a new literal type into the DataTypes, and forgets to update the switch statement, a compile-time error will be thrown.</p>
+<pre><code>
+type DataTypes = 'client' | 'order';
+
+function getProcessName(c: DataTypes): string &#123;
+    switch(c) &#123;
+        case 'client':
+            return 'register' + c;
+        case 'order':
+            return 'process' + c;
+        default:
+        return assertUnreachable(c);
+    &#125;   
+&#125;
+function assertUnreachable(x: never): never &#123;
+    throw new Error("something is very wrong");
+&#125;
+</code></pre>
+
+<p>With the exhaustive type checking in place, we can detect a missing condition at compile time instead of run time.</p>
+<h2 id="Use-Opaque-Type-To-Simulate-Nominal-Typing-Behavior"><a href="#Use-Opaque-Type-To-Simulate-Nominal-Typing-Behavior" class="headerlink" title="Use Opaque Type To Simulate Nominal Typing Behavior"></a>Use Opaque Type To Simulate Nominal Typing Behavior</h2><p>TypeScript is a structural type system. In the <a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/play#example/structural-typing" >structure type system <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>, two types with the same shape are compatible. This makes TypeScript very flexible, but it can also create potential issues.</p>
+<p>In the contrived example below, we have two compatible types Customer and VIPCustomer. The function getVIPName should only take the VIPCustomer type argument. But, if the Customer type argument is passed in by mistake, it won’t error out due to the structure typing limitation.</p>
+<pre><code>
+type Customer &#123;
+  name: string
+&#125;
+
+type VIPCustomer &#123;
+  name: string
+&#125;
+
+const cust = &#123;name: 'John'&#125; as Customer;
+const vip = &#123;name: 'Mark'&#125; as VIPCustomer;
+
+function getVIPName(vip: VIPCustomer) &#123;
+  return vip.name;
+&#125;
+
+console.log('vip name:', getVIPName(vip)); //vip name: Mark
+// The getVIPName works without error
+console.log('vip name:', getVIPName(cust)); //vip name: John
+</code></pre>
+<p>The above problem can be resolved by opaque type. Opaque types allow you to create types that are nominally typed, but are still compatible with structural types.</p>
+<p>Although TypeScript doesn’t support opaque type out-of-box, we can achieve similar behavior using intersection type.</p>
+<p>The below OpaqueType makes use of <a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/2/generics.html" >Generic Type  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>and intersection type. Now the type Customer and VIPCustomer are structurally different. As the internal _brand property only exists in compile-time, there is no run-time cost associated with it.</p>
+<pre><code>
+type OpaqueType<K, T> = K & &#123; _brand: T &#125;
+type Customer = OpaqueType<Person, "Customer">
+type VIPCustomer = OpaqueType<Person, "VIP">
+
+function getVIPName(vip: VIPCustomer) &#123;
+  return vip.name;
+&#125;
+
+const cust = &#123;name: 'John'&#125; as Customer;
+const vip = &#123;name: 'Mark'&#125; as VIPCustomer;
+
+console.log('vip name:', getVIPName(vip)); //vip name: Mark
+// Error: Argument of type 'Customer' is not assignable to parameter of type 'VIPCustomer'.
+console.log('vip name:', getVIPName(cust)); 
+</code></pre>
+<p>The opaque type implementation can make your TypeScript code cleaner and stronger when used in the right place.</p>
+<h2 id="Lookup-property-type-from-an-Object-Type"><a href="#Lookup-property-type-from-an-Object-Type" class="headerlink" title="Lookup property type from an Object Type"></a>Lookup property type from an Object Type</h2><p><a class="link"   target="_blank" rel="noopener" href="https://blog.logrocket.com/type-flowing-rethinking-typescript-typing-system/" >TypeScript is about types <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. Often, we need to extract an existing object property type from a complex object type.</p>
+<p>We use conditional types and never to filter out the required data type definitions in lookup type definition below.</p>
+<pre><code>
+type PropertyType<T, Path extends string> =
+    Path extends keyof T ? T[Path] :
+        Path extends `$&#123;infer K&#125;.$&#123;infer R&#125;` ? K extends keyof T ? PropertyType<T[K], R> : 
+        never :
+    never;
+
+type lookup<T, Key, prop extends string> = Key extends keyof T? PropertyType<T[Key], prop>: never;
+</code></pre>
+<p>The lookup type may look confusing at the first glance. Let’s break it down.</p>
+<p>Firstly, to access a property type, we’ll create a new type with recursive type aliases.</p>
+<p>When Path extends keyof T is truthy, it means the full path is matched. Thus, we return the current property type.</p>
+<p>When Path extends keyof T is falsy, we use the infer keyword to build a pattern to match the Path. If it matches, we make a recursive call to the next-level property. Otherwise, it will return a never and that means the Path does not match with the type.</p>
+<p>If it does not match, continue recursively with the current property as the first parameter.</p>
+<p>The generated property type can be used in other functions to enforce type safety.</p>
+<h2 id="Refactor-Excessive-Function-Parameters-With-Destructing-Assignments"><a href="#Refactor-Excessive-Function-Parameters-With-Destructing-Assignments" class="headerlink" title="Refactor Excessive Function Parameters With Destructing Assignments"></a>Refactor Excessive Function Parameters With Destructing Assignments</h2><p>A common issue for TypeScript code is excessive function parameters. We can use destructing assignments to refactor excessive function parameters and make your code more concise and readable.</p>
+<p>Destructing assignments allow you to unpack the values of an object or array into individual variables. This can be useful when you have a function with multiple parameters that are related, as you can use destructing assignments to unpack the values into individual variables and pass them to the function as separate arguments.</p>
+<p>The example below illustrates the issue of excessive parameters. For example, if a new parameter type, let’s say middleName is required. We need to be very careful in adding parameters to the right place.</p>
+<p>Obviously, it’s hard to maintain. It’s also hard to read the caller function to match the argument with its name.</p>
+<pre><code>
+interface Staff &#123; 
+  firstName: string, 
+  lastName: string, 
+  age: number, 
+  contact: string,
+  isActive: boolean,
+  isDelete: boolean
+&#125;
+
+function register(firstName: string, lastName: string, age: number, contact: string, isActive: boolean, isDelete: boolean)&#123;
+  console.log(`$&#123;firstName&#125; $&#123;lastName&#125; $&#123;age&#125; $&#123;contact&#125; $&#123;isActive&#125;  $&#123;isDelete&#125;`)
+&#125;
+
+register('john', 'duggan', 25, '123456', true, false);
+</code></pre>
+<p>To refactor it, we make use of object destructuring and object literals as below. It’s one of my favorite methods as it’s simple. concise and readable.</p>
+<p>TypeScript is intelligent. It not only assigns the value to the corresponding variable but also infers the type correctly.</p>
+<pre><code>
+// use destructing and pass in an object
+function register2(&#123;firstName, lastName, age, contact, isActive, isDelete&#125;: Staff)&#123;
+  console.log(`$&#123;firstName&#125; $&#123;lastName&#125; $&#123;age&#125; $&#123;contact&#125; $&#123;isActive&#125; $&#123;isDelete&#125;`)
+&#125;
+
+const user = &#123; 
+  firstName: 'john', 
+  lastName: 'duggan', 
+  age: 25, 
+  contact: '1234567',
+  isActive: true,
+  isDelete: false
+&#125;;
+
+register2(user);
+</code></pre>
+<p>After the refactoring, the sequence of parameters doesn’t matter anymore. You can add or remove a property without worrying about its position.</p>
+<p>The TypeScript typing system is amazing. The challenge for developers is to make full use of its powerful toolbox for clean and strongly typed code.</p>
+<p>I hope this article is useful to you. If you have your favorite TypeScript code patterns, do let me know.</p>
+<p>If you like this article, you may also like to check out my <a class="link"   target="_blank" rel="noopener" href="https://betterprogramming.pub/6-typescript-typing-system-tricks-you-should-know-5aa39bda8049?sk=b8a4adbb43a591a64da08b4987ea079d" >other article about TypeScript best practices <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+
+            </div>
+
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/TypeScript/">#TypeScript</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Design-Pattern/">#Design Pattern</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2022/07/01/comparing-four-popular-nestjs-ORM/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Comparing four popular NestJS ORMs</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2021/09/23/inject-dynamic-content-angular-components-with-portals/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Inject dynamic content in Angular components with portals</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">6 TypeScript Code Patterns To Make Your Code More Robust</div>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Simple-and-practical-solutions-you-can-apply-in-daily-work"><span class="nav-text">Simple and practical solutions you can apply in daily work</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Use-Pick-To-Implement-Interface-Segregation-Principle"><span class="nav-text">Use Pick To Implement Interface Segregation Principle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Const-Assertion-To-Derive-Types-From-Literal-Expressions"><span class="nav-text">Const Assertion To Derive Types From Literal Expressions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exhaustive-Checks-With-%E2%80%9Cnever%E2%80%9D-Type"><span class="nav-text">Exhaustive Checks With “never” Type</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Use-Opaque-Type-To-Simulate-Nominal-Typing-Behavior"><span class="nav-text">Use Opaque Type To Simulate Nominal Typing Behavior</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lookup-property-type-from-an-Object-Type"><span class="nav-text">Lookup property type from an Object Type</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Refactor-Excessive-Function-Parameters-With-Destructing-Assignments"><span class="nav-text">Refactor Excessive Function Parameters With Destructing Assignments</span></a>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-regular fa-computer-classic"></i>&nbsp;&nbsp;<a href="/">Sunny Sun</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br> 
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.1.6</a>
+        </div>
+        
+        
+        
+            <div id="start_time_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="right-bottom-tools rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                <i class="fa-regular fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/menu-shrink.js"></script>
+
+<script src="/js/tools/go-top-bottom.js"></script>
+
+<script src="/js/tools/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/tools/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/tools/code-block.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/layouts/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/toc-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
