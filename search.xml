@@ -2728,15 +2728,14 @@ bootstrap();
       </tags>
   </entry>
   <entry>
-    <title></title>
-    <url>/2024/06/22/friend-or-foe-examining-the-pros-and-cons-of-feature-toggles/</url>
-    <content><![CDATA[<h1 id="Friend-or-Foe-Examining-the-Pros-and-Cons-of-Feature-Toggles-and-Trunk-Based-Development"><a href="#Friend-or-Foe-Examining-the-Pros-and-Cons-of-Feature-Toggles-and-Trunk-Based-Development" class="headerlink" title="Friend or Foe? Examining the Pros and Cons of Feature Toggles and Trunk-Based Development"></a>Friend or Foe? Examining the Pros and Cons of Feature Toggles and Trunk-Based Development</h1><p><img  
+    <title>Friend or Foe? Examining the Pros and Cons of Feature Toggles and Trunk-Based Development</title>
+    <url>/2024/06/21/friend-or-foe-examining-the-pros-and-cons-of-feature-toggles/</url>
+    <content><![CDATA[<p><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="https://miro.medium.com/v2/resize:fit:1120/1*md8ptcB7nbqro_81fuizyg.png"
                      
                 ></p>
-<p>Photo by  <a class="link"   href="https://unsplash.com/@midwestiscool?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" >Josh Carter <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  on  <a class="link"   href="https://unsplash.com/photos/green-leaf-covering-tree-branch-lD2Ah5thV2U?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" >Unsplash <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <p>My experience at  <a class="link"   href="https://www.thoughtworks.com/en-au" >ThoughtWorks <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>, a pioneer in Agile development, exposed me to “<a class="link"   href="https://www.thoughtworks.com/en-au/insights/blog/digital-transformation/Digital-talent-defaults-for-agile-org" >sensible defaults <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>” — a set of best practices that ensure efficient software delivery. Two of the most impactful practices I learned are Feature Toggles and Trunk-Based Development (TBD). These approaches are considered foundational to ThoughtWorks’ methodology due to their effectiveness in streamlining development and enabling rapid iteration.</p>
 <p>Although TBD is somehow debatable, even within ThoughtWorks, there is no double that it delivers lots of benefits when used in the right project with proper implementation.</p>
 <p>In this blog, I’ll discuss Feature Toggles and TBD, their benefits, and when they should and shouldn’t be used.</p>
@@ -2780,5 +2779,10 @@ bootstrap();
 <h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p>Feature toggles and trunk-based development empower developers to deliver features faster and more reliably. By understanding their benefits and limitations, we can leverage them effectively to streamline our development process and deliver faster and more frequently.</p>
 <p>Remember, feature toggles are for temporary control, not a long-term architectural solution. In other words, don’t forget to remove the feature toggle in the end! Use them wisely to keep your application on the cutting edge.</p>
 ]]></content>
+      <tags>
+        <tag>TypeScript</tag>
+        <tag>Best Practice</tag>
+        <tag>Refactoring</tag>
+      </tags>
   </entry>
 </search>
