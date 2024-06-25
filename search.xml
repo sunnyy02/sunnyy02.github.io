@@ -2825,4 +2825,85 @@ bootstrap();
         <tag>Course</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Exploring Etag and If-Match in NestJS</title>
+    <url>/2024/03/05/exploring-etag/</url>
+    <content><![CDATA[<h3 id="Optimizing-Concurrency-Handling-with-ETag-and-If-Match"><a href="#Optimizing-Concurrency-Handling-with-ETag-and-If-Match" class="headerlink" title="Optimizing Concurrency Handling with ETag and If-Match"></a>Optimizing Concurrency Handling with ETag and If-Match</h3><p>HTTP headers play an important role in building an efficient RESTful API. Two such headers,  <code>ETag</code>  and  <code>If-Match/If-None-Match</code>, are instrumental in handling concurrency and caching in RESTful APIs.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://miro.medium.com/v2/resize:fit:1091/1*G6CWym8fXby1ip-skwYaXg.png"
+                     
+                ></p>
+<p>Photo by  <a class="link"   href="https://unsplash.com/@neonbrand?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" >Kenny Eliason <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  on  <a class="link"   href="https://unsplash.com/photos/black-cat-sitting-on-grey-rug-UETa8mfu38k?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" >Unsplash <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>In this post, we will delve into  <code>Etag</code>  and  <code>If-Match/If-None-Match</code>  headers, and explore how to use them in NestJS. Correctly using them will allow us to design a robust RESTful API capable of handling concurrent transactions.</p>
+<h2 id="Understanding-ETag-and-If-Match"><a href="#Understanding-ETag-and-If-Match" class="headerlink" title="Understanding ETag and If-Match"></a>Understanding ETag and If-Match</h2><p>An Entity Tag, or  <code>ETag</code>, is used to identify a specific version of a resource uniquely. It is a hash or identifier associated with the state of a resource on the server. There are two types of Etag:  <a class="link"   href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Conditional_requests#weak_validation" >weak <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  and  <a class="link"   href="https://en.wikipedia.org/wiki/HTTP_ETag#Strong_and_weak_validation" >strong <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. The weak Etag allows for flexibility in representing semantically equivalent content. Strong Etag is suitable for the resource representation that is byte-for-byte identical for all users.</p>
+<p>When a client requests a resource, the server attaches an ETag to the response. Subsequent requests from the client can include this ETag in the  <code>If-None-Match</code>  header. The header is used to determine whether the resource has changed, the server responds with a “<code>304 Not Modified</code>” status if the resource has not changed, reducing unnecessary data transfer and enhancing performance.</p>
+<p>On the other hand, the  <code>If-Match</code>  header is employed for optimistic concurrency control. It can ensure that an operation, such as an update or deletion, is only performed if the provided  <code>ETag</code>  matches the current state of the resource on the server.</p>
+<p>The significance of  <code>ETag</code>  and  <code>If-Match</code>  lies in their ability to prevent conflicting updates. In scenarios where multiple clients modify the same resource concurrently, these headers act as safeguards.  <code>ETag</code>  enables efficient caching and reduces unnecessary data transfers while  <code>If-Match</code>  ensuring that updates occur only when the client possesses the latest resource version. Together, they contribute to a more resilient interaction between clients and servers in RESTful APIs.</p>
+<h2 id="Generate-and-return-an-Etag"><a href="#Generate-and-return-an-Etag" class="headerlink" title="Generate and return an Etag"></a>Generate and return an Etag</h2><p>To generate an  <code>ETag</code>  in NestJS using the  <code>[etag](https://github.com/jshttp/etag)</code>  library, follow the below steps to install and import the library.</p>
+<p>&#x2F;&#x2F; install it<br>npm install etag<br>&#x2F;&#x2F; import it<br>import * as etag from ‘etag’;</p>
+<p>Then, we can generate an  <code>Etag</code>  with a one-line call.</p>
+<p>const data &#x3D; &#x2F;&#x2F; your data here;<br>const generatedETag &#x3D; etag(data);</p>
+<p>Please note that the etag function only accepts string, buffer, or steams. We can’t pass objects or arrays directly, but a workaround exists below.</p>
+<p>const arrayData &#x3D; [1, 2, 3];<br>const etagForArray &#x3D; etag(JSON.stringify(arrayData));  </p>
+<p>const objectData &#x3D; { key: ‘value’ };<br>const etagForObject &#x3D; etag(JSON.stringify(objectData));</p>
+<p>Then, we can return the  <code>Etag</code>  in the response header for a GET request.</p>
+<p> @Get(‘etag’)<br>  async GetResource(@Res({ passthrough: true }) res: Response) {<br>    &#x2F;&#x2F; fetching resource data<br>    const resourceData &#x3D; await this.fetchResourceData();  </p>
+<pre><code>// Attach ETag to the response header  
+res.set(&#39;ETag&#39;, etag(JSON.stringify(resourceData)));  
+
+return resourceData;  
+</code></pre>
+<p>  }</p>
+<p>Please note that we need to set the  <code>passthrough</code>  option to true in the  <code>@Res(&#123; passthrough: true &#125;)</code>  decorator because injecting the  <code>@Res</code>  will disable the default route handling by default.</p>
+<h2 id="Use-Etag-for-Caching"><a href="#Use-Etag-for-Caching" class="headerlink" title="Use Etag for Caching"></a>Use Etag for Caching</h2><p>One of the primary purposes of  <code>Etag</code>  is caching. After calling the GET the first time, the client retrieves the  <code>Etag</code>  in response, and then the subsequent requests can include this  <code>ETag</code>  in the  <code>If-None-Match</code>  header.</p>
+<h3 id="an-example-of-if-none-match-header-in-the-request"><a href="#an-example-of-if-none-match-header-in-the-request" class="headerlink" title="an example of if-none-match header in the request"></a>an example of if-none-match header in the request</h3><p>If-None-Match: “bfc13a64729c4290ef5b2c2730249c88ca92d82d”</p>
+<p>In the GET endpoint, add a check to compare the  <code>Etag</code>  in  <code>If-None-Match</code>  to determine whether a resource has been modified. We can return a 304 Not Modified response if the resource has not been changed.</p>
+<p> @Get()<br>  async getResource( @Res({ passthrough: true }) res: Response,<br>    @Headers(‘if-none-match’) ifNoneMatch: string, ){<br>    &#x2F;&#x2F; fetching the resource data<br>    const resourceData &#x3D; await this.fetchResourceData();  </p>
+<pre><code>// Check If-None-Match header to determine if the resource has changed  
+if (ifNoneMatch &amp;&amp; ifNoneMatch === etag(JSON.stringify(resourceData))) &#123;  
+  // Resource has not changed, return 304 Not Modified  
+  res.status(HttpStatus.NOT_MODIFIED).send();  
+  return;  
+&#125;  
+
+// Return the resource data with the current ETag  
+</code></pre>
+<p>  }</p>
+<p>Upon receiving the response with a 304 status, most modern browsers will fetch the resource from the local cache.</p>
+<h2 id="If-Match-for-Optimistic-Concurrency-Control"><a href="#If-Match-for-Optimistic-Concurrency-Control" class="headerlink" title="If-Match for Optimistic Concurrency Control"></a>If-Match for Optimistic Concurrency Control</h2><p>The  <code>If-Match</code>  header is commonly used to facilitate optimistic concurrency control. What exactly is optimistic concurrency control?</p>
+<blockquote>
+<p>Optimistic concurrency control is a strategy for managing multiple users attempting to modify the same piece of data simultaneously. Instead of locking the data and preventing others from making changes, optimistic concurrency assumes that conflicts are rare. Users can make changes independently, but before saving their modifications, the system checks if someone else has modified the data. If no changes conflict, the modifications are accepted; otherwise, the system prompts users to resolve the inconsistency.</p>
+</blockquote>
+<p>Now, let’s see how to implement it in a PUT request.</p>
+<p> @Put(‘:id’)<br>  async updateResource(<br>    @Res() res: Response,<br>    @Param(‘id’) id: string,<br>    @Body() updateData: any,<br>    @Headers(‘if-match’) ifMatch: string, &#x2F;&#x2F; Extract If-Match header<br>  ): Promise<void> {<br>    &#x2F;&#x2F; Simulate fetching the resource data from the database<br>    const currentResourceData &#x3D; await this.getResourceData(id);<br>    const currentEtag &#x3D; etag(JSON.stringify(currentResourceData));  </p>
+<pre><code>// Validate If-Match header against the current ETag  
+if (ifMatch.toString() !== currentEtag.toString()) &#123;  
+  // ETag mismatch, return Precondition Failed status  
+  res.status(HttpStatus.PRECONDITION_FAILED).send();  
+  return;  
+&#125;  
+</code></pre>
+<p>…<br>}</p>
+<p>When a client sends a request to update a resource, the client includes the current  <code>ETag</code>  of the resource in the  <code>If-Match</code>  header. The server then checks if the provided  <code>ETag</code>  matches the current state of the resource. If there’s a match, the update proceeds; otherwise, the server returns a “<code>412 Precondition Failed</code>” status, indicating that another party has modified the resource.</p>
+<p>The same approach can be used not only for PUT but also applicable to DELETE and PATCH requests.</p>
+<h2 id="If-Match-vs-If-None-Match"><a href="#If-Match-vs-If-None-Match" class="headerlink" title="If-Match vs If-None-Match"></a>If-Match vs If-None-Match</h2><p>It is worth highlighting that  <code>If-Match</code>  and  <code>If-None-Match</code>  headers serve different purposes in the context of  <code>ETags</code>. Here’s a breakdown of their differences:</p>
+<p><code>**If-Match**</code> <strong>Header</strong></p>
+<ul>
+<li>It is used in requests to operate (e.g., update or delete) only if the provided  <code>ETag</code>  matches the current ETag of the resource on the server.</li>
+<li>If the ETag matches, the operation is performed; otherwise, the server responds with a “<strong>412</strong>  Precondition Failed” status, indicating that another party modified the resource.</li>
+</ul>
+<p><code>**If-None-Match**</code> <strong>Header</strong></p>
+<ul>
+<li>It is used in requests to get a resource only if its ETag does not match the specified ETag(s).</li>
+<li>If the ETag matches, the server responds with a “<strong>304</strong>  Not Modified” status, indicating that the client’s cached version is still valid and there’s no need to transfer the resource again.</li>
+</ul>
+<p>We discussed the usage of Etag and If-match&#x2F;if-none-match in this post. In many cases, it is a good practice to use a combination of etag and if-match for optimistic concurrency control. I hope you have learned one thing or two in this post.</p>
+]]></content>
+      <tags>
+        <tag>NestJS</tag>
+        <tag>Security</tag>
+      </tags>
+  </entry>
 </search>

@@ -3,14 +3,21 @@
 
 
     <url>
-        <loc>http://sunnyy02.github.io/tags/Course/</loc>
-        <lastmod>2024-06-22T07:19:21.528Z</lastmod>
+        <loc>http://sunnyy02.github.io/tags/Security/</loc>
+        <lastmod>2024-06-25T07:02:47.732Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://sunnyy02.github.io/tags/NestJS/</loc>
+        <lastmod>2024-06-25T07:02:47.732Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://sunnyy02.github.io/tags/Course/</loc>
         <lastmod>2024-06-22T07:19:21.528Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -54,13 +61,6 @@
     <url>
         <loc>http://sunnyy02.github.io/tags/Angular/</loc>
         <lastmod>2024-06-22T05:50:04.668Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://sunnyy02.github.io/tags/Security/</loc>
-        <lastmod>2024-06-22T05:50:04.667Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

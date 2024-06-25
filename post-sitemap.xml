@@ -9,6 +9,14 @@
 
 
     <url>
+        <loc>http://sunnyy02.github.io/2024/03/05/exploring-etag/</loc>
+        <lastmod>2024-06-25T07:02:47.732Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://sunnyy02.github.io/2024/06/15/restapi/</loc>
         <lastmod>2024-06-22T07:19:21.528Z</lastmod>
         <changefreq>weekly</changefreq>
