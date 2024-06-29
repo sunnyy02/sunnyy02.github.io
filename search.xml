@@ -222,6 +222,9 @@ function performActions2(actionName: string) &#123;
 <p>If you like this article, you may also like to read another TypeScript article.<br><a href="https://betterprogramming.pub/apply-builder-pattern-to-generate-query-filter-in-typescript-651a6b13da38"><strong>Apply Builder Pattern To Generate Query Filter In TypeScript</strong><br><em>Implement an immutable and strongly typed filter builder</em>betterprogramming.pub</a></p>
 <p>Happy programming!</p>
 ]]></content>
+      <categories>
+        <category>Web Development</category>
+      </categories>
       <tags>
         <tag>TypeScript</tag>
         <tag>Best Practice</tag>
@@ -400,6 +403,9 @@ register2(user);
 <p>I hope this article is useful to you. If you have your favorite TypeScript code patterns, do let me know.</p>
 <p>If you like this article, you may also like to check out my <a class="link"   href="https://betterprogramming.pub/6-typescript-typing-system-tricks-you-should-know-5aa39bda8049?sk=b8a4adbb43a591a64da08b4987ea079d" >other article about TypeScript best practices <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
 ]]></content>
+      <categories>
+        <category>Design Patterns</category>
+      </categories>
       <tags>
         <tag>TypeScript</tag>
         <tag>Design Pattern</tag>
@@ -430,6 +436,9 @@ A complete guide on setting up a proxy in Angular for API calls behind a corpora
                 ><figcaption class="imageCaption">success request</figcaption></figure><p name="1c4a" id="1c4a" class="graf graf--p graf-after--figure graf--trailing">The above is the network tab logs after successful authentication with the new config. We can see the three requests during the handshake, and the last one return HTTP 200 success status.</p></div></div></section><section name="4fd6" class="section section--body"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h4 name="55ad" id="55ad" class="graf graf--h4 graf--leading">Multiple schemes in one WWW-Authenticate header</h4><p name="48d7" id="48d7" class="graf graf--p graf-after--h4">Another possible cause of the error from windows authentication is the <code class="markup--code markup--p-code">www-authenticate</code> header. According to RFC 7235, it is okay to have multiple authentication schemes in one <code class="markup--code markup--p-code">www-authenticate</code> header field, although it can make the field difficult to be parsed.</p><blockquote name="2917" id="2917" class="graf graf--blockquote graf-after--p">agents will need to take special care in parsing the WWW-<br>Authenticate or Proxy-Authenticate header field value if it contains<br>more than one challenge, or if more than one WWW-Authenticate header<br>field is provided, since the contents of a challenge may itself<br>contain a comma-separated list of authentication parameters.</blockquote><p name="6f59" id="6f59" class="graf graf--p graf-after--blockquote">The reality is that the browser support is <a class="link"  href="http://test.greenbytes.de/tech/tc/httpauth/" data- href="http://test.greenbytes.de/tech/tc/httpauth/"  class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">questionable <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. Below is an example of the www-authenticate header with two schemes.</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="makefile" name="bdc2" id="bdc2" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content"><span class="hljs-section">WWW-Authenticate: Negotiate, NTLM</span></span></pre><p name="5e1c" id="5e1c" class="graf graf--p graf-after--pre">Some browsers may not be able to parse the above correctly and this will break the NTLM handshake process. To resolve this issue, we can utilize the <code class="markup--code markup--p-code">proxyRes</code> callback in the <code class="markup--code markup--p-code"><a class="link"  href="https://www.npmjs.com/package/http-proxy-middleware" data- href="https://www.npmjs.com/package/http-proxy-middleware"  class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">http-proxy-middleware <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></code> as below</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="javascript" name="05dd" id="05dd" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content"><span class="hljs-keyword">const</span> onProxyRes = <span class="hljs-keyword">function</span> (<span class="hljs-params">proxyRes, req, res</span>) {<br />     <span class="hljs-keyword">var</span> key = <span class="hljs-string">&#x27;www-authenticate&#x27;</span>;<br />     proxyRes.<span class="hljs-property">headers</span>[key] = proxyRes.<span class="hljs-property">headers</span>[key] &amp;&amp; proxyRes.<span class="hljs-property">headers</span>[key].<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;,&#x27;</span>);<br />};<br /><br /><span class="hljs-comment">// add it into the proxy config option</span><br /><span class="hljs-attr">onProxyRes</span>: onProxyRes</span></pre><p name="f6ae" id="f6ae" class="graf graf--p graf-after--pre">The full proxy configuration looks like below.</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="javascript" name="409b" id="409b" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content"><span class="hljs-keyword">const</span> <span class="hljs-title class_">Agent</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;agentkeepalive&quot;</span>);<br /><br /><span class="hljs-keyword">const</span> keepaliveAgent = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Agent</span>({<br />    <span class="hljs-attr">maxSockets</span>: <span class="hljs-number">1</span>,<br />    <span class="hljs-attr">keepAlive</span>: <span class="hljs-literal">true</span>,<br />    <span class="hljs-attr">maxFreeSockets</span>: <span class="hljs-number">10</span>,<br />    <span class="hljs-attr">keepAliveMsecs</span>: <span class="hljs-number">1000</span>,<br />    <span class="hljs-attr">timeout</span>: <span class="hljs-number">60000</span>,<br />    <span class="hljs-attr">keepAliveTimeout</span>: <span class="hljs-number">30000</span> <span class="hljs-comment">// free socket keepalive for 30 seconds</span><br />});<br /><span class="hljs-keyword">const</span> onProxyRes = <span class="hljs-keyword">function</span> (<span class="hljs-params">proxyRes, req, res</span>) {<br />     <span class="hljs-keyword">var</span> key = <span class="hljs-string">&#x27;www-authenticate&#x27;</span>;<br />     proxyRes.<span class="hljs-property">headers</span>[key] = proxyRes.<span class="hljs-property">headers</span>[key] &amp;&amp; proxyRes.<span class="hljs-property">headers</span>[key].<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;,&#x27;</span>);<br />};<br /><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">PROXY_CONFIG</span> = [<br />    {<br />        <span class="hljs-attr">target</span>: <span class="hljs-string">&quot;http://localhost:3000&quot;</span>,<br />        <span class="hljs-attr">context</span>: <span class="hljs-string">&quot;/api&quot;</span>,<br />        <span class="hljs-attr">secure</span>: <span class="hljs-literal">false</span>,<br />        <span class="hljs-attr">changeOrigin</span>: <span class="hljs-literal">true</span>,<br />        <span class="hljs-attr">onProxyRes</span>: onProxyRes,<br />        <span class="hljs-attr">agent</span>: keepaliveAgent<br />    }<br />];<br /><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = <span class="hljs-variable constant_">PROXY_CONFIG</span>;</span></pre><p name="1c36" id="1c36" class="graf graf--p graf-after--pre">With the new callback added, the multiple schemes in the <code class="markup--code markup--p-code">www-authenticate</code> header will be sent in multiple lines, and the NTLM negotiation handshake will be able to continue.</p><pre data-code-block-mode="2" spellcheck="false" data-code-block-lang="json" name="6dc5" id="6dc5" class="graf graf--pre graf-after--p graf--trailing graf--preV2"><span class="pre--content"><span class="hljs-comment">// From the original response header</span><br />www-authenticate<span class="hljs-punctuation">:</span> Negotiate<span class="hljs-punctuation">,</span> NTLM<br /><br /><span class="hljs-comment">// After the onProxRes callback function</span><br />www-authenticate<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>&#x27;Negotiate&#x27;<span class="hljs-punctuation">,</span> &#x27;NTLM&#x27;<span class="hljs-punctuation">]</span><br /><br /><span class="hljs-comment">// It is equivalent to</span><br />&lt; WWW-Authenticate<span class="hljs-punctuation">:</span> Negotiate<br />&lt; WWW-Authenticate<span class="hljs-punctuation">:</span> NTLM<br /><br /></span></pre></div></div></section><section name="4c06" class="section section--body section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h4 name="db9d" id="db9d" class="graf graf--h4 graf--leading">Summary</h4><p name="1e6a" id="1e6a" class="graf graf--p graf-after--h4">In this article, we discuss how to avoid CORS issues by setting up a proxy using Angular CLI for local development. I hope it is useful to you if you’re working on Angular behind a corporate proxy and/or using IIS with windows authentication.</p><p name="db66" id="db66" class="graf graf--p graf-after--p">Happy programming!</p></section>
 </section>
 <footer><p>By <a class="link"   href="https://medium.com/@sunnysun-5694"  class="p-author h-card">Sunny Sun <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> on <a href="https://medium.com/p/a1aeb2d8c86"><time class="dt-published" datetime="2023-02-22T12:16:38.971Z">February 22, 2023</time></a>.</p><p><a class="link"   href="https://medium.com/@sunnysun-5694/all-you-need-to-know-about-angular-proxy-configuration-a1aeb2d8c86"  class="p-canonical">Canonical link <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p><p>Exported from <a class="link"   href="https://medium.com" >Medium <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> on March 5, 2023.</p></footer></article></body></html>]]></content>
+      <categories>
+        <category>Web Development</category>
+      </categories>
       <tags>
         <tag>TypeScript</tag>
         <tag>Angular</tag>
@@ -535,6 +544,9 @@ if(cluster.isMaster)&#123;
 <p>If you found this article useful, you may also like to check out my other NestJS-related articles on <a class="link"   href="https://medium.com/p/be6bc77e789e" >how to build efficient and maintainable NestJS apps <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> and <a class="link"   href="https://medium.com/gitconnected/maximize-code-security-in-your-nestjs-applications-part-1-b7abb99fa048" >NestJS security <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
 <p>Happy programming!</p>
 ]]></content>
+      <categories>
+        <category>Web Development</category>
+      </categories>
       <tags>
         <tag>TypeScript</tag>
         <tag>NestJS</tag>
@@ -634,6 +646,10 @@ if(cluster.isMaster)&#123;
 <h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>There are a number of ORMs that can be used together with NestJS. Thus, choosing a suitable ORM for your NestJS application can be a hard decision. In this article, we have walked through four popular ORMs, and discussed their strengths and weaknesses.</p>
 <p>I also created a repo with the most basic sample code for each ORM, so it will be easier for you to have a direct impression if you have not used them. You can find the source code <a class="link"   href="https://github.com/sunnyy02/nestjs-orms" >here <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
 ]]></content>
+      <categories>
+        <category>Web Development</category>
+        <category>Frameworks</category>
+      </categories>
       <tags>
         <tag>TypeScript</tag>
         <tag>NestJS</tag>
@@ -716,6 +732,9 @@ const objShallowCopy = &#123;...Obj1&#125;;
 <p>If you like this article, you may also like my other recent articles.<br><a href="https://javascript.plainenglish.io/case-study-a-practical-usage-of-typescript-discriminated-union-type-and-generics-87e75a2717f8"><strong>Use Cases For TypeScript Discriminated Union Types and Generics</strong><br><em>One reason I really like Typescript is its Type system, it is practical and feature rich. Applying the types in right…</em>javascript.plainenglish.io</a></p>
 <p>Happy Programming!</p>
 ]]></content>
+      <categories>
+        <category>Programming</category>
+      </categories>
       <tags>
         <tag>TypeScript</tag>
         <tag>Refactoring</tag>
@@ -868,6 +887,10 @@ export class MapperResolver &#123;
 <p><em>More content at <a class="link"   href="https://plainenglish.io/" >**PlainEnglish.io <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><strong>. Sign up for our <a class="link"   href="http://newsletter.plainenglish.io/" >**free weekly newsletter <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></strong>. Follow us on <a class="link"   href="https://twitter.com/inPlainEngHQ" >**Twitter <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**</em>, <a class="link"   href="https://www.linkedin.com/company/inplainenglish/" >***LinkedIn <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><strong>, <a class="link"   href="https://www.youtube.com/channel/UCtipWUghju290NWcn8jhyAw" >**YouTube <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></strong>, and <a class="link"   href="https://discord.gg/GtDtUAvyhW" >**Discord <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.***</p>
 <p><em><strong>Interested in scaling your software startup</strong>? Check out <a class="link"   href="https://circuit.ooo/?utm=publication-post-cta" >**Circuit <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></em><em>.</em></p>
 ]]></content>
+      <categories>
+        <category>Web Development</category>
+        <category>Security</category>
+      </categories>
       <tags>
         <tag>NestJS</tag>
         <tag>Security</tag>
@@ -943,6 +966,10 @@ export do=&quot;--dry-run=client -o yaml&quot;
 </ul>
 <p>Good luck.</p>
 ]]></content>
+      <categories>
+        <category>Software Development</category>
+        <category>Certification</category>
+      </categories>
       <tags>
         <tag>Kubernetes</tag>
         <tag>CKAD</tag>
@@ -1022,6 +1049,10 @@ export do=&quot;--dry-run=client -o yaml&quot;
 <p>If you are not already a paid Medium member, <a class="link"   href="https://sunnysun-5694.medium.com/membership" >**you can do so by visiting this link <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**. You’ll get unlimited full access to every story on Medium. I’ll receive a portion of your membership fees as a referral.</p>
 <p>Thanks for reading, and happy programming!</p>
 ]]></content>
+      <categories>
+        <category>Web Development</category>
+        <category>Security</category>
+      </categories>
       <tags>
         <tag>Security</tag>
         <tag>JavaScript</tag>
@@ -1149,6 +1180,9 @@ type allPayValues =  allPayGrades[keyof allPayGrades]; //"T1" | "T2" | "T3" | "A
 <p>Using const to define constants has several advantages compared with using static properties of Class. Organizing the constants in a logical and modular way will improve the readability and maintainability of your code base. Creating shared constants files will prevent magic strings, and the derived types can also help build a strongly typed application.</p>
 <p>Happy Programming!</p>
 ]]></content>
+      <categories>
+        <category>Programming</category>
+      </categories>
       <tags>
         <tag>TypeScript</tag>
       </tags>
@@ -1339,6 +1373,9 @@ sudo netfilter-persistent save
 <p>But this article is already too long, I will write another post for those tasks.</p>
 <p>Thanks for reading!</p>
 ]]></content>
+      <categories>
+        <category>Database</category>
+      </categories>
       <tags>
         <tag>MySQL</tag>
       </tags>
@@ -1465,6 +1502,9 @@ export class ActionComponent &#123;
 <p>The CDK Portal is a powerful feature. Its major benefits include its flexibility and clean separations. It gives us the ability to “teleport” content to any component within the screen, even if it’s outside the current component tree.</p>
 <p>I hope this article can help you to apply this technique in your own awesome app!</p>
 ]]></content>
+      <categories>
+        <category>Web Development</category>
+      </categories>
       <tags>
         <tag>TypeScript</tag>
         <tag>Angular</tag>
@@ -1590,6 +1630,10 @@ return this.api.get&lt;TodoModel[]&gt;(this.url, TodoModel);
 <p>If you are not already a paid member of Medium, <a class="link"   href="https://sunnysun-5694.medium.com/membership" >**you can do so by visiting this link <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**. You’ll get unlimited full access to every story on Medium. I’ll receive a portion of your membership fees as a referral.</p>
 <p>Happy Programming!</p>
 ]]></content>
+      <categories>
+        <category>Web Development</category>
+        <category>Design Pattern</category>
+      </categories>
       <tags>
         <tag>Angular</tag>
         <tag>Web API</tag>
@@ -1755,6 +1799,9 @@ setProcessAction.newprocess = **new** NewProcess()
 <p>Enjoy your journey in CRM integration!</p>
 <p><em>If you are not already a paid member of Medium, <a class="link"   href="https://sunnysun-5694.medium.com/membership" >**you can do so by visiting this link <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**. You’ll get unlimited full access to every story on Medium. I’ll receive a portion of your membership fees as a referral.</em></p>
 ]]></content>
+      <categories>
+        <category>Integration</category>
+      </categories>
       <tags>
         <tag>WebAPI</tag>
         <tag>DynamicsCRM</tag>
@@ -1814,6 +1861,9 @@ setProcessAction.newprocess = **new** NewProcess()
 <p>If you like this article, you may also like to read <a class="link"   href="https://sunnysun-5694.medium.com/typescript-infer-keyword-explained-76f4a7208cb0" >another article about infer keyword <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
 <p><em>If you are not already a paid member of Medium, <a class="link"   href="https://sunnysun-5694.medium.com/membership" >**you can do so by visiting this link <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**. You’ll get unlimited full access to every story on Medium. I’ll receive a portion of your membership fees as a referral.</em></p>
 ]]></content>
+      <categories>
+        <category>Programming</category>
+      </categories>
       <tags>
         <tag>TypeScript</tag>
       </tags>
@@ -2010,6 +2060,9 @@ export class ClientController &#123;
 <p>In part 2 of the article, we continue the discussion on other top OWASP risks.<br><a href="https://levelup.gitconnected.com/maximize-code-security-in-your-nestjs-applications-part-2-be707466b7ea"><strong>Maximize Code Security in Your NestJS Applications (Part 2)</strong><br><em>Secure Code Best Practices with Real-World Examples</em>levelup.gitconnected.com</a></p>
 <p>Happy Programming!</p>
 ]]></content>
+      <categories>
+        <category>Security</category>
+      </categories>
       <tags>
         <tag>TypeScript</tag>
         <tag>NestJS</tag>
@@ -2175,6 +2228,9 @@ export class ClientController &#123;
 <p>I hope this discussion helps to change the idea that TypeScript’s advanced types are only for developing type libraries or for complex framework-level programming. I also hope it can help you to start applying the typing system more creatively in your daily TypeScript work.</p>
 <p>Happy typing!</p>
 ]]></content>
+      <categories>
+        <category>Design Pattern</category>
+      </categories>
       <tags>
         <tag>TypeScript</tag>
       </tags>
@@ -2369,6 +2425,9 @@ export class ClientController &#123;
 <p>In this article, we discussed type aliases and interfaces, as well as their differences. While there are some scenarios in which one is preferred over the other, in most cases, the choice between them boils down to personal preference.</p>
 <p>I lean towards using types, simply because of the amazing type system. What are your preferences? You are welcome to share your opinions in the comments section below.</p>
 ]]></content>
+      <categories>
+        <category>Programming</category>
+      </categories>
       <tags>
         <tag>TypeScript</tag>
       </tags>
@@ -2487,6 +2546,9 @@ const subsetFeatures: FeatureConfig2 = &#123;
 <p>By avoiding common mistakes and following best practices, we can use index signatures to make TypeScript code more flexible and resilient.</p>
 <p>Happy programming!</p>
 ]]></content>
+      <categories>
+        <category>Programming</category>
+      </categories>
       <tags>
         <tag>TypeScript</tag>
       </tags>
@@ -2669,6 +2731,9 @@ bootstrap();
 <p>The complete source code can be found in this <a class="link"   href="https://github.com/sunnyy02/ng-nest-s3-upload" >GitHub repo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
 <p>Happy programming!</p>
 ]]></content>
+      <categories>
+        <category>Web Development</category>
+      </categories>
       <tags>
         <tag>TypeScript</tag>
         <tag>Angular</tag>
@@ -2723,6 +2788,9 @@ bootstrap();
 <p>If you like this article, you may also like this one.<br><a href="https://betterprogramming.pub/what-i-hate-about-code-review-66a86e2e3d3f"><strong>5 Things I Dislike the Most About Code Reviews</strong><br><em>Opinionated comments, double standards, and more</em>betterprogramming.pub</a></p>
 <p><em>If you are not already a paid member of Medium, <a class="link"   href="https://sunnysun-5694.medium.com/membership" >**you can do so by visiting this link <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**. You’ll get unlimited full access to every story on Medium. I’ll receive a portion of your membership fees as a referral.</em></p>
 ]]></content>
+      <categories>
+        <category>Programming</category>
+      </categories>
       <tags>
         <tag>Programming</tag>
       </tags>
@@ -2779,6 +2847,10 @@ bootstrap();
 <h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p>Feature toggles and trunk-based development empower developers to deliver features faster and more reliably. By understanding their benefits and limitations, we can leverage them effectively to streamline our development process and deliver faster and more frequently.</p>
 <p>Remember, feature toggles are for temporary control, not a long-term architectural solution. In other words, don’t forget to remove the feature toggle in the end! Use them wisely to keep your application on the cutting edge.</p>
 ]]></content>
+      <categories>
+        <category>Software Development</category>
+        <category>Agile</category>
+      </categories>
       <tags>
         <tag>Best Practice</tag>
         <tag>Software development</tag>
@@ -2819,6 +2891,9 @@ bootstrap();
 <h2 id="Start-the-Learning-Journey"><a href="#Start-the-Learning-Journey" class="headerlink" title="Start the Learning Journey"></a>Start the Learning Journey</h2><p>Whether you’re a seasoned developer looking to improve your skills or a newcomer eager to explore NestJs development, <a class="link"   href="https://www.educative.io/courses/building-secure-restful-apis-with-nestjs-a-practical-guide" >the course <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> has something for everyone. Its practical approach, focus on best practices, comprehensive content, and hands-on exercises will equip you to tackle real-world challenges and confidently build secure and scalable APIs.</p>
 <p>If you are thinking of enhancing your skills and advancing your career, Enroll now with Educative.io and embark on the journey to becoming a proficient NestJS developer!</p>
 ]]></content>
+      <categories>
+        <category>Programming</category>
+      </categories>
       <tags>
         <tag>TypeScript</tag>
         <tag>NestJS</tag>
@@ -2901,6 +2976,9 @@ if (ifMatch.toString() !== currentEtag.toString()) &#123;
 </ul>
 <p>We discussed the usage of Etag and If-match&#x2F;if-none-match in this post. In many cases, it is a good practice to use a combination of etag and if-match for optimistic concurrency control. I hope you have learned one thing or two in this post.</p>
 ]]></content>
+      <categories>
+        <category>Web Development</category>
+      </categories>
       <tags>
         <tag>NestJS</tag>
         <tag>Security</tag>
