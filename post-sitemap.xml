@@ -2,14 +2,46 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>http://sunnyy02.github.io/</loc>
+        <loc>http://blog.ourcrmonline.com/</loc>
         <changefreq>daily</changefreq>
         <priority>1</priority>
     </url>
 
 
     <url>
-        <loc>http://sunnyy02.github.io/2021/07/14/why-i-choose-to-be-a-contract-programmer/</loc>
+        <loc>http://blog.ourcrmonline.com/2023/07/02/host-angular-iis-nginx/</loc>
+        <lastmod>2024-07-06T01:04:07.431Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://blog.ourcrmonline.com/2023/06/27/postman/</loc>
+        <lastmod>2024-07-05T08:47:05.568Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://blog.ourcrmonline.com/2024/02/05/durandal-angular/</loc>
+        <lastmod>2024-07-04T01:11:30.076Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://blog.ourcrmonline.com/2024/07/04/dynamic-referencedata/</loc>
+        <lastmod>2024-07-03T22:00:51.430Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://blog.ourcrmonline.com/2021/07/14/why-i-choose-to-be-a-contract-programmer/</loc>
         <lastmod>2024-06-29T04:23:15.503Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -17,7 +49,7 @@
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/2022/09/12/upload-files-to-s3-using-angular-and-nestjs/</loc>
+        <loc>http://blog.ourcrmonline.com/2022/09/12/upload-files-to-s3-using-angular-and-nestjs/</loc>
         <lastmod>2024-06-29T04:22:57.653Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -25,7 +57,7 @@
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/2024/02/01/typescript-index-signature-explained/</loc>
+        <loc>http://blog.ourcrmonline.com/2024/02/01/typescript-index-signature-explained/</loc>
         <lastmod>2024-06-29T04:22:39.023Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -33,7 +65,7 @@
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/2023/04/06/type-interface-ts/</loc>
+        <loc>http://blog.ourcrmonline.com/2023/04/06/type-interface-ts/</loc>
         <lastmod>2024-06-29T04:22:31.708Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -41,7 +73,7 @@
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/2021/08/19/type-flowing-rethinking-typescript-typing-system/</loc>
+        <loc>http://blog.ourcrmonline.com/2021/08/19/type-flowing-rethinking-typescript-typing-system/</loc>
         <lastmod>2024-06-29T04:22:06.525Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -49,7 +81,7 @@
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/2024/06/15/restapi/</loc>
+        <loc>http://blog.ourcrmonline.com/2024/06/15/restapi/</loc>
         <lastmod>2024-06-29T04:21:52.462Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -57,7 +89,7 @@
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/2021/06/19/record-type-explained/</loc>
+        <loc>http://blog.ourcrmonline.com/2021/06/19/record-type-explained/</loc>
         <lastmod>2024-06-29T04:21:38.520Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -65,7 +97,7 @@
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/2022/12/21/maximize-code-security-in-your-nestjs-applications-part-1/</loc>
+        <loc>http://blog.ourcrmonline.com/2022/12/21/maximize-code-security-in-your-nestjs-applications-part-1/</loc>
         <lastmod>2024-06-29T04:21:17.426Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -73,7 +105,7 @@
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/2019/10/05/integrate-with-dynamics-crm-online-using-web-api/</loc>
+        <loc>http://blog.ourcrmonline.com/2019/10/05/integrate-with-dynamics-crm-online-using-web-api/</loc>
         <lastmod>2024-06-29T04:21:02.095Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -81,7 +113,7 @@
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/2023/02/05/install-config-your-own-mysql-on-oracle-free-vm/</loc>
+        <loc>http://blog.ourcrmonline.com/2023/02/05/install-config-your-own-mysql-on-oracle-free-vm/</loc>
         <lastmod>2024-06-29T04:20:39.368Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -89,7 +121,7 @@
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/2021/09/23/inject-dynamic-content-angular-components-with-portals/</loc>
+        <loc>http://blog.ourcrmonline.com/2021/09/23/inject-dynamic-content-angular-components-with-portals/</loc>
         <lastmod>2024-06-29T04:20:08.679Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -97,7 +129,7 @@
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/2021/07/25/how-to-share-constannts/</loc>
+        <loc>http://blog.ourcrmonline.com/2021/07/25/how-to-share-constannts/</loc>
         <lastmod>2024-06-29T04:18:17.978Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -105,7 +137,7 @@
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/2021/09/21/4-simple-and-effective-ways-to-avoid-too-many-ifs-with-typescript/</loc>
+        <loc>http://blog.ourcrmonline.com/2021/09/21/4-simple-and-effective-ways-to-avoid-too-many-ifs-with-typescript/</loc>
         <lastmod>2024-06-29T04:17:41.528Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -113,7 +145,7 @@
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/2019/12/11/how-to-resolve-certifcate-error-in-NodeJS-App/</loc>
+        <loc>http://blog.ourcrmonline.com/2019/12/11/how-to-resolve-certifcate-error-in-NodeJS-App/</loc>
         <lastmod>2024-06-29T04:17:02.164Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -121,7 +153,7 @@
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/2018/12/11/how-to-map-restful_api-using-decorator/</loc>
+        <loc>http://blog.ourcrmonline.com/2018/12/11/how-to-map-restful_api-using-decorator/</loc>
         <lastmod>2024-06-29T04:16:33.355Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -129,7 +161,7 @@
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/2022/07/11/how-i-passed-the-ckad-exam-certified-kubernetes-application-developer/</loc>
+        <loc>http://blog.ourcrmonline.com/2022/07/11/how-i-passed-the-ckad-exam-certified-kubernetes-application-developer/</loc>
         <lastmod>2024-06-29T04:16:01.424Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -137,7 +169,7 @@
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/2024/06/21/friend-or-foe-examining-the-pros-and-cons-of-feature-toggles/</loc>
+        <loc>http://blog.ourcrmonline.com/2024/06/21/friend-or-foe-examining-the-pros-and-cons-of-feature-toggles/</loc>
         <lastmod>2024-06-29T04:15:23.417Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -145,7 +177,7 @@
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/2024/03/05/exploring-etag/</loc>
+        <loc>http://blog.ourcrmonline.com/2024/03/05/exploring-etag/</loc>
         <lastmod>2024-06-29T04:15:06.402Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -153,7 +185,7 @@
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/2023/01/05/donnot-export-your-nestjs-endpoint/</loc>
+        <loc>http://blog.ourcrmonline.com/2023/01/05/donnot-export-your-nestjs-endpoint/</loc>
         <lastmod>2024-06-29T04:14:35.165Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -161,7 +193,7 @@
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/2020/10/05/deep-clone-an-object-and-preserve-its-type-with-typescript/</loc>
+        <loc>http://blog.ourcrmonline.com/2020/10/05/deep-clone-an-object-and-preserve-its-type-with-typescript/</loc>
         <lastmod>2024-06-29T04:13:55.396Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -169,7 +201,7 @@
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/2022/07/01/comparing-four-popular-nestjs-ORM/</loc>
+        <loc>http://blog.ourcrmonline.com/2022/07/01/comparing-four-popular-nestjs-ORM/</loc>
         <lastmod>2024-06-29T04:13:22.715Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -177,7 +209,7 @@
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/2022/09/21/build-a-high-performance-nestjs-app/</loc>
+        <loc>http://blog.ourcrmonline.com/2022/09/21/build-a-high-performance-nestjs-app/</loc>
         <lastmod>2024-06-29T04:12:44.677Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -185,7 +217,7 @@
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/2023/03/05/all-you-need-to-know-about-angular-proxy-configuration/</loc>
+        <loc>http://blog.ourcrmonline.com/2023/03/05/all-you-need-to-know-about-angular-proxy-configuration/</loc>
         <lastmod>2024-06-29T04:12:33.045Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -193,7 +225,7 @@
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/2021/11/06/6-typescript-code-patterns-to-make-your-code-more-robust/</loc>
+        <loc>http://blog.ourcrmonline.com/2021/11/06/6-typescript-code-patterns-to-make-your-code-more-robust/</loc>
         <lastmod>2024-06-29T04:12:08.999Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>

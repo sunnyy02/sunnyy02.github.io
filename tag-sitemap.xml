@@ -3,161 +3,196 @@
 
 
     <url>
-        <loc>http://sunnyy02.github.io/tags/Programming/</loc>
+        <loc>http://blog.ourcrmonline.com/tags/Nginx/</loc>
+        <lastmod>2024-07-06T01:04:07.431Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://blog.ourcrmonline.com/tags/IIS/</loc>
+        <lastmod>2024-07-06T01:04:07.431Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://blog.ourcrmonline.com/tags/Angular/</loc>
+        <lastmod>2024-07-06T01:04:07.431Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://blog.ourcrmonline.com/tags/tools/</loc>
+        <lastmod>2024-07-05T08:47:05.568Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://blog.ourcrmonline.com/tags/API/</loc>
+        <lastmod>2024-07-05T08:47:05.568Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://blog.ourcrmonline.com/tags/Durandal/</loc>
+        <lastmod>2024-07-04T01:11:30.076Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://blog.ourcrmonline.com/tags/NestJS/</loc>
+        <lastmod>2024-07-03T22:00:51.430Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://blog.ourcrmonline.com/tags/Programming/</loc>
         <lastmod>2024-06-29T04:23:15.503Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/tags/NestJS/</loc>
+        <loc>http://blog.ourcrmonline.com/tags/TypeScript/</loc>
         <lastmod>2024-06-29T04:22:57.653Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/tags/Angular/</loc>
-        <lastmod>2024-06-29T04:22:57.653Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://sunnyy02.github.io/tags/TypeScript/</loc>
-        <lastmod>2024-06-29T04:22:57.653Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://sunnyy02.github.io/tags/Course/</loc>
+        <loc>http://blog.ourcrmonline.com/tags/Course/</loc>
         <lastmod>2024-06-29T04:21:52.462Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/tags/Security/</loc>
+        <loc>http://blog.ourcrmonline.com/tags/Security/</loc>
         <lastmod>2024-06-29T04:21:17.426Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/tags/DynamicsCRM/</loc>
+        <loc>http://blog.ourcrmonline.com/tags/DynamicsCRM/</loc>
         <lastmod>2024-06-29T04:21:02.095Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/tags/WebAPI/</loc>
+        <loc>http://blog.ourcrmonline.com/tags/WebAPI/</loc>
         <lastmod>2024-06-29T04:21:02.095Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/tags/MySQL/</loc>
+        <loc>http://blog.ourcrmonline.com/tags/MySQL/</loc>
         <lastmod>2024-06-29T04:20:39.368Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/tags/Refactoring/</loc>
+        <loc>http://blog.ourcrmonline.com/tags/Refactoring/</loc>
         <lastmod>2024-06-29T04:17:41.528Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/tags/Best-Practice/</loc>
+        <loc>http://blog.ourcrmonline.com/tags/Best-Practice/</loc>
         <lastmod>2024-06-29T04:17:41.528Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/tags/Certificate/</loc>
+        <loc>http://blog.ourcrmonline.com/tags/Certificate/</loc>
         <lastmod>2024-06-29T04:17:02.164Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/tags/JavaScript/</loc>
+        <loc>http://blog.ourcrmonline.com/tags/JavaScript/</loc>
         <lastmod>2024-06-29T04:17:02.164Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/tags/Decorator/</loc>
+        <loc>http://blog.ourcrmonline.com/tags/Decorator/</loc>
         <lastmod>2024-06-29T04:16:33.355Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/tags/Web-API/</loc>
+        <loc>http://blog.ourcrmonline.com/tags/Web-API/</loc>
         <lastmod>2024-06-29T04:16:33.355Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/tags/CKAD/</loc>
+        <loc>http://blog.ourcrmonline.com/tags/CKAD/</loc>
         <lastmod>2024-06-29T04:16:01.424Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/tags/Kubernetes/</loc>
+        <loc>http://blog.ourcrmonline.com/tags/Kubernetes/</loc>
         <lastmod>2024-06-29T04:16:01.424Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/tags/Agile/</loc>
+        <loc>http://blog.ourcrmonline.com/tags/Agile/</loc>
         <lastmod>2024-06-29T04:15:23.417Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/tags/Software-development/</loc>
+        <loc>http://blog.ourcrmonline.com/tags/Software-development/</loc>
         <lastmod>2024-06-29T04:15:23.417Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/tags/ORM/</loc>
+        <loc>http://blog.ourcrmonline.com/tags/ORM/</loc>
         <lastmod>2024-06-29T04:13:22.715Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/tags/Performance/</loc>
+        <loc>http://blog.ourcrmonline.com/tags/Performance/</loc>
         <lastmod>2024-06-29T04:12:44.677Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/tags/Proxy/</loc>
+        <loc>http://blog.ourcrmonline.com/tags/Proxy/</loc>
         <lastmod>2024-06-29T04:12:33.045Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/tags/Design-Pattern/</loc>
+        <loc>http://blog.ourcrmonline.com/tags/Design-Pattern/</loc>
         <lastmod>2024-06-29T04:12:08.999Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>

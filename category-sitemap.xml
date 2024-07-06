@@ -2,98 +2,105 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>http://sunnyy02.github.io/</loc>
+        <loc>http://blog.ourcrmonline.com/</loc>
         <changefreq>daily</changefreq>
         <priority>1</priority>
     </url>
 
 
     <url>
-        <loc>http://sunnyy02.github.io/categories/Programming/</loc>
+        <loc>http://blog.ourcrmonline.com/categories/Web-Development/Programming/</loc>
+        <lastmod>2024-07-06T01:04:07.431Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://blog.ourcrmonline.com/categories/Web-Development/</loc>
+        <lastmod>2024-07-06T01:04:07.431Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://blog.ourcrmonline.com/categories/Programming/</loc>
         <lastmod>2024-06-29T04:23:15.503Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/categories/Web-Development/</loc>
-        <lastmod>2024-06-29T04:22:57.653Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://sunnyy02.github.io/categories/Design-Pattern/</loc>
+        <loc>http://blog.ourcrmonline.com/categories/Design-Pattern/</loc>
         <lastmod>2024-06-29T04:22:06.525Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/categories/Security/</loc>
+        <loc>http://blog.ourcrmonline.com/categories/Security/</loc>
         <lastmod>2024-06-29T04:21:17.426Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/categories/Integration/</loc>
+        <loc>http://blog.ourcrmonline.com/categories/Integration/</loc>
         <lastmod>2024-06-29T04:21:02.095Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/categories/Database/</loc>
+        <loc>http://blog.ourcrmonline.com/categories/Database/</loc>
         <lastmod>2024-06-29T04:20:39.368Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/categories/Web-Development/Security/</loc>
+        <loc>http://blog.ourcrmonline.com/categories/Web-Development/Security/</loc>
         <lastmod>2024-06-29T04:17:02.164Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/categories/Web-Development/Design-Pattern/</loc>
+        <loc>http://blog.ourcrmonline.com/categories/Web-Development/Design-Pattern/</loc>
         <lastmod>2024-06-29T04:16:33.355Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/categories/Software-Development/Certification/</loc>
+        <loc>http://blog.ourcrmonline.com/categories/Software-Development/Certification/</loc>
         <lastmod>2024-06-29T04:16:01.424Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/categories/Software-Development/</loc>
+        <loc>http://blog.ourcrmonline.com/categories/Software-Development/</loc>
         <lastmod>2024-06-29T04:16:01.424Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/categories/Software-Development/Agile/</loc>
+        <loc>http://blog.ourcrmonline.com/categories/Software-Development/Agile/</loc>
         <lastmod>2024-06-29T04:15:23.417Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/categories/Web-Development/Frameworks/</loc>
+        <loc>http://blog.ourcrmonline.com/categories/Web-Development/Frameworks/</loc>
         <lastmod>2024-06-29T04:13:22.715Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://sunnyy02.github.io/categories/Design-Patterns/</loc>
+        <loc>http://blog.ourcrmonline.com/categories/Design-Patterns/</loc>
         <lastmod>2024-06-29T04:12:08.999Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>

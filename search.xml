@@ -2984,4 +2984,293 @@ if (ifMatch.toString() !== currentEtag.toString()) &#123;
         <tag>Security</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Dynamic Reference Data in NestJS</title>
+    <url>/2024/07/04/dynamic-referencedata/</url>
+    <content><![CDATA[<h3 id="Implement-a-Future-Proof-Solution-for-Your-Reference-Data-Needs"><a href="#Implement-a-Future-Proof-Solution-for-Your-Reference-Data-Needs" class="headerlink" title="Implement a Future-Proof Solution for Your Reference Data Needs"></a>Implement a Future-Proof Solution for Your Reference Data Needs</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://miro.medium.com/v2/resize:fit:1120/0*9XkmXB16W3mtQm9N"
+                     
+                ></p>
+<p>Photo by  <a class="link"   href="https://unsplash.com/@sortino?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" >Joshua Sortino <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  on  <a class="link"   href="https://unsplash.com/photos/worms-eye-view-photography-of-ceiling-LqKhnDzSF-8?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" >Unsplash <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>In most API applications, providing reference data is a common need. The provision of reference data ensures we use consistent values across our application. These data include countries, product categories, or any other categorized information needed by our application.</p>
+<p>A common approach for implementing a reference data API endpoint involves using a switch case within a single service to handle different data types. However, it can quickly become cumbersome and inflexible as the application grows.</p>
+<p>I will explore building a dynamic and maintainable reference data endpoint in NestJS in the article.</p>
+<h3 id="The-Switch-Case-Dilemma"><a href="#The-Switch-Case-Dilemma" class="headerlink" title="The Switch Case Dilemma"></a>The Switch Case Dilemma</h3><p>Let’s imagine a scenario where a switch case is used within our ReferenceDataService to handle different data types. Here’s a simplified example:</p>
+<p>&#x2F;&#x2F; app.controller.ts<br> @Get(‘:dataType’)<br> async getReferenceData(@Param(‘dataType’) dataType: string): Promise&lt;Country[]&gt; {<br>   return await this.referenceDataFactory.getReferenceData(dataType);<br> }  </p>
+<p>&#x2F;&#x2F; reference-data.service.ts<br>@Injectable()<br>export class ReferenceDataService {<br>   constructor( private readonly countryService: CountryService,<br>       private readonly industryService: IndustryService ) { }  </p>
+<p>   async getReferenceData(type: string): Promise&lt;any[]&gt; {<br>       switch (type) {<br>           case ‘country’:<br>               return await this.countryService.getReferenceData();<br>           case ‘industry’:<br>               return await this.industryService.getReferenceData();<br>           default:<br>               throw new Error(<code>Unsupported reference data type: $&#123;type&#125;</code>);<br>       }<br>   }<br>}</p>
+<p>While this works for a few data types, it becomes messy and less maintainable as more types are added. Here are the two main issues:</p>
+<ul>
+<li><strong>Code Clutter:</strong>  With each new data type, we need to inject a new service into the constructor and add a corresponding case in the switch statement within getReferenceData. This leads to a bloated constructor and cluttered logic, making the code harder to read and maintain.</li>
+<li><strong>Tight Coupling:</strong>  The service becomes tightly coupled to the specific concrete services (CountryService, IndustryService). If we introduce new data types with different service implementations, we’d need to modify the ReferenceDataService constructor and switch-case statements, making the code harder to read and reason about.</li>
+</ul>
+<h3 id="Improved-reference-data-service-with-ModuleRef-and-Token-Providers"><a href="#Improved-reference-data-service-with-ModuleRef-and-Token-Providers" class="headerlink" title="Improved reference data service with ModuleRef and Token Providers"></a>Improved reference data service with ModuleRef and Token Providers</h3><p>A more scalable and flexible approach is to leverage NestJS’s dependency injection capabilities and dynamic service retrieval. Here’s how we can achieve this:</p>
+<h3 id="Interface-and-Concrete-Services"><a href="#Interface-and-Concrete-Services" class="headerlink" title="Interface and Concrete Services"></a>Interface and Concrete Services</h3><p>Firstly, we define an interface for our reference data service.</p>
+<p>export interface ReferenceDataService<T extends ReferenceDataItem> {<br> getReferenceData(): Promise&lt;T[]&gt;;<br>}  </p>
+<p>&#x2F;&#x2F; Concrete Service Example (country.service.ts)<br>@Injectable()<br>export class CountryService implements ReferenceDataService<Country> {<br> async getReferenceData(): Promise&lt;Country[]&gt; {<br>   &#x2F;&#x2F; Implement logic to fetch country data<br>   return [];<br> }<br>}</p>
+<p>We can implement the concert services based on the ReferenceDataService interface whenever a new data type is introduced.</p>
+<h3 id="Register-the-concert-services-with-token-providers"><a href="#Register-the-concert-services-with-token-providers" class="headerlink" title="Register the concert services with token providers"></a>Register the concert services with token providers</h3><p>In NestJS, we can define token providers to identify services dynamically. Here, we define two constants for token identifiers (<code>COUNTRY_DATA_TOKEN</code>  and  <code>INDUSTRY_DATA_TOKEN</code>), and register a token for each concrete service:</p>
+<p>const COUNTRY_DATA_TOKEN &#x3D; ‘country’;<br>const INDUSTRY_DATA_TOKEN &#x3D; ‘industry’;<br>@Module({<br> imports: [],<br> controllers: [AppController],<br> providers: [<br>   AppService,<br>   ReferenceDataFactory,<br>   {<br>     provide: COUNTRY_DATA_TOKEN,<br>     useClass: CountryService<br>   },<br>   {<br>     provide: INDUSTRY_DATA_TOKEN,<br>     useClass: IndustryService<br>   }]<br>})<br>export class AppModule { }</p>
+<p>By registering services with specific tokens, we decouple the service implementation from its usage.</p>
+<h3 id="Reference-Data-Service-Refactoring"><a href="#Reference-Data-Service-Refactoring" class="headerlink" title="Reference Data Service Refactoring"></a>Reference Data Service Refactoring</h3><p>Now, we can refactor our ReferenceDataService to retrieve the specific service based on the requested data type as below.</p>
+<p>@Injectable()<br>export class ReferenceDataFactory {<br>   constructor(private readonly moduleRef: ModuleRef) { }  </p>
+<p>   async getReferenceDataService(type: string) {<br>       const service &#x3D; await this.moduleRef.resolve(type) as ReferenceDataService<ReferenceDataItem>;<br>       return await service.getReferenceData();<br>   }<br>}</p>
+<p>In the above code, we inject ModuleRef into the service constructor. Then we use moduleRef.get with the retrieved token to dynamically get the corresponding service instance, and the instance is used to fetch the actual data.</p>
+<p>By utilizing ModuleRef and token providers to dynamically retrieve a specific reference data service instance, we eliminate the need for individual service injection in the constructor and the switch case. When introducing a new data type, we don’t need to change the ReferenceDataFactory service!</p>
+<h3 id="Consuming-the-Service"><a href="#Consuming-the-Service" class="headerlink" title="Consuming the Service:"></a>Consuming the Service:</h3><p>Now, in our controller, we can inject the ReferenceDataFactory and dynamically retrieve the desired data:</p>
+<p>@Get(‘:dataType’)<br> async getIndustries(@Param(‘dataType’) dataType: string): Promise&lt;ReferenceDataItem[]&gt; {<br>   return await this.referenceDataFactory.getReferenceDataService(dataType);<br> }</p>
+<p>This approach is much easier to maintain, allowing us to handle new data types as our application evolves.</p>
+<p>Although NestJS is used in this article, the same pattern applies to other programming languages and frameworks. I will write a new post to provide a similar implementation using .Net later. You can find the source code in the post  <a class="link"   href="https://github.com/sunnyy02/nest-reference-data/tree/refactor" >here <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<p>I hope you find this post useful. Happy programming!</p>
+]]></content>
+      <categories>
+        <category>Web Development</category>
+      </categories>
+      <tags>
+        <tag>NestJS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Durandal vs Angular</title>
+    <url>/2024/02/05/durandal-angular/</url>
+    <content><![CDATA[<h2 id="What-has-changed-for-Single-Page-App-in-the-last-ten-years"><a href="#What-has-changed-for-Single-Page-App-in-the-last-ten-years" class="headerlink" title="What has changed for Single Page App in the last ten years"></a>What has changed for Single Page App in the last ten years</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://miro.medium.com/v2/resize:fit:1046/1*Xbq4XJa6oQ-10YLsjAF-bQ.png"
+                     
+                ></p>
+<p>Have you heard of Durandal? If you’re not a seasoned JS developer, you might not have. A decade ago, it was a popular single-page app (SPA) framework.</p>
+<p>Back then, I worked on a significant project using Durandal for more than a year. I liked it. It was small, flexible, and easy to expand.</p>
+<p>A decade is a long time in IT. Now, Durandal is no longer in use. The new generation of front-end JS frameworks is dominating the world of web applications.</p>
+<p>Recently, I had a task to make a minor improvement to an old Durandal application. It felt like reconnecting with an old friend. Naturally, I compared it with the current JS framework, Angular 16.</p>
+<p>As you can guess, Angular has surpassed Durandal in almost every aspect. However, many of the design concepts in Durandal still hold their own. Looking at these comparisons, it’s clear how much Single Page App (SPA) frameworks have evolved over the past decade. It’s kind of fascinating to see how far we’ve come.</p>
+<h3 id="Framework-overview"><a href="#Framework-overview" class="headerlink" title="Framework overview"></a>Framework overview</h3><p>Durandal was created as a lightweight SPA framework focusing on simplicity and modularity. It relied on a combination of libraries like  <code>Knockout</code>  and  <code>Require.js</code>  to achieve its goals.</p>
+<p>Durandal provides the essential features for making SPAs. It’s also designed to be easily integrated with other libraries.</p>
+<p>Angular, on the other hand, is a complete package. That’s why it is called “batteries-included.” This means that Angular provides everything we need to build a rich single-page web app well-suited for large and complex projects.</p>
+<h3 id="AMD-vs-ES6-module"><a href="#AMD-vs-ES6-module" class="headerlink" title="AMD vs ES6 module"></a>AMD vs ES6 module</h3><p>Durandal used the Asynchronous Module Definition (AMD) pattern for module loading and dependency management. One example usage of AMD is as below:</p>
+<p>&#x2F;&#x2F; Define a module using AMD in Durandal<br>define([‘knockout’], function(ko) {<br>    var viewModel &#x3D; {<br>        message: ko.observable(‘Hello, Durandal!’)<br>    };<br>    return viewModel;<br>});</p>
+<p>Angular, as well as other new JS frameworks, use the ES6 Module. Unlike AMD, ES6 modules are native to JavaScript, eliminating the need for additional loaders or libraries like Require.js. ES6 modules allow for static analysis, which enables better tooling, tree-shaking, and improved performance. By default, ES6 modules provide better encapsulation, making managing dependencies easier and preventing unintentional conflicts. Here is an example of usage.</p>
+<p>&#x2F;&#x2F; Import the module<br>import { greet } from ‘.&#x2F;myModule’;  </p>
+<p>&#x2F;&#x2F; Angular Component<br>@Component({<br>  selector: ‘app-greeting’,<br>})<br>export class GreetingComponent {<br>  message: string;  </p>
+<p>  constructor() {<br>    &#x2F;&#x2F; Use the imported function<br>    this.message &#x3D; greet(‘John’);<br>  }<br>}</p>
+<h3 id="Component-Based-Architecture"><a href="#Component-Based-Architecture" class="headerlink" title="Component-Based Architecture"></a>Component-Based Architecture</h3><p>Component-based architecture is a fundamental design paradigm in modern SPA frameworks. It involves breaking down the user interface into reusable, self-contained components, fostering modularity and maintainability in web applications.</p>
+<p>Durandal has the concept of the component but lacks the structured component-based architecture seen in modern SPAs.</p>
+<p>Angular emphasizes a component-based architecture and enforces a structured development approach by encapsulating functionality within reusable components, promoting a clear separation of concerns and maintainability in web applications.</p>
+<h3 id="State-Management"><a href="#State-Management" class="headerlink" title="State Management"></a>State Management</h3><p>Durandal uses a combination of view models, routing, lifecycle methods, and storage options to help us manage and maintain the state. As the application grows, tracking and managing the state transitions between different components and views may become more challenging.</p>
+<p>There are many state management frameworks in Angular. The most popular one is NgRx, a state management library inspired by Redux. It offers a structured way to manage the application state, making it easier to handle complex data flows.</p>
+<h3 id="Dependency-Injection"><a href="#Dependency-Injection" class="headerlink" title="Dependency Injection"></a>Dependency Injection</h3><p>Durandal doesn’t provide a dedicated dependency injection container but offers a modular structure and integration with AMD (Asynchronous Module Definition) loaders like  <code>Require.js</code>.</p>
+<p>Angular’s Dependency Injection (DI) is a powerful mechanism that lets us manage and inject dependencies effortlessly. With its built-in DI, we can keep our code clean, organized, and testable, making it an excellent feature for building robust web applications.</p>
+<p>&#x2F;&#x2F; Angular component with dependency injection<br>import { Component } from ‘@angular&#x2F;core’;<br>import { DataService } from ‘.&#x2F;data.service’;  </p>
+<p>@Component({<br>  selector: ‘app-example’,<br>  template: ‘<p></p>‘,<br>})<br>export class ExampleComponent {<br>  constructor(private dataService: DataService) {<br>    this.message &#x3D; this.dataService.getMessage();<br>  }<br>}</p>
+<h3 id="Binding"><a href="#Binding" class="headerlink" title="Binding"></a>Binding</h3><p>Durandal employed two-way data binding with  <code>Knockout</code>, allow it to handle dynamic UI updates.</p>
+<!-- Durandal binding -->  
+<p>var vm &#x3D; {<br>    message &#x3D; ko.observable(‘Hello world’)<br>};<br>ko.applyBindings(vm);</p>
+<p>Angular provides its own two-way data binding mechanism, and it has improved performance and flexibility over time.</p>
+<!-- Angular HTML template -->  
+<p>&lt;input [(ngModel)]&#x3D;”message” &#x2F;&gt;  </p>
+<p></p>
+
+<p>Other modern frontend JS frameworks like React utilize one-way data binding, which enhances performance by updating the data state through events.</p>
+<h3 id="Tooling-CLI-and-performance-optimization"><a href="#Tooling-CLI-and-performance-optimization" class="headerlink" title="Tooling, CLI, and performance optimization"></a>Tooling, CLI, and performance optimization</h3><p>Durandal kept things simple and modular but didn’t have a CLI tool. It also doesn’t come with the built-in performance optimization feature.</p>
+<p>Unlike Angular, it didn’t have server-side rendering support out of the box.</p>
+<p>Angular comes with its CLI — a rich toolkit for building, testing, and deploying Angular apps. It makes life easier for developers and supercharges productivity.</p>
+<p>Angular 16 takes it up a notch with cool performance tricks like AOT compilation and improved tree-shaking. This means quicker load times and smaller bundles, making the app faster overall.</p>
+<p>Angular 16 also rolled out the improved Angular Universal, giving us a proper server-side rendering capability. This makes your pages load faster and boosts the SEO.</p>
+<p>These significant advancements have levelled up modern Single Page Apps (SPAs). They’re powerful, easy to maintain, and super fast. Comparing Angular with Durandal is like comparing a fancy new sports car to an older model. Durandal was remarkable in its time, but the new generation SPA frameworks have taken things to a whole new level!</p>
+]]></content>
+      <categories>
+        <category>Web Development</category>
+        <category>Programming</category>
+      </categories>
+      <tags>
+        <tag>Angular</tag>
+        <tag>Durandal</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Postman Flow - The Good Parts and Bad Parts</title>
+    <url>/2023/06/27/postman/</url>
+    <content><![CDATA[<p>Postman is the most popular API testing tool. I often use it to do random API tests in the development process.</p>
+<p>Recently, I‘ve come across a new feature called “flow” in Postman. It was released to the general public in March 2023.</p>
+<p>I was truly excited about Postman Flow because it looked perfect for the task I was working on. However, I realised it wasn’t perfect after a few days working with it. As with any new features or tools, Postman flow comes with its pros and cons.</p>
+<p>In this post, I will share my experiences with Postman flow. Please note this post is not a tutorial on how to use Postman flow. It is an overview of what it can and can’t do.</p>
+<h2 id="What-is-Postman-Flow"><a href="#What-is-Postman-Flow" class="headerlink" title="What is Postman Flow"></a>What is Postman Flow</h2><p>Postman’s official site gives a good definition.</p>
+<blockquote>
+<p>Postman Flows is a visual tool for building API-driven applications for the  <a class="link"   href="https://www.postman.com/api-first/" >API-First <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  world. You can use flows to chain requests, handle data, and create real-world workflows in your Postman workspace.</p>
+</blockquote>
+<p>When we create a new flow, a blank canvas is shown with a start button. We can right-click to add an element from many “Blocks.”</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://miro.medium.com/v2/resize:fit:1120/0*bHzDZgOahkLAbd0y.gif"
+                     
+                ></p>
+<p>Source:  <a class="link"   href="https://learning.postman.com/docs/postman-flows/tutorials/building-your-first-flow/" >https://learning.postman.com/docs/postman-flows/tutorials/building-your-first-flow/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>The blocks are divided into a few categories:  <strong>action</strong> (i.e., Send request),  <strong>decision&#x2F;logic</strong> (i.e., If, Evaluate), and i<strong>nformation</strong> (i.e., text, output).</p>
+<p>The decision&#x2F;logic blocks allow the flow control, such as  <code>if</code> condition or looping. A Flows Query Language(<strong>FQL</strong>) is provided to parse and transform the data. FQL supports some basic functions like  <code>$count</code> or  <code>$each</code>. They can be used with the  <a class="link"   href="https://learning.postman.com/docs/postman-flows/reference/blocks-list/#evaluate" >Evaluate block <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  to manipulate the JSON data.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://miro.medium.com/v2/resize:fit:1120/0*xJ12NCCFIGo1vu_3.gif"
+                     
+                ></p>
+<p>Source:  <a class="link"   href="https://learning.postman.com/docs/postman-flows/tutorials/building-your-first-flow/" >https://learning.postman.com/docs/postman-flows/tutorials/building-your-first-flow/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>Like other entities in Postman, the flow resides within the Postman workspace. You can share or fork the flow within the team workspace or move it to another one.</p>
+<p>Overall, it is a powerful and good-looking tool.</p>
+<p>Let’s dive into the good parts first.</p>
+<h2 id="Good-Parts"><a href="#Good-Parts" class="headerlink" title="Good Parts"></a>Good Parts</h2><h3 id="Visualization"><a href="#Visualization" class="headerlink" title="Visualization"></a>Visualization</h3><p>It is a nice looking visual tool, and the running animation looks great. The animation enhances the running experience, and it makes the flow easier to understand.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://miro.medium.com/v2/resize:fit:1120/1*vOowZFMzbhAgDXN1rE523A.png"
+                     
+                ></p>
+<p>Source:  <a class="link"   href="https://learning.postman.com/docs/postman-flows/gs/flows-overview/" >https://learning.postman.com/docs/postman-flows/gs/flows-overview/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>If you turn on the dark theme, it looks even better.</p>
+<h2 id="Low-code-x2F-No-code"><a href="#Low-code-x2F-No-code" class="headerlink" title="Low-code &#x2F;No-code"></a><strong>Low-code &#x2F;No-code</strong></h2><p>Prior to Postman Flow, we would need to use the collection runner to chain a few requests. The collection runner would execute the requests by order of requests in the collection or write a script with  <code>setNextRequest</code>  method to create a manual workflow.</p>
+<p>With Postman flow, we only need to drag-and-drop, no code necessary. This is great for non-technical users.</p>
+<h2 id="Select-from-the-sample-response-data"><a href="#Select-from-the-sample-response-data" class="headerlink" title="Select from the sample response data."></a>Select from the sample response data.</h2><p>The Select block is used to select a value from the output of the upstream block (i.e., the response body of the previous request).</p>
+<p>It works well with JSON response data, as well as HTML(although it isn’t documented). After you run the flow once, the response data will be saved as an example, and you can choose from a drop-down with the example data.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://miro.medium.com/v2/resize:fit:389/1*IpR6Fy5LFFUXjun6pK5Iww.png"
+                     
+                ></p>
+<p>Source:  <a class="link"   href="https://learning.postman.com/docs/postman-flows/tutorials/using-response-data-in-a-request/" >https://learning.postman.com/docs/postman-flows/tutorials/using-response-data-in-a-request/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="Re-use-Existing-Requests"><a href="#Re-use-Existing-Requests" class="headerlink" title="Re-use Existing Requests"></a>Re-use Existing Requests</h2><p>If you already have existing Postman collections&#x2F;requests, they can be easily dropped into the flow canvas and chained into a workflow. This is a huge advantage for my project because we have accumulated many Postman requests over the years, most of which are standalone.</p>
+<p>Using the Postman Flow, we can connect them with minor modifications. It provides more test coverage and increases the visibility for business users.</p>
+<p>Compared with the old collection approach, flow can share the existing request in the collection. In other words, you don’t need to duplicate requests to get them into the flow. That makes the flow building much cleaner and more re-usable.</p>
+<h1 id="Bad-Parts"><a href="#Bad-Parts" class="headerlink" title="Bad Parts"></a>Bad Parts</h1><p>Postman offers a free plan which allows you to run basic API tests and other features, including flow. But keep in mind that Postman isn’t an open-source tool. The free features may be changed or limited at any time. Recently, a new limitation was added to restrict the number of runs for free and “professional” paid account usage,  <a class="link"   href="https://community.postman.com/t/250-collection-runs-per-month-on-professional/43946/89" >which many developers felt unjustifiable <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. So, it is something to consider when investing effort into building API tests with Postman flow.</p>
+<h2 id="Lack-of-Export-and-limits-on-the-free-plan"><a href="#Lack-of-Export-and-limits-on-the-free-plan" class="headerlink" title="Lack of Export and limits on the free plan"></a>Lack of Export and limits on the free plan</h2><p>Postman allows you to export requests, collections, and environments to JSON files. These exported files are very handy, as they can be shared between the team and&#x2F;or stored in the version controller system.</p>
+<p>However, the flow cannot be exported. This feature isn’t being provided, though many developers have asked for it in the Postman forum. Instead, the capability to share the flow with Postman team workspace is provided. This means only team members can access or fork a flow.</p>
+<p>Lacking the export feature also means the flow can only be stored in Postman’s workspace.</p>
+<p>To make things worse, the free plan has a limit of 3 members in a team workspace. Although the flow feature is available to a free plan, those limitations make it almost non-usable in a team.</p>
+<p>From a business perspective, it is understandable that the free plan is limited. However, I found it hard to justify that the export feature doesn’t exist for even paid account users.</p>
+<h2 id="Environment-Variables"><a href="#Environment-Variables" class="headerlink" title="Environment Variables"></a>Environment Variables</h2><p>Although we can re-use the existing requests in a flow, there is a hidden limitation: you can’t modify an environment variable or collection variable inside the flow.</p>
+<p>It is very common to have these scripts embedded in a Postman request:</p>
+<p>pm.environment.set(“variable_key”, “variable_value”);<br>pm.collectionVariables.set(“variable_key”, “variable_value”);</p>
+<p>But if you use one of these requests to build your flow, the script above will throw an error. It is  <a class="link"   href="https://github.com/postmanlabs/postman-flows/discussions/142" >a design decision <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  from the Postman team.</p>
+<p>Below are some extracts from the Postman team’s response.</p>
+<p>“_Environment works in a read-only mode, updates to the environment from scripts are not respected._”</p>
+<p>“_We encourage using the connection to pipe data from one block to another, rather than using Globals&#x2F;Environments, etc._”</p>
+<p>I am disappointed with this decision. It breaks many of my existing request scripts. Many developers are in the same situation.</p>
+<h2 id="If-block"><a href="#If-block" class="headerlink" title="If block"></a>If block</h2><p>There is an important logic block in flow:  <code>if</code>. It is a logical gate that allows you to decide the flow path based on the input.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://miro.medium.com/v2/resize:fit:1120/1*xVhZ0XcHm5zuIpDzxy2cLw.png"
+                     
+                ></p>
+<p>Source:  <a class="link"   href="https://www.postman.com/postman/workspace/flows-snippets/flow/63bcba94f3155f2e86b54eb0" >https://www.postman.com/postman/workspace/flows-snippets/flow/63bcba94f3155f2e86b54eb0 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>As in any programming language,  <code>if</code> is the most essential building block. The issue of  <code>if</code>  block in Post flow is that it only supports  <strong>one</strong>  condition.</p>
+<p>When we have more than one condition, the workaround is to chain multiple  <code>if</code>  blocks together. In a real-world project, multiple conditions are extremely common. Chaining multiple  <em>if</em> blocks for one line of code is so cumbersome!</p>
+<p>These are the main issues I encountered in my few days experience with Postman flow.</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Postman flow has the potential to be a game changer in simplifying API testing. With sleek design and user friendly drag and drop UI, it offers an intuitive experience.</p>
+<p>However, I am disappointed as both the absence of the export feature and single-condition if block are deal-breakers for my use cases.Moreover, I have reservations about Postman’s product philosophy, particularly concerning to the way of  <a class="link"   href="https://community.postman.com/t/250-collection-runs-per-month-on-professional/43946/89" >pressuring users to a paid account <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>, rather than providing value added services that naturally encourage users to upgrade..</p>
+]]></content>
+      <categories>
+        <category>Web Development</category>
+      </categories>
+      <tags>
+        <tag>API</tag>
+        <tag>tools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Host Angular App in IIS vs. Nginx</title>
+    <url>/2023/07/02/host-angular-iis-nginx/</url>
+    <content><![CDATA[<h3 id="A-Practical-Hands-on-Guide"><a href="#A-Practical-Hands-on-Guide" class="headerlink" title="A Practical Hands-on Guide"></a>A Practical Hands-on Guide</h3><p>Hosting an Angular application can be done in various ways. Two popular approaches are IIS (Internet Information Services) and Nginx. While both options allow you to host your Angular app, there are some key differences between the two.</p>
+<p>This article will discuss the pros and cons of these two methods.</p>
+<h2 id="Prepare-Angular-App-for-Deployment"><a href="#Prepare-Angular-App-for-Deployment" class="headerlink" title="Prepare Angular App for Deployment"></a>Prepare Angular App for Deployment</h2><p>To get your app ready to be deployed, we need to build the app with a production configuration.</p>
+<p>Run the following CLI command</p>
+<p>ng build –prod</p>
+<p>The flag  <code>— prod</code>  means the production build output is optimized with minification, tree shaking, and AOT (ahead-of-time) compilation. As a result, the output bundle size will be significantly smaller than a development build. After the build is completed, the output files are stored in a  <code>dist/[app-name]</code>folder. These files are the artifacts for the deployment.</p>
+<h2 id="Deploy-Angular-App-to-IIS"><a href="#Deploy-Angular-App-to-IIS" class="headerlink" title="Deploy Angular App to IIS"></a>Deploy Angular App to IIS</h2><p>IIS is a web server developed by Microsoft and included in the Windows operating system. The benefit of using IIS is that it can take advantage of various security features, i.e., Windows Authentication.</p>
+<p><strong>Add the</strong> <code>**web.config**</code> <strong>file</strong></p>
+<p>To be able to use IIS to host Angular App, we need to add a  <code>web.config</code>  file first.</p>
+<?xml version="1.0" encoding="UTF-8"?><configuration>  
+  <system.webServer>  
+  <rewrite>  
+    <rules>  
+      <rule name="RoutesReWrite" patternSyntax="Wildcard" stopProcessing="true">  
+        <conditions logicalGrouping="MatchAll">  
+          <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />  
+          <add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />  
+        </conditions>  
+        <action type="Rewrite" url="./index.html" />  
+      </rule>  
+    </rules>  
+  </rewrite>  
+  </system.webServer>  
+</configuration>
+
+<p>The above  <code>web.config</code>  file contains the IIS rewrite rules. You may need to update the file to match the requirements of your app. For example, add a rewrite rule if your Angular App needs to  <a class="link"   href="https://medium.com/javascript-in-plain-english/all-you-need-to-know-about-angular-proxy-configuration-a1aeb2d8c86" >proxy the API call <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<p>The  <code>web.config</code>  file must be copied into the root directory of the Anguar app artifacts.</p>
+<p><strong>Set up the website in IIS</strong></p>
+<p>We can follow these steps to set up a new website in IIS.</p>
+<ul>
+<li>Create a new website: Use the IIS manager to create the new site and specify the physical path to the directory where the Angular app’s build artifacts are located.</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://miro.medium.com/v2/resize:fit:1120/1*jJwQiRpdNZGA_vkGpOpFpQ.png"
+                     
+                ></p>
+<ul>
+<li>Install URL Rewrite module: If it is not installed, install the URL rewrite module from  <a class="link"   href="https://www.iis.net/downloads/microsoft/url-rewrite" >here <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. You should see it appear in the IIS manager after the installation.</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://miro.medium.com/v2/resize:fit:1120/1*nuzKYd5H_h3KJfDEQKwrcA.png"
+                     
+                ></p>
+<ul>
+<li>Deploy the Angular app: Use a pipeline or scripts to automate copying the build output to the physical path specified for the website in IIS.</li>
+</ul>
+<p>We can restart the IIS by running the following command.</p>
+<p>iisreset</p>
+<p>Now, navigate to the localhost URL to test the Angular App. For any issues configuring the URL rewrite and proxying, refer to this  <a class="link"   href="https://medium.com/javascript-in-plain-english/all-you-need-to-know-about-angular-proxy-configuration-a1aeb2d8c86" >article <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  for more info.</p>
+<h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><p>Nginx is a free and open-source web server commonly used on Linux servers. It is fast and efficient, making it a popular option for hosting websites and web applications.</p>
+<p>Assuming Nginx is installed, run the following command to verify it.</p>
+<p>sudo systemctl restart nginx<br>sudo systemctl status nginx</p>
+<p>If Nginx is started, type the server’s public IP address into the browser, and the default Nginx page will be shown.</p>
+<p>The next step is to edit the Nginx configuration  <code>nginx.conf</code>. Typically, the Nginx configuration file can be found in either  <code>/etc/nginx/nginx.conf</code>  or  <code>/etc/nginx/sites-enabled/default</code>.</p>
+<p>An example of the updated config file is as below.</p>
+<p>http {<br>  …..<br>    server {<br>        listen 80 default_server;<br>        listen [::]:80 default_server;<br>        server_name domainXYZ.com;<br>        location &#x2F; {<br>          proxy_pass &#x2F;app&#x2F;[name of Angular App]&#x2F;dist;<br>        }  </p>
+<pre><code>    error_page 404 /404.html;  
+        location = /40x.html &#123;  
+    &#125;  
+
+    error_page 500 502 503 504 /50x.html;  
+        location = /50x.html &#123;  
+    &#125;  
+</code></pre>
+<p>}</p>
+<p>These settings define the server domain name and port number. You can use any port number as long as the port is allowed in your host security group.</p>
+<p>In the above setting, we assume that the app bundles reside on  <code>/app/[name of Angular App]/dist</code>. We need to either enable a pipeline or use a script to copy the Angular build output into the folder.</p>
+<p>After updating the configuration file, we need to restart the Nginx server to make the change effective.</p>
+<p>sudo systemclt restart nginx</p>
+<p>Enter the server domain name and port number into the browser, and your Angular app should run!</p>
+<p>Another must-do in a real-world app is to register and install an SSL certificate and configure it in Nginx. You can find the details in  <a class="link"   href="https://medium.com/gitconnected/build-and-host-a-dynamic-web-site-for-only-1-per-month-1aa5aa3a7bd1#5776" >this article <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<h2 id="IIS-vs-Nginx"><a href="#IIS-vs-Nginx" class="headerlink" title="IIS vs. Nginx"></a>IIS vs. Nginx</h2><p>In summary, both IIS and Nginx can host Angular applications, but they have different strengths and weaknesses.</p>
+<p>IIS is tightly integrated with the Windows operating system, making it easy to use and manage in a corporate environment. At the same time, Nginx is known for its high performance and low resource usage, making it well-suited for high-traffic websites. For normal web apps, the performance difference between these two is negligible. But Nginx has an edge in its flexibility and extensive configuration options.</p>
+<p>Both servers use a reverse proxy to forward incoming requests to the Angular application.</p>
+<p>While IIS is primarily designed for Windows, Nginx can run on multiple platforms, including Linux, macOS, and Windows. This cross-platform compatibility gives Nginx broader adoption and flexibility in deployment scenarios.</p>
+<p>Ultimately, the choice depends on many factors, such as platform preference, the team’s skillset, and performance requirements.</p>
+]]></content>
+      <categories>
+        <category>Web Development</category>
+        <category>Programming</category>
+      </categories>
+      <tags>
+        <tag>Angular</tag>
+        <tag>IIS</tag>
+        <tag>Nginx</tag>
+      </tags>
+  </entry>
 </search>

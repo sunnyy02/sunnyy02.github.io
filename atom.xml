@@ -3,11 +3,11 @@
   <title>Hexo</title>
   
   
-  <link href="http://sunnyy02.github.io/atom.xml" rel="self"/>
+  <link href="http://blog.ourcrmonline.com/atom.xml" rel="self"/>
   
-  <link href="http://sunnyy02.github.io/"/>
-  <updated>2024-06-29T04:15:23.417Z</updated>
-  <id>http://sunnyy02.github.io/</id>
+  <link href="http://blog.ourcrmonline.com/"/>
+  <updated>2024-07-03T22:00:51.430Z</updated>
+  <id>http://blog.ourcrmonline.com/</id>
   
   <author>
     <name>John Doe</name>
@@ -17,9 +17,33 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Dynamic Reference Data in NestJS</title>
+    <link href="http://blog.ourcrmonline.com/2024/07/04/dynamic-referencedata/"/>
+    <id>http://blog.ourcrmonline.com/2024/07/04/dynamic-referencedata/</id>
+    <published>2024-07-03T14:00:00.000Z</published>
+    <updated>2024-07-03T22:00:51.430Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Implement-a-Future-Proof-Solution-for-Your-Reference-Data-Needs"><a href="#Implement-a-Future-Proof-Solution-for-Your-Reference-Data-Needs" class="headerlink" title="Implement a Future-Proof Solution for Your Reference Data Needs"></a>Implement a Future-Proof Solution for Your Reference Data Needs</h3><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://miro.medium.com/v2/resize:fit:1120/0*9XkmXB16W3mtQm9N"                                     ></p><p>Photo by  <a class="link"   href="https://unsplash.com/@sortino?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" >Joshua Sortino <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  on  <a class="link"   href="https://unsplash.com/photos/worms-eye-view-photography-of-ceiling-LqKhnDzSF-8?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" >Unsplash <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p><p>In most API applications, providing reference data is a common need. The provision of reference data ensures we use consistent values across our application. These data include countries, product categories, or any other categorized information needed by our application.</p><p>A common approach for implementing a reference data API endpoint involves using a switch case within a single service to handle different data types. However, it can quickly become cumbersome and inflexible as the application grows.</p><p>I will explore building a dynamic and maintainable reference data endpoint in NestJS in the article.</p><h3 id="The-Switch-Case-Dilemma"><a href="#The-Switch-Case-Dilemma" class="headerlink" title="The Switch Case Dilemma"></a>The Switch Case Dilemma</h3><p>Let’s imagine a scenario where a switch case is used within our ReferenceDataService to handle different data types. Here’s a simplified example:</p><p>&#x2F;&#x2F; app.controller.ts<br> @Get(‘:dataType’)<br> async getReferenceData(@Param(‘dataType’) dataType: string): Promise&lt;Country[]&gt; {<br>   return await this.referenceDataFactory.getReferenceData(dataType);<br> }  </p><p>&#x2F;&#x2F; reference-data.service.ts<br>@Injectable()<br>export class ReferenceDataService {<br>   constructor( private readonly countryService: CountryService,<br>       private readonly industryService: IndustryService ) { }  </p><p>   async getReferenceData(type: string): Promise&lt;any[]&gt; {<br>       switch (type) {<br>           case ‘country’:<br>               return await this.countryService.getReferenceData();<br>           case ‘industry’:<br>               return await this.industryService.getReferenceData();<br>           default:<br>               throw new Error(<code>Unsupported reference data type: $&#123;type&#125;</code>);<br>       }<br>   }<br>}</p><p>While this works for a few data types, it becomes messy and less maintainable as more types are added. Here are the two main issues:</p><ul><li><strong>Code Clutter:</strong>  With each new data type, we need to inject a new service into the constructor and add a corresponding case in the switch statement within getReferenceData. This leads to a bloated constructor and cluttered logic, making the code harder to read and maintain.</li><li><strong>Tight Coupling:</strong>  The service becomes tightly coupled to the specific concrete services (CountryService, IndustryService). If we introduce new data types with different service implementations, we’d need to modify the ReferenceDataService constructor and switch-case statements, making the code harder to read and reason about.</li></ul><h3 id="Improved-reference-data-service-with-ModuleRef-and-Token-Providers"><a href="#Improved-reference-data-service-with-ModuleRef-and-Token-Providers" class="headerlink" title="Improved reference data service with ModuleRef and Token Providers"></a>Improved reference data service with ModuleRef and Token Providers</h3><p>A more scalable and flexible approach is to leverage NestJS’s dependency injection capabilities and dynamic service retrieval. Here’s how we can achieve this:</p><h3 id="Interface-and-Concrete-Services"><a href="#Interface-and-Concrete-Services" class="headerlink" title="Interface and Concrete Services"></a>Interface and Concrete Services</h3><p>Firstly, we define an interface for our reference data service.</p><p>export interface ReferenceDataService<T extends ReferenceDataItem> {<br> getReferenceData(): Promise&lt;T[]&gt;;<br>}  </p><p>&#x2F;&#x2F; Concrete Service Example (country.service.ts)<br>@Injectable()<br>export class CountryService implements ReferenceDataService<Country> {<br> async getReferenceData(): Promise&lt;Country[]&gt; {<br>   &#x2F;&#x2F; Implement logic to fetch country data<br>   return [];<br> }<br>}</p><p>We can implement the concert services based on the ReferenceDataService interface whenever a new data type is introduced.</p><h3 id="Register-the-concert-services-with-token-providers"><a href="#Register-the-concert-services-with-token-providers" class="headerlink" title="Register the concert services with token providers"></a>Register the concert services with token providers</h3><p>In NestJS, we can define token providers to identify services dynamically. Here, we define two constants for token identifiers (<code>COUNTRY_DATA_TOKEN</code>  and  <code>INDUSTRY_DATA_TOKEN</code>), and register a token for each concrete service:</p><p>const COUNTRY_DATA_TOKEN &#x3D; ‘country’;<br>const INDUSTRY_DATA_TOKEN &#x3D; ‘industry’;<br>@Module({<br> imports: [],<br> controllers: [AppController],<br> providers: [<br>   AppService,<br>   ReferenceDataFactory,<br>   {<br>     provide: COUNTRY_DATA_TOKEN,<br>     useClass: CountryService<br>   },<br>   {<br>     provide: INDUSTRY_DATA_TOKEN,<br>     useClass: IndustryService<br>   }]<br>})<br>export class AppModule { }</p><p>By registering services with specific tokens, we decouple the service implementation from its usage.</p><h3 id="Reference-Data-Service-Refactoring"><a href="#Reference-Data-Service-Refactoring" class="headerlink" title="Reference Data Service Refactoring"></a>Reference Data Service Refactoring</h3><p>Now, we can refactor our ReferenceDataService to retrieve the specific service based on the requested data type as below.</p><p>@Injectable()<br>export class ReferenceDataFactory {<br>   constructor(private readonly moduleRef: ModuleRef) { }  </p><p>   async getReferenceDataService(type: string) {<br>       const service &#x3D; await this.moduleRef.resolve(type) as ReferenceDataService<ReferenceDataItem>;<br>       return await service.getReferenceData();<br>   }<br>}</p><p>In the above code, we inject ModuleRef into the service constructor. Then we use moduleRef.get with the retrieved token to dynamically get the corresponding service instance, and the instance is used to fetch the actual data.</p><p>By utilizing ModuleRef and token providers to dynamically retrieve a specific reference data service instance, we eliminate the need for individual service injection in the constructor and the switch case. When introducing a new data type, we don’t need to change the ReferenceDataFactory service!</p><h3 id="Consuming-the-Service"><a href="#Consuming-the-Service" class="headerlink" title="Consuming the Service:"></a>Consuming the Service:</h3><p>Now, in our controller, we can inject the ReferenceDataFactory and dynamically retrieve the desired data:</p><p>@Get(‘:dataType’)<br> async getIndustries(@Param(‘dataType’) dataType: string): Promise&lt;ReferenceDataItem[]&gt; {<br>   return await this.referenceDataFactory.getReferenceDataService(dataType);<br> }</p><p>This approach is much easier to maintain, allowing us to handle new data types as our application evolves.</p><p>Although NestJS is used in this article, the same pattern applies to other programming languages and frameworks. I will write a new post to provide a similar implementation using .Net later. You can find the source code in the post  <a class="link"   href="https://github.com/sunnyy02/nest-reference-data/tree/refactor" >here <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p><p>I hope you find this post useful. Happy programming!</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;Implement-a-Future-Proof-Solution-for-Your-Reference-Data-Needs&quot;&gt;&lt;a href=&quot;#Implement-a-Future-Proof-Solution-for-Your-Reference-Data</summary>
+      
+    
+    
+    
+    <category term="Web Development" scheme="http://blog.ourcrmonline.com/categories/Web-Development/"/>
+    
+    
+    <category term="NestJS" scheme="http://blog.ourcrmonline.com/tags/NestJS/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Friend or Foe? Examining the Pros and Cons of Feature Toggles and Trunk-Based Development</title>
-    <link href="http://sunnyy02.github.io/2024/06/21/friend-or-foe-examining-the-pros-and-cons-of-feature-toggles/"/>
-    <id>http://sunnyy02.github.io/2024/06/21/friend-or-foe-examining-the-pros-and-cons-of-feature-toggles/</id>
+    <link href="http://blog.ourcrmonline.com/2024/06/21/friend-or-foe-examining-the-pros-and-cons-of-feature-toggles/"/>
+    <id>http://blog.ourcrmonline.com/2024/06/21/friend-or-foe-examining-the-pros-and-cons-of-feature-toggles/</id>
     <published>2024-06-20T14:00:00.000Z</published>
     <updated>2024-06-29T04:15:23.417Z</updated>
     
@@ -36,23 +60,23 @@
     
     
     
-    <category term="Software Development" scheme="http://sunnyy02.github.io/categories/Software-Development/"/>
+    <category term="Software Development" scheme="http://blog.ourcrmonline.com/categories/Software-Development/"/>
     
-    <category term="Agile" scheme="http://sunnyy02.github.io/categories/Software-Development/Agile/"/>
+    <category term="Agile" scheme="http://blog.ourcrmonline.com/categories/Software-Development/Agile/"/>
     
     
-    <category term="Best Practice" scheme="http://sunnyy02.github.io/tags/Best-Practice/"/>
+    <category term="Best Practice" scheme="http://blog.ourcrmonline.com/tags/Best-Practice/"/>
     
-    <category term="Software development" scheme="http://sunnyy02.github.io/tags/Software-development/"/>
+    <category term="Software development" scheme="http://blog.ourcrmonline.com/tags/Software-development/"/>
     
-    <category term="Agile" scheme="http://sunnyy02.github.io/tags/Agile/"/>
+    <category term="Agile" scheme="http://blog.ourcrmonline.com/tags/Agile/"/>
     
   </entry>
   
   <entry>
     <title>Embrace Secure RESTful APIs with NestJS on Educative.io</title>
-    <link href="http://sunnyy02.github.io/2024/06/15/restapi/"/>
-    <id>http://sunnyy02.github.io/2024/06/15/restapi/</id>
+    <link href="http://blog.ourcrmonline.com/2024/06/15/restapi/"/>
+    <id>http://blog.ourcrmonline.com/2024/06/15/restapi/</id>
     <published>2024-06-14T14:00:00.000Z</published>
     <updated>2024-06-29T04:21:52.462Z</updated>
     
@@ -67,21 +91,21 @@
     
     
     
-    <category term="Programming" scheme="http://sunnyy02.github.io/categories/Programming/"/>
+    <category term="Programming" scheme="http://blog.ourcrmonline.com/categories/Programming/"/>
     
     
-    <category term="TypeScript" scheme="http://sunnyy02.github.io/tags/TypeScript/"/>
+    <category term="TypeScript" scheme="http://blog.ourcrmonline.com/tags/TypeScript/"/>
     
-    <category term="NestJS" scheme="http://sunnyy02.github.io/tags/NestJS/"/>
+    <category term="NestJS" scheme="http://blog.ourcrmonline.com/tags/NestJS/"/>
     
-    <category term="Course" scheme="http://sunnyy02.github.io/tags/Course/"/>
+    <category term="Course" scheme="http://blog.ourcrmonline.com/tags/Course/"/>
     
   </entry>
   
   <entry>
     <title>Exploring Etag and If-Match in NestJS</title>
-    <link href="http://sunnyy02.github.io/2024/03/05/exploring-etag/"/>
-    <id>http://sunnyy02.github.io/2024/03/05/exploring-etag/</id>
+    <link href="http://blog.ourcrmonline.com/2024/03/05/exploring-etag/"/>
+    <id>http://blog.ourcrmonline.com/2024/03/05/exploring-etag/</id>
     <published>2024-03-04T14:00:00.000Z</published>
     <updated>2024-06-29T04:15:06.402Z</updated>
     
@@ -95,19 +119,47 @@
     
     
     
-    <category term="Web Development" scheme="http://sunnyy02.github.io/categories/Web-Development/"/>
+    <category term="Web Development" scheme="http://blog.ourcrmonline.com/categories/Web-Development/"/>
     
     
-    <category term="NestJS" scheme="http://sunnyy02.github.io/tags/NestJS/"/>
+    <category term="NestJS" scheme="http://blog.ourcrmonline.com/tags/NestJS/"/>
     
-    <category term="Security" scheme="http://sunnyy02.github.io/tags/Security/"/>
+    <category term="Security" scheme="http://blog.ourcrmonline.com/tags/Security/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Durandal vs Angular</title>
+    <link href="http://blog.ourcrmonline.com/2024/02/05/durandal-angular/"/>
+    <id>http://blog.ourcrmonline.com/2024/02/05/durandal-angular/</id>
+    <published>2024-02-04T14:00:00.000Z</published>
+    <updated>2024-07-04T01:11:30.076Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="What-has-changed-for-Single-Page-App-in-the-last-ten-years"><a href="#What-has-changed-for-Single-Page-App-in-the-last-ten-years" class="headerlink" title="What has changed for Single Page App in the last ten years"></a>What has changed for Single Page App in the last ten years</h2><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://miro.medium.com/v2/resize:fit:1046/1*Xbq4XJa6oQ-10YLsjAF-bQ.png"                                     ></p><p>Have you heard of Durandal? If you’re not a seasoned JS developer, you might not have. A decade ago, it was a popular single-page app (SPA) framework.</p><p>Back then, I worked on a significant project using Durandal for more than a year. I liked it. It was small, flexible, and easy to expand.</p><p>A decade is a long time in IT. Now, Durandal is no longer in use. The new generation of front-end JS frameworks is dominating the world of web applications.</p><p>Recently, I had a task to make a minor improvement to an old Durandal application. It felt like reconnecting with an old friend. Naturally, I compared it with the current JS framework, Angular 16.</p><p>As you can guess, Angular has surpassed Durandal in almost every aspect. However, many of the design concepts in Durandal still hold their own. Looking at these comparisons, it’s clear how much Single Page App (SPA) frameworks have evolved over the past decade. It’s kind of fascinating to see how far we’ve come.</p><h3 id="Framework-overview"><a href="#Framework-overview" class="headerlink" title="Framework overview"></a>Framework overview</h3><p>Durandal was created as a lightweight SPA framework focusing on simplicity and modularity. It relied on a combination of libraries like  <code>Knockout</code>  and  <code>Require.js</code>  to achieve its goals.</p><p>Durandal provides the essential features for making SPAs. It’s also designed to be easily integrated with other libraries.</p><p>Angular, on the other hand, is a complete package. That’s why it is called “batteries-included.” This means that Angular provides everything we need to build a rich single-page web app well-suited for large and complex projects.</p><h3 id="AMD-vs-ES6-module"><a href="#AMD-vs-ES6-module" class="headerlink" title="AMD vs ES6 module"></a>AMD vs ES6 module</h3><p>Durandal used the Asynchronous Module Definition (AMD) pattern for module loading and dependency management. One example usage of AMD is as below:</p><p>&#x2F;&#x2F; Define a module using AMD in Durandal<br>define([‘knockout’], function(ko) {<br>    var viewModel &#x3D; {<br>        message: ko.observable(‘Hello, Durandal!’)<br>    };<br>    return viewModel;<br>});</p><p>Angular, as well as other new JS frameworks, use the ES6 Module. Unlike AMD, ES6 modules are native to JavaScript, eliminating the need for additional loaders or libraries like Require.js. ES6 modules allow for static analysis, which enables better tooling, tree-shaking, and improved performance. By default, ES6 modules provide better encapsulation, making managing dependencies easier and preventing unintentional conflicts. Here is an example of usage.</p><p>&#x2F;&#x2F; Import the module<br>import { greet } from ‘.&#x2F;myModule’;  </p><p>&#x2F;&#x2F; Angular Component<br>@Component({<br>  selector: ‘app-greeting’,<br>})<br>export class GreetingComponent {<br>  message: string;  </p><p>  constructor() {<br>    &#x2F;&#x2F; Use the imported function<br>    this.message &#x3D; greet(‘John’);<br>  }<br>}</p><h3 id="Component-Based-Architecture"><a href="#Component-Based-Architecture" class="headerlink" title="Component-Based Architecture"></a>Component-Based Architecture</h3><p>Component-based architecture is a fundamental design paradigm in modern SPA frameworks. It involves breaking down the user interface into reusable, self-contained components, fostering modularity and maintainability in web applications.</p><p>Durandal has the concept of the component but lacks the structured component-based architecture seen in modern SPAs.</p><p>Angular emphasizes a component-based architecture and enforces a structured development approach by encapsulating functionality within reusable components, promoting a clear separation of concerns and maintainability in web applications.</p><h3 id="State-Management"><a href="#State-Management" class="headerlink" title="State Management"></a>State Management</h3><p>Durandal uses a combination of view models, routing, lifecycle methods, and storage options to help us manage and maintain the state. As the application grows, tracking and managing the state transitions between different components and views may become more challenging.</p><p>There are many state management frameworks in Angular. The most popular one is NgRx, a state management library inspired by Redux. It offers a structured way to manage the application state, making it easier to handle complex data flows.</p><h3 id="Dependency-Injection"><a href="#Dependency-Injection" class="headerlink" title="Dependency Injection"></a>Dependency Injection</h3><p>Durandal doesn’t provide a dedicated dependency injection container but offers a modular structure and integration with AMD (Asynchronous Module Definition) loaders like  <code>Require.js</code>.</p><p>Angular’s Dependency Injection (DI) is a powerful mechanism that lets us manage and inject dependencies effortlessly. With its built-in DI, we can keep our code clean, organized, and testable, making it an excellent feature for building robust web applications.</p><p>&#x2F;&#x2F; Angular component with dependency injection<br>import { Component } from ‘@angular&#x2F;core’;<br>import { DataService } from ‘.&#x2F;data.service’;  </p><p>@Component({<br>  selector: ‘app-example’,<br>  template: ‘<p></p>‘,<br>})<br>export class ExampleComponent {<br>  constructor(private dataService: DataService) {<br>    this.message &#x3D; this.dataService.getMessage();<br>  }<br>}</p><h3 id="Binding"><a href="#Binding" class="headerlink" title="Binding"></a>Binding</h3><p>Durandal employed two-way data binding with  <code>Knockout</code>, allow it to handle dynamic UI updates.</p><!-- Durandal binding -->  <p>var vm &#x3D; {<br>    message &#x3D; ko.observable(‘Hello world’)<br>};<br>ko.applyBindings(vm);</p><p>Angular provides its own two-way data binding mechanism, and it has improved performance and flexibility over time.</p><!-- Angular HTML template -->  <p>&lt;input [(ngModel)]&#x3D;”message” &#x2F;&gt;  </p><p></p><p>Other modern frontend JS frameworks like React utilize one-way data binding, which enhances performance by updating the data state through events.</p><h3 id="Tooling-CLI-and-performance-optimization"><a href="#Tooling-CLI-and-performance-optimization" class="headerlink" title="Tooling, CLI, and performance optimization"></a>Tooling, CLI, and performance optimization</h3><p>Durandal kept things simple and modular but didn’t have a CLI tool. It also doesn’t come with the built-in performance optimization feature.</p><p>Unlike Angular, it didn’t have server-side rendering support out of the box.</p><p>Angular comes with its CLI — a rich toolkit for building, testing, and deploying Angular apps. It makes life easier for developers and supercharges productivity.</p><p>Angular 16 takes it up a notch with cool performance tricks like AOT compilation and improved tree-shaking. This means quicker load times and smaller bundles, making the app faster overall.</p><p>Angular 16 also rolled out the improved Angular Universal, giving us a proper server-side rendering capability. This makes your pages load faster and boosts the SEO.</p><p>These significant advancements have levelled up modern Single Page Apps (SPAs). They’re powerful, easy to maintain, and super fast. Comparing Angular with Durandal is like comparing a fancy new sports car to an older model. Durandal was remarkable in its time, but the new generation SPA frameworks have taken things to a whole new level!</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;What-has-changed-for-Single-Page-App-in-the-last-ten-years&quot;&gt;&lt;a href=&quot;#What-has-changed-for-Single-Page-App-in-the-last-ten-years&quot; cl</summary>
+      
+    
+    
+    
+    <category term="Web Development" scheme="http://blog.ourcrmonline.com/categories/Web-Development/"/>
+    
+    <category term="Programming" scheme="http://blog.ourcrmonline.com/categories/Web-Development/Programming/"/>
+    
+    
+    <category term="Angular" scheme="http://blog.ourcrmonline.com/tags/Angular/"/>
+    
+    <category term="Durandal" scheme="http://blog.ourcrmonline.com/tags/Durandal/"/>
     
   </entry>
   
   <entry>
     <title>TypeScript Index Signature Explained</title>
-    <link href="http://sunnyy02.github.io/2024/02/01/typescript-index-signature-explained/"/>
-    <id>http://sunnyy02.github.io/2024/02/01/typescript-index-signature-explained/</id>
+    <link href="http://blog.ourcrmonline.com/2024/02/01/typescript-index-signature-explained/"/>
+    <id>http://blog.ourcrmonline.com/2024/02/01/typescript-index-signature-explained/</id>
     <published>2024-01-31T14:00:00.000Z</published>
     <updated>2024-06-29T04:22:39.023Z</updated>
     
@@ -121,17 +173,74 @@
     
     
     
-    <category term="Programming" scheme="http://sunnyy02.github.io/categories/Programming/"/>
+    <category term="Programming" scheme="http://blog.ourcrmonline.com/categories/Programming/"/>
     
     
-    <category term="TypeScript" scheme="http://sunnyy02.github.io/tags/TypeScript/"/>
+    <category term="TypeScript" scheme="http://blog.ourcrmonline.com/tags/TypeScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Host Angular App in IIS vs. Nginx</title>
+    <link href="http://blog.ourcrmonline.com/2023/07/02/host-angular-iis-nginx/"/>
+    <id>http://blog.ourcrmonline.com/2023/07/02/host-angular-iis-nginx/</id>
+    <published>2023-07-01T14:00:00.000Z</published>
+    <updated>2024-07-06T01:04:07.431Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="A-Practical-Hands-on-Guide"><a href="#A-Practical-Hands-on-Guide" class="headerlink" title="A Practical Hands-on Guide"></a>A Practical Hands-on Guide</h3><p>Hosting an Angular application can be done in various ways. Two popular approaches are IIS (Internet Information Services) and Nginx. While both options allow you to host your Angular app, there are some key differences between the two.</p><p>This article will discuss the pros and cons of these two methods.</p><h2 id="Prepare-Angular-App-for-Deployment"><a href="#Prepare-Angular-App-for-Deployment" class="headerlink" title="Prepare Angular App for Deployment"></a>Prepare Angular App for Deployment</h2><p>To get your app ready to be deployed, we need to build the app with a production configuration.</p><p>Run the following CLI command</p><p>ng build –prod</p><p>The flag  <code>— prod</code>  means the production build output is optimized with minification, tree shaking, and AOT (ahead-of-time) compilation. As a result, the output bundle size will be significantly smaller than a development build. After the build is completed, the output files are stored in a  <code>dist/[app-name]</code>folder. These files are the artifacts for the deployment.</p><h2 id="Deploy-Angular-App-to-IIS"><a href="#Deploy-Angular-App-to-IIS" class="headerlink" title="Deploy Angular App to IIS"></a>Deploy Angular App to IIS</h2><p>IIS is a web server developed by Microsoft and included in the Windows operating system. The benefit of using IIS is that it can take advantage of various security features, i.e., Windows Authentication.</p><p><strong>Add the</strong> <code>**web.config**</code> <strong>file</strong></p><p>To be able to use IIS to host Angular App, we need to add a  <code>web.config</code>  file first.</p><?xml version="1.0" encoding="UTF-8"?><configuration>    <system.webServer>    <rewrite>      <rules>        <rule name="RoutesReWrite" patternSyntax="Wildcard" stopProcessing="true">          <conditions logicalGrouping="MatchAll">            <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />            <add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />          </conditions>          <action type="Rewrite" url="./index.html" />        </rule>      </rules>    </rewrite>    </system.webServer>  </configuration><p>The above  <code>web.config</code>  file contains the IIS rewrite rules. You may need to update the file to match the requirements of your app. For example, add a rewrite rule if your Angular App needs to  <a class="link"   href="https://medium.com/javascript-in-plain-english/all-you-need-to-know-about-angular-proxy-configuration-a1aeb2d8c86" >proxy the API call <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p><p>The  <code>web.config</code>  file must be copied into the root directory of the Anguar app artifacts.</p><p><strong>Set up the website in IIS</strong></p><p>We can follow these steps to set up a new website in IIS.</p><ul><li>Create a new website: Use the IIS manager to create the new site and specify the physical path to the directory where the Angular app’s build artifacts are located.</li></ul><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://miro.medium.com/v2/resize:fit:1120/1*jJwQiRpdNZGA_vkGpOpFpQ.png"                                     ></p><ul><li>Install URL Rewrite module: If it is not installed, install the URL rewrite module from  <a class="link"   href="https://www.iis.net/downloads/microsoft/url-rewrite" >here <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. You should see it appear in the IIS manager after the installation.</li></ul><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://miro.medium.com/v2/resize:fit:1120/1*nuzKYd5H_h3KJfDEQKwrcA.png"                                     ></p><ul><li>Deploy the Angular app: Use a pipeline or scripts to automate copying the build output to the physical path specified for the website in IIS.</li></ul><p>We can restart the IIS by running the following command.</p><p>iisreset</p><p>Now, navigate to the localhost URL to test the Angular App. For any issues configuring the URL rewrite and proxying, refer to this  <a class="link"   href="https://medium.com/javascript-in-plain-english/all-you-need-to-know-about-angular-proxy-configuration-a1aeb2d8c86" >article <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  for more info.</p><h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><p>Nginx is a free and open-source web server commonly used on Linux servers. It is fast and efficient, making it a popular option for hosting websites and web applications.</p><p>Assuming Nginx is installed, run the following command to verify it.</p><p>sudo systemctl restart nginx<br>sudo systemctl status nginx</p><p>If Nginx is started, type the server’s public IP address into the browser, and the default Nginx page will be shown.</p><p>The next step is to edit the Nginx configuration  <code>nginx.conf</code>. Typically, the Nginx configuration file can be found in either  <code>/etc/nginx/nginx.conf</code>  or  <code>/etc/nginx/sites-enabled/default</code>.</p><p>An example of the updated config file is as below.</p><p>http {<br>  …..<br>    server {<br>        listen 80 default_server;<br>        listen [::]:80 default_server;<br>        server_name domainXYZ.com;<br>        location &#x2F; {<br>          proxy_pass &#x2F;app&#x2F;[name of Angular App]&#x2F;dist;<br>        }  </p><pre><code>    error_page 404 /404.html;          location = /40x.html &#123;      &#125;      error_page 500 502 503 504 /50x.html;          location = /50x.html &#123;      &#125;  </code></pre><p>}</p><p>These settings define the server domain name and port number. You can use any port number as long as the port is allowed in your host security group.</p><p>In the above setting, we assume that the app bundles reside on  <code>/app/[name of Angular App]/dist</code>. We need to either enable a pipeline or use a script to copy the Angular build output into the folder.</p><p>After updating the configuration file, we need to restart the Nginx server to make the change effective.</p><p>sudo systemclt restart nginx</p><p>Enter the server domain name and port number into the browser, and your Angular app should run!</p><p>Another must-do in a real-world app is to register and install an SSL certificate and configure it in Nginx. You can find the details in  <a class="link"   href="https://medium.com/gitconnected/build-and-host-a-dynamic-web-site-for-only-1-per-month-1aa5aa3a7bd1#5776" >this article <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p><h2 id="IIS-vs-Nginx"><a href="#IIS-vs-Nginx" class="headerlink" title="IIS vs. Nginx"></a>IIS vs. Nginx</h2><p>In summary, both IIS and Nginx can host Angular applications, but they have different strengths and weaknesses.</p><p>IIS is tightly integrated with the Windows operating system, making it easy to use and manage in a corporate environment. At the same time, Nginx is known for its high performance and low resource usage, making it well-suited for high-traffic websites. For normal web apps, the performance difference between these two is negligible. But Nginx has an edge in its flexibility and extensive configuration options.</p><p>Both servers use a reverse proxy to forward incoming requests to the Angular application.</p><p>While IIS is primarily designed for Windows, Nginx can run on multiple platforms, including Linux, macOS, and Windows. This cross-platform compatibility gives Nginx broader adoption and flexibility in deployment scenarios.</p><p>Ultimately, the choice depends on many factors, such as platform preference, the team’s skillset, and performance requirements.</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;A-Practical-Hands-on-Guide&quot;&gt;&lt;a href=&quot;#A-Practical-Hands-on-Guide&quot; class=&quot;headerlink&quot; title=&quot;A Practical Hands-on Guide&quot;&gt;&lt;/a&gt;A Practi</summary>
+      
+    
+    
+    
+    <category term="Web Development" scheme="http://blog.ourcrmonline.com/categories/Web-Development/"/>
+    
+    <category term="Programming" scheme="http://blog.ourcrmonline.com/categories/Web-Development/Programming/"/>
+    
+    
+    <category term="Angular" scheme="http://blog.ourcrmonline.com/tags/Angular/"/>
+    
+    <category term="IIS" scheme="http://blog.ourcrmonline.com/tags/IIS/"/>
+    
+    <category term="Nginx" scheme="http://blog.ourcrmonline.com/tags/Nginx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Postman Flow - The Good Parts and Bad Parts</title>
+    <link href="http://blog.ourcrmonline.com/2023/06/27/postman/"/>
+    <id>http://blog.ourcrmonline.com/2023/06/27/postman/</id>
+    <published>2023-06-26T14:00:00.000Z</published>
+    <updated>2024-07-05T08:47:05.568Z</updated>
+    
+    <content type="html"><![CDATA[<p>Postman is the most popular API testing tool. I often use it to do random API tests in the development process.</p><p>Recently, I‘ve come across a new feature called “flow” in Postman. It was released to the general public in March 2023.</p><p>I was truly excited about Postman Flow because it looked perfect for the task I was working on. However, I realised it wasn’t perfect after a few days working with it. As with any new features or tools, Postman flow comes with its pros and cons.</p><p>In this post, I will share my experiences with Postman flow. Please note this post is not a tutorial on how to use Postman flow. It is an overview of what it can and can’t do.</p><h2 id="What-is-Postman-Flow"><a href="#What-is-Postman-Flow" class="headerlink" title="What is Postman Flow"></a>What is Postman Flow</h2><p>Postman’s official site gives a good definition.</p><blockquote><p>Postman Flows is a visual tool for building API-driven applications for the  <a class="link"   href="https://www.postman.com/api-first/" >API-First <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  world. You can use flows to chain requests, handle data, and create real-world workflows in your Postman workspace.</p></blockquote><p>When we create a new flow, a blank canvas is shown with a start button. We can right-click to add an element from many “Blocks.”</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://miro.medium.com/v2/resize:fit:1120/0*bHzDZgOahkLAbd0y.gif"                                     ></p><p>Source:  <a class="link"   href="https://learning.postman.com/docs/postman-flows/tutorials/building-your-first-flow/" >https://learning.postman.com/docs/postman-flows/tutorials/building-your-first-flow/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p><p>The blocks are divided into a few categories:  <strong>action</strong> (i.e., Send request),  <strong>decision&#x2F;logic</strong> (i.e., If, Evaluate), and i<strong>nformation</strong> (i.e., text, output).</p><p>The decision&#x2F;logic blocks allow the flow control, such as  <code>if</code> condition or looping. A Flows Query Language(<strong>FQL</strong>) is provided to parse and transform the data. FQL supports some basic functions like  <code>$count</code> or  <code>$each</code>. They can be used with the  <a class="link"   href="https://learning.postman.com/docs/postman-flows/reference/blocks-list/#evaluate" >Evaluate block <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  to manipulate the JSON data.</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://miro.medium.com/v2/resize:fit:1120/0*xJ12NCCFIGo1vu_3.gif"                                     ></p><p>Source:  <a class="link"   href="https://learning.postman.com/docs/postman-flows/tutorials/building-your-first-flow/" >https://learning.postman.com/docs/postman-flows/tutorials/building-your-first-flow/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p><p>Like other entities in Postman, the flow resides within the Postman workspace. You can share or fork the flow within the team workspace or move it to another one.</p><p>Overall, it is a powerful and good-looking tool.</p><p>Let’s dive into the good parts first.</p><h2 id="Good-Parts"><a href="#Good-Parts" class="headerlink" title="Good Parts"></a>Good Parts</h2><h3 id="Visualization"><a href="#Visualization" class="headerlink" title="Visualization"></a>Visualization</h3><p>It is a nice looking visual tool, and the running animation looks great. The animation enhances the running experience, and it makes the flow easier to understand.</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://miro.medium.com/v2/resize:fit:1120/1*vOowZFMzbhAgDXN1rE523A.png"                                     ></p><p>Source:  <a class="link"   href="https://learning.postman.com/docs/postman-flows/gs/flows-overview/" >https://learning.postman.com/docs/postman-flows/gs/flows-overview/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p><p>If you turn on the dark theme, it looks even better.</p><h2 id="Low-code-x2F-No-code"><a href="#Low-code-x2F-No-code" class="headerlink" title="Low-code &#x2F;No-code"></a><strong>Low-code &#x2F;No-code</strong></h2><p>Prior to Postman Flow, we would need to use the collection runner to chain a few requests. The collection runner would execute the requests by order of requests in the collection or write a script with  <code>setNextRequest</code>  method to create a manual workflow.</p><p>With Postman flow, we only need to drag-and-drop, no code necessary. This is great for non-technical users.</p><h2 id="Select-from-the-sample-response-data"><a href="#Select-from-the-sample-response-data" class="headerlink" title="Select from the sample response data."></a>Select from the sample response data.</h2><p>The Select block is used to select a value from the output of the upstream block (i.e., the response body of the previous request).</p><p>It works well with JSON response data, as well as HTML(although it isn’t documented). After you run the flow once, the response data will be saved as an example, and you can choose from a drop-down with the example data.</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://miro.medium.com/v2/resize:fit:389/1*IpR6Fy5LFFUXjun6pK5Iww.png"                                     ></p><p>Source:  <a class="link"   href="https://learning.postman.com/docs/postman-flows/tutorials/using-response-data-in-a-request/" >https://learning.postman.com/docs/postman-flows/tutorials/using-response-data-in-a-request/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p><h2 id="Re-use-Existing-Requests"><a href="#Re-use-Existing-Requests" class="headerlink" title="Re-use Existing Requests"></a>Re-use Existing Requests</h2><p>If you already have existing Postman collections&#x2F;requests, they can be easily dropped into the flow canvas and chained into a workflow. This is a huge advantage for my project because we have accumulated many Postman requests over the years, most of which are standalone.</p><p>Using the Postman Flow, we can connect them with minor modifications. It provides more test coverage and increases the visibility for business users.</p><p>Compared with the old collection approach, flow can share the existing request in the collection. In other words, you don’t need to duplicate requests to get them into the flow. That makes the flow building much cleaner and more re-usable.</p><h1 id="Bad-Parts"><a href="#Bad-Parts" class="headerlink" title="Bad Parts"></a>Bad Parts</h1><p>Postman offers a free plan which allows you to run basic API tests and other features, including flow. But keep in mind that Postman isn’t an open-source tool. The free features may be changed or limited at any time. Recently, a new limitation was added to restrict the number of runs for free and “professional” paid account usage,  <a class="link"   href="https://community.postman.com/t/250-collection-runs-per-month-on-professional/43946/89" >which many developers felt unjustifiable <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. So, it is something to consider when investing effort into building API tests with Postman flow.</p><h2 id="Lack-of-Export-and-limits-on-the-free-plan"><a href="#Lack-of-Export-and-limits-on-the-free-plan" class="headerlink" title="Lack of Export and limits on the free plan"></a>Lack of Export and limits on the free plan</h2><p>Postman allows you to export requests, collections, and environments to JSON files. These exported files are very handy, as they can be shared between the team and&#x2F;or stored in the version controller system.</p><p>However, the flow cannot be exported. This feature isn’t being provided, though many developers have asked for it in the Postman forum. Instead, the capability to share the flow with Postman team workspace is provided. This means only team members can access or fork a flow.</p><p>Lacking the export feature also means the flow can only be stored in Postman’s workspace.</p><p>To make things worse, the free plan has a limit of 3 members in a team workspace. Although the flow feature is available to a free plan, those limitations make it almost non-usable in a team.</p><p>From a business perspective, it is understandable that the free plan is limited. However, I found it hard to justify that the export feature doesn’t exist for even paid account users.</p><h2 id="Environment-Variables"><a href="#Environment-Variables" class="headerlink" title="Environment Variables"></a>Environment Variables</h2><p>Although we can re-use the existing requests in a flow, there is a hidden limitation: you can’t modify an environment variable or collection variable inside the flow.</p><p>It is very common to have these scripts embedded in a Postman request:</p><p>pm.environment.set(“variable_key”, “variable_value”);<br>pm.collectionVariables.set(“variable_key”, “variable_value”);</p><p>But if you use one of these requests to build your flow, the script above will throw an error. It is  <a class="link"   href="https://github.com/postmanlabs/postman-flows/discussions/142" >a design decision <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  from the Postman team.</p><p>Below are some extracts from the Postman team’s response.</p><p>“_Environment works in a read-only mode, updates to the environment from scripts are not respected._”</p><p>“_We encourage using the connection to pipe data from one block to another, rather than using Globals&#x2F;Environments, etc._”</p><p>I am disappointed with this decision. It breaks many of my existing request scripts. Many developers are in the same situation.</p><h2 id="If-block"><a href="#If-block" class="headerlink" title="If block"></a>If block</h2><p>There is an important logic block in flow:  <code>if</code>. It is a logical gate that allows you to decide the flow path based on the input.</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://miro.medium.com/v2/resize:fit:1120/1*xVhZ0XcHm5zuIpDzxy2cLw.png"                                     ></p><p>Source:  <a class="link"   href="https://www.postman.com/postman/workspace/flows-snippets/flow/63bcba94f3155f2e86b54eb0" >https://www.postman.com/postman/workspace/flows-snippets/flow/63bcba94f3155f2e86b54eb0 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p><p>As in any programming language,  <code>if</code> is the most essential building block. The issue of  <code>if</code>  block in Post flow is that it only supports  <strong>one</strong>  condition.</p><p>When we have more than one condition, the workaround is to chain multiple  <code>if</code>  blocks together. In a real-world project, multiple conditions are extremely common. Chaining multiple  <em>if</em> blocks for one line of code is so cumbersome!</p><p>These are the main issues I encountered in my few days experience with Postman flow.</p><h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Postman flow has the potential to be a game changer in simplifying API testing. With sleek design and user friendly drag and drop UI, it offers an intuitive experience.</p><p>However, I am disappointed as both the absence of the export feature and single-condition if block are deal-breakers for my use cases.Moreover, I have reservations about Postman’s product philosophy, particularly concerning to the way of  <a class="link"   href="https://community.postman.com/t/250-collection-runs-per-month-on-professional/43946/89" >pressuring users to a paid account <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>, rather than providing value added services that naturally encourage users to upgrade..</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Postman is the most popular API testing tool. I often use it to do random API tests in the development process.&lt;/p&gt;
+&lt;p&gt;Recently, I‘ve com</summary>
+      
+    
+    
+    
+    <category term="Web Development" scheme="http://blog.ourcrmonline.com/categories/Web-Development/"/>
+    
+    
+    <category term="API" scheme="http://blog.ourcrmonline.com/tags/API/"/>
+    
+    <category term="tools" scheme="http://blog.ourcrmonline.com/tags/tools/"/>
     
   </entry>
   
   <entry>
     <title>Types vs. interfaces in TypeScript</title>
-    <link href="http://sunnyy02.github.io/2023/04/06/type-interface-ts/"/>
-    <id>http://sunnyy02.github.io/2023/04/06/type-interface-ts/</id>
+    <link href="http://blog.ourcrmonline.com/2023/04/06/type-interface-ts/"/>
+    <id>http://blog.ourcrmonline.com/2023/04/06/type-interface-ts/</id>
     <published>2023-04-05T14:00:00.000Z</published>
     <updated>2024-06-29T04:22:31.708Z</updated>
     
@@ -148,17 +257,17 @@
     
     
     
-    <category term="Programming" scheme="http://sunnyy02.github.io/categories/Programming/"/>
+    <category term="Programming" scheme="http://blog.ourcrmonline.com/categories/Programming/"/>
     
     
-    <category term="TypeScript" scheme="http://sunnyy02.github.io/tags/TypeScript/"/>
+    <category term="TypeScript" scheme="http://blog.ourcrmonline.com/tags/TypeScript/"/>
     
   </entry>
   
   <entry>
     <title>All You Need to Know About Angular Proxy Configuration</title>
-    <link href="http://sunnyy02.github.io/2023/03/05/all-you-need-to-know-about-angular-proxy-configuration/"/>
-    <id>http://sunnyy02.github.io/2023/03/05/all-you-need-to-know-about-angular-proxy-configuration/</id>
+    <link href="http://blog.ourcrmonline.com/2023/03/05/all-you-need-to-know-about-angular-proxy-configuration/"/>
+    <id>http://blog.ourcrmonline.com/2023/03/05/all-you-need-to-know-about-angular-proxy-configuration/</id>
     <published>2023-03-05T01:14:56.000Z</published>
     <updated>2024-06-29T04:12:33.045Z</updated>
     
@@ -175,21 +284,21 @@ A complete guide on setting up a proxy in Angular for API calls behind a corpora
     
     
     
-    <category term="Web Development" scheme="http://sunnyy02.github.io/categories/Web-Development/"/>
+    <category term="Web Development" scheme="http://blog.ourcrmonline.com/categories/Web-Development/"/>
     
     
-    <category term="TypeScript" scheme="http://sunnyy02.github.io/tags/TypeScript/"/>
+    <category term="TypeScript" scheme="http://blog.ourcrmonline.com/tags/TypeScript/"/>
     
-    <category term="Angular" scheme="http://sunnyy02.github.io/tags/Angular/"/>
+    <category term="Angular" scheme="http://blog.ourcrmonline.com/tags/Angular/"/>
     
-    <category term="Proxy" scheme="http://sunnyy02.github.io/tags/Proxy/"/>
+    <category term="Proxy" scheme="http://blog.ourcrmonline.com/tags/Proxy/"/>
     
   </entry>
   
   <entry>
     <title>Install and ConfigureYour Own MySQL Server On Oracle Always Free Ubuntu VM</title>
-    <link href="http://sunnyy02.github.io/2023/02/05/install-config-your-own-mysql-on-oracle-free-vm/"/>
-    <id>http://sunnyy02.github.io/2023/02/05/install-config-your-own-mysql-on-oracle-free-vm/</id>
+    <link href="http://blog.ourcrmonline.com/2023/02/05/install-config-your-own-mysql-on-oracle-free-vm/"/>
+    <id>http://blog.ourcrmonline.com/2023/02/05/install-config-your-own-mysql-on-oracle-free-vm/</id>
     <published>2023-02-04T14:00:00.000Z</published>
     <updated>2024-06-29T04:20:39.368Z</updated>
     
@@ -203,17 +312,17 @@ A complete guide on setting up a proxy in Angular for API calls behind a corpora
     
     
     
-    <category term="Database" scheme="http://sunnyy02.github.io/categories/Database/"/>
+    <category term="Database" scheme="http://blog.ourcrmonline.com/categories/Database/"/>
     
     
-    <category term="MySQL" scheme="http://sunnyy02.github.io/tags/MySQL/"/>
+    <category term="MySQL" scheme="http://blog.ourcrmonline.com/tags/MySQL/"/>
     
   </entry>
   
   <entry>
     <title>Don&#39;t Leave Your NestJS API Exposed</title>
-    <link href="http://sunnyy02.github.io/2023/01/05/donnot-export-your-nestjs-endpoint/"/>
-    <id>http://sunnyy02.github.io/2023/01/05/donnot-export-your-nestjs-endpoint/</id>
+    <link href="http://blog.ourcrmonline.com/2023/01/05/donnot-export-your-nestjs-endpoint/"/>
+    <id>http://blog.ourcrmonline.com/2023/01/05/donnot-export-your-nestjs-endpoint/</id>
     <published>2023-01-04T14:00:00.000Z</published>
     <updated>2024-06-29T04:14:35.165Z</updated>
     
@@ -227,21 +336,21 @@ A complete guide on setting up a proxy in Angular for API calls behind a corpora
     
     
     
-    <category term="Web Development" scheme="http://sunnyy02.github.io/categories/Web-Development/"/>
+    <category term="Web Development" scheme="http://blog.ourcrmonline.com/categories/Web-Development/"/>
     
-    <category term="Security" scheme="http://sunnyy02.github.io/categories/Web-Development/Security/"/>
+    <category term="Security" scheme="http://blog.ourcrmonline.com/categories/Web-Development/Security/"/>
     
     
-    <category term="NestJS" scheme="http://sunnyy02.github.io/tags/NestJS/"/>
+    <category term="NestJS" scheme="http://blog.ourcrmonline.com/tags/NestJS/"/>
     
-    <category term="Security" scheme="http://sunnyy02.github.io/tags/Security/"/>
+    <category term="Security" scheme="http://blog.ourcrmonline.com/tags/Security/"/>
     
   </entry>
   
   <entry>
     <title>Maximize Code Security in Your NestJS Applications (Part 1)</title>
-    <link href="http://sunnyy02.github.io/2022/12/21/maximize-code-security-in-your-nestjs-applications-part-1/"/>
-    <id>http://sunnyy02.github.io/2022/12/21/maximize-code-security-in-your-nestjs-applications-part-1/</id>
+    <link href="http://blog.ourcrmonline.com/2022/12/21/maximize-code-security-in-your-nestjs-applications-part-1/"/>
+    <id>http://blog.ourcrmonline.com/2022/12/21/maximize-code-security-in-your-nestjs-applications-part-1/</id>
     <published>2022-12-20T14:00:00.000Z</published>
     <updated>2024-06-29T04:21:17.426Z</updated>
     
@@ -255,21 +364,21 @@ A complete guide on setting up a proxy in Angular for API calls behind a corpora
     
     
     
-    <category term="Security" scheme="http://sunnyy02.github.io/categories/Security/"/>
+    <category term="Security" scheme="http://blog.ourcrmonline.com/categories/Security/"/>
     
     
-    <category term="TypeScript" scheme="http://sunnyy02.github.io/tags/TypeScript/"/>
+    <category term="TypeScript" scheme="http://blog.ourcrmonline.com/tags/TypeScript/"/>
     
-    <category term="NestJS" scheme="http://sunnyy02.github.io/tags/NestJS/"/>
+    <category term="NestJS" scheme="http://blog.ourcrmonline.com/tags/NestJS/"/>
     
-    <category term="Security" scheme="http://sunnyy02.github.io/tags/Security/"/>
+    <category term="Security" scheme="http://blog.ourcrmonline.com/tags/Security/"/>
     
   </entry>
   
   <entry>
     <title>Turbocharge Your App with NestJS - Tips and Tricks</title>
-    <link href="http://sunnyy02.github.io/2022/09/21/build-a-high-performance-nestjs-app/"/>
-    <id>http://sunnyy02.github.io/2022/09/21/build-a-high-performance-nestjs-app/</id>
+    <link href="http://blog.ourcrmonline.com/2022/09/21/build-a-high-performance-nestjs-app/"/>
+    <id>http://blog.ourcrmonline.com/2022/09/21/build-a-high-performance-nestjs-app/</id>
     <published>2022-09-20T14:00:00.000Z</published>
     <updated>2024-06-29T04:12:44.677Z</updated>
     
@@ -283,21 +392,21 @@ A complete guide on setting up a proxy in Angular for API calls behind a corpora
     
     
     
-    <category term="Web Development" scheme="http://sunnyy02.github.io/categories/Web-Development/"/>
+    <category term="Web Development" scheme="http://blog.ourcrmonline.com/categories/Web-Development/"/>
     
     
-    <category term="TypeScript" scheme="http://sunnyy02.github.io/tags/TypeScript/"/>
+    <category term="TypeScript" scheme="http://blog.ourcrmonline.com/tags/TypeScript/"/>
     
-    <category term="NestJS" scheme="http://sunnyy02.github.io/tags/NestJS/"/>
+    <category term="NestJS" scheme="http://blog.ourcrmonline.com/tags/NestJS/"/>
     
-    <category term="Performance" scheme="http://sunnyy02.github.io/tags/Performance/"/>
+    <category term="Performance" scheme="http://blog.ourcrmonline.com/tags/Performance/"/>
     
   </entry>
   
   <entry>
     <title>Upload Files to S3 Using Angular and NestJS</title>
-    <link href="http://sunnyy02.github.io/2022/09/12/upload-files-to-s3-using-angular-and-nestjs/"/>
-    <id>http://sunnyy02.github.io/2022/09/12/upload-files-to-s3-using-angular-and-nestjs/</id>
+    <link href="http://blog.ourcrmonline.com/2022/09/12/upload-files-to-s3-using-angular-and-nestjs/"/>
+    <id>http://blog.ourcrmonline.com/2022/09/12/upload-files-to-s3-using-angular-and-nestjs/</id>
     <published>2022-09-11T14:00:00.000Z</published>
     <updated>2024-06-29T04:22:57.653Z</updated>
     
@@ -311,21 +420,21 @@ A complete guide on setting up a proxy in Angular for API calls behind a corpora
     
     
     
-    <category term="Web Development" scheme="http://sunnyy02.github.io/categories/Web-Development/"/>
+    <category term="Web Development" scheme="http://blog.ourcrmonline.com/categories/Web-Development/"/>
     
     
-    <category term="TypeScript" scheme="http://sunnyy02.github.io/tags/TypeScript/"/>
+    <category term="TypeScript" scheme="http://blog.ourcrmonline.com/tags/TypeScript/"/>
     
-    <category term="Angular" scheme="http://sunnyy02.github.io/tags/Angular/"/>
+    <category term="Angular" scheme="http://blog.ourcrmonline.com/tags/Angular/"/>
     
-    <category term="NestJS" scheme="http://sunnyy02.github.io/tags/NestJS/"/>
+    <category term="NestJS" scheme="http://blog.ourcrmonline.com/tags/NestJS/"/>
     
   </entry>
   
   <entry>
     <title>My Journey to Becoming a Certified Kubernetes Application Developer</title>
-    <link href="http://sunnyy02.github.io/2022/07/11/how-i-passed-the-ckad-exam-certified-kubernetes-application-developer/"/>
-    <id>http://sunnyy02.github.io/2022/07/11/how-i-passed-the-ckad-exam-certified-kubernetes-application-developer/</id>
+    <link href="http://blog.ourcrmonline.com/2022/07/11/how-i-passed-the-ckad-exam-certified-kubernetes-application-developer/"/>
+    <id>http://blog.ourcrmonline.com/2022/07/11/how-i-passed-the-ckad-exam-certified-kubernetes-application-developer/</id>
     <published>2022-07-10T14:00:00.000Z</published>
     <updated>2024-06-29T04:16:01.424Z</updated>
     
@@ -339,21 +448,21 @@ A complete guide on setting up a proxy in Angular for API calls behind a corpora
     
     
     
-    <category term="Software Development" scheme="http://sunnyy02.github.io/categories/Software-Development/"/>
+    <category term="Software Development" scheme="http://blog.ourcrmonline.com/categories/Software-Development/"/>
     
-    <category term="Certification" scheme="http://sunnyy02.github.io/categories/Software-Development/Certification/"/>
+    <category term="Certification" scheme="http://blog.ourcrmonline.com/categories/Software-Development/Certification/"/>
     
     
-    <category term="Kubernetes" scheme="http://sunnyy02.github.io/tags/Kubernetes/"/>
+    <category term="Kubernetes" scheme="http://blog.ourcrmonline.com/tags/Kubernetes/"/>
     
-    <category term="CKAD" scheme="http://sunnyy02.github.io/tags/CKAD/"/>
+    <category term="CKAD" scheme="http://blog.ourcrmonline.com/tags/CKAD/"/>
     
   </entry>
   
   <entry>
     <title>Comparing four popular NestJS ORMs</title>
-    <link href="http://sunnyy02.github.io/2022/07/01/comparing-four-popular-nestjs-ORM/"/>
-    <id>http://sunnyy02.github.io/2022/07/01/comparing-four-popular-nestjs-ORM/</id>
+    <link href="http://blog.ourcrmonline.com/2022/07/01/comparing-four-popular-nestjs-ORM/"/>
+    <id>http://blog.ourcrmonline.com/2022/07/01/comparing-four-popular-nestjs-ORM/</id>
     <published>2022-06-30T14:00:00.000Z</published>
     <updated>2024-06-29T04:13:22.715Z</updated>
     
@@ -367,23 +476,23 @@ A complete guide on setting up a proxy in Angular for API calls behind a corpora
     
     
     
-    <category term="Web Development" scheme="http://sunnyy02.github.io/categories/Web-Development/"/>
+    <category term="Web Development" scheme="http://blog.ourcrmonline.com/categories/Web-Development/"/>
     
-    <category term="Frameworks" scheme="http://sunnyy02.github.io/categories/Web-Development/Frameworks/"/>
+    <category term="Frameworks" scheme="http://blog.ourcrmonline.com/categories/Web-Development/Frameworks/"/>
     
     
-    <category term="TypeScript" scheme="http://sunnyy02.github.io/tags/TypeScript/"/>
+    <category term="TypeScript" scheme="http://blog.ourcrmonline.com/tags/TypeScript/"/>
     
-    <category term="NestJS" scheme="http://sunnyy02.github.io/tags/NestJS/"/>
+    <category term="NestJS" scheme="http://blog.ourcrmonline.com/tags/NestJS/"/>
     
-    <category term="ORM" scheme="http://sunnyy02.github.io/tags/ORM/"/>
+    <category term="ORM" scheme="http://blog.ourcrmonline.com/tags/ORM/"/>
     
   </entry>
   
   <entry>
     <title>6 TypeScript Code Patterns To Make Your Code More Robust</title>
-    <link href="http://sunnyy02.github.io/2021/11/06/6-typescript-code-patterns-to-make-your-code-more-robust/"/>
-    <id>http://sunnyy02.github.io/2021/11/06/6-typescript-code-patterns-to-make-your-code-more-robust/</id>
+    <link href="http://blog.ourcrmonline.com/2021/11/06/6-typescript-code-patterns-to-make-your-code-more-robust/"/>
+    <id>http://blog.ourcrmonline.com/2021/11/06/6-typescript-code-patterns-to-make-your-code-more-robust/</id>
     <published>2021-11-05T14:00:00.000Z</published>
     <updated>2024-06-29T04:12:08.999Z</updated>
     
@@ -397,19 +506,19 @@ A complete guide on setting up a proxy in Angular for API calls behind a corpora
     
     
     
-    <category term="Design Patterns" scheme="http://sunnyy02.github.io/categories/Design-Patterns/"/>
+    <category term="Design Patterns" scheme="http://blog.ourcrmonline.com/categories/Design-Patterns/"/>
     
     
-    <category term="TypeScript" scheme="http://sunnyy02.github.io/tags/TypeScript/"/>
+    <category term="TypeScript" scheme="http://blog.ourcrmonline.com/tags/TypeScript/"/>
     
-    <category term="Design Pattern" scheme="http://sunnyy02.github.io/tags/Design-Pattern/"/>
+    <category term="Design Pattern" scheme="http://blog.ourcrmonline.com/tags/Design-Pattern/"/>
     
   </entry>
   
   <entry>
     <title>Inject dynamic content in Angular components with portals</title>
-    <link href="http://sunnyy02.github.io/2021/09/23/inject-dynamic-content-angular-components-with-portals/"/>
-    <id>http://sunnyy02.github.io/2021/09/23/inject-dynamic-content-angular-components-with-portals/</id>
+    <link href="http://blog.ourcrmonline.com/2021/09/23/inject-dynamic-content-angular-components-with-portals/"/>
+    <id>http://blog.ourcrmonline.com/2021/09/23/inject-dynamic-content-angular-components-with-portals/</id>
     <published>2021-09-22T14:00:00.000Z</published>
     <updated>2024-06-29T04:20:08.679Z</updated>
     
@@ -423,19 +532,19 @@ A complete guide on setting up a proxy in Angular for API calls behind a corpora
     
     
     
-    <category term="Web Development" scheme="http://sunnyy02.github.io/categories/Web-Development/"/>
+    <category term="Web Development" scheme="http://blog.ourcrmonline.com/categories/Web-Development/"/>
     
     
-    <category term="TypeScript" scheme="http://sunnyy02.github.io/tags/TypeScript/"/>
+    <category term="TypeScript" scheme="http://blog.ourcrmonline.com/tags/TypeScript/"/>
     
-    <category term="Angular" scheme="http://sunnyy02.github.io/tags/Angular/"/>
+    <category term="Angular" scheme="http://blog.ourcrmonline.com/tags/Angular/"/>
     
   </entry>
   
   <entry>
     <title>4 Simple and Effective Ways To Avoid Too Many Ifs With TypeScript</title>
-    <link href="http://sunnyy02.github.io/2021/09/21/4-simple-and-effective-ways-to-avoid-too-many-ifs-with-typescript/"/>
-    <id>http://sunnyy02.github.io/2021/09/21/4-simple-and-effective-ways-to-avoid-too-many-ifs-with-typescript/</id>
+    <link href="http://blog.ourcrmonline.com/2021/09/21/4-simple-and-effective-ways-to-avoid-too-many-ifs-with-typescript/"/>
+    <id>http://blog.ourcrmonline.com/2021/09/21/4-simple-and-effective-ways-to-avoid-too-many-ifs-with-typescript/</id>
     <published>2021-09-20T14:00:00.000Z</published>
     <updated>2024-06-29T04:17:41.528Z</updated>
     
@@ -452,110 +561,14 @@ A complete guide on setting up a proxy in Angular for API calls behind a corpora
     
     
     
-    <category term="Web Development" scheme="http://sunnyy02.github.io/categories/Web-Development/"/>
+    <category term="Web Development" scheme="http://blog.ourcrmonline.com/categories/Web-Development/"/>
     
     
-    <category term="TypeScript" scheme="http://sunnyy02.github.io/tags/TypeScript/"/>
+    <category term="TypeScript" scheme="http://blog.ourcrmonline.com/tags/TypeScript/"/>
     
-    <category term="Best Practice" scheme="http://sunnyy02.github.io/tags/Best-Practice/"/>
+    <category term="Best Practice" scheme="http://blog.ourcrmonline.com/tags/Best-Practice/"/>
     
-    <category term="Refactoring" scheme="http://sunnyy02.github.io/tags/Refactoring/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Type flowing - a new perspective on the TypeScript typing system</title>
-    <link href="http://sunnyy02.github.io/2021/08/19/type-flowing-rethinking-typescript-typing-system/"/>
-    <id>http://sunnyy02.github.io/2021/08/19/type-flowing-rethinking-typescript-typing-system/</id>
-    <published>2021-08-18T14:00:00.000Z</published>
-    <updated>2024-06-29T04:22:06.525Z</updated>
-    
-    <content type="html"><![CDATA[<p>TypeScript provides a very rich toolbox. It includes mapped types, conditional types with control flow-based analysis, type inference, and many more.</p><p>It’s not an easy task for many JavaScript developers who are new to TypeScript to switch from loose typing to static typing.  Even for developers who have been working in TypeScript for years, it can be confusing as the typing system continuously evolves. </p><p>A common myth about advanced types is that it should mainly be used for building type libraries and is not required for day-to-day TypeScript work.</p><p>The truth is that TypeScript advanced types are very useful for daily TypeScript work. They’re a great tool for building a strongly typed system into your code, expressing your intentions clearly, and making your code safer.</p><p>The purpose of introducing the type flowing concept is to think about the typing system in a way that’s similar to how we think about reactive programming data flow. </p><p>By looking at the typing system from a new perspective, it will help us to “think in types” and utilize the more advanced tools in the TypeScript toolbox in a systematic way.</p><h2 id="Types-can-flow"><a href="#Types-can-flow" class="headerlink" title="Types can flow"></a>Types can flow</h2><p>In reactive programming, data flows between reactive components. In the TypeScript typing system, types can flow as well.</p><p>The first time I encountered the concept of “Type flowing” was in <a class="link"   href="https://github.com/basarat/typescript-book/blob/master/docs/types/type-inference.md" >PranshuKhandal’s TypeScript book <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. He explains this idea in the following way: </p><p><em>The types flowing is just how I imagine in my brain the flow of type information.</em></p><p>Inspired by this, I wanted to expand the type flowing concept to the typing system level. My definition of type flowing is:</p><pre><code>_Type flowing is when one or more subtypes are mapped and transformed from a source type. These types form a strongly constrained typing system through type operations._</code></pre><p>The basic form of type flowing can be done via type aliases. </p><p>Type aliases allow you to create a new type name for an existing type. In the example below, the type alias <code>TargetType</code> is assigned as a reference to the <code>SourceType</code>, so the type is transferred.</p><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type SourceType = &#123; id: string, quantity: number &#125;;</span><br><span class="line">type TargetType= SourceType; // &#123; id: string, quantity: number &#125;;</span><br></pre></td></tr></table></figure></div><p>Thanks to the power of type inferences, types can flow in a few different ways. These include:</p><ul><li>Through data assignment </li><li>With the <code>return type</code> function, which is inferred by the <code>return</code> statements; e.g., the following function is inferred to return a <code>number</code> type</li><li>Pattern matching with function parameters: as illustrated in the below example, annotating the <code>decrease</code> function with “<code>DecreaseType</code>” type converts the <code>a,b</code> value to a <code>number</code> type</li></ul><p>The following code snippets illustrate the above cases.</p><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">const quantity: number = 4;</span><br><span class="line">const stockQuantity = quantity;</span><br><span class="line">type StockType= typeof stockQuantity; // number</span><br><span class="line"></span><br><span class="line">// function return type</span><br><span class="line">function increase(a: number) &#123;</span><br><span class="line">    return a + 1;</span><br><span class="line">&#125;</span><br><span class="line">const result = increase(2); // number</span><br><span class="line"></span><br><span class="line">// function parameters matching</span><br><span class="line">type DecreaseType = (start: number, offset: number) =&gt; number;</span><br><span class="line">const decrease: DecreaseType = (a,b) =&gt; &#123; // a: number, b: number</span><br><span class="line">    return a- b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><h2 id="Reactive-programming-data-flow-vs-type-flowing"><a href="#Reactive-programming-data-flow-vs-type-flowing" class="headerlink" title="Reactive programming data flow vs. type flowing"></a>Reactive programming data flow vs. type flowing</h2><p>The core of reactive programming is the flowing of data between the source and the reactive components. Some of its concepts are very similar to the TypeScript typing system, as you can see in the chart below. </p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://blog.logrocket.com/wp-content/uploads/2021/08/rxjs-operator-vs-typescript-type-1.png"                      alt="alt_text" title="image_tooltip"                ></p><p>You can see a comparison between the RxJS operator concepts and TypeScript typing. In the typing system, the type can be transformed, filtered, and mapped to one or more subtypes. </p><p>These subtypes are “reactive” as well. When the source type changes, the subtypes will be updated automatically. </p><p>A well-designed type system will add strongly typed constraints to the data and functions in the app, so any breaking changes made to the source type definition will show an immediate compile time error.</p><p>While there are some similarities between RxJS and TypeScript typing, there are still a lot of differences between the two. For example, the data flow in RxJS occurs at runtime, while type flowing in TypeScript occurs at compile time. </p><p>The purpose of referencing RxJS here is to illustrate the flow concept in RxJS, which will hopefully help us build a shared understanding of “thinking with types.”</p><h2 id="Type-operations-in-type-flowing"><a href="#Type-operations-in-type-flowing" class="headerlink" title="Type operations in type flowing"></a>Type operations in type flowing</h2><h3 id="Map-and-filter"><a href="#Map-and-filter" class="headerlink" title="Map and filter"></a>Map and filter</h3><p>The two most frequently used operators in reactive programming are <code>map</code> and <code>filter</code>. How should we perform these two operations for types in TypeScript?</p><p>The <a class="link"   href="https://www.typescriptlang.org/docs/handbook/2/mapped-types.html" >mapped type <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> is the equivalent of the <a class="link"   href="https://rxjs.dev/api/operators/map" >map operator in RxJS <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. It allows us to create a type that is based on another type using the first one’s index signature and generic types. </p><p>When you combine conditional types with type inference, the type transformations you can achieve with mapped types are beyond imagination. We’ll discuss how to use mapped types later in the article.</p><p>The equivalent of arrays in type flowing is the union type. To apply filters on union types, we need to use conditional types and the <code>never</code> type. As <code>filter</code> is such a common need, TypeScript provides the <code>exclude</code> and <code>extract</code> utility types right out of the box. </p><p>The below code uses conditional types to remove types from <code>T</code> that are not assignable to <code>U</code>. The <code>never<em> </em></code>type is used here for type narrowing, or filtering out the options of a union type.</p><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type Exclude&lt;T, U&gt; = T extends U ? never : T;</span><br><span class="line">type T1 = Exclude&lt;&quot;a&quot; | &quot;b&quot; | &quot;c&quot; , &quot;a&quot; &gt;; // &quot;b&quot; | &quot;c&quot;</span><br><span class="line">type Extract&lt;T, U&gt; = T extends U ? T: never;</span><br><span class="line">type T2 = Extract&lt;&quot;a&quot; | &quot;b&quot; | &quot;c&quot; , &quot;a&quot; &gt;; // &quot;a&quot;</span><br></pre></td></tr></table></figure></div><p>We can also filter the type properties using the out-of-the-box TypeScript utility types.</p><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type Omit&lt;T, K extends string | number | symbol&gt; = &#123;[P in Exclude&lt;keyof T, K&gt;]: T[P]; &#125;</span><br><span class="line">type T1 = Omit&lt;&#123; a: string, b: string &#125;, &quot;a&quot;&gt; //  &#123; b: string; &#125;</span><br></pre></td></tr></table></figure></div><h3 id="Pipe-the-flow-with-control-flow-analysis"><a href="#Pipe-the-flow-with-control-flow-analysis" class="headerlink" title="Pipe the flow with control flow analysis"></a>Pipe the flow with control flow analysis</h3><p>Using <a class="link"   href="https://www.typescriptlang.org/docs/handbook/2/narrowing.html#control-flow-analysis" >control flow analysis with type guard <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>, we can pipe the flow the way the pipe operator does in RxJS.</p><p>Below is an example using type guard to perform type checks, which narrow the type to a more specific one and control the logic flow.</p><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">function doSomething(x: A | B) &#123;</span><br><span class="line"> if (x instanceof A) &#123;</span><br><span class="line">   // x is A</span><br><span class="line"> &#125; else &#123;</span><br><span class="line">   // x is B</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><p>In the above example, the TypeScript compiler analyzes all possible flows of control for the expression. It looks at the <code>x instance of A</code> to determine the type of <code>x</code> to be <code>A</code> within the <code>if</code> block, and narrows the type to <code>B</code> in the <code>else</code> block. </p><p>If we think of that as the logic branching, it can be used in a connective way, similar to the way water flows through a pipe and can be redirected to a different, connected pipe to reach its destination.</p><h2 id="Building-strong-constraints-using-type-flowing"><a href="#Building-strong-constraints-using-type-flowing" class="headerlink" title="Building strong constraints using type flowing"></a>Building strong constraints using type flowing</h2><p>With the theory out of the way, let’s put this idea into practice. Below, we’ll look at how the type flowing concept can be put into practice by mapping, filtering, and transforming the types to implement a well-constrained typing system. </p><h3 id="Defining-the-mapper-methods"><a href="#Defining-the-mapper-methods" class="headerlink" title="Defining the mapper methods"></a>Defining the mapper methods</h3><p>We are building a Node.js app with the mapper pattern. To implement the pattern, we must first define some mapper methods, which take data entity objects and map them to a data transfer object (DTO). </p><p>On the flip side, there is another set of methods to convert the DTOs to corresponding entity objects.</p><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">export class myMapper &#123;</span><br><span class="line">   toClient(args: ClientEntity) : ClientDto &#123; ...&#125;;</span><br><span class="line">   fromClient(args: ClientDto) : ClientEntity&#123; ...&#125;;</span><br><span class="line">   toOrder(args: OrderEntity) : OrderDto &#123; ...&#125;;</span><br><span class="line">   fromOrder(args: OrderDto) : OrderEntity&#123; ...&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><p>We’ll use a simplified, contrived example to demonstrate the following two goals with our strong typing system:</p><ol><li>Create a type for the mapper with all the methods and interfaces from the data schema</li><li>Create a union type to represent entity names for type safety</li></ol><h3 id="Defining-the-data-entity-and-DTO-types"><a href="#Defining-the-data-entity-and-DTO-types" class="headerlink" title="Defining the data entity and DTO types"></a>Defining the data entity and DTO types</h3><p>First, we need to define the types for the entities and DTOs.</p><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type DataSchema = &#123;</span><br><span class="line">  client: &#123;</span><br><span class="line">      dto:  &#123; id: string, name: string&#125;,</span><br><span class="line">      entity: &#123;clientId: string, clientName: string&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  order:  &#123;</span><br><span class="line">      dto:  &#123; id: string, amount: number&#125;,</span><br><span class="line">      entity: &#123;orderId: string, quantity: number&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><p>Now that we have the raw data types defined, how do we extract each entity and DTO type from them? </p><p>We’ll use conditional types and <code>never<em> </em></code>to filter out the required data type definitions.</p><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type PropertyType&lt;T, Path extends string&gt; = Path extends keyof T ? T[Path] : never;</span><br><span class="line"></span><br><span class="line">type lookup&lt;T, Key extends keyof T, prop extends string&gt; = PropertyType&lt;T[Key], prop&gt;;</span><br></pre></td></tr></table></figure></div><p>We can simplify the above by merging them into a single <code>lookup</code> type. </p><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type lookup&lt;T, Key extends keyof T, prop extends string&gt; = prop</span><br><span class="line">extends keyof T[Key] ? T[Key][prop] : never;</span><br></pre></td></tr></table></figure></div><h3 id="Support-for-nested-properties"><a href="#Support-for-nested-properties" class="headerlink" title="Support for nested properties"></a>Support for nested properties</h3><p>The above <code>lookup</code> type only works for a single-level property. What happens when the source type has more depth? </p><p>To access a property type with more depth, we’ll create a new type with recursive type aliases. </p><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type PropertyType&lt;T, Path extends string&gt; =</span><br><span class="line">    Path extends keyof T ? T[Path] :</span><br><span class="line">        Path extends `$&#123;infer K&#125;.$&#123;infer R&#125;` ? K extends keyof T ? PropertyType&lt;T[K], R&gt; : </span><br><span class="line">        never :</span><br><span class="line">    never;</span><br><span class="line"></span><br><span class="line">type lookup&lt;T, Key, prop extends string&gt; = Key extends keyof T? PropertyType&lt;T[Key], prop&gt;: never;</span><br></pre></td></tr></table></figure></div><p>When <code>Path extends keyof T</code> is truthy, it means the full path is matched. Thus, we return the current property type.</p><p>When  <code>Path extends keyof T</code> is falsy, we use the <code>infer</code> keyword to build a pattern to match the <code>Path</code>. If it matches, we make a recursive call to the next-level property. Otherwise, it will return a <code>never<em> </em></code>and that means the <code>Path</code> does not match with the type</p><p>If it does not match, continue recursively with the current property as the first parameter.</p><h3 id="Defining-the-mapper-type-and-methods"><a href="#Defining-the-mapper-type-and-methods" class="headerlink" title="Defining the mapper type and methods"></a>Defining the mapper type and methods</h3><p>Now, it’s time to create the mapper methods. Here, we use <a class="link"   href="https://www.typescriptlang.org/docs/handbook/literal-types.html" >string literal types <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> to form <code>MapTo</code> and <code>MapFrom</code> with the help of the Capitalize utility type.</p><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">// MapTo and MapFrom</span><br><span class="line">type MapTo&lt;T extends string&gt; = `to$&#123;Capitalize&lt;T&gt;&#125;`;</span><br><span class="line">type MapFrom&lt;T extends string&gt; = `from$&#123;Capitalize&lt;T&gt;&#125;`;</span><br></pre></td></tr></table></figure></div><h3 id="Putting-it-all-together"><a href="#Putting-it-all-together" class="headerlink" title="Putting it all together"></a>Putting it all together</h3><p>When we assemble the previous parts, our first goal is achieved! </p><p>We make use of the <a class="link"   href="https://devblogs.microsoft.com/typescript/announcing-typescript-4-1/#key-remapping-mapped-types" >key remapping <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> feature (i.e., the <code>as</code> clause in the below code block), which has only been available since the release of TypeScript 4.1.</p><p>Please also note that <code>Key extends string ? Key : never</code> is needed because the type of object keys can vary among strings, numbers, and symbols. We are only interested in the string cases here.</p><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type ExtractMapperTo&lt;T&gt; = &#123;</span><br><span class="line">  [Key in keyof T as MapTo&lt;Key extends string ? Key : never&gt;]: (args: lookup&lt;T, Key, &#x27;dto&#x27;&gt;) =&gt; lookup&lt;T, Key, &#x27;entity&#x27;&gt;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">type ExtractMapperFrom&lt;T&gt; = &#123;</span><br><span class="line">  [Key in keyof T as MapFrom&lt;Key extends string ? Key : never&gt;]:(args: lookup&lt;T, Key, &#x27;entity&#x27;&gt;) =&gt; lookup&lt;T, Key, &#x27;dto&#x27;&gt;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// Then all these mapper methods are automatically created </span><br><span class="line">type mapper = ExtractMapperTo&lt;DataSchema&gt; &amp; ExtractMapperFrom&lt;DataSchema&gt;;</span><br></pre></td></tr></table></figure></div><p>We can see below that all of the mapper method interfaces are automatically created.</p><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">// Our first goal achieved!</span><br><span class="line">declare const m: mapper;</span><br><span class="line">m.toClient(&#123;id: &#x27;123&#x27;, name: &#x27;John&#x27;&#125;);</span><br><span class="line">m.fromClient(&#123;clientId: &#x27;123&#x27;, clientName: &#x27;John&#x27;&#125;);</span><br><span class="line">m.toOrder(&#123;id: &#x27;123&#x27;, amount: 3&#125;);</span><br><span class="line">m.fromOrder(&#123;orderId: &#x27;345&#x27;,quantity: 4&#125;);</span><br></pre></td></tr></table></figure></div><p>We have nice IDE IntelliSense support as well.</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://blog.logrocket.com/wp-content/uploads/2021/08/ide-intellisense-support.png"                      alt="alt_text" title="image_tooltip"                ></p><h3 id="Converting-an-object-type-to-a-union-type"><a href="#Converting-an-object-type-to-a-union-type" class="headerlink" title="Converting an object type to a union type"></a>Converting an object type to a union type</h3><p>Our next goal is to create a union type to represent data type names from the source <code>DataSchema</code> type. </p><p>The key to the solution is the <code>PropToUnion&amp;lt;T&gt;</code> type.</p><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">// Derive the data type names into a union type</span><br><span class="line">type PropToUnion&lt;T&gt; = &#123;[k in keyof T]: k&#125;[keyof T];</span><br><span class="line"></span><br><span class="line">type DataTypes = PropToUnion&lt;DataSchema&gt;; // &#x27;client&#x27; | &#x27;order&#x27;</span><br></pre></td></tr></table></figure></div><p>First, <code>&#123;[k in keyof T]: k&#125;</code> extracts the key of <code>T</code> as both key and value using <code>keyof</code>. The output is:</p><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">&#123;</span><br><span class="line">   client: &quot;client&quot;;</span><br><span class="line">   order: &quot;order&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><p>Then, we use the index signature <code>[keyof T]</code> to extract the values as a union type.</p><p>The generated union type can help us enforce type safety. Let’s say we have placed the following function in another module far away from the source type. In the <code>getProcessName</code> function, the <code>switch</code> statement triggers the type guard and <code>never<em> </em></code>is returned in the default case to tell the compiler that it should never be reached.</p><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">// Second goal achieved</span><br><span class="line">function getProcessName(c: DataTypes): string &#123;</span><br><span class="line">    switch(c) &#123;</span><br><span class="line">        case &#x27;client&#x27;:</span><br><span class="line">            return &#x27;register&#x27; + c;</span><br><span class="line">        case &#x27;order&#x27;:</span><br><span class="line">            return &#x27;process&#x27; + c;</span><br><span class="line">        default:</span><br><span class="line">        return assertUnreachable(c);</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br><span class="line">function assertUnreachable(x: never): never &#123;</span><br><span class="line">    throw new Error(&quot;something is very wrong&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><p>This is how the union type and <code>never<em> </em></code>help to enforce type safety. </p><p>Now, let’s assume there’s been a change to the data schema — we add a new data type called <code>account</code>. In a large team, the developer adding the new type may not be aware of the impact of the change. Without typing constraints, it could result in a hidden runtime error that is hard to find. </p><p>If we use type flowing to build the typing constraints, the downstream subtypes will be automatically updated as below.</p><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// TypeScript</span><br><span class="line">type DataTypes = &quot;client&quot; | &quot;order&quot; | &quot;Account&quot;</span><br></pre></td></tr></table></figure></div><p>The TypeScript compiler will also show an error in the <code>getProcessName</code> function to prompt us that a breaking change has occurred.</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://blog.logrocket.com/wp-content/uploads/2021/08/breaking-change-error-demo.png"                      alt="alt_text" title="image_tooltip"                ></p><p>Our second goal is achieved! We have a union type that now represents entity names and contributes to type safety.</p><p>To recap, this diagram shows the main steps we took to achieve the first goal of type flowing.</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://blog.logrocket.com/wp-content/uploads/2021/08/recap-type-flow-diagram.png"                      alt="alt_text" title="image_tooltip"                ></p><p>Overall, we created several new types based on the original source type. Any changes to the source type will trigger updates to all of the downstream types automatically, and we will get an instant error prompt if the change breaks the functions that depend on it.<strong>_ _</strong></p><p>The full example code can be found<a class="link"   href="https://gist.github.com/sunnyy02/7b0a768380057f2ed7541aba4d9f8d22" > here <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p><h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>This article discusses the TypeScript type flowing concept with reference to reactive programming in RxJS. We applied the type flowing concept to a practical example by building a well-constrained type system to maximize the benefits of type safety. </p><p>I hope this discussion helps to change the idea that TypeScript’s advanced types are only for developing type libraries or for complex framework-level programming. I also hope it can help you to start applying the typing system more creatively in your daily TypeScript work.</p><p>Happy typing!</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;TypeScript provides a very rich toolbox. It includes mapped types, conditional types with control flow-based analysis, type inference, an</summary>
-      
-    
-    
-    
-    <category term="Design Pattern" scheme="http://sunnyy02.github.io/categories/Design-Pattern/"/>
-    
-    
-    <category term="TypeScript" scheme="http://sunnyy02.github.io/tags/TypeScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>How to Share Constants in Typescript Project</title>
-    <link href="http://sunnyy02.github.io/2021/07/25/how-to-share-constannts/"/>
-    <id>http://sunnyy02.github.io/2021/07/25/how-to-share-constannts/</id>
-    <published>2021-07-24T14:00:00.000Z</published>
-    <updated>2024-06-29T04:18:17.978Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Avoid-the-magic-strings-and-make-your-app-maintainable-and-strongly-typed"><a href="#Avoid-the-magic-strings-and-make-your-app-maintainable-and-strongly-typed" class="headerlink" title="Avoid the magic strings, and make your app maintainable and strongly typed"></a>Avoid the magic strings, and make your app maintainable and strongly typed</h2><p>We often need to share common values between classes and modules. These values can be error codes, status indicators, environment settings, configuration values, etc. It is a best practice to store those values in constants, instead of hard-coding magic strings. The use of constants also helps to avoid duplicating those values in multiple places, improve readability and maintainability, and <a class="link"   href="https://betterprogramming.pub/6-typescript-typing-system-tricks-you-should-know-5aa39bda8049" >enforce type safety <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p><p>In this article, I will discuss two common approaches to managing constants in a TypeScript project.</p><h3 id="Use-Class-with-static-properties"><a href="#Use-Class-with-static-properties" class="headerlink" title="Use Class with static properties"></a>Use Class with static properties</h3><p>One way to manage constants in TypeScript is to use the class. In the following example, the AppSettings class is created with static properties to define constants. Those properties are applied with readonly modifiers, thus they can not be reassigned.</p><pre><code>export class AppSettings&#123;    static readonly HTTP_NOT_FOUND= &#39;404&#39;;    static readonly HTTP_INTERNAL_ERROR= &#39;500&#39;;&#125;;</code></pre><p>To use the defined constants, we just need to import the class and directly reference the class and property name as below.</p><pre><code>import &#123;AppSettings&#125; from &quot;./appsetting.ts&quot;;if( status === AppSettings.HTTP_NOT_FOUND) ...</code></pre><p>The class approach is simple and serves the purpose. But it has a couple of limitations:</p><ul><li><p>The readonly modifier only works at compile time, it has no effect at runtime.</p></li><li><p>As we only need the static properties, the overhead associated with Class is unnecessary.</p></li></ul><p>A better approach is to use const.</p><h3 id="const-keyword"><a href="#const-keyword" class="headerlink" title="const keyword"></a>const keyword</h3><p>The const keyword makes a variable a constant, so its value can’t be modified. Compared with the class approach, the advantage of const is that it makes variables immutable in both compile time and run time.</p><pre><code>export const payGrades = &#123;   low: "1",   average: "2",   high: "3"&#125; as const;</code></pre><p>In this example, we use the TypeScript feature “as const”. “as const” is a TypeScript construct for literal values called <a class="link"   href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-4.html#const-assertions" >const assertion <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. It does two things:</p><ul><li><p>Apply readonly modifier to properties</p></li><li><p>Tell the compiler not to widen the literal types.</p></li></ul><p>An additional benefit that comes with the use of const assertion is that we can derive types from the declared constants.</p><pre><code>export const payGrades = &#123;   low: "1",   average: "2",   high: "3"&#125; as const;type t = typeof payGrades;type payGradeType = keyof t; // 'low' | 'average' | 'high'type payValueType =  t[keyof t]; // '1' | '2' | '3'const hisPay: payValueType = '3'; //okayconst myPay:  payValueType = '4'; // error</code></pre><p>The derived types will be useful in applying type constraints.</p><pre><code>calculateSalary(payGrade: string) // payGrade can be any stringcalculateSalary(payGrade: payValueType) // payGarde strongly typed</code></pre><p>The above example illustrates how to use the types derived from constants to enforce type safety.</p><h3 id="Multiple-Constants-Files-and"><a href="#Multiple-Constants-Files-and" class="headerlink" title="Multiple Constants Files and"></a>Multiple Constants Files and</h3><p>For a small app, a single global constants file will be sufficient. Below is an example</p><pre><code>// constants.tsexport namespace Constants &#123;  export const FOO = &quot;foo&quot;;  export const BAR = &quot;bar&quot;;  export const BAZ = &quot;baz&quot;;&#125;// dosomething.tsimport &#123; Constants&#125; from &quot;./constants&quot;export function doSomething() &#123;  console.log(Constants.FOO);  console.log(Constants.BAR);  console.log(Constants.BAZ);&#125;</code></pre><p>However, for a large app, the number of required constants may grow quickly. Some of the constants may be applicable only to a particular module. One global constants file won’t be ideal for this scenario.</p><p>Thus for large apps, it is better to create multiple constants files, one for each module. For example, you might create a constant file for component constants, another file for database query constants, and so on.</p><p>Another way to organize different categories of constants is to use namespaces. Using the Typescript namespace allows you to group related constants and access them using dot notation. For example, we defined two namespaces: Report and Database, each with related constants.</p><pre><code>// constants/report.tsnamespace Report &#123;  export const DEFAULT_DATE_FORMAT = &#39;dd/MM/yyyy&#39;;  export const TEXT_COLOR = &#39;#000000&#39;;&#125;// constants/database.tsnamespace Database &#123;  export const MAX_TIME_OUT_IN_SECONDS= 30;  export const HOST_NAME= &#39;....&#39;;&#125;</code></pre><p>Using namespace also helps prevent naming conflicts since constants within a namespace are scoped to that namespace and are not accessible outside.</p><h3 id="Generate-types-using-typeof"><a href="#Generate-types-using-typeof" class="headerlink" title="Generate types using typeof"></a>Generate types using typeof</h3><p>When there are multiple constants files, we may need to extract and combine a few constants from different files. The following example shows how to take two constants from two different modules, and generate a union type from them using typeof type operator.</p><pre><code>// Tech Module Constantsexport const TechStaffPayGrades = &#123;   low: "T1",   average: "T2",   high: "T3"&#125; as const;// Admin Module Constantsexport const AdminStaffPayGrades = &#123;   low: "A1",   average: "A2",   high: "A3"&#125; as const;// import both constants filetype allPayGrades = typeof TechStaffPayGrades | typeof AdminStaffPayGrades;type allPayValues =  allPayGrades[keyof allPayGrades]; //"T1" | "T2" | "T3" | "A1" | "A2" | "A3"</code></pre><p>The benefit of this approach is that we avoid duplication. At the same time, we can apply the derived type constraints to <a class="link"   href="https://levelup.gitconnected.com/achieve-type-safety-with-typescript-magic-fef5ff939c98" >achieve better type safety <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. The beauty of this method is that the type is automatically updated when a new constant is added to one of the constants files.</p><h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>In this article, we walk through different ways to manage constants in TypeScript App.</p><p>Using const to define constants has several advantages compared with using static properties of Class. Organizing the constants in a logical and modular way will improve the readability and maintainability of your code base. Creating shared constants files will prevent magic strings, and the derived types can also help build a strongly typed application.</p><p>Happy Programming!</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;Avoid-the-magic-strings-and-make-your-app-maintainable-and-strongly-typed&quot;&gt;&lt;a href=&quot;#Avoid-the-magic-strings-and-make-your-app-maint</summary>
-      
-    
-    
-    
-    <category term="Programming" scheme="http://sunnyy02.github.io/categories/Programming/"/>
-    
-    
-    <category term="TypeScript" scheme="http://sunnyy02.github.io/tags/TypeScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Why I Choose To Be a Contract Programmer</title>
-    <link href="http://sunnyy02.github.io/2021/07/14/why-i-choose-to-be-a-contract-programmer/"/>
-    <id>http://sunnyy02.github.io/2021/07/14/why-i-choose-to-be-a-contract-programmer/</id>
-    <published>2021-07-13T14:00:00.000Z</published>
-    <updated>2024-06-29T04:23:15.503Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="A-comparison-between-contract-and-permanent-jobs-based-on-my-personal-experience"><a href="#A-comparison-between-contract-and-permanent-jobs-based-on-my-personal-experience" class="headerlink" title="A comparison between contract and permanent jobs based on my personal experience"></a>A comparison between contract and permanent jobs based on my personal experience</h2><p>I was a permanent employee once. At the time, being a contractor seemed daunting. When I thought about the contractor option, worries about job security stopped me from pursuing the idea further. However, after completing a successful project as the lead developer, I felt I no longer had room to grow. Leading a team of contractors, I knew they were paid double my salary. I decided to make a change. Soon, I landed a contract for a large government IT project.</p><p>After working as an IT contractor for more than ten years, here are some of my observations:</p><ul><li><p>Working as a contractor, I actually stayed at the same company longer than in my permanent job. The longest contract I had was five-and-a-half years vs. my longest permanent job of four years. I also left the contract voluntarily looking for a new challenge.</p></li><li><p>Despite the insecure nature of a contract job, I have been fortunate to not have any gaps between contracts so far.</p></li><li><p>I worked more hours in my last permanent job vs my contract job.</p></li></ul><p>Let’s look into the comparison of contract vs. permanent jobs in more detail.</p><h2 id="Money"><a href="#Money" class="headerlink" title="Money"></a>Money</h2><p>Let’s talk about money. Please note that this only applies to software developers in Australia. Things may be different in other industries and countries.</p><p>As an IT contractor, I earn more compared to a similar permanent role, and I can claim tax benefits.</p><p>In Melbourne, the salary for a mid-level developer is roughly $90K or $75&#x2F;hour at a permanent job and $110K or $100&#x2F;hour for a contractor. However, the contract rate can’t be considered at face value only because it doesn’t have benefits like sick&#x2F;annual leave. Even after factoring in all these things, the contract wage is still substantially higher.</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://cdn-images-1.medium.com/max/2000/1*0dzdkPf88Oa2ypXBJa_d6A.png"                      alt="Source: Hudson Salary Guide 2019 Australia"                ><em>Source: Hudson Salary Guide 2019 Australia</em></p><p>I am paid for overtime as a contractor. I didn’t have overtime pay in my last permanent role because “reasonable overtime is factored into your salary package.” My situation was probably different from yours, as I know most permanent jobs get overtime pay.</p><p>I paid more taxes — much more. That motivated me to look for ways to invest my savings so I can pay less in taxes. Those investments have brought me comfortable cash flow and good capital gain in the last five years. Now I am mortgage-free and have savings for my kid’s education and an emergency fund.</p><h2 id="I-Stopped-Worrying-About-Job-Security"><a href="#I-Stopped-Worrying-About-Job-Security" class="headerlink" title="I Stopped Worrying About Job Security"></a>I Stopped Worrying About Job Security</h2><p>A permanent job is meant to be stable and secure, but the job market is very different now. As a software developer, is there really such a thing as a permanent job anymore?</p><p>Loyalty is dead these days for both the employee and employer. It’s simple supply and demand. If your company doesn’t need you anymore, you will be laid off.</p><p>A permanent role can give you a false sense of security. Without a challenge and the motivation to keep learning, your skills will become outdated. A permanent role is also likely to narrow your scope to a specific area. Thus, your skill set will be limited.</p><p>In the current dynamic environment, real job security is determined by your relevant and in-demand skills.</p><p>As a contractor, I keep looking at what the job market demands and try to meet them by keeping my skills updated. Every contract switch is a chance to learn new skills, and every job interview is an opportunity to explore the job market. Picking up new skills quickly and hitting the ground running has become second nature to me.</p><p>I’m not worried about job security now because I am confident in my skills.</p><h2 id="No-or-Less-Office-Politics"><a href="#No-or-Less-Office-Politics" class="headerlink" title="No (or Less) Office Politics"></a>No (or Less) Office Politics</h2><p>When I was a permanent employee, the thing I hated the most was office politics.</p><p>As a contractor, things are much simpler. Unlike in a permanent staff, a contract role is temporary. A contractor isn’t part of the permanent corporate hierarchy, so you’re not perceived as a “threat.”</p><p>This simpler relationship (some call it a transactional relationship) makes it easier to work in a large hierarchical organization. I focus on how to get my job done, be part of the team, and keep a distance from internal politics. But sometimes in a long-term contract, you can still get caught in office politics.</p><p>When things are difficult, I am still in a better position than the permanent staff because it’s much easier for me to switch to a new job.</p><h2 id="Freedom-and-Flexibility"><a href="#Freedom-and-Flexibility" class="headerlink" title="Freedom and Flexibility"></a>Freedom and Flexibility</h2><p>As a contractor, I have choices.</p><p>I feel lucky because skilled developers are in high demand. I apply only to the jobs that fit my career path and&#x2F;or use the technology stack I am interested in. Many times, the jobs requiring contractors are new projects needing new technologies or skill sets, and that suits me well.</p><p>Another benefit is the flexibility to take a long break when my contract expires. With a bit of planning, I can take a long holiday in my dream destination or choose to work without taking any leave to make as much money as I can.</p><h2 id="Overcome-Stress-and-Meet-Expectations"><a href="#Overcome-Stress-and-Meet-Expectations" class="headerlink" title="Overcome Stress and Meet Expectations"></a>Overcome Stress and Meet Expectations</h2><p>On the flip side, there are stressful times as a contractor.</p><p>When I started my first contract, the worry was real. The fear of losing my job and the uncertainty of where to find the next contract was stressful. One of the symptoms of the insecurity was that I didn’t take a single day off in my first two years of contracting. That’s obviously not healthy. I learned to cope with the stress gradually by focusing on things that I can control. I keep learning and improving my skills, as well as building up my reputation and network. At the same time, I saved money and invested wisely to have a secure financial situation.</p><p>Contracting is rewarding, but at the same time, the expectations for contractors are also high. We are paid to solve problems, to deliver on time and on budget. You need to prove yourself to be valuable and worth the paycheck. But when you deliver, you build your reputation and it can carry you forward.</p><p>For a contractor, more disposable income also means you need the discipline to save and invest. Without discipline, you can easily spend all the extra cash and have no funds available for emergency situations.</p><h2 id="Final-Thoughts"><a href="#Final-Thoughts" class="headerlink" title="Final Thoughts"></a>Final Thoughts</h2><p>If I could travel back in time, I would make the same choice. But I would be much less worried in the first couple of years and enjoy the ride more.</p><p>Contracting isn’t for everyone, but with higher pay, less office politics, and more freedom, it’s definitely rewarding.</p><p>At the end of the day, what matters is to have a job that you actually enjoy — regardless of if it’s a contract or permanent job. A job that gives you more fulfillment will make you happy.</p><p>If you like this article, you may also like this one.<br><a href="https://betterprogramming.pub/what-i-hate-about-code-review-66a86e2e3d3f"><strong>5 Things I Dislike the Most About Code Reviews</strong><br><em>Opinionated comments, double standards, and more</em>betterprogramming.pub</a></p><p><em>If you are not already a paid member of Medium, <a class="link"   href="https://sunnysun-5694.medium.com/membership" >**you can do so by visiting this link <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**. You’ll get unlimited full access to every story on Medium. I’ll receive a portion of your membership fees as a referral.</em></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;A-comparison-between-contract-and-permanent-jobs-based-on-my-personal-experience&quot;&gt;&lt;a href=&quot;#A-comparison-between-contract-and-perman</summary>
-      
-    
-    
-    
-    <category term="Programming" scheme="http://sunnyy02.github.io/categories/Programming/"/>
-    
-    
-    <category term="Programming" scheme="http://sunnyy02.github.io/tags/Programming/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>TypeScript’s Record Type Explained</title>
-    <link href="http://sunnyy02.github.io/2021/06/19/record-type-explained/"/>
-    <id>http://sunnyy02.github.io/2021/06/19/record-type-explained/</id>
-    <published>2021-06-18T14:00:00.000Z</published>
-    <updated>2024-06-29T04:21:38.520Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Everything-you-want-to-know-about-the-Record-utility-type"><a href="#Everything-you-want-to-know-about-the-Record-utility-type" class="headerlink" title="Everything you want to know about the Record utility type"></a>Everything you want to know about the Record utility type</h2><p>Record is one of the TypeScript utility types and has been available out of the box since version 2.1.</p><p>I have to admit that I was a little confused when I read the official definition for the first time:</p><blockquote><p>“<strong>Record&lt;Keys,Type&gt;</strong><br>Constructs an object type whose property keys are Keys and whose property values are Type. This utility can be used to map the properties of a type to another type.” — <a class="link"   href="https://www.typescriptlang.org/docs/handbook/utility-types.html" >TypeScript’s documentation <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p></blockquote><p>At face value, it says the Record type creates an object type that has properties of type Keys with corresponding values of type Type. But a similar feature can be achieved by using an index signature, so why would we want to use a Record type? What makes it different or useful?</p><h2 id="Record-Type-vs-Index-Signature"><a href="#Record-Type-vs-Index-Signature" class="headerlink" title="Record Type vs. Index Signature"></a>Record Type vs. Index Signature</h2><p>In TypeScript, we call the way of accessing an object property with square brackets an <em>index signature</em>. It is widely used for object types with unknown string keys and a specific value type. Here is an example:</p><pre><code>type studentScore= &#123; [name: string]: number &#125;;</code></pre><p>The index signature example above can be expressed by a Record type as well:</p><pre><code>type studentScore = Record&lt;string, number&gt;;</code></pre><p>For this use case, the two type declarations are equivalent from a type-asserting perspective. But from the syntax perspective, the index signature is better. In the index signature approach, the name key expresses the intent more clearly, and another advantage is that it is shown in VisualCode IntelliSense.</p><p>Then why do we want to use a Record type?</p><h3 id="Why-is-the-Record-type-useful"><a href="#Why-is-the-Record-type-useful" class="headerlink" title="Why is the Record type useful?"></a>Why is the Record type useful?</h3><p>The benefit of Record types are <strong>conciseness</strong>. It is particularly useful when we want to limit the properties of an object. For example, we can use a union of string literals to specify the allowable keys for the Record type, as shown below:</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://cdn-images-1.medium.com/max/2000/1*7LB7CK4k-ssUrOkyMMXdCQ.png"                                     ></p><p>In this example, we define a type with a union type constraint. If we try to access a property that is not in the roles union type, the VS Code compiler won’t be happy. The compile time check is very useful when we maintain a complex type, as the compiler will prevent these sorts of mistakes from happening.</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://cdn-images-1.medium.com/max/2000/1*uI2COsqHhbjksip9j8JADA.png"                                     ></p><p>Another useful feature is that the keys can be enums as well. In the following example, we use the staffTypes enum as a restricted key of the Record type, so it is more readable. Please note that enums are only supported after TypeScript 2.9. As such, the type of key is restricted to string type before version 2.9.</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://cdn-images-1.medium.com/max/2000/1*z7tzFyX5CRF9m_hy9P6Jpw.png"                                     ></p><h2 id="Combining-the-Record-Type-With-keyof-Operator"><a href="#Combining-the-Record-Type-With-keyof-Operator" class="headerlink" title="Combining the Record Type With keyof Operator"></a>Combining the Record Type With keyof Operator</h2><p>keyof operator is a type operator, which can extract the object keys as a union type. By using keyof** **to get all properties from an existing type and combine it with a string value, we could do something like the following:</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://cdn-images-1.medium.com/max/2000/1*uEJNjd5OfX3wao0LSjEZTg.png"                                     ></p><p>It is handy when you want to keep the properties of an existing type but transform the value type to others.</p><h2 id="Advanced-Usage-Example"><a href="#Advanced-Usage-Example" class="headerlink" title="Advanced Usage Example"></a>Advanced Usage Example</h2><p>A Record type can be used together with other utility types for more advanced use cases. Here is an example:</p><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type seniorRole = &#x27;manager&#x27;;</span><br><span class="line">type technicalRole = &#x27;developer&#x27;;</span><br><span class="line">const benefits:  Partial&lt;Record&lt;seniorRole, &#x27;Free Parking&#x27;&gt; &amp; Record&lt;technicalRole, &#x27;Free Coffee&#x27;&gt;&gt; = &#123;&#125;;</span><br><span class="line">benefits.manager = &#x27;Free Parking&#x27;;</span><br><span class="line">benefits.developer = &#x27;Free Parking&#x27;;//ERROR: no free parking for dev</span><br></pre></td></tr></table></figure></div><p>With Record, Partial, and Intersection types working together, this code creates a strongly typed benefits object with an association between keys and value types. The strongly typed object makes it possible to catch the error at compile time. It also makes it possible for the IDE to flag errors while typing and provides IntelliSense with auto-completion.</p><h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Record is a handy and concise utility type that can make your code more robust. It is especially useful when dealing with a dynamic data structure. The goal of Record type is the same as the other wonderful TypeScript features: <a class="link"   href="https://levelup.gitconnected.com/achieve-type-safety-with-typescript-magic-fef5ff939c98" >better type safety <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p><p>If you like this article, you may also like to read <a class="link"   href="https://sunnysun-5694.medium.com/typescript-infer-keyword-explained-76f4a7208cb0" >another article about infer keyword <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p><p><em>If you are not already a paid member of Medium, <a class="link"   href="https://sunnysun-5694.medium.com/membership" >**you can do so by visiting this link <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**. You’ll get unlimited full access to every story on Medium. I’ll receive a portion of your membership fees as a referral.</em></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;Everything-you-want-to-know-about-the-Record-utility-type&quot;&gt;&lt;a href=&quot;#Everything-you-want-to-know-about-the-Record-utility-type&quot; clas</summary>
-      
-    
-    
-    
-    <category term="Programming" scheme="http://sunnyy02.github.io/categories/Programming/"/>
-    
-    
-    <category term="TypeScript" scheme="http://sunnyy02.github.io/tags/TypeScript/"/>
+    <category term="Refactoring" scheme="http://blog.ourcrmonline.com/tags/Refactoring/"/>
     
   </entry>
   
