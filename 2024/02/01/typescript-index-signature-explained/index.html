@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="keywords" content="typescript type,javascript,ts index signature,type of typescript,typescript code,ts script">
     
     <meta name="author" content="Sunny Sun">
     <!-- preconnect -->
@@ -13,25 +13,23 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://blog.ourcrmonline.com/2024/02/01/typescript-index-signature-explained/"/>
+    <link rel="canonical" href="http://coffeethinkcode.com/2024/02/01/typescript-index-signature-explained/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="TypeScript Index Signature ExplainedDemystifying TypeScript Index Signatures for Enhanced Code Flexibility Photo by Maksym Kaharlytskyi  on Unsplash  Index signatures in TypeScript provide a way to de">
+        <meta name="description" content="TypeScript Index Signature ExplainedDemystifying TypeScript Index Signatures for Enhanced Code Flexibility Index signatures in TypeScript provide a way to define a dynamic data structure when the prop">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TypeScript Index Signature Explained">
-<meta property="og:url" content="http://blog.ourcrmonline.com/2024/02/01/typescript-index-signature-explained/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="TypeScript Index Signature ExplainedDemystifying TypeScript Index Signatures for Enhanced Code Flexibility Photo by Maksym Kaharlytskyi  on Unsplash  Index signatures in TypeScript provide a way to de">
+<meta property="og:url" content="http://coffeethinkcode.com/2024/02/01/typescript-index-signature-explained/index.html">
+<meta property="og:site_name" content="Love what you do">
+<meta property="og:description" content="TypeScript Index Signature ExplainedDemystifying TypeScript Index Signatures for Enhanced Code Flexibility Index signatures in TypeScript provide a way to define a dynamic data structure when the prop">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cdn-images-1.medium.com/max/4976/1*U1VoIpghZrD4mkPg7MfZJw.png">
 <meta property="article:published_time" content="2024-01-31T14:00:00.000Z">
-<meta property="article:modified_time" content="2024-06-29T04:22:39.023Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:modified_time" content="2024-07-07T03:40:54.166Z">
+<meta property="article:author" content="Sunny">
 <meta property="article:tag" content="TypeScript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn-images-1.medium.com/max/4976/1*U1VoIpghZrD4mkPg7MfZJw.png">
     
     
     <!--- Icon Part-->
@@ -88,14 +86,10 @@
     
 
     
-        
-<script src="/js/libs/anime.min.js"></script>
-
-    
 
     <script id="hexo-configurations">
-    window.config = {"hostname":"blog.ourcrmonline.com","root":"/","language":"en","path":"search.xml"};
-    window.theme = {"articles":{"style":{"font_size":"14px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true,"wordcount":true},"author_label":{"enable":true,"auto":false,"list":[],"custom_label_list":["lol"]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":true,"title":"Recommended","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":["wiki/"],"icon":"fa-solid fa-bookmark","max_count":3,"placeholder_img":"https://evan.beee.top/img/wallhaven-wqery6-light.webp"}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title":"love what you do","subtitle":{"text":"love what you do","hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}},"logo_img":"https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg# logo image on the left of the navigation bar"},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}],"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.4","code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/sunnyy02","Medium":"https://medium.com/@sunnysun-5694","LogRocket":"https://blog.logrocket.com/author/yansun/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.config = {"hostname":"coffeethinkcode.com","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"14px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true,"wordcount":true},"author_label":{"enable":true,"auto":false,"list":[],"custom_label_list":["lol"]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":true,"title":"Recommended","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":["wiki/"],"icon":"fa-solid fa-bookmark","max_count":3,"placeholder_img":"https://evan.beee.top/img/wallhaven-wqery6-light.webp"}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":false,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title":"love what you do","subtitle":{"text":"love what you do","hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}},"logo_img":"https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg# logo image on the left of the navigation bar"},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}],"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.4","code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/sunnyy02","Medium":"https://medium.com/@sunnysun-5694","LogRocket":"https://blog.logrocket.com/author/yansun/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
     window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
     window.data = {"masonry":false};
   </script>
@@ -117,7 +111,7 @@
     
     
     
-<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Love what you do" type="application/atom+xml">
 </head>
 
 
@@ -134,151 +128,6 @@
 </div>
 
 
-
-    <style>
-    :root {
-        --preloader-background-color: #fff;
-        --preloader-text-color: #000;
-    }
-
-    @media (prefers-color-scheme: dark) {
-        :root {
-            --preloader-background-color: #202124;
-            --preloader-text-color: #fff;
-        }
-    }
-
-    @media (prefers-color-scheme: light) {
-        :root {
-            --preloader-background-color: #fff;
-            --preloader-text-color: #000;
-        }
-    }
-
-    @media (max-width: 600px) {
-        .ml13 {
-            font-size: 2.6rem !important; /* Adjust this value as needed */
-        }
-    }
-
-    .preloader {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
-        align-items: center;
-        justify-content: center;
-        position: fixed;
-        padding: 12px;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh; /* 'h-screen' is 100% of the viewport height */
-        background-color: var(--preloader-background-color);
-        z-index: 1100; /* 'z-[1100]' sets the z-index */
-        transition: opacity 0.2s ease-in-out;
-    }
-
-    .ml13 {
-        font-size: 3.2rem;
-        /* text-transform: uppercase; */
-        color: var(--preloader-text-color);
-        letter-spacing: -1px;
-        font-weight: 500;
-        font-family: 'Chillax-Variable', sans-serif;
-        text-align: center;
-    }
-
-    .ml13 .word {
-        display: inline-flex;
-        flex-wrap: wrap;
-        white-space: nowrap;
-    }
-
-    .ml13 .letter {
-        display: inline-block;
-        line-height: 1em;
-    }
-</style>
-
-<div class="preloader">
-    <h2 class="ml13">
-        Do What You Love
-    </h2>
-    <script>
-        var textWrapper = document.querySelector('.ml13');
-        // Split text into words
-        var words = textWrapper.textContent.trim().split(' ');
-
-        // Clear the existing content
-        textWrapper.innerHTML = '';
-
-        // Wrap each word and its letters in spans
-        words.forEach(function(word) {
-            var wordSpan = document.createElement('span');
-            wordSpan.classList.add('word');
-            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
-            textWrapper.appendChild(wordSpan);
-            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
-        });
-
-        var animation = anime.timeline({loop: true})
-            .add({
-                targets: '.ml13 .letter',
-                translateY: [40,0],
-                translateZ: 0,
-                opacity: [0,1],
-                filter: ['blur(5px)', 'blur(0px)'], // Starting from blurred to unblurred
-                easing: "easeOutExpo",
-                duration: 1400,
-                delay: (el, i) => 300 + 30 * i,
-            }).add({
-                targets: '.ml13 .letter',
-                translateY: [0,-40],
-                opacity: [1,0],
-                filter: ['blur(0px)', 'blur(5px)'], // Ending from unblurred to blurred
-                easing: "easeInExpo",
-                duration: 1200,
-                delay: (el, i) => 100 + 30 * i,
-                complete: function() {
-                    hidePreloader(); // Call hidePreloader after the animation completes
-                }
-            });
-
-        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
-
-        // If the theme status is not found in local storage, check the preferred color scheme
-        if (themeStatus === undefined || themeStatus === null) {
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                themeStatus = 'dark';
-            } else {
-                themeStatus = 'light';
-            }
-        }
-
-        // Now you can use the themeStatus variable in your code
-        if (themeStatus) {
-            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
-            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
-        } else {
-            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
-            document.documentElement.style.setProperty('--preloader-text-color', '#000');
-        }
-
-        window.addEventListener('load', function () {
-            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
-        });
-
-        function hidePreloader() {
-            var preloader = document.querySelector('.preloader');
-            preloader.style.opacity = '0';
-            setTimeout(function () {
-                preloader.style.display = 'none';
-            }, 200);
-        }
-    </script>
-</div>
 
 <main class="page-container" id="swup">
 
@@ -509,15 +358,15 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">28</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">37</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">14</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">16</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">28</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">34</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -544,7 +393,7 @@
             
                 
                 
-                <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*U1VoIpghZrD4mkPg7MfZJw.png" alt="TypeScript Index Signature Explained" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75"/>
+                <img src="https://miro.medium.com/v2/resize:fit:400/format:webp/1*U1VoIpghZrD4mkPg7MfZJw.png" alt="TypeScript Index Signature Explained" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75"/>
                 
                 <div class="w-full flex items-center absolute bottom-0 justify-start">
                     <h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">TypeScript Index Signature Explained</h1>
@@ -561,7 +410,7 @@
                     <div class="author flex items-center">
                         <span class="name text-default-text-color text-lg font-semibold">Sunny Sun</span>
                         
-                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
                         
                     </div>
                     <div class="meta-info">
@@ -575,8 +424,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-06-29 14:22:39</span>
-            <span class="mobile">2024-06-29 14:22:39</span>
+            <span class="desktop">2024-07-07 13:40:54</span>
+            <span class="mobile">2024-07-07 13:40:54</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -614,7 +463,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.1k Words</span>
         </span>
     
     
@@ -639,104 +488,55 @@
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
             <h1 id="TypeScript-Index-Signature-Explained"><a href="#TypeScript-Index-Signature-Explained" class="headerlink" title="TypeScript Index Signature Explained"></a>TypeScript Index Signature Explained</h1><p>Demystifying TypeScript Index Signatures for Enhanced Code Flexibility</p>
-<p><img src="https://cdn-images-1.medium.com/max/4976/1*U1VoIpghZrD4mkPg7MfZJw.png" alt="Photo by [Maksym Kaharlytskyi](https://unsplash.com/@qwitka?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/file-cabinet-Q9y3LRuuxmg?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash)"><em>Photo by <a class="link"   target="_blank" rel="noopener" href="https://unsplash.com/@qwitka?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" >Maksym Kaharlytskyi <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> on <a class="link"   target="_blank" rel="noopener" href="https://unsplash.com/photos/file-cabinet-Q9y3LRuuxmg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" >Unsplash <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></em></p>
 <p>Index signatures in TypeScript provide a way to define a dynamic data structure when the properties of an object aren’t known beforehand, but the types of properties are known. They allow for dynamic property access and are particularly useful when working with objects with a variable set of keys.</p>
 <p>This post will delve into the index signature, how to use it, and when to use it in TypeScript.</p>
 <h3 id="What-is-the-index-signature"><a href="#What-is-the-index-signature" class="headerlink" title="What is the index signature?"></a>What is the index signature?</h3><p>An index signature is defined using square brackets [] and the type for keys, followed by a colon and the type for corresponding values. It enables TypeScript to understand and enforce the expected structure of the object.</p>
-<pre><code>interface MyStats &#123;
-  [key: string]: number;
-&#125;
-const scores: MyStats = &#123;
-  total: 50,
-  average:80
-&#125;
-// index siganture enforce the type constraint
-// here, the value must be a number
-const scores2: MyStats = &#123;
-  total: &quot;50&quot;, //Type &#39;string&#39; is not assignable to type &#39;number&#39;.(2322)
-  average:80
-&#125;
-</code></pre>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">MyStats</span> &#123;</span><br><span class="line">  [<span class="attr">key</span>: <span class="built_in">string</span>]: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="attr">scores</span>: <span class="title class_">MyStats</span> = &#123;</span><br><span class="line">  <span class="attr">total</span>: <span class="number">50</span>,</span><br><span class="line">  <span class="attr">average</span>:<span class="number">80</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// index siganture enforce the type constraint</span></span><br><span class="line"><span class="comment">// here, the value must be a number</span></span><br><span class="line"><span class="keyword">const</span> <span class="attr">scores2</span>: <span class="title class_">MyStats</span> = &#123;</span><br><span class="line">  <span class="attr">total</span>: <span class="string">&quot;50&quot;</span>, <span class="comment">//Type &#x27;string&#x27; is not assignable to type &#x27;number&#x27;.(2322)</span></span><br><span class="line">  <span class="attr">average</span>:<span class="number">80</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>In this example, MyStats can have any string keys, and the values associated with those keys must be of type number.</p>
 <p>The syntax for index signatures involves using the [] notation within the interface or type declaration. The below example shows the same index signature for interface and type.</p>
-<pre><code>interface Car &#123;
-  [key: string]: boolean;
-&#125;
-
-type CarType = &#123;
-  [key: string]: boolean;
-&#125;
-</code></pre>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Car</span> &#123;</span><br><span class="line">  [<span class="attr">key</span>: <span class="built_in">string</span>]: <span class="built_in">boolean</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">CarType</span> = &#123;</span><br><span class="line">  [<span class="attr">key</span>: <span class="built_in">string</span>]: <span class="built_in">boolean</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>Note that index signatures can use different key types, such as string, number, symbol or literal typeand the associated value type can be any valid TypeScript type.</p>
 <h3 id="Mixing-an-index-signature-with-explicit-members"><a href="#Mixing-an-index-signature-with-explicit-members" class="headerlink" title="Mixing an index signature with explicit members"></a>Mixing an index signature with explicit members</h3><p>In TypeScript, we can mix an index signature with explicit member declarations. It is helpful for cases requiring a combination of known and dynamic properties.</p>
-<pre><code>interface CarConfiguration &#123;
-  [feature: string]: number;
-  price: number;
-&#125;
-</code></pre>
-<p>When we mix the index signature with explicit members, all explicit members need to conform to the index signature types.<br>    &#x2F;&#x2F; invalid case<br>    interface CarConfiguration {<br>      [feature: string]: number;<br>      price: number;<br>      model: string; &#x2F;&#x2F; Error: Property ‘model’ of type ‘string’ is not assignable to ‘string’ index type ‘number’<br>    }</p>
-<pre><code>// valid
-interface CarConfiguration &#123;
-  [feature: string]: number | string;
-  price: number;
-  model: string;
-&#125;
-</code></pre>
-<h3 id="Readonly-index-signature"><a href="#Readonly-index-signature" class="headerlink" title="Readonly index signature"></a>Readonly index signature</h3><p>Index signature supports readonly modifier. By applying the readonly modifier, the properties in the object will be immutable.<br>    interface Car {<br>      readonly [key: string]: boolean;<br>    }</p>
-<pre><code>const toyota: Car = &#123;hybrid: true, luxury: false&#125;;
-toyota.hybrid = false; //Error: Index signature in type &#39;Car&#39; only permits reading.(2542)
-</code></pre>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">CarConfiguration</span> &#123;</span><br><span class="line">  [<span class="attr">feature</span>: <span class="built_in">string</span>]: <span class="built_in">number</span>;</span><br><span class="line">  <span class="attr">price</span>: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>When we mix the index signature with explicit members, all explicit members need to conform to the index signature types.</p>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// invalid case</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">CarConfiguration</span> &#123;</span><br><span class="line">  [<span class="attr">feature</span>: <span class="built_in">string</span>]: <span class="built_in">number</span>;</span><br><span class="line">  <span class="attr">price</span>: <span class="built_in">number</span>;</span><br><span class="line">  <span class="attr">model</span>: <span class="built_in">string</span>; <span class="comment">// Error: Property &#x27;model&#x27; of type &#x27;string&#x27; is not assignable to &#x27;string&#x27; index type &#x27;number&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// valid</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">CarConfiguration</span> &#123;</span><br><span class="line">  [<span class="attr">feature</span>: <span class="built_in">string</span>]: <span class="built_in">number</span> | <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">price</span>: <span class="built_in">number</span>;</span><br><span class="line">  <span class="attr">model</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="Readonly-index-signature"><a href="#Readonly-index-signature" class="headerlink" title="Readonly index signature"></a>Readonly index signature</h3><p>Index signature supports readonly modifier. By applying the readonly modifier, the properties in the object will be immutable.</p>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Car</span> &#123;</span><br><span class="line">  <span class="keyword">readonly</span> [<span class="attr">key</span>: <span class="built_in">string</span>]: <span class="built_in">boolean</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="attr">toyota</span>: <span class="title class_">Car</span> = &#123;<span class="attr">hybrid</span>: <span class="literal">true</span>, <span class="attr">luxury</span>: <span class="literal">false</span>&#125;;</span><br><span class="line">toyota.<span class="property">hybrid</span> = <span class="literal">false</span>; <span class="comment">//Error: Index signature in type &#x27;Car&#x27; only permits reading.(2542)</span></span><br></pre></td></tr></table></figure></div>
 <p>In the above example, an error occurs when trying to modify the ‘hybrid’ property because the interface allows only reading, not writing.</p>
-<h3 id="How-to-use-index-signature"><a href="#How-to-use-index-signature" class="headerlink" title="How to use index signature"></a>How to use index signature</h3><p>Let’s see a real-world example of how index signatures can be used. Imagine we’re developing a web application with various features. Each feature includes its own set of settings. We are also able to enable or disable these features.<br>    interface FeatureConfig {<br>      [feature: string]: {<br>        enabled: boolean;<br>        settings: Record&lt;string, boolean&gt;;<br>      }<br>    }<br>In this example, we define an interface named FeatureConfig. It uses an index signature to allow dynamic property names of type string associated with anenabled boolean property and a settings object. It is handy for representing configurations with dynamic feature names and associated settings. For example, we can apply the interface to the following object.</p>
-<pre><code>const features: FeatureConfig = &#123;
-  profile: &#123;
-    enabled: true,
-    settings: &#123;
-      showPhoto: true,
-      allowEdit: false,
-    &#125;,
-  &#125;,
-  notification: &#123;
-    enabled: false,
-    settings: &#123;
-      richText: true,
-      batchMode: true
-    &#125;,
-  &#125;
-&#125;;
-</code></pre>
+<h3 id="How-to-use-index-signature"><a href="#How-to-use-index-signature" class="headerlink" title="How to use index signature"></a>How to use index signature</h3><p>Let’s see a real-world example of how index signatures can be used. Imagine we’re developing a web application with various features. Each feature includes its own set of settings. We are also able to enable or disable these features.</p>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">FeatureConfig</span> &#123;</span><br><span class="line">  [<span class="attr">feature</span>: <span class="built_in">string</span>]: &#123;</span><br><span class="line">    <span class="attr">enabled</span>: <span class="built_in">boolean</span>;</span><br><span class="line">    <span class="attr">settings</span>: <span class="title class_">Record</span>&lt;<span class="built_in">string</span>, <span class="built_in">boolean</span>&gt;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>In this example, we define an interface named FeatureConfig. It uses an index signature to allow dynamic property names of type string associated with anenabled boolean property and a settings object. It is handy for representing configurations with dynamic feature names and associated settings. For example, we can apply the interface to the following object.</p>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="attr">features</span>: <span class="title class_">FeatureConfig</span> = &#123;</span><br><span class="line">  <span class="attr">profile</span>: &#123;</span><br><span class="line">    <span class="attr">enabled</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">settings</span>: &#123;</span><br><span class="line">      <span class="attr">showPhoto</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">allowEdit</span>: <span class="literal">false</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">notification</span>: &#123;</span><br><span class="line">    <span class="attr">enabled</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">settings</span>: &#123;</span><br><span class="line">      <span class="attr">richText</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">batchMode</span>: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>
 <p>In the features object, the feature names can vary, but the structure for each feature remains consistent. Each feature is expected to have an enabled boolean and a settings object.   </p>
 <p>To improve the type safety, can we apply a union-type constraint to the feature name in the above interface?</p>
-<p>If the set of features in our application is known, we can define the union of string literals namedFeatureType.<br>    type FeatureType &#x3D; ‘profile’ | ‘notification’ | ‘reporting’;  </p>
+<p>If the set of features in our application is known, we can define the union of string literals namedFeatureType.</p>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">FeatureType</span> = <span class="string">&#x27;profile&#x27;</span> | <span class="string">&#x27;notification&#x27;</span> | <span class="string">&#x27;reporting&#x27;</span>;  </span><br></pre></td></tr></table></figure></div>
+
 <p>The key of the index signature does not support the union type, but we can work around it using a mapped type.</p>
-<pre><code>type FeatureConfig2 = &#123;
-  [feature in FeatureType]: &#123;
-    enabled: boolean;
-    settings: Record&lt;string, boolean&gt;;
-  &#125;
-&#125;
-</code></pre>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">FeatureConfig2</span> = &#123;</span><br><span class="line">  [feature <span class="keyword">in</span> <span class="title class_">FeatureType</span>]: &#123;</span><br><span class="line">    <span class="attr">enabled</span>: <span class="built_in">boolean</span>;</span><br><span class="line">    <span class="attr">settings</span>: <span class="title class_">Record</span>&lt;<span class="built_in">string</span>, <span class="built_in">boolean</span>&gt;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>[feature in FeatureType]is a mapped type that iterates over each string literal in the union type FeatureType (which includes ‘profile’, ‘notification’, and ‘reporting’), and it uses each value as the resulting type’s property name.</p>
-<p>Here’s an example of how we might use it:<br>    const allFeatures: FeatureConfig2 &#x3D; {<br>      profile: {<br>        enabled: true,<br>        settings: {<br>          showPhoto: true,<br>          allowEdit: false,<br>        },<br>      },<br>      notification: {<br>        enabled: false,<br>        settings: {<br>          richText: true,<br>          batchMode: true<br>        },<br>      },<br>        reporting: {<br>        enabled: true,<br>        settings: {<br>          template: false,<br>          advanceExport: true<br>        },<br>      },<br>    };</p>
+<p>Here’s an example of how we might use it:</p>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="attr">allFeatures</span>: <span class="title class_">FeatureConfig2</span> = &#123;</span><br><span class="line">  <span class="attr">profile</span>: &#123;</span><br><span class="line">    <span class="attr">enabled</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">settings</span>: &#123;</span><br><span class="line">      <span class="attr">showPhoto</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">allowEdit</span>: <span class="literal">false</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">notification</span>: &#123;</span><br><span class="line">    <span class="attr">enabled</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">settings</span>: &#123;</span><br><span class="line">      <span class="attr">richText</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">batchMode</span>: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">    <span class="attr">reporting</span>: &#123;</span><br><span class="line">    <span class="attr">enabled</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">settings</span>: &#123;</span><br><span class="line">      <span class="attr">template</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="attr">advanceExport</span>: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>
 <p>Note that we need to include all features defined in FeatureType to the object to match the type expectations.</p>
 <p>If we want to allow a subset of the features as the key, we need to modify the index signature type with an “?” as an optional flag. Then, we could use the FeatureConfig2 type for an object that only contains a subset of features.</p>
-<p>type FeatureType &#x3D; ‘profile’ | ‘notification’ | ‘reporting’;</p>
-<pre><code>type FeatureConfig2 = &#123;
-  [feature in FeatureType]?: &#123;
-    enabled: boolean;
-    settings: Record&lt;string, boolean&gt;;
-  &#125;
-&#125;
+<pre><code class="typescript">type FeatureType = &#39;profile&#39; | &#39;notification&#39; | &#39;reporting&#39;;
 
-const subsetFeatures: FeatureConfig2 = &#123;
-  profile: &#123;
-    enabled: true,
-    settings: &#123;
-      showPhoto: true,
-      allowEdit: false,
-    &#125;,
-  &#125;
-&#125;;
+    type FeatureConfig2 = &#123;
+      [feature in FeatureType]?: &#123;
+        enabled: boolean;
+        settings: Record&lt;string, boolean&gt;;
+      &#125;
+    &#125;
+
+    const subsetFeatures: FeatureConfig2 = &#123;
+      profile: &#123;
+        enabled: true,
+        settings: &#123;
+          showPhoto: true,
+          allowEdit: false,
+        &#125;,
+      &#125;
+    &#125;;
 </code></pre>
 <h3 id="How-to-use-index-signatures-effectively"><a href="#How-to-use-index-signatures-effectively" class="headerlink" title="How to use index signatures effectively"></a>How to use index signatures effectively</h3><p>Some commonly used scenarios include:</p>
 <ul>
@@ -762,11 +562,11 @@ const subsetFeatures: FeatureConfig2 = &#123;
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-06-29 14:22:39
+                    :</strong> 2024-07-07 13:40:54
             </li>
         
         <li>
-            <strong>Link:</strong> http://blog.ourcrmonline.com/2024/02/01/typescript-index-signature-explained/
+            <strong>Link:</strong> http://coffeethinkcode.com/2024/02/01/typescript-index-signature-explained/
         </li>
         <li>
             <strong>
@@ -803,12 +603,12 @@ const subsetFeatures: FeatureConfig2 = &#123;
     <div class="recommended-article-group"><a class="recommended-article-item" href="/2021/06/19/record-type-explained/" title="TypeScript’s Record Type Explained" rel="bookmark">
   <img src="https://cdn-images-1.medium.com/max/2000/1*bdsUHbM2L34QcDz32SFsXQ.png" alt="TypeScript’s Record Type Explained" class="!max-w-none">
   <span class="title">TypeScript’s Record Type Explained</span>
+</a><a class="recommended-article-item" href="/2023/08/01/unlocking-typescript-5-hidden-gems/" title="Unlocking TypeScript 5 Hidden Gems You May Not Know" rel="bookmark">
+  <img src="https://miro.medium.com/v2/resize:fit:1100/format:webp/1*tmm3cO5B2V11egam7LX9oA.png" alt="Unlocking TypeScript 5 Hidden Gems You May Not Know" class="!max-w-none">
+  <span class="title">Unlocking TypeScript 5 Hidden Gems You May Not Know</span>
 </a><a class="recommended-article-item" href="/2023/04/06/type-interface-ts/" title="Types vs. interfaces in TypeScript" rel="bookmark">
   <img src="https://blog.logrocket.com/wp-content/uploads/2023/03/types-vs-interfaces-typescript-2023.png" alt="Types vs. interfaces in TypeScript" class="!max-w-none">
   <span class="title">Types vs. interfaces in TypeScript</span>
-</a><a class="recommended-article-item" href="/2021/08/19/type-flowing-rethinking-typescript-typing-system/" title="Type flowing - a new perspective on the TypeScript typing system" rel="bookmark">
-  <img src="/images/wallhaven-wqery6-light.webp" alt="Type flowing - a new perspective on the TypeScript typing system" class="!max-w-none">
-  <span class="title">Type flowing - a new perspective on the TypeScript typing system</span>
 </a></div>
    </div>
    <div class="recommended-mobile">
@@ -818,9 +618,9 @@ const subsetFeatures: FeatureConfig2 = &#123;
    <div class="recommended-article-group"><a class="recommended-article-item" href="/2021/06/19/record-type-explained/" title="TypeScript’s Record Type Explained" rel="bookmark">
   <img src="https://cdn-images-1.medium.com/max/2000/1*bdsUHbM2L34QcDz32SFsXQ.png" alt="TypeScript’s Record Type Explained" class="!max-w-none">
   <span class="title">TypeScript’s Record Type Explained</span>
-</a><a class="recommended-article-item" href="/2023/04/06/type-interface-ts/" title="Types vs. interfaces in TypeScript" rel="bookmark">
-  <img src="https://blog.logrocket.com/wp-content/uploads/2023/03/types-vs-interfaces-typescript-2023.png" alt="Types vs. interfaces in TypeScript" class="!max-w-none">
-  <span class="title">Types vs. interfaces in TypeScript</span>
+</a><a class="recommended-article-item" href="/2023/08/01/unlocking-typescript-5-hidden-gems/" title="Unlocking TypeScript 5 Hidden Gems You May Not Know" rel="bookmark">
+  <img src="https://miro.medium.com/v2/resize:fit:1100/format:webp/1*tmm3cO5B2V11egam7LX9oA.png" alt="Unlocking TypeScript 5 Hidden Gems You May Not Know" class="!max-w-none">
+  <span class="title">Unlocking TypeScript 5 Hidden Gems You May Not Know</span>
 </a></div>
    </div>
   </div>
@@ -847,10 +647,10 @@ const subsetFeatures: FeatureConfig2 = &#123;
                     <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
                         <a class="next"
                         rel="next"
-                        href="/2023/07/02/host-angular-iis-nginx/"
+                        href="/2023/08/01/unlocking-typescript-5-hidden-gems/"
                         >
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">Host Angular App in IIS vs. Nginx</span>
+                                <span class="post-nav-title-item">Unlocking TypeScript 5 Hidden Gems You May Not Know</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex justify-center items-center">
@@ -905,11 +705,11 @@ const subsetFeatures: FeatureConfig2 = &#123;
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        28 posts in total
+                        34 posts in total
                     </span>
                     
                         <span>
-                            35.5k words in total
+                            42.3k words in total
                         </span>
                     
                 </p>
@@ -1132,6 +932,10 @@ const subsetFeatures: FeatureConfig2 = &#123;
 
 
 
+
+
+    
+<script src="/js/libs/anime.min.js"></script>
 
 
 

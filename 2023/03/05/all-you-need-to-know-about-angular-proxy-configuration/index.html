@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="keywords" content="angular proxy config,set proxy settings,proxy setup">
     
     <meta name="author" content="Sunny Sun">
     <!-- preconnect -->
@@ -13,29 +13,29 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://blog.ourcrmonline.com/2023/03/05/all-you-need-to-know-about-angular-proxy-configuration/"/>
+    <link rel="canonical" href="http://coffeethinkcode.com/2023/03/05/all-you-need-to-know-about-angular-proxy-configuration/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="A complete guide on setting up a proxy in Angular for API calls behind a corporate proxy or with windows authentication   Angular Developers use Angular CLI for local development. One of the most com">
+        <meta name="description" content="A complete guide on setting up a proxy in Angular for API calls behind a corporate proxy or with windows authentication  Angular Developers use Angular CLI for local development. One of the most comm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="All You Need to Know About Angular Proxy Configuration">
-<meta property="og:url" content="http://blog.ourcrmonline.com/2023/03/05/all-you-need-to-know-about-angular-proxy-configuration/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="A complete guide on setting up a proxy in Angular for API calls behind a corporate proxy or with windows authentication   Angular Developers use Angular CLI for local development. One of the most com">
+<meta property="og:url" content="http://coffeethinkcode.com/2023/03/05/all-you-need-to-know-about-angular-proxy-configuration/index.html">
+<meta property="og:site_name" content="Love what you do">
+<meta property="og:description" content="A complete guide on setting up a proxy in Angular for API calls behind a corporate proxy or with windows authentication  Angular Developers use Angular CLI for local development. One of the most comm">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*_2jpbQ3XXY-FzQ3Nq-8DSQ.png">
-<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*kewDSVjh_LP_TjNEEitLAA.png">
-<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*EWspU6LBiNGgJX32wz7yow.png">
+<meta property="og:image" content="https://miro.medium.com/v2/resize:fit:1120/1*_2jpbQ3XXY-FzQ3Nq-8DSQ.png">
+<meta property="og:image" content="https://miro.medium.com/v2/resize:fit:1120/1*kewDSVjh_LP_TjNEEitLAA.png">
+<meta property="og:image" content="https://miro.medium.com/v2/resize:fit:1120/1*EWspU6LBiNGgJX32wz7yow.png">
 <meta property="article:published_time" content="2023-03-05T01:14:56.000Z">
-<meta property="article:modified_time" content="2024-06-29T04:12:33.045Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:modified_time" content="2024-07-07T04:23:21.946Z">
+<meta property="article:author" content="Sunny">
 <meta property="article:tag" content="TypeScript">
 <meta property="article:tag" content="Angular">
 <meta property="article:tag" content="Proxy">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn-images-1.medium.com/max/800/1*_2jpbQ3XXY-FzQ3Nq-8DSQ.png">
+<meta name="twitter:image" content="https://miro.medium.com/v2/resize:fit:1120/1*_2jpbQ3XXY-FzQ3Nq-8DSQ.png">
     
     
     <!--- Icon Part-->
@@ -92,14 +92,10 @@
     
 
     
-        
-<script src="/js/libs/anime.min.js"></script>
-
-    
 
     <script id="hexo-configurations">
-    window.config = {"hostname":"blog.ourcrmonline.com","root":"/","language":"en","path":"search.xml"};
-    window.theme = {"articles":{"style":{"font_size":"14px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true,"wordcount":true},"author_label":{"enable":true,"auto":false,"list":[],"custom_label_list":["lol"]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":true,"title":"Recommended","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":["wiki/"],"icon":"fa-solid fa-bookmark","max_count":3,"placeholder_img":"https://evan.beee.top/img/wallhaven-wqery6-light.webp"}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title":"love what you do","subtitle":{"text":"love what you do","hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}},"logo_img":"https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg# logo image on the left of the navigation bar"},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}],"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.4","code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/sunnyy02","Medium":"https://medium.com/@sunnysun-5694","LogRocket":"https://blog.logrocket.com/author/yansun/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.config = {"hostname":"coffeethinkcode.com","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"14px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true,"wordcount":true},"author_label":{"enable":true,"auto":false,"list":[],"custom_label_list":["lol"]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":true,"title":"Recommended","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":["wiki/"],"icon":"fa-solid fa-bookmark","max_count":3,"placeholder_img":"https://evan.beee.top/img/wallhaven-wqery6-light.webp"}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":false,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title":"love what you do","subtitle":{"text":"love what you do","hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}},"logo_img":"https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg# logo image on the left of the navigation bar"},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}],"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.4","code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/sunnyy02","Medium":"https://medium.com/@sunnysun-5694","LogRocket":"https://blog.logrocket.com/author/yansun/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
     window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
     window.data = {"masonry":false};
   </script>
@@ -121,7 +117,7 @@
     
     
     
-<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Love what you do" type="application/atom+xml">
 </head>
 
 
@@ -138,151 +134,6 @@
 </div>
 
 
-
-    <style>
-    :root {
-        --preloader-background-color: #fff;
-        --preloader-text-color: #000;
-    }
-
-    @media (prefers-color-scheme: dark) {
-        :root {
-            --preloader-background-color: #202124;
-            --preloader-text-color: #fff;
-        }
-    }
-
-    @media (prefers-color-scheme: light) {
-        :root {
-            --preloader-background-color: #fff;
-            --preloader-text-color: #000;
-        }
-    }
-
-    @media (max-width: 600px) {
-        .ml13 {
-            font-size: 2.6rem !important; /* Adjust this value as needed */
-        }
-    }
-
-    .preloader {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
-        align-items: center;
-        justify-content: center;
-        position: fixed;
-        padding: 12px;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh; /* 'h-screen' is 100% of the viewport height */
-        background-color: var(--preloader-background-color);
-        z-index: 1100; /* 'z-[1100]' sets the z-index */
-        transition: opacity 0.2s ease-in-out;
-    }
-
-    .ml13 {
-        font-size: 3.2rem;
-        /* text-transform: uppercase; */
-        color: var(--preloader-text-color);
-        letter-spacing: -1px;
-        font-weight: 500;
-        font-family: 'Chillax-Variable', sans-serif;
-        text-align: center;
-    }
-
-    .ml13 .word {
-        display: inline-flex;
-        flex-wrap: wrap;
-        white-space: nowrap;
-    }
-
-    .ml13 .letter {
-        display: inline-block;
-        line-height: 1em;
-    }
-</style>
-
-<div class="preloader">
-    <h2 class="ml13">
-        Do What You Love
-    </h2>
-    <script>
-        var textWrapper = document.querySelector('.ml13');
-        // Split text into words
-        var words = textWrapper.textContent.trim().split(' ');
-
-        // Clear the existing content
-        textWrapper.innerHTML = '';
-
-        // Wrap each word and its letters in spans
-        words.forEach(function(word) {
-            var wordSpan = document.createElement('span');
-            wordSpan.classList.add('word');
-            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
-            textWrapper.appendChild(wordSpan);
-            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
-        });
-
-        var animation = anime.timeline({loop: true})
-            .add({
-                targets: '.ml13 .letter',
-                translateY: [40,0],
-                translateZ: 0,
-                opacity: [0,1],
-                filter: ['blur(5px)', 'blur(0px)'], // Starting from blurred to unblurred
-                easing: "easeOutExpo",
-                duration: 1400,
-                delay: (el, i) => 300 + 30 * i,
-            }).add({
-                targets: '.ml13 .letter',
-                translateY: [0,-40],
-                opacity: [1,0],
-                filter: ['blur(0px)', 'blur(5px)'], // Ending from unblurred to blurred
-                easing: "easeInExpo",
-                duration: 1200,
-                delay: (el, i) => 100 + 30 * i,
-                complete: function() {
-                    hidePreloader(); // Call hidePreloader after the animation completes
-                }
-            });
-
-        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
-
-        // If the theme status is not found in local storage, check the preferred color scheme
-        if (themeStatus === undefined || themeStatus === null) {
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                themeStatus = 'dark';
-            } else {
-                themeStatus = 'light';
-            }
-        }
-
-        // Now you can use the themeStatus variable in your code
-        if (themeStatus) {
-            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
-            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
-        } else {
-            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
-            document.documentElement.style.setProperty('--preloader-text-color', '#000');
-        }
-
-        window.addEventListener('load', function () {
-            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
-        });
-
-        function hidePreloader() {
-            var preloader = document.querySelector('.preloader');
-            preloader.style.opacity = '0';
-            setTimeout(function () {
-                preloader.style.display = 'none';
-            }, 200);
-        }
-    </script>
-</div>
 
 <main class="page-container" id="swup">
 
@@ -513,15 +364,15 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">28</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">37</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">14</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">16</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">28</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">34</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -565,7 +416,7 @@
                     <div class="author flex items-center">
                         <span class="name text-default-text-color text-lg font-semibold">Sunny Sun</span>
                         
-                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
                         
                     </div>
                     <div class="meta-info">
@@ -579,8 +430,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-06-29 14:12:33</span>
-            <span class="mobile">2024-06-29 14:12:33</span>
+            <span class="desktop">2024-07-07 14:23:21</span>
+            <span class="mobile">2024-07-07 14:23:21</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -653,25 +504,80 @@
             <h3>
 A complete guide on setting up a proxy in Angular for API calls behind a corporate proxy or with windows authentication
 </h3>
-<section data-field="body" class="e-content">
-<section name="d474" class="section section--body section--first"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><p name="d69c" id="d69c" class="graf graf--p graf-after--figure">Angular Developers use Angular CLI for local development. One of the most common needs is to set up a proxy in the local dev environment to avoid CORS error when the Angular app sends an HTTP request to an API residing on a different domain. Angular CLI makes the process relatively easy, but it can be tricky in some edge cases.</p><p name="3469" id="3469" class="graf graf--p graf-after--p">In this article, I am going to discuss how to set up a dev server proxy for</p><ul class="postList"><li name="a340" id="a340" class="graf graf--li graf-after--p"><a href="#e0ed" data-href="#e0ed" class="markup--anchor markup--li-anchor">proxy to API in localhost</a></li><li name="6bb5" id="6bb5" class="graf graf--li graf-after--li"><a href="#d919" data-href="#d919" class="markup--anchor markup--li-anchor">proxy to external API within a corporate network</a></li><li name="fa38" id="fa38" class="graf graf--li graf-after--li"><a href="#2e9b" data-href="#2e9b" class="markup--anchor markup--li-anchor">proxy to API using windows authentication (IIS)</a></li><li name="5e25" id="5e25" class="graf graf--li graf-after--li graf--trailing">m<a href="#55ad" data-href="#55ad" class="markup--anchor markup--li-anchor">ultiple schemes in one WWW-Authenticate header</a></li></ul></div></div></section><section name="8b3e" class="section section--body"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h4 name="e0ed" id="e0ed" class="graf graf--h4 graf--leading">Setup a proxy to connect to API in localhost</h4><p name="74ab" id="74ab" class="graf graf--p graf-after--h4">With Angular CLI, we can start the local dev server using the command below.</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="typescript" name="40ca" id="40ca" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content">ng serve</span></pre><p name="492a" id="492a" class="graf graf--p graf-after--pre">The command invokes the internal dev server based on <a class="link"  href="https://webpack.js.org/configuration/dev-server/" data- href="https://webpack.js.org/configuration/dev-server/"  class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">webpack dev server <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. By default, the dev server runs on <code class="markup--code markup--p-code"><a href="http://localhost:4200." data-href="http://localhost:4200." class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">http://localhost:4200</a></code><a href="http://localhost:4200." data-href="http://localhost:4200." class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">.</a></p><p name="7338" id="7338" class="graf graf--p graf-after--p">When the Angular app needs to call its backend API, which is also hosted locally at <code class="markup--code markup--p-code u-paddingRight0 u-marginRight0"><a href="http://localhost:3000." data-href="http://localhost:3000." class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">http://localhost:3000</a>, </code>then we will encounter a CORS error because the HTTP call use a different origin (<code class="markup--code markup--p-code">localhost:3000</code>).</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="kotlin" name="9972" id="9972" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content"><span class="hljs-keyword">this</span>.http.<span class="hljs-keyword">get</span>(<span class="hljs-string">&#x27;http://locahost:3000/api/&#x27;</span>)<br />    .subscribe(res =&gt; {...});</span></pre><p name="db2d" id="db2d" class="graf graf--p graf-after--pre">The CORS issue can be resolved by configuring the Angular dev server proxy. A sample proxy config can be created below</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="kotlin" name="9f70" id="9f70" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content"><span class="hljs-comment">// proxy.conf.json</span><br />{<br />  <span class="hljs-string">&quot;/api&quot;</span>: {<br />    <span class="hljs-string">&quot;target&quot;</span>: <span class="hljs-string">&quot;http://localhost:3000&quot;</span>,<br />    <span class="hljs-string">&quot;secure&quot;</span>: <span class="hljs-literal">false</span>,<br />  }<br />}<br /><span class="hljs-comment">// we change the angular http call to remove the domain prefix</span><br /><span class="hljs-keyword">this</span>.http.<span class="hljs-keyword">get</span>(<span class="hljs-string">&#x27;/api/&#x27;</span>)<br />    .subscribe(res =&gt; {...});</span></pre><p name="8f6f" id="8f6f" class="graf graf--p graf-after--pre">As illustrated by the following diagram, the proxy sits between the Angular app and the backend API and translates the “<code class="markup--code markup--p-code">api/v1</code>” calls to backend API. The CORS error doesn’t happen because the call to API is the same origin (<code class="markup--code markup--p-code u-paddingRight0 u-marginRight0"><a href="http://localhost:4200." data-href="http://localhost:4200." class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">localhost:4200</a>/api</code><strong class="markup--strong markup--p-strong">)</strong> now.</p><figure name="7f63" id="7f63" class="graf graf--figure graf-after--p"><img  class="graf-image" data-image-id="1*_2jpbQ3XXY-FzQ3Nq-8DSQ.png" data-width="1488" data-height="548" 
+Angular Developers use Angular CLI for local development. One of the most common needs is to set up a proxy in the local dev environment to avoid CORS error when the Angular app sends an HTTP request to an API residing on a different domain. Angular CLI makes the process relatively easy but can be tricky in some edge cases.
+
+<p>In this article, I am going to discuss how to set up a dev server proxy for</p>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://medium.com/javascript-in-plain-english/all-you-need-to-know-about-angular-proxy-configuration-a1aeb2d8c86#e0ed" >proxy to API in localhost <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://medium.com/javascript-in-plain-english/all-you-need-to-know-about-angular-proxy-configuration-a1aeb2d8c86#d919" >proxy to external API within a corporate network <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://medium.com/javascript-in-plain-english/all-you-need-to-know-about-angular-proxy-configuration-a1aeb2d8c86#2e9b" >proxy to API using Windows authentication (IIS) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li>m<a class="link"   target="_blank" rel="noopener" href="https://medium.com/javascript-in-plain-english/all-you-need-to-know-about-angular-proxy-configuration-a1aeb2d8c86#55ad" >ultiple schemes in one WWW-Authenticate header <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h3 id="Setup-a-proxy-to-connect-to-API-in-localhost"><a href="#Setup-a-proxy-to-connect-to-API-in-localhost" class="headerlink" title="Setup a proxy to connect to API in localhost"></a>Setup a proxy to connect to API in localhost</h3><p>We can start the local dev server using the command below with Angular CLI.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng serve</span><br></pre></td></tr></table></figure></div>
+<p>The command invokes the internal dev server based on  <a class="link"   target="_blank" rel="noopener" href="https://webpack.js.org/configuration/dev-server/" >webpack dev server <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. By default, the dev server runs on  <code>[http://localhost:4200](http://localhost:4200./)</code><a href="http://localhost:4200./">.</a></p>
+<p>When the Angular app needs to call its backend API, which is also hosted locally at  <code>[http://localhost:3000](http://localhost:3000./),</code> then we will encounter a CORS error because the HTTP call uses a different origin (<code>localhost:3000</code>).</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">this.http.get(&#x27;http://locahost:3000/api/&#x27;)  </span><br><span class="line">    .subscribe(res =&gt; &#123;...&#125;);</span><br></pre></td></tr></table></figure></div>
+<p>The CORS issue can be resolved by configuring the Angular dev server proxy. A sample proxy config can be created below</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// proxy.conf.json  </span><br><span class="line">&#123;  </span><br><span class="line">  &quot;/api&quot;: &#123; &quot;target&quot;: &quot;http://localhost:3000&quot;, &quot;secure&quot;: false,  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">// we change the angular http call to remove the domain prefix  </span><br><span class="line">this.http.get(&#x27;/api/&#x27;)  </span><br><span class="line">    .subscribe(res =&gt; &#123;...&#125;);</span><br></pre></td></tr></table></figure></div>
+<p>As illustrated by the following diagram, the proxy sits between the Angular app and the backend API and translates the “<code>api/v1</code>” calls to backend API. The CORS error doesn’t happen because the call to API is the same origin (<code>[localhost:4200](http://localhost:4200./)/api</code><strong>)</strong>  now.</p>
+<p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://cdn-images-1.medium.com/max/800/1*_2jpbQ3XXY-FzQ3Nq-8DSQ.png"
+                     data-src="https://miro.medium.com/v2/resize:fit:1120/1*_2jpbQ3XXY-FzQ3Nq-8DSQ.png"
                      
-                ></figure><p name="2613" id="2613" class="graf graf--p graf-after--figure">To make the proxy configuration takes effect, it must be passed into the <code class="markup--code markup--p-code">ng serve</code> command.</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="css" name="f9a1" id="f9a1" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content">ng serve <span class="hljs-attr">--proxy-config</span> proxy<span class="hljs-selector-class">.conf</span><span class="hljs-selector-class">.json</span></span></pre><p name="00bf" id="00bf" class="graf graf--p graf-after--pre">Or we can add it to the <code class="markup--code markup--p-code">angular.json</code> configuration</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="bash" name="6e4f" id="6e4f" class="graf graf--pre graf-after--p graf--trailing graf--preV2"><span class="pre--content"><br /><span class="hljs-string">&quot;serve&quot;</span>: {<br />  ...<br />  <span class="hljs-string">&quot;options&quot;</span>: {<br />    ...<br />    <span class="hljs-string">&quot;proxyConfig&quot;</span>: <span class="hljs-string">&quot;proxy.conf.json&quot;</span><br />  }<br />}</span></pre></div></div></section><section name="7fbe" class="section section--body"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h4 name="d919" id="d919" class="graf graf--h4 graf--leading">Connect to external API behind corporate Proxy</h4><p name="3103" id="3103" class="graf graf--p graf-after--h4">Often we worked within a corporate network, and the Angular app in a local dev environment also need to connect to an external API. Using the previous example, we might need to call <a class="link"  href="http://abc.company.com/api." data- href="http://abc.company.com/api."  class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">http://abc.company.com/api <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> in the Angular app instead of calling <a href="http://localhost:3000," data-href="http://localhost:3000," class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">http://localhost:3000/api</a>.</p><p name="31c6" id="31c6" class="graf graf--p graf-after--p">Accessing an external API behind a corporate proxy requires the <code class="markup--code markup--p-code">HTTP_PROXY</code> and <code class="markup--code markup--p-code">HTTPS_PROXY</code> environment variables to be configured. If the proxy utilizes an SSL certificate, the <code class="markup--code markup--p-code">secure</code> flag needs to be set to false, to bypass the certificate verification.</p><p name="67a7" id="67a7" class="graf graf--p graf-after--p">To handle corporate proxy, we need to create a <code class="markup--code markup--p-code">proxy.conf.js</code> as below.</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="javascript" name="cbd3" id="cbd3" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content"><span class="hljs-keyword">const</span> <span class="hljs-title class_">HttpsProxyAgent</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;https-proxy-agent&#x27;</span>);<br /><br /><span class="hljs-keyword">const</span> proxyConfig = [<br />  {<br />    <span class="hljs-attr">context</span>: <span class="hljs-string">&#x27;/api&#x27;</span>,<br />    <span class="hljs-attr">pathRewrite</span>: { <span class="hljs-string">&#x27;^/api&#x27;</span>: <span class="hljs-string">&#x27;&#x27;</span> },<br />    <span class="hljs-attr">target</span>: <span class="hljs-string">&#x27;https://api.abc.com&#x27;</span>,<br />    <span class="hljs-attr">changeOrigin</span>: <span class="hljs-literal">true</span>,<br />    <span class="hljs-attr">secure</span>: <span class="hljs-literal">false</span><br />  }<br />];<br /><br /><span class="hljs-keyword">function</span> <span class="hljs-title function_">setupForCorporateProxy</span>(<span class="hljs-params">proxyConfig</span>) {<br />  <span class="hljs-keyword">const</span> proxyServer = process.<span class="hljs-property">env</span>.<span class="hljs-property">http_proxy</span> || process.<span class="hljs-property">env</span>.<span class="hljs-property">HTTP_PROXY</span>;<br /><br />  <span class="hljs-keyword">if</span> (proxyServer) {<br />    <span class="hljs-keyword">const</span> agent = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpsProxyAgent</span>(proxyServer);<br />    proxyConfig.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">c</span> =&gt;</span> {<br />      c.<span class="hljs-property">agent</span> = agent;<br />    });<br />  }<br />  <span class="hljs-keyword">return</span> proxyConfig;<br />}<br /><br /><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = <span class="hljs-title function_">setupForCorporateProxy</span>(proxyConfig);</span></pre><p name="03f1" id="03f1" class="graf graf--p graf-after--pre">In the above example, we proxy a request like <code class="markup--code markup--p-code">api/v1/client</code> to an external server <code class="markup--code markup--p-code">https://api.abc.com/v1/client</code>. When a corporate proxy is required, we set up an <a class="link"  href="https://nodejs.org/api/https.html#https_class_https_agent" data- href="https://nodejs.org/api/https.html#https_class_https_agent"  class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">HTTPS agent <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> object in the proxy based on <code class="markup--code markup--p-code">HTTP_PROXY</code> and <code class="markup--code markup--p-code">HTTPS_PROXY</code> environment variables. The <code class="markup--code markup--p-code">secure:false</code> option is added to handle the custom SSL certificate in the corporate proxy.</p><p name="4042" id="4042" class="graf graf--p graf-after--p">To use the new js configuration for the Angular app, run the following</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="css" name="a9cc" id="a9cc" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content">ng serve <span class="hljs-attr">--proxy-config</span> proxy<span class="hljs-selector-class">.conf</span><span class="hljs-selector-class">.js</span></span></pre><p name="5771" id="5771" class="graf graf--p graf-after--pre graf--trailing">It is worth noting that there are two types of agents: <code class="markup--code markup--p-code">HttpsProxyAgent</code> and <code class="markup--code markup--p-code">HttpProxyAgent,</code> it is necessary to choose the appropriate one based on the environment setting.</p></div></div></section><section name="ced4" class="section section--body"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h4 name="2e9b" id="2e9b" class="graf graf--h4 graf--leading">Proxy to API using windows authentication (IIS)</h4><p name="e3c6" id="e3c6" class="graf graf--p graf-after--h4">Windows authentication is widely used by many companies that rely on Microsoft Ecosystem. The situation can be tricky if the Angular App is connecting to an API service hosted with IIS that is protected by windows authentication.</p><p name="d613" id="d613" class="graf graf--p graf-after--p">The typical problem is that the call from the Angular app to the API will return 401 when using the proxy setting in the local dev environment.</p><p name="ea6e" id="ea6e" class="graf graf--p graf-after--p">For example, <code class="markup--code markup--p-code">/api/v1/../login</code> is an Endpoint protected by Windows Authentication, the request to the API from a locally running Angular App receives 401 unauthorized responses. Below is the network tab screenshot in Chrome dev tools.</p><figure name="f8c2" id="f8c2" class="graf graf--figure graf-after--p"><img  class="graf-image" data-image-id="1*kewDSVjh_LP_TjNEEitLAA.png" data-width="1360" data-height="104" 
+                ></p>
+<p>To make the proxy configuration take effect, it must be passed into the  <code>ng serve</code>  command.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ng serve --proxy-config proxy.conf.json</span><br><span class="line"></span><br><span class="line">Or we can add it to the  `angular.json`  configuration</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">&quot;serve&quot;: &#123;  </span><br><span class="line">  ...  </span><br><span class="line">  &quot;options&quot;: &#123;  </span><br><span class="line">    ...  </span><br><span class="line">    &quot;proxyConfig&quot;: &quot;proxy.conf.json&quot;  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="Connect-to-external-API-behind-corporate-Proxy"><a href="#Connect-to-external-API-behind-corporate-Proxy" class="headerlink" title="Connect to external API behind corporate Proxy"></a>Connect to external API behind corporate Proxy</h3><p>Often, we worked within a corporate network, and the Angular app in a local dev environment also needed to connect to an external API. Using the previous example, we might need to call  <a class="link"   target="_blank" rel="noopener" href="http://abc.company.com/api." >http://abc.company.com/api <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  in the Angular app instead of calling  <a href="http://localhost:3000,/">http://localhost:3000/api</a>.</p>
+<p>Accessing an external API behind a corporate proxy requires  <code>HTTP_PROXY</code>  and  <code>HTTPS_PROXY</code>  environment variables to be configured. If the proxy utilizes an SSL certificate, the  <code>secure</code>  flag must be false to bypass the certificate verification.</p>
+<p>To handle corporate proxy, we need to create a  <code>proxy.conf.js</code>  as below.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">const HttpsProxyAgent = require(&#x27;https-proxy-agent&#x27;);  </span><br><span class="line">  </span><br><span class="line">const proxyConfig = [  </span><br><span class="line">  &#123;  </span><br><span class="line">    context: &#x27;/api&#x27;,  </span><br><span class="line">    pathRewrite: &#123; &#x27;^/api&#x27;: &#x27;&#x27; &#125;,  </span><br><span class="line">    target: &#x27;https://api.abc.com&#x27;,  </span><br><span class="line">    changeOrigin: true,  </span><br><span class="line">    secure: false  </span><br><span class="line">  &#125;  </span><br><span class="line">];  </span><br><span class="line">  </span><br><span class="line">function setupForCorporateProxy(proxyConfig) &#123;  </span><br><span class="line">  const proxyServer = process.env.http_proxy || process.env.HTTP_PROXY;  </span><br><span class="line">  </span><br><span class="line">  if (proxyServer) &#123;  </span><br><span class="line">    const agent = new HttpsProxyAgent(proxyServer);  </span><br><span class="line">    proxyConfig.forEach(c =&gt; &#123;  </span><br><span class="line">      c.agent = agent;  </span><br><span class="line">    &#125;);  </span><br><span class="line">  &#125;  </span><br><span class="line">  return proxyConfig;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">module.exports = setupForCorporateProxy(proxyConfig);</span><br></pre></td></tr></table></figure></div>
+<p>In the above example, we proxy a request like  <code>api/v1/client</code>  to an external server  <code>https://api.abc.com/v1/client</code>. When a corporate proxy is required, we set up an  <a class="link"   target="_blank" rel="noopener" href="https://nodejs.org/api/https.html#https_class_https_agent" >HTTPS agent <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  object in the proxy based on  <code>HTTP_PROXY</code>  and  <code>HTTPS_PROXY</code>  environment variables. The  <code>secure:false</code>  option is added to handle the custom SSL certificate in the corporate proxy.</p>
+<p>To use the new js configuration for the Angular app, run the following</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng serve --proxy-config proxy.conf.js</span><br></pre></td></tr></table></figure></div>
+<p>It is worth noting that there are two types of agents:  <code>HttpsProxyAgent</code>  and  <code>HttpProxyAgent,</code>  it is necessary to choose the appropriate one based on the environment setting.</p>
+<h3 id="Proxy-to-API-using-Windows-authentication-IIS"><a href="#Proxy-to-API-using-Windows-authentication-IIS" class="headerlink" title="Proxy to API using Windows authentication (IIS)"></a>Proxy to API using Windows authentication (IIS)</h3><p>Many companies rely on the Microsoft ecosystem, and Windows authentication is widely used. However, the situation can be tricky if the Angular App connects to an API service hosted with IIS protected by Windows authentication.</p>
+<p>The typical problem is that the call from the Angular app to the API will return 401 when using the proxy setting in the local dev environment.</p>
+<p>For example,  <code>/api/v1/../login</code>  is an Endpoint protected by Windows Authentication, the request to the API from a locally running Angular App receives 401 unauthorized responses. Below is the screenshot of the network tab in Chrome dev tools.</p>
+<p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://cdn-images-1.medium.com/max/800/1*kewDSVjh_LP_TjNEEitLAA.png"
+                     data-src="https://miro.medium.com/v2/resize:fit:1120/1*kewDSVjh_LP_TjNEEitLAA.png"
                      
-                ><figcaption class="imageCaption">failed request</figcaption></figure><p name="3798" id="3798" class="graf graf--p graf-after--figure">The root cause of the issue is that windows authentication is connection based, but the Proxy break the keep-live connection.</p><p name="7495" id="7495" class="graf graf--p graf-after--p">Under the hood of windows authentication, it uses either Kerberos or NTLM, either protocol will require a keep-live connection to keep the authentication state.</p><p name="3772" id="3772" class="graf graf--p graf-after--p">When the <code class="markup--code markup--p-code">/api/v1/../login</code> is called, the browser tries to establish a connection with the IIS server via NTLM negotiation handshake which includes 3 parts. They are the Type-1 message, the Type-2, and the Type-3 message. You can find more details of the NTLM handshake <a class="link"  href="https://web.archive.org/web/20210126065105/http://www.innovation.ch/personal/ronald/ntlm.html" data- href="https://web.archive.org/web/20210126065105/http://www.innovation.ch/personal/ronald/ntlm.html"  class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">here <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. You may already notice that there are two HTTP calls shown for the same request in the above screenshot. They are the first two parts of the handshake.</p><p name="3bb5" id="3bb5" class="graf graf--p graf-after--p">Because the request is proxying locally, the 3 handshake messages were sent in 3 separate requests(sockets) through the proxy, thus a keep-live connection can’t be kept in the process. That is the reason the last message didn’t occur.</p><p name="b679" id="b679" class="graf graf--p graf-after--p">To fix the issue, We need to configure the proxy to maintain a single connection between the browser and IIS server. The<code class="markup--code markup--p-code"><a class="link"  href="https://github.com/node-modules/agentkeepalive#readme" data- href="https://github.com/node-modules/agentkeepalive#readme"  class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">agentkeepalive <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></code> package can help us to achieve this goal. The updated proxy configuration is shown below.</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="yaml" name="333d" id="333d" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content"><span class="hljs-string">const</span> <span class="hljs-string">Agent</span> <span class="hljs-string">=</span> <span class="hljs-string">require(&quot;agentkeepalive&quot;);</span><br /><br /><span class="hljs-string">const</span> <span class="hljs-string">keepaliveAgent</span> <span class="hljs-string">=</span> <span class="hljs-string">new</span> <span class="hljs-string">Agent({</span><br />    <span class="hljs-attr">maxSockets:</span> <span class="hljs-number">1</span><span class="hljs-string">,</span><br />    <span class="hljs-attr">keepAlive:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span><br />    <span class="hljs-attr">maxFreeSockets:</span> <span class="hljs-number">10</span><span class="hljs-string">,</span><br />    <span class="hljs-attr">keepAliveMsecs:</span> <span class="hljs-number">1000</span><span class="hljs-string">,</span><br />    <span class="hljs-attr">timeout:</span> <span class="hljs-number">60000</span><span class="hljs-string">,</span><br />    <span class="hljs-attr">keepAliveTimeout:</span> <span class="hljs-number">30000</span> <span class="hljs-string">//</span> <span class="hljs-string">free</span> <span class="hljs-string">socket</span> <span class="hljs-string">keepalive</span> <span class="hljs-string">for</span> <span class="hljs-number">30</span> <span class="hljs-string">seconds</span><br /><span class="hljs-string">});</span><br /><br /><span class="hljs-string">const</span> <span class="hljs-string">PROXY_CONFIG</span> <span class="hljs-string">=</span> [<br />    {<br />        <span class="hljs-attr">target:</span> <span class="hljs-string">&quot;http://localhost:3000&quot;</span>,<br />        <span class="hljs-attr">context:</span> <span class="hljs-string">&quot;/api&quot;</span>,<br />        <span class="hljs-attr">secure:</span> <span class="hljs-literal">false</span>,<br />        <span class="hljs-attr">changeOrigin:</span> <span class="hljs-literal">true</span>,<br />        <span class="hljs-attr">loglevel:</span> <span class="hljs-string">&quot;debug&quot;</span>,<br />        <span class="hljs-attr">agent:</span> <span class="hljs-string">keepaliveAgent</span><br />    }<br />]<span class="hljs-string">;</span><br /><span class="hljs-string">module.exports</span> <span class="hljs-string">=</span> <span class="hljs-string">PROXY_CONFIG;</span></span></pre><p name="335a" id="335a" class="graf graf--p graf-after--pre">The updated proxy config set the <code class="markup--code markup--p-code">maxSockets</code> to 1, <code class="markup--code markup--p-code">keepAlive</code> flag to true, and sets the timeout to 30 seconds, which is long enough to complete the handshake. This config aims to make <code class="markup--code markup--p-code">http.Agent</code> to maintain a keep-live connection between the browser and IIS server via proxy in the authentication process.</p><p name="7ec0" id="7ec0" class="graf graf--p graf-after--p">Now, the <code class="markup--code markup--p-code">/api/v1/../login</code> API request should work.</p><figure name="ee08" id="ee08" class="graf graf--figure graf-after--p"><img  class="graf-image" data-image-id="1*EWspU6LBiNGgJX32wz7yow.png" data-width="1392" data-height="108" 
+                ></p>
+<p>failed request</p>
+<p>The root cause of the issue is that Windows authentication is connection-based, but the Proxy breaks the keep-live connection.</p>
+<p>Under the hood of Windows authentication, it uses either Kerberos or NTLM; either protocol will require a keep-live connection to keep the authentication state.</p>
+<p>When the  <code>/api/v1/../login</code>  is called, the browser tries to establish a connection with the IIS server via NTLM negotiation handshake, which includes three parts. They are the Type-1 message, the Type-2, and the Type-3 message. You can find more details of the NTLM handshake  <a class="link"   target="_blank" rel="noopener" href="https://web.archive.org/web/20210126065105/http://www.innovation.ch/personal/ronald/ntlm.html" >here <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. You may already notice two HTTP calls shown for the same request in the above screenshot. They are the first two parts of the handshake.</p>
+<p>Because the request is proxying locally, the three handshake messages were sent in 3 separate requests(sockets) through the proxy. Thus, a keep-live connection can’t be kept in the process, so the last message didn’t occur.</p>
+<p>To fix the issue, We need to configure the proxy to maintain a single connection between the browser and IIS server. The<code>[agentkeepalive](https://github.com/node-modules/agentkeepalive#readme)</code>  package can help us to achieve this goal. The updated proxy configuration is shown below.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">const Agent = require(&quot;agentkeepalive&quot;);  </span><br><span class="line">  </span><br><span class="line">const keepaliveAgent = new Agent(&#123;  </span><br><span class="line">    maxSockets: 1,  </span><br><span class="line">    keepAlive: true,  </span><br><span class="line">    maxFreeSockets: 10,  </span><br><span class="line">    keepAliveMsecs: 1000,  </span><br><span class="line">    timeout: 60000,  </span><br><span class="line">    keepAliveTimeout: 30000 // free socket keepalive for 30 seconds  </span><br><span class="line">&#125;);  </span><br><span class="line">  </span><br><span class="line">const PROXY_CONFIG = [  </span><br><span class="line">    &#123;  </span><br><span class="line">        target: &quot;http://localhost:3000&quot;,  </span><br><span class="line">        context: &quot;/api&quot;,  </span><br><span class="line">        secure: false,  </span><br><span class="line">        changeOrigin: true,  </span><br><span class="line">        loglevel: &quot;debug&quot;,  </span><br><span class="line">        agent: keepaliveAgent  </span><br><span class="line">    &#125;  </span><br><span class="line">];  </span><br><span class="line">module.exports = PROXY_CONFIG;</span><br></pre></td></tr></table></figure></div>
+<p>The updated proxy config set the  <code>maxSockets</code>  to 1,  <code>keepAlive</code>  flag to true and set the timeout to 30 seconds, which is long enough to complete the handshake. This config aims to make  <code>http.Agent</code>  to maintain a keep-live connection between the browser and IIS server via proxy in the authentication process.</p>
+<p>Now, the  <code>/api/v1/../login</code>  API request should work.</p>
+<p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://cdn-images-1.medium.com/max/800/1*EWspU6LBiNGgJX32wz7yow.png"
+                     data-src="https://miro.medium.com/v2/resize:fit:1120/1*EWspU6LBiNGgJX32wz7yow.png"
                      
-                ><figcaption class="imageCaption">success request</figcaption></figure><p name="1c4a" id="1c4a" class="graf graf--p graf-after--figure graf--trailing">The above is the network tab logs after successful authentication with the new config. We can see the three requests during the handshake, and the last one return HTTP 200 success status.</p></div></div></section><section name="4fd6" class="section section--body"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h4 name="55ad" id="55ad" class="graf graf--h4 graf--leading">Multiple schemes in one WWW-Authenticate header</h4><p name="48d7" id="48d7" class="graf graf--p graf-after--h4">Another possible cause of the error from windows authentication is the <code class="markup--code markup--p-code">www-authenticate</code> header. According to RFC 7235, it is okay to have multiple authentication schemes in one <code class="markup--code markup--p-code">www-authenticate</code> header field, although it can make the field difficult to be parsed.</p><blockquote name="2917" id="2917" class="graf graf--blockquote graf-after--p">agents will need to take special care in parsing the WWW-<br>Authenticate or Proxy-Authenticate header field value if it contains<br>more than one challenge, or if more than one WWW-Authenticate header<br>field is provided, since the contents of a challenge may itself<br>contain a comma-separated list of authentication parameters.</blockquote><p name="6f59" id="6f59" class="graf graf--p graf-after--blockquote">The reality is that the browser support is <a class="link"  href="http://test.greenbytes.de/tech/tc/httpauth/" data- href="http://test.greenbytes.de/tech/tc/httpauth/"  class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">questionable <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. Below is an example of the www-authenticate header with two schemes.</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="makefile" name="bdc2" id="bdc2" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content"><span class="hljs-section">WWW-Authenticate: Negotiate, NTLM</span></span></pre><p name="5e1c" id="5e1c" class="graf graf--p graf-after--pre">Some browsers may not be able to parse the above correctly and this will break the NTLM handshake process. To resolve this issue, we can utilize the <code class="markup--code markup--p-code">proxyRes</code> callback in the <code class="markup--code markup--p-code"><a class="link"  href="https://www.npmjs.com/package/http-proxy-middleware" data- href="https://www.npmjs.com/package/http-proxy-middleware"  class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">http-proxy-middleware <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></code> as below</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="javascript" name="05dd" id="05dd" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content"><span class="hljs-keyword">const</span> onProxyRes = <span class="hljs-keyword">function</span> (<span class="hljs-params">proxyRes, req, res</span>) {<br />     <span class="hljs-keyword">var</span> key = <span class="hljs-string">&#x27;www-authenticate&#x27;</span>;<br />     proxyRes.<span class="hljs-property">headers</span>[key] = proxyRes.<span class="hljs-property">headers</span>[key] &amp;&amp; proxyRes.<span class="hljs-property">headers</span>[key].<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;,&#x27;</span>);<br />};<br /><br /><span class="hljs-comment">// add it into the proxy config option</span><br /><span class="hljs-attr">onProxyRes</span>: onProxyRes</span></pre><p name="f6ae" id="f6ae" class="graf graf--p graf-after--pre">The full proxy configuration looks like below.</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="javascript" name="409b" id="409b" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content"><span class="hljs-keyword">const</span> <span class="hljs-title class_">Agent</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;agentkeepalive&quot;</span>);<br /><br /><span class="hljs-keyword">const</span> keepaliveAgent = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Agent</span>({<br />    <span class="hljs-attr">maxSockets</span>: <span class="hljs-number">1</span>,<br />    <span class="hljs-attr">keepAlive</span>: <span class="hljs-literal">true</span>,<br />    <span class="hljs-attr">maxFreeSockets</span>: <span class="hljs-number">10</span>,<br />    <span class="hljs-attr">keepAliveMsecs</span>: <span class="hljs-number">1000</span>,<br />    <span class="hljs-attr">timeout</span>: <span class="hljs-number">60000</span>,<br />    <span class="hljs-attr">keepAliveTimeout</span>: <span class="hljs-number">30000</span> <span class="hljs-comment">// free socket keepalive for 30 seconds</span><br />});<br /><span class="hljs-keyword">const</span> onProxyRes = <span class="hljs-keyword">function</span> (<span class="hljs-params">proxyRes, req, res</span>) {<br />     <span class="hljs-keyword">var</span> key = <span class="hljs-string">&#x27;www-authenticate&#x27;</span>;<br />     proxyRes.<span class="hljs-property">headers</span>[key] = proxyRes.<span class="hljs-property">headers</span>[key] &amp;&amp; proxyRes.<span class="hljs-property">headers</span>[key].<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;,&#x27;</span>);<br />};<br /><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">PROXY_CONFIG</span> = [<br />    {<br />        <span class="hljs-attr">target</span>: <span class="hljs-string">&quot;http://localhost:3000&quot;</span>,<br />        <span class="hljs-attr">context</span>: <span class="hljs-string">&quot;/api&quot;</span>,<br />        <span class="hljs-attr">secure</span>: <span class="hljs-literal">false</span>,<br />        <span class="hljs-attr">changeOrigin</span>: <span class="hljs-literal">true</span>,<br />        <span class="hljs-attr">onProxyRes</span>: onProxyRes,<br />        <span class="hljs-attr">agent</span>: keepaliveAgent<br />    }<br />];<br /><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = <span class="hljs-variable constant_">PROXY_CONFIG</span>;</span></pre><p name="1c36" id="1c36" class="graf graf--p graf-after--pre">With the new callback added, the multiple schemes in the <code class="markup--code markup--p-code">www-authenticate</code> header will be sent in multiple lines, and the NTLM negotiation handshake will be able to continue.</p><pre data-code-block-mode="2" spellcheck="false" data-code-block-lang="json" name="6dc5" id="6dc5" class="graf graf--pre graf-after--p graf--trailing graf--preV2"><span class="pre--content"><span class="hljs-comment">// From the original response header</span><br />www-authenticate<span class="hljs-punctuation">:</span> Negotiate<span class="hljs-punctuation">,</span> NTLM<br /><br /><span class="hljs-comment">// After the onProxRes callback function</span><br />www-authenticate<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>&#x27;Negotiate&#x27;<span class="hljs-punctuation">,</span> &#x27;NTLM&#x27;<span class="hljs-punctuation">]</span><br /><br /><span class="hljs-comment">// It is equivalent to</span><br />&lt; WWW-Authenticate<span class="hljs-punctuation">:</span> Negotiate<br />&lt; WWW-Authenticate<span class="hljs-punctuation">:</span> NTLM<br /><br /></span></pre></div></div></section><section name="4c06" class="section section--body section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h4 name="db9d" id="db9d" class="graf graf--h4 graf--leading">Summary</h4><p name="1e6a" id="1e6a" class="graf graf--p graf-after--h4">In this article, we discuss how to avoid CORS issues by setting up a proxy using Angular CLI for local development. I hope it is useful to you if you’re working on Angular behind a corporate proxy and/or using IIS with windows authentication.</p><p name="db66" id="db66" class="graf graf--p graf-after--p">Happy programming!</p></section>
-</section>
-<footer><p>By <a class="link"   target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694"  class="p-author h-card">Sunny Sun <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> on <a target="_blank" rel="noopener" href="https://medium.com/p/a1aeb2d8c86"><time class="dt-published" datetime="2023-02-22T12:16:38.971Z">February 22, 2023</time></a>.</p><p><a class="link"   target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694/all-you-need-to-know-about-angular-proxy-configuration-a1aeb2d8c86"  class="p-canonical">Canonical link <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p><p>Exported from <a class="link"   target="_blank" rel="noopener" href="https://medium.com" >Medium <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> on March 5, 2023.</p></footer></article></body></html>
+                ></p>
+<p>success request</p>
+<p>The network tab logs above after successful authentication with the new config. We can see the three requests during the handshake, and the last one returns HTTP 200 success status.</p>
+<h3 id="Multiple-schemes-in-one-WWW-Authenticate-header"><a href="#Multiple-schemes-in-one-WWW-Authenticate-header" class="headerlink" title="Multiple schemes in one WWW-Authenticate header"></a>Multiple schemes in one WWW-Authenticate header</h3><p>Another possible cause of the error from Windows authentication is the  <code>www-authenticate</code>  header. According to RFC 7235, it is okay to have multiple authentication schemes in one  <code>www-authenticate</code>  header field, although it can make the field difficult to be parsed.</p>
+<blockquote>
+<p>agents will need to take special care in parsing the WWW-<br>Authenticate or Proxy-Authenticate header field value if it contains<br>more than one challenge, or if more than one WWW-Authenticate header<br>field is provided, since the contents of a challenge may itself<br>contain a comma-separated list of authentication parameters.</p>
+</blockquote>
+<p>The reality is that the browser support is  <a class="link"   target="_blank" rel="noopener" href="http://test.greenbytes.de/tech/tc/httpauth/" >questionable <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. Below is an example of the www-authenticate header with two schemes.</p>
+<p><code>WWW-Authenticate: Negotiate, NTLM</code></p>
+<p>Some browsers may not be able to parse the above correctly, and this will break the NTLM handshake process. To resolve this issue, we can utilize the  <code>proxyRes</code>  callback in the  <code>[http-proxy-middleware](https://www.npmjs.com/package/http-proxy-middleware)</code>  as below</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const onProxyRes = function (proxyRes, req, res) &#123;  </span><br><span class="line">     var key = &#x27;www-authenticate&#x27;;  </span><br><span class="line">     proxyRes.headers[key] = proxyRes.headers[key] &amp;&amp; proxyRes.headers[key].split(&#x27;,&#x27;);  </span><br><span class="line">&#125;;  </span><br><span class="line">  </span><br><span class="line">// add it into the proxy config option  </span><br><span class="line">onProxyRes: onProxyRes</span><br></pre></td></tr></table></figure></div>
+<p>The full proxy configuration looks like below.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">const Agent = require(&quot;agentkeepalive&quot;);  </span><br><span class="line">  </span><br><span class="line">const keepaliveAgent = new Agent(&#123;  </span><br><span class="line">    maxSockets: 1,  </span><br><span class="line">    keepAlive: true,  </span><br><span class="line">    maxFreeSockets: 10,  </span><br><span class="line">    keepAliveMsecs: 1000,  </span><br><span class="line">    timeout: 60000,  </span><br><span class="line">    keepAliveTimeout: 30000 // free socket keepalive for 30 seconds  </span><br><span class="line">&#125;);  </span><br><span class="line">const onProxyRes = function (proxyRes, req, res) &#123;  </span><br><span class="line">     var key = &#x27;www-authenticate&#x27;;  </span><br><span class="line">     proxyRes.headers[key] = proxyRes.headers[key] &amp;&amp; proxyRes.headers[key].split(&#x27;,&#x27;);  </span><br><span class="line">&#125;;  </span><br><span class="line">const PROXY_CONFIG = [  </span><br><span class="line">    &#123;  </span><br><span class="line">        target: &quot;http://localhost:3000&quot;,  </span><br><span class="line">        context: &quot;/api&quot;,  </span><br><span class="line">        secure: false,  </span><br><span class="line">        changeOrigin: true,  </span><br><span class="line">        onProxyRes: onProxyRes,  </span><br><span class="line">        agent: keepaliveAgent  </span><br><span class="line">    &#125;  </span><br><span class="line">];  </span><br><span class="line">module.exports = PROXY_CONFIG;</span><br></pre></td></tr></table></figure></div>
+<p>With the new callback added, the multiple schemes in the  <code>www-authenticate</code>  header will be sent in multiple lines, and the NTLM negotiation handshake can continue.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// From the original response header  </span><br><span class="line">www-authenticate: Negotiate, NTLM  </span><br><span class="line">  </span><br><span class="line">// After the onProxRes callback function  </span><br><span class="line">www-authenticate: [&#x27;Negotiate&#x27;, &#x27;NTLM&#x27;]  </span><br><span class="line">  </span><br><span class="line">// It is equivalent to  </span><br><span class="line">&lt; WWW-Authenticate: Negotiate  </span><br><span class="line">&lt; WWW-Authenticate: NTLM  </span><br></pre></td></tr></table></figure></div>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>This article discusses how to avoid CORS issues by setting up a proxy using Angular CLI for local development. I hope it is useful if you’re working on Angular behind a corporate proxy and&#x2F;or using IIS with Windows authentication.</p>
+<p>Happy programming!</p>
+
         </div>
 
         
@@ -685,11 +591,11 @@ A complete guide on setting up a proxy in Angular for API calls behind a corpora
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-06-29 14:12:33
+                    :</strong> 2024-07-07 14:23:21
             </li>
         
         <li>
-            <strong>Link:</strong> http://blog.ourcrmonline.com/2023/03/05/all-you-need-to-know-about-angular-proxy-configuration/
+            <strong>Link:</strong> http://coffeethinkcode.com/2023/03/05/all-you-need-to-know-about-angular-proxy-configuration/
         </li>
         <li>
             <strong>
@@ -731,27 +637,27 @@ A complete guide on setting up a proxy in Angular for API calls behind a corpora
     <div class="recommended-article-header text-xl md:text-3xl font-bold mt-10">
      <i aria-hidden="true"></i><span>Recommended</span>
     </div>
-    <div class="recommended-article-group"><a class="recommended-article-item" href="/2024/02/05/durandal-angular/" title="Durandal vs Angular" rel="bookmark">
+    <div class="recommended-article-group"><a class="recommended-article-item" href="/2023/07/02/host-angular-iis-nginx/" title="Host Angular App in IIS vs. Nginx" rel="bookmark">
+  <img src="https://miro.medium.com/v2/resize:fit:4800/format:webp/1*Pm3UYwThC5GefRnjk5v1ng.png" alt="Host Angular App in IIS vs. Nginx" class="!max-w-none">
+  <span class="title">Host Angular App in IIS vs. Nginx</span>
+</a><a class="recommended-article-item" href="/2023/02/12/host-free-personal-knowledge-base/" title="Host Your Free Personal Knowledge Base With Trilium Notes" rel="bookmark">
+  <img src="https://miro.medium.com/v2/resize:fit:4800/format:webp/1*4uNgAiUJyK_6Mqa4E5QJPQ.png" alt="Host Your Free Personal Knowledge Base With Trilium Notes" class="!max-w-none">
+  <span class="title">Host Your Free Personal Knowledge Base With Trilium Notes</span>
+</a><a class="recommended-article-item" href="/2024/02/05/durandal-angular/" title="Durandal vs Angular" rel="bookmark">
   <img src="https://miro.medium.com/v2/resize:fit:1100/format:webp/1*Xbq4XJa6oQ-10YLsjAF-bQ.png" alt="Durandal vs Angular" class="!max-w-none">
   <span class="title">Durandal vs Angular</span>
-</a><a class="recommended-article-item" href="/2023/04/06/type-interface-ts/" title="Types vs. interfaces in TypeScript" rel="bookmark">
-  <img src="https://blog.logrocket.com/wp-content/uploads/2023/03/types-vs-interfaces-typescript-2023.png" alt="Types vs. interfaces in TypeScript" class="!max-w-none">
-  <span class="title">Types vs. interfaces in TypeScript</span>
-</a><a class="recommended-article-item" href="/2021/09/23/inject-dynamic-content-angular-components-with-portals/" title="Inject dynamic content in Angular components with portals" rel="bookmark">
-  <img src="https://blog.logrocket.com/wp-content/uploads/2021/09/rendering-dynamic-content-angular-components-using-angular-cdk-portal.png" alt="Inject dynamic content in Angular components with portals" class="!max-w-none">
-  <span class="title">Inject dynamic content in Angular components with portals</span>
 </a></div>
    </div>
    <div class="recommended-mobile">
    <div class="recommended-article-header text-xl md:text-3xl font-bold mt-10">
      <i aria-hidden="true"></i><span>Recommended</span>
    </div>
-   <div class="recommended-article-group"><a class="recommended-article-item" href="/2024/02/05/durandal-angular/" title="Durandal vs Angular" rel="bookmark">
-  <img src="https://miro.medium.com/v2/resize:fit:1100/format:webp/1*Xbq4XJa6oQ-10YLsjAF-bQ.png" alt="Durandal vs Angular" class="!max-w-none">
-  <span class="title">Durandal vs Angular</span>
-</a><a class="recommended-article-item" href="/2023/04/06/type-interface-ts/" title="Types vs. interfaces in TypeScript" rel="bookmark">
-  <img src="https://blog.logrocket.com/wp-content/uploads/2023/03/types-vs-interfaces-typescript-2023.png" alt="Types vs. interfaces in TypeScript" class="!max-w-none">
-  <span class="title">Types vs. interfaces in TypeScript</span>
+   <div class="recommended-article-group"><a class="recommended-article-item" href="/2023/07/02/host-angular-iis-nginx/" title="Host Angular App in IIS vs. Nginx" rel="bookmark">
+  <img src="https://miro.medium.com/v2/resize:fit:4800/format:webp/1*Pm3UYwThC5GefRnjk5v1ng.png" alt="Host Angular App in IIS vs. Nginx" class="!max-w-none">
+  <span class="title">Host Angular App in IIS vs. Nginx</span>
+</a><a class="recommended-article-item" href="/2023/02/12/host-free-personal-knowledge-base/" title="Host Your Free Personal Knowledge Base With Trilium Notes" rel="bookmark">
+  <img src="https://miro.medium.com/v2/resize:fit:4800/format:webp/1*4uNgAiUJyK_6Mqa4E5QJPQ.png" alt="Host Your Free Personal Knowledge Base With Trilium Notes" class="!max-w-none">
+  <span class="title">Host Your Free Personal Knowledge Base With Trilium Notes</span>
 </a></div>
    </div>
   </div>
@@ -778,10 +684,10 @@ A complete guide on setting up a proxy in Angular for API calls behind a corpora
                     <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
                         <a class="next"
                         rel="next"
-                        href="/2023/02/05/install-config-your-own-mysql-on-oracle-free-vm/"
+                        href="/2023/02/12/host-free-personal-knowledge-base/"
                         >
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">Install and ConfigureYour Own MySQL Server On Oracle Always Free Ubuntu VM</span>
+                                <span class="post-nav-title-item">Host Your Free Personal Knowledge Base With Trilium Notes</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex justify-center items-center">
@@ -805,7 +711,7 @@ A complete guide on setting up a proxy in Angular for API calls behind a corpora
         <div class="page-title">All You Need to Know About Angular Proxy Configuration</div>
         <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-text">
 A complete guide on setting up a proxy in Angular for API calls behind a corporate proxy or with windows authentication
-</span></a></li></ol>
+</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setup-a-proxy-to-connect-to-API-in-localhost"><span class="nav-text">Setup a proxy to connect to API in localhost</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Connect-to-external-API-behind-corporate-Proxy"><span class="nav-text">Connect to external API behind corporate Proxy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Proxy-to-API-using-Windows-authentication-IIS"><span class="nav-text">Proxy to API using Windows authentication (IIS)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multiple-schemes-in-one-WWW-Authenticate-header"><span class="nav-text">Multiple schemes in one WWW-Authenticate header</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a></li></ol>
 
     </div>
 </div>
@@ -838,11 +744,11 @@ A complete guide on setting up a proxy in Angular for API calls behind a corpora
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        28 posts in total
+                        34 posts in total
                     </span>
                     
                         <span>
-                            35.5k words in total
+                            42.3k words in total
                         </span>
                     
                 </p>
@@ -1065,6 +971,10 @@ A complete guide on setting up a proxy in Angular for API calls behind a corpora
 
 
 
+
+
+    
+<script src="/js/libs/anime.min.js"></script>
 
 
 

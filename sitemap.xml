@@ -3,23 +3,23 @@
 
 
     <sitemap>
-        <loc>http://blog.ourcrmonline.com/post-sitemap.xml</loc>
-        <lastmod>2024-07-06T01:04:07.431Z</lastmod>
+        <loc>http://coffeethinkcode.com/post-sitemap.xml</loc>
+        <lastmod>2024-07-09T20:53:13.860Z</lastmod>
     </sitemap>
 
     <sitemap>
-        <loc>http://blog.ourcrmonline.com/page-sitemap.xml</loc>
+        <loc>http://coffeethinkcode.com/page-sitemap.xml</loc>
         <lastmod>2024-06-28T09:49:41.398Z</lastmod>
     </sitemap>
 
     <sitemap>
-        <loc>http://blog.ourcrmonline.com/category-sitemap.xml</loc>
-        <lastmod>2024-07-06T01:04:07.431Z</lastmod>
+        <loc>http://coffeethinkcode.com/category-sitemap.xml</loc>
+        <lastmod>2024-07-09T20:53:13.860Z</lastmod>
     </sitemap>
 
     <sitemap>
-        <loc>http://blog.ourcrmonline.com/tag-sitemap.xml</loc>
-        <lastmod>2024-07-06T01:04:07.431Z</lastmod>
+        <loc>http://coffeethinkcode.com/tag-sitemap.xml</loc>
+        <lastmod>2024-07-09T20:53:13.860Z</lastmod>
     </sitemap>
 
 </sitemapindex>

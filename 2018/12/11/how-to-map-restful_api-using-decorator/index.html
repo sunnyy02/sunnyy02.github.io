@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="keywords" content="restful api,typescript,js,web programming,programming tutorial,nodejs,node javascript,node js,ts script">
     
     <meta name="author" content="Sunny Sun">
     <!-- preconnect -->
@@ -13,7 +13,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://blog.ourcrmonline.com/2018/12/11/how-to-map-restful_api-using-decorator/"/>
+    <link rel="canonical" href="http://coffeethinkcode.com/2018/12/11/how-to-map-restful_api-using-decorator/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -21,14 +21,14 @@
         <meta name="description" content="A cleaner, loosely coupled, and more maintainable solutionTo build a solid RESTful API, there are well-established best practices and design patterns  we can use. In this article, I will talk about ho">
 <meta property="og:type" content="article">
 <meta property="og:title" content="How to map REST API data using Decorator pattern in Angular 6">
-<meta property="og:url" content="http://blog.ourcrmonline.com/2018/12/11/how-to-map-restful_api-using-decorator/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:url" content="http://coffeethinkcode.com/2018/12/11/how-to-map-restful_api-using-decorator/index.html">
+<meta property="og:site_name" content="Love what you do">
 <meta property="og:description" content="A cleaner, loosely coupled, and more maintainable solutionTo build a solid RESTful API, there are well-established best practices and design patterns  we can use. In this article, I will talk about ho">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/2000/0*bkJlSQut_Vhfgqan.png">
 <meta property="article:published_time" content="2018-12-10T14:00:00.000Z">
-<meta property="article:modified_time" content="2024-06-29T04:16:33.355Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:modified_time" content="2024-07-07T08:34:05.325Z">
+<meta property="article:author" content="Sunny">
 <meta property="article:tag" content="Angular">
 <meta property="article:tag" content="Web API">
 <meta property="article:tag" content="Decorator">
@@ -90,14 +90,10 @@
     
 
     
-        
-<script src="/js/libs/anime.min.js"></script>
-
-    
 
     <script id="hexo-configurations">
-    window.config = {"hostname":"blog.ourcrmonline.com","root":"/","language":"en","path":"search.xml"};
-    window.theme = {"articles":{"style":{"font_size":"14px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true,"wordcount":true},"author_label":{"enable":true,"auto":false,"list":[],"custom_label_list":["lol"]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":true,"title":"Recommended","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":["wiki/"],"icon":"fa-solid fa-bookmark","max_count":3,"placeholder_img":"https://evan.beee.top/img/wallhaven-wqery6-light.webp"}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title":"love what you do","subtitle":{"text":"love what you do","hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}},"logo_img":"https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg# logo image on the left of the navigation bar"},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}],"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.4","code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/sunnyy02","Medium":"https://medium.com/@sunnysun-5694","LogRocket":"https://blog.logrocket.com/author/yansun/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.config = {"hostname":"coffeethinkcode.com","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"14px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true,"wordcount":true},"author_label":{"enable":true,"auto":false,"list":[],"custom_label_list":["lol"]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":true,"title":"Recommended","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":["wiki/"],"icon":"fa-solid fa-bookmark","max_count":3,"placeholder_img":"https://evan.beee.top/img/wallhaven-wqery6-light.webp"}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":false,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title":"love what you do","subtitle":{"text":"love what you do","hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}},"logo_img":"https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg# logo image on the left of the navigation bar"},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}],"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.4","code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/sunnyy02","Medium":"https://medium.com/@sunnysun-5694","LogRocket":"https://blog.logrocket.com/author/yansun/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
     window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
     window.data = {"masonry":false};
   </script>
@@ -119,7 +115,7 @@
     
     
     
-<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Love what you do" type="application/atom+xml">
 </head>
 
 
@@ -136,151 +132,6 @@
 </div>
 
 
-
-    <style>
-    :root {
-        --preloader-background-color: #fff;
-        --preloader-text-color: #000;
-    }
-
-    @media (prefers-color-scheme: dark) {
-        :root {
-            --preloader-background-color: #202124;
-            --preloader-text-color: #fff;
-        }
-    }
-
-    @media (prefers-color-scheme: light) {
-        :root {
-            --preloader-background-color: #fff;
-            --preloader-text-color: #000;
-        }
-    }
-
-    @media (max-width: 600px) {
-        .ml13 {
-            font-size: 2.6rem !important; /* Adjust this value as needed */
-        }
-    }
-
-    .preloader {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
-        align-items: center;
-        justify-content: center;
-        position: fixed;
-        padding: 12px;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh; /* 'h-screen' is 100% of the viewport height */
-        background-color: var(--preloader-background-color);
-        z-index: 1100; /* 'z-[1100]' sets the z-index */
-        transition: opacity 0.2s ease-in-out;
-    }
-
-    .ml13 {
-        font-size: 3.2rem;
-        /* text-transform: uppercase; */
-        color: var(--preloader-text-color);
-        letter-spacing: -1px;
-        font-weight: 500;
-        font-family: 'Chillax-Variable', sans-serif;
-        text-align: center;
-    }
-
-    .ml13 .word {
-        display: inline-flex;
-        flex-wrap: wrap;
-        white-space: nowrap;
-    }
-
-    .ml13 .letter {
-        display: inline-block;
-        line-height: 1em;
-    }
-</style>
-
-<div class="preloader">
-    <h2 class="ml13">
-        Do What You Love
-    </h2>
-    <script>
-        var textWrapper = document.querySelector('.ml13');
-        // Split text into words
-        var words = textWrapper.textContent.trim().split(' ');
-
-        // Clear the existing content
-        textWrapper.innerHTML = '';
-
-        // Wrap each word and its letters in spans
-        words.forEach(function(word) {
-            var wordSpan = document.createElement('span');
-            wordSpan.classList.add('word');
-            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
-            textWrapper.appendChild(wordSpan);
-            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
-        });
-
-        var animation = anime.timeline({loop: true})
-            .add({
-                targets: '.ml13 .letter',
-                translateY: [40,0],
-                translateZ: 0,
-                opacity: [0,1],
-                filter: ['blur(5px)', 'blur(0px)'], // Starting from blurred to unblurred
-                easing: "easeOutExpo",
-                duration: 1400,
-                delay: (el, i) => 300 + 30 * i,
-            }).add({
-                targets: '.ml13 .letter',
-                translateY: [0,-40],
-                opacity: [1,0],
-                filter: ['blur(0px)', 'blur(5px)'], // Ending from unblurred to blurred
-                easing: "easeInExpo",
-                duration: 1200,
-                delay: (el, i) => 100 + 30 * i,
-                complete: function() {
-                    hidePreloader(); // Call hidePreloader after the animation completes
-                }
-            });
-
-        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
-
-        // If the theme status is not found in local storage, check the preferred color scheme
-        if (themeStatus === undefined || themeStatus === null) {
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                themeStatus = 'dark';
-            } else {
-                themeStatus = 'light';
-            }
-        }
-
-        // Now you can use the themeStatus variable in your code
-        if (themeStatus) {
-            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
-            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
-        } else {
-            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
-            document.documentElement.style.setProperty('--preloader-text-color', '#000');
-        }
-
-        window.addEventListener('load', function () {
-            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
-        });
-
-        function hidePreloader() {
-            var preloader = document.querySelector('.preloader');
-            preloader.style.opacity = '0';
-            setTimeout(function () {
-                preloader.style.display = 'none';
-            }, 200);
-        }
-    </script>
-</div>
 
 <main class="page-container" id="swup">
 
@@ -511,15 +362,15 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">28</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">37</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">14</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">16</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">28</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">34</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -563,7 +414,7 @@
                     <div class="author flex items-center">
                         <span class="name text-default-text-color text-lg font-semibold">Sunny Sun</span>
                         
-                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
                         
                     </div>
                     <div class="meta-info">
@@ -577,8 +428,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-06-29 14:16:33</span>
-            <span class="mobile">2024-06-29 14:16:33</span>
+            <span class="desktop">2024-07-07 18:34:05</span>
+            <span class="mobile">2024-07-07 18:34:05</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -660,20 +511,10 @@
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
             <h2 id="A-cleaner-loosely-coupled-and-more-maintainable-solution"><a href="#A-cleaner-loosely-coupled-and-more-maintainable-solution" class="headerlink" title="A cleaner, loosely coupled, and more maintainable solution"></a>A cleaner, loosely coupled, and more maintainable solution</h2><p>To build a solid RESTful API, there are <a class="link"   target="_blank" rel="noopener" href="https://medium.com/p/d3c752debd88" >well-established best practices and design patterns <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> we can use. In this article, I will talk about how to use the Decorator pattern to consume RESTful API in Angular.</p>
 <h3 id="HttpClient-Service"><a href="#HttpClient-Service" class="headerlink" title="HttpClient Service"></a>HttpClient Service</h3><p>To consume a REST API in Angular, we can use HttpClient . HttpClient Service handles the JSON data parsing under the cover and returns an Rxjs observable. It also supports generic typing functionality. For example, in the code snippet below, getAllTodos will return an observable with an array of objects that match the type TodoModel.</p>
-<pre><code>constructor(private http: HttpClient) &#123;&#125;
-
-getAllTodos(): Observable&lt;TodoModel[]&gt; &#123;
-       return this.http.get&lt;TodoModel[]&gt;(this.url);
-&#125;
-</code></pre>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">constructor(private http: HttpClient) &#123;&#125;</span><br><span class="line"></span><br><span class="line">getAllTodos(): Observable&lt;TodoModel[]&gt; &#123;</span><br><span class="line">       return this.http.get&lt;TodoModel[]&gt;(this.url);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>It is straightforward to make use of HttpClient to call the REST API and get the data to bind to the view.</p>
 <h3 id="The-Problem"><a href="#The-Problem" class="headerlink" title="The Problem"></a>The Problem</h3><p>All seems good so far, but problems start to arise when the back end changes. Let’s say we have the TodoModel as below.</p>
-<pre><code>export class TodoModel&#123;
-  public name: string;
-  public id: number,
-  public completed: boolean,
-&#125;
-</code></pre>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export class TodoModel&#123;</span><br><span class="line">  public name: string;</span><br><span class="line">  public id: number,</span><br><span class="line">  public completed: boolean,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>Two changes are required</p>
 <ol>
 <li><p>We want to display a text description of “completed” when the value is true and display “pending” if the value is false.</p>
@@ -682,28 +523,9 @@ getAllTodos(): Observable&lt;TodoModel[]&gt; &#123;
 </li>
 </ol>
 <p>The quick way to meet the requirements is to change the model.</p>
-<pre><code>export class TodoModel&#123;
-  public title: string;
-  public id: number,
-  public completed: string,
-&#125;
-</code></pre>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export class TodoModel&#123;</span><br><span class="line">  public title: string;</span><br><span class="line">  public id: number,</span><br><span class="line">  public completed: string,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>Then change the todo service to map the completed field.</p>
-<pre><code>getAllTodos(): Observable&lt;TodoModel[]&gt; &#123;
-   return this.http.get(this.url).pipe(
-      map((data: any[]) =&gt; data.map((item: any) =&gt; &#123;
-          const model = new TodoModel();
-          Object.assign(model, item);
-          if(item.completed)&#123;
-              model.completed = &#39;completed&#39;;
-           &#125;else&#123;
-              model.completed = &#39;pending&#39;;
-           &#125;
-          return model;
-       &#125;))
-       );
-&#125;
-</code></pre>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">getAllTodos(): Observable&lt;TodoModel[]&gt; &#123;</span><br><span class="line">   return this.http.get(this.url).pipe(</span><br><span class="line">      map((data: any[]) =&gt; data.map((item: any) =&gt; &#123;</span><br><span class="line">          const model = new TodoModel();</span><br><span class="line">          Object.assign(model, item);</span><br><span class="line">          if(item.completed)&#123;</span><br><span class="line">              model.completed = &#x27;completed&#x27;;</span><br><span class="line">           &#125;else&#123;</span><br><span class="line">              model.completed = &#x27;pending&#x27;;</span><br><span class="line">           &#125;</span><br><span class="line">          return model;</span><br><span class="line">       &#125;))</span><br><span class="line">       );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>In the end, we also need to change the binding at the view to “title” instead of “name”.</p>
 <p>It works, but not ideal.</p>
 <p>Firstly, it is a simple change: rename one field in the backend. But this simple change requires updating the service, domain model, and view, it is an indication of bad design. Secondly, we may need to repeat the explicit mapping of data to every method that needs to retrieve TodoModel from the back end, which will pollute the code in the long term.</p>
@@ -732,9 +554,7 @@ getAllTodos(): Observable&lt;TodoModel[]&gt; &#123;
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">export function statusConverter(target: any, key: string)</span><br><span class="line">&#123;</span><br><span class="line">    var value;</span><br><span class="line">    if (delete target[key]) &#123;</span><br><span class="line">        Object.defineProperty(target, key, &#123;</span><br><span class="line">        get: function() &#123;</span><br><span class="line">                if (this.value)</span><br><span class="line">                &#123;</span><br><span class="line">                    return &#x27;Completed&#x27;;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    return &#x27;Pending&#x27;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">      set: function(v) &#123; this.value = v; &#125;,</span><br><span class="line">      enumerable: true,</span><br><span class="line">      configurable: true</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 <p>A property decorator is declared just before a property decoration.</p>
-<pre><code>@statusConverter
-public completed: string;
-</code></pre>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@statusConverter</span><br><span class="line">public completed: string;</span><br></pre></td></tr></table></figure></div>
 <p>That is it, no need to manually set the property value in the service code, and We can apply the same decorator everywhere when necessary.</p>
 <p>In this case, the use of the statusConverter decorator is very limited, it only converts the true value to “Completed” and the false to “Pending”. However, it is for illustration only, there is no limitation on how the data can be transformed.</p>
 <h3 id="PropertyMap-Decorator"><a href="#PropertyMap-Decorator" class="headerlink" title="PropertyMap Decorator"></a>PropertyMap Decorator</h3><p>To handle the case of backend data field renaming, we created the PropertyMap decorator and ModelMapper utility class.</p>
@@ -746,33 +566,16 @@ public completed: string;
 
 <p>Now we have a ModelMapper class that can take any type, extract the predefined metadata, and performs data transformation.</p>
 <p>To use the decorator</p>
-<pre><code>@propertyMap(&#39;title&#39;)
-public name: string;
-</code></pre>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@propertyMap(&#x27;title&#x27;)</span><br><span class="line">public name: string;</span><br></pre></td></tr></table></figure></div>
 <p>The updated service looks like the one below.</p>
-<pre><code>return this.http.get&lt;TodoModel[]&gt;(this.url).pipe(
-   map(data =&gt; data.map((item: any) =&gt; &#123;
-      return new ModelMapper(TodoModel).map(item);
-&#125;)));
-</code></pre>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">return this.http.get&lt;TodoModel[]&gt;(this.url).pipe(</span><br><span class="line">   map(data =&gt; data.map((item: any) =&gt; &#123;</span><br><span class="line">      return new ModelMapper(TodoModel).map(item);</span><br><span class="line">&#125;)));</span><br></pre></td></tr></table></figure></div>
 <h3 id="Further-refactoring"><a href="#Further-refactoring" class="headerlink" title="Further refactoring"></a>Further refactoring</h3><p>After we start to make use of the ModelMapper for the services, we will soon find that the code is duplicated in every service. Thus we can extract the modelMapper to a generic API Service class as the code snippet below.</p>
-<pre><code>// api.service.ts
-public get&lt;T&gt;(url: string, itemType: any): Observable&lt;T&gt; &#123;
-   return this.http.get&lt;T&gt;(this.url).pipe(
-       map(data =&gt; data.map((item: any) =&gt; &#123;
-       return new ModelMapper(itemType).map(item);
-   &#125;)));
-&#125;
-
-//todo.service.ts
-return this.api.get&lt;TodoModel[]&gt;(this.url, TodoModel);
-</code></pre>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// api.service.ts</span><br><span class="line">public get&lt;T&gt;(url: string, itemType: any): Observable&lt;T&gt; &#123;</span><br><span class="line">   return this.http.get&lt;T&gt;(this.url).pipe(</span><br><span class="line">       map(data =&gt; data.map((item: any) =&gt; &#123;</span><br><span class="line">       return new ModelMapper(itemType).map(item);</span><br><span class="line">   &#125;)));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//todo.service.ts</span><br><span class="line">return this.api.get&lt;TodoModel[]&gt;(this.url, TodoModel);</span><br></pre></td></tr></table></figure></div>
 <h3 id="Benefits"><a href="#Benefits" class="headerlink" title="Benefits"></a>Benefits</h3><p>With the above decorators, when the back-end data field is renamed or changed, there is no need to change the service code. The only change required is to update the PropertyMap decorator meta-data argument in the model class.</p>
 <p>No matter how many services consume the TodoModel API, only a single change is required to apply it to all services.</p>
 <p>The code also becomes more readable as the name of the decorator shows the intent of the function clearly.</p>
 <h3 id="Be-declarative"><a href="#Be-declarative" class="headerlink" title="Be declarative"></a>Be declarative</h3><p>Using the Decorator pattern is a practice of declarative programming, it focuses on how the components&#x2F;services want to behave instead of how to accomplish the result. The declarative approach helps developers to produce a cleaner, loosely coupled, and more maintainable code base.</p>
 <p>The full demo code is available at this <a class="link"   target="_blank" rel="noopener" href="https://stackblitz.com/edit/angular-7u2dgm" >stackblitz project <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
-<p>If you are not already a paid member of Medium, <a class="link"   target="_blank" rel="noopener" href="https://sunnysun-5694.medium.com/membership" >**you can do so by visiting this link <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**. You’ll get unlimited full access to every story on Medium. I’ll receive a portion of your membership fees as a referral.</p>
 <p>Happy Programming!</p>
 
         </div>
@@ -788,11 +591,11 @@ return this.api.get&lt;TodoModel[]&gt;(this.url, TodoModel);
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-06-29 14:16:33
+                    :</strong> 2024-07-07 18:34:05
             </li>
         
         <li>
-            <strong>Link:</strong> http://blog.ourcrmonline.com/2018/12/11/how-to-map-restful_api-using-decorator/
+            <strong>Link:</strong> http://coffeethinkcode.com/2018/12/11/how-to-map-restful_api-using-decorator/
         </li>
         <li>
             <strong>
@@ -865,13 +668,13 @@ return this.api.get&lt;TodoModel[]&gt;(this.url, TodoModel);
                     <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
                         <a class="prev"
                         rel="prev"
-                        href="/2019/10/05/integrate-with-dynamics-crm-online-using-web-api/"
+                        href="/2019/08/10/how-to-read-contactless-smart-card-from-chrome-app-part-1/"
                         >
                             <span class="left arrow-icon flex justify-center items-center">
                                 <i class="fa-solid fa-chevron-left"></i>
                             </span>
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">Integrate with Dynamics CRM Online using Web API</span>
+                                <span class="post-nav-title-item">How to Read Contactless Smart Card From a Chrome App (Part 1)</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -924,11 +727,11 @@ return this.api.get&lt;TodoModel[]&gt;(this.url, TodoModel);
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        28 posts in total
+                        34 posts in total
                     </span>
                     
                         <span>
-                            35.5k words in total
+                            42.3k words in total
                         </span>
                     
                 </p>
@@ -1151,6 +954,10 @@ return this.api.get&lt;TodoModel[]&gt;(this.url, TodoModel);
 
 
 
+
+
+    
+<script src="/js/libs/anime.min.js"></script>
 
 
 

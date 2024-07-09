@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="trilium,hosting,Nginx,Docker">
+    
+    <meta name="author" content="Sunny Sun">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://coffeethinkcode.com/2023/02/12/host-free-personal-knowledge-base/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="Complete Guide on Install and Configure Trilium Notes App using Trilium, Nginx, Docker, and Oracle CloudTrilium Notes   is an open-source note-taking App for building a personal knowledge base. It is">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Host Your Free Personal Knowledge Base With Trilium Notes">
+<meta property="og:url" content="http://coffeethinkcode.com/2023/02/12/host-free-personal-knowledge-base/index.html">
+<meta property="og:site_name" content="Love what you do">
+<meta property="og:description" content="Complete Guide on Install and Configure Trilium Notes App using Trilium, Nginx, Docker, and Oracle CloudTrilium Notes   is an open-source note-taking App for building a personal knowledge base. It is">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://miro.medium.com/v2/resize:fit:1120/1*eEJQG_7fPgT19Y78VASDpQ.png">
+<meta property="og:image" content="https://miro.medium.com/v2/resize:fit:1120/1*ysPZseup_RFopJMaWo8l5Q.png">
+<meta property="og:image" content="https://miro.medium.com/v2/resize:fit:1120/1*3apBx-yl0Si1tfymdUSEtg.png">
+<meta property="og:image" content="https://miro.medium.com/v2/resize:fit:1120/1*b84IrvdkYohQDO42Emxhrg.png">
+<meta property="og:image" content="https://miro.medium.com/v2/resize:fit:1120/1*RHjeyTaiLmHbRCptIU7NNw.png">
+<meta property="og:image" content="https://miro.medium.com/v2/resize:fit:1120/1*LNmeOwBVbZFKs0A5-GZCfg.png">
+<meta property="article:published_time" content="2023-02-11T14:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-09T11:31:51.095Z">
+<meta property="article:author" content="Sunny">
+<meta property="article:tag" content="Nginx">
+<meta property="article:tag" content="trilium">
+<meta property="article:tag" content="hosting">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://miro.medium.com/v2/resize:fit:1120/1*eEJQG_7fPgT19Y78VASDpQ.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Host Your Free Personal Knowledge Base With Trilium Notes -
+        
+        Do What You Love
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+        
+            
+    
+            
+    
+            
+                
+                    <script data-swup-reload-script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7754282426229634" crossorigin="anonymous"></script>
+                
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"coffeethinkcode.com","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"14px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true,"wordcount":true},"author_label":{"enable":true,"auto":false,"list":[],"custom_label_list":["lol"]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":true,"title":"Recommended","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":["wiki/"],"icon":"fa-solid fa-bookmark","max_count":3,"placeholder_img":"https://evan.beee.top/img/wallhaven-wqery6-light.webp"}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":false,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title":"love what you do","subtitle":{"text":"love what you do","hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}},"logo_img":"https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg# logo image on the left of the navigation bar"},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}],"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.4","code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/sunnyy02","Medium":"https://medium.com/@sunnysun-5694","LogRocket":"https://blog.logrocket.com/author/yansun/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Love what you do" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Do What You Love
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/about">
+                                                    ME
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/sunnyy02">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">
+                                                    MEDIUM
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">
+                                                    LOGROCKET
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about">ME</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">37</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">16</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">34</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                
+                
+                <img src="https://miro.medium.com/v2/resize:fit:4800/format:webp/1*4uNgAiUJyK_6Mqa4E5QJPQ.png" alt="Host Your Free Personal Knowledge Base With Trilium Notes" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75"/>
+                
+                <div class="w-full flex items-center absolute bottom-0 justify-start">
+                    <h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">Host Your Free Personal Knowledge Base With Trilium Notes</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/icons8-stormtrooper.svg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Sunny Sun</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-02-12</span>
+        <span class="mobile">2023-02-12</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-07-09 21:31:51</span>
+            <span class="mobile">2024-07-09 21:31:51</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Web-Development/">Web Development</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/Web-Development/Programming/">Programming</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Nginx/">Nginx</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/trilium/">trilium</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/hosting/">hosting</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Docker/">Docker</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>962 Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>6 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h3 id="Complete-Guide-on-Install-and-Configure-Trilium-Notes-App-using-Trilium-Nginx-Docker-and-Oracle-Cloud"><a href="#Complete-Guide-on-Install-and-Configure-Trilium-Notes-App-using-Trilium-Nginx-Docker-and-Oracle-Cloud" class="headerlink" title="Complete Guide on Install and Configure Trilium Notes App using Trilium, Nginx, Docker, and Oracle Cloud"></a>Complete Guide on Install and Configure Trilium Notes App using Trilium, Nginx, Docker, and Oracle Cloud</h3><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/zadam/trilium/" >Trilium Notes <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  is an open-source note-taking App for building a personal knowledge base. It is a surprisingly powerful tool, including some impressive features like mermaid charts, WYSIWYG note editing, syntax highlighting, full-text search, etc.</p>
+<p>Trilium can be installed on a desktop or on your own server. The most common approach is to use Docker to set up the App on a cloud VM so you can access it from anywhere. There are  <a class="link"   target="_blank" rel="noopener" href="https://trilium.cc/paid-hosting" >3rd party paid services to host a Trilium instance for you <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  and some free options.</p>
+<p>In this article, I will walk through the process of hosting it on an  <a class="link"   target="_blank" rel="noopener" href="https://medium.com/gitconnected/build-and-host-a-dynamic-web-site-for-only-1-per-month-1aa5aa3a7bd1" >Oracle always free VM instance <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<h2 id="Oracle-forever-free-VM"><a href="#Oracle-forever-free-VM" class="headerlink" title="Oracle forever free VM"></a>Oracle forever free VM</h2><p>Recently, I  <a href="https://coffeethinkcode.com/2023/02/05/install-config-your-own-mysql-on-oracle-free-vm/">migrated a MySQL server to Oracle forever-free VM</a>. The free ARM-based VM has three core CPUs and 18 G memory, and its current CPU and memory utilization is very low, as shown below.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://miro.medium.com/v2/resize:fit:1120/1*eEJQG_7fPgT19Y78VASDpQ.png"
+                      alt="low usage"
+                ></p>
+<p>Its remaining capability is more than enough to host a Trilium App.</p>
+<p>Let’s do it.</p>
+<h2 id="Install-the-App-using-Docker"><a href="#Install-the-App-using-Docker" class="headerlink" title="Install the App using Docker"></a>Install the App using Docker</h2><p>Firstly, we need to install docker on the Oracle VM. I won’t go through the process in detail, as it is described on the  <a class="link"   target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/ubuntu/#prerequisites" >official Docker site <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. Below are the essential commands for the installation.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update  </span><br><span class="line">sudo apt install docker-ce  </span><br><span class="line">docker --version # check version  </span><br><span class="line">sudo docker run hello-world # test the installation</span><br></pre></td></tr></table></figure></div>
+<p>Now we can pull the Trilium docker image and run it as below.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">sudo docker pull zadam/trilium:0.58.7   </span><br><span class="line">### create a data directory for trilium  </span><br><span class="line">sudo mkdir trilium-data  </span><br><span class="line">  </span><br><span class="line">#run it locally  </span><br><span class="line">sudo docker run -d -t -i -p 127.0.0.1:8080:8080 -v ~/trilium-data:/home/trilium/data zadam/trilium:0.58.7  </span><br><span class="line">  </span><br><span class="line">### test it  </span><br><span class="line">sudo docker ps  </span><br><span class="line">curl 127.0.0.1:8080  </span><br><span class="line">### stop the local run  </span><br><span class="line">sudo docker stop beautiful_bose  </span><br><span class="line">  </span><br><span class="line">### run it and open to any ips  </span><br><span class="line">sudo docker run -d -p 0.0.0.0:8080:8080 -v ~/trilium-data:/home/trilium/data zadam/trilium:0.58.7</span><br></pre></td></tr></table></figure></div>
+<p>In the above commands, the following actions are performed</p>
+<ul>
+<li>The trilium image version 0.58.7 (the latest available at the time of writing) is pulled.</li>
+<li>The data volume is mapped to the  <code>/trilium-data</code>  directory on the host machine</li>
+<li>The Docker port is mapped to port 8080 on the host machine</li>
+<li>Access to the app is allowed from any IP address</li>
+</ul>
+<p>As you can see, it is pretty straightforward to run a trilium app with Docker.</p>
+<p>If you test the new instance from your browser using the URL:<code>[http://[IP](http://[ip/)  address]:8080</code>, the setup screen should be shown.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://miro.medium.com/v2/resize:fit:1120/1*ysPZseup_RFopJMaWo8l5Q.png"
+                      alt="trilium setup page"
+                ></p>
+<h2 id="Secure-the-App-with-Ngnix-and-SSL-certificate"><a href="#Secure-the-App-with-Ngnix-and-SSL-certificate" class="headerlink" title="Secure the App with Ngnix and SSL certificate."></a>Secure the App with Ngnix and SSL certificate.</h2><p>The next step is to secure the App, make it accessible behind a reverse proxy and install an SSL certificate to protect the communication between the browser and the server.</p>
+<p>Firstly, let’s install the Nginx server.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install nginx # install  </span><br><span class="line">  </span><br><span class="line">sudo service nginx start #start  </span><br><span class="line">  </span><br><span class="line">sudo service nginx status # verify the nginx status</span><br></pre></td></tr></table></figure></div>
+<p>We can verify that the new instance is listening to port 80.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo netstat -tulpn</span><br></pre></td></tr></table></figure></div>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://miro.medium.com/v2/resize:fit:1120/1*3apBx-yl0Si1tfymdUSEtg.png"
+                      alt="Nginx listening port 80"
+                ></p>
+<p>Once Nginx is installed, a free Let’s Encrypt SSL certificate can be created, and the appropriate configuration can be added to Nginx.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install certbot  </span><br><span class="line">sudo apt-get install python3-certbot-nginx  </span><br><span class="line">  </span><br><span class="line">#request certificate for notes.xxx.com  </span><br><span class="line">sudo certbot --nginx -d [your domain name]</span><br></pre></td></tr></table></figure></div>
+<p>To set up the auto-renew of the certificate:</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#setup auto renew certificate  </span><br><span class="line">sudo crontab -e  </span><br><span class="line">### add the following line  </span><br><span class="line"> 0 12 * * * /usr/bin/certbot renew --quiet</span><br></pre></td></tr></table></figure></div>
+<p>If you own a domain name, you can set up a sub domain for your new Trilium app. For example, create an A record for<code>notes.xxx.com</code>, and map it to your VM IP address. This will allow you to access the URL  <code>[https://notes.xxx.com](https://notes.xxx.com/)</code>  in the browser.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://miro.medium.com/v2/resize:fit:1120/1*b84IrvdkYohQDO42Emxhrg.png"
+                      alt="default Nginx"
+                ></p>
+<p>The final step is to configure the redirect in the Nginx. The Nginx configuration file can typically be found in either  <code>/etc/nginx/nginx.conf</code>  or  <code>/etc/nginx/sites-enabled/default</code>. The default setting is something like the one below.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">server_name notes.xxx.com; # managed by Certbot  </span><br><span class="line"> </span><br><span class="line">   location / &#123;  </span><br><span class="line">           # First attempt to serve request as file, then  </span><br><span class="line">           # as directory, then fall back to displaying a 404.  </span><br><span class="line">         try_files $uri $uri/ =404;  </span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></div>
+<p>The location section needs to be updated as below, so the request to port 443 will be directed to port 8080 at the VM.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;  </span><br><span class="line">           proxy_pass http://localhost:8080;  </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div>
+<p>To make the change effective, we should restart Nginx. Then, you can enjoy the new App instance by accessing  <code>https://notes.xxx.com</code>.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://miro.medium.com/v2/resize:fit:1120/1*RHjeyTaiLmHbRCptIU7NNw.png"
+                      alt="Trilium is working"
+                ></p>
+<h2 id="Troubleshooting-Notes-don’t-refresh"><a href="#Troubleshooting-Notes-don’t-refresh" class="headerlink" title="Troubleshooting: Notes don’t refresh"></a>Troubleshooting: Notes don’t refresh</h2><p>If you got an issue where refreshing the browser is necessary to view changes in Trillium Notes, It may be caused by the missing  <a class="link"   target="_blank" rel="noopener" href="http://nginx.org/en/docs/http/websocket.html" >nginx proxy setting to support <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> the web socket.</p>
+<p>To determine whether it is the cause, open the Chrome dev tools, to check for the below error is shown.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://miro.medium.com/v2/resize:fit:1120/1*LNmeOwBVbZFKs0A5-GZCfg.png"
+                     
+                ></p>
+<p>To fix the issue, log in to the server and update Nginx config file as follows:</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;  </span><br><span class="line">    proxy_pass http://localhost:8080;  </span><br><span class="line">    proxy_http_version 1.1;  </span><br><span class="line">    proxy_set_header Upgrade $http_upgrade;  </span><br><span class="line">    proxy_set_header Connection &quot;upgrade&quot;;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>After the update, don’t forget to restart the Ngnix server.</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Trilium is a great note-taking App. It is lightweight, able to work offline, fast, and works well on a mobile browser.</p>
+<p>There are a couple of advanced topics being skipped in this article</p>
+<ul>
+<li>Install multiple instances of the App on a single VM</li>
+<li>Automatical backup of the data</li>
+<li>Sync data between multiple apps</li>
+</ul>
+<p>If you are interested in these topics, leave a comment below. I will write another post to cover them if there is enough interest.</p>
+<p>Happy noting!</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> Host Your Free Personal Knowledge Base With Trilium Notes</li>
+        <li><strong>Author:</strong> Sunny Sun</li>
+        <li><strong>Created at
+                :</strong> 2023-02-12 00:00:00</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2024-07-09 21:31:51
+            </li>
+        
+        <li>
+            <strong>Link:</strong> http://coffeethinkcode.com/2023/02/12/host-free-personal-knowledge-base/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/Nginx/">#Nginx</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/trilium/">#trilium</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/hosting/">#hosting</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/Docker/">#Docker</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+  <div class="recommended-article px-2 sm:px-6 md:px-8">
+   <div class="recommended-desktop">
+    <div class="recommended-article-header text-xl md:text-3xl font-bold mt-10">
+     <i aria-hidden="true"></i><span>Recommended</span>
+    </div>
+    <div class="recommended-article-group"><a class="recommended-article-item" href="/2023/07/02/host-angular-iis-nginx/" title="Host Angular App in IIS vs. Nginx" rel="bookmark">
+  <img src="https://miro.medium.com/v2/resize:fit:4800/format:webp/1*Pm3UYwThC5GefRnjk5v1ng.png" alt="Host Angular App in IIS vs. Nginx" class="!max-w-none">
+  <span class="title">Host Angular App in IIS vs. Nginx</span>
+</a><a class="recommended-article-item" href="/2023/02/05/install-config-your-own-mysql-on-oracle-free-vm/" title="Install and ConfigureYour Own MySQL Server On Oracle Always Free Ubuntu VM" rel="bookmark">
+  <img src="https://cdn-images-1.medium.com/max/4012/1*GX2vaijinX-m9Em9YjkJig.png" alt="Install and ConfigureYour Own MySQL Server On Oracle Always Free Ubuntu VM" class="!max-w-none">
+  <span class="title">Install and ConfigureYour Own MySQL Server On Oracle Always Free Ubuntu VM</span>
+</a><a class="recommended-article-item" href="/2023/03/05/all-you-need-to-know-about-angular-proxy-configuration/" title="All You Need to Know About Angular Proxy Configuration" rel="bookmark">
+  <img src="https://cdn-images-1.medium.com/max/800/1*Pzb62OGNzyUwSQrucDVe9A.png" alt="All You Need to Know About Angular Proxy Configuration" class="!max-w-none">
+  <span class="title">All You Need to Know About Angular Proxy Configuration</span>
+</a></div>
+   </div>
+   <div class="recommended-mobile">
+   <div class="recommended-article-header text-xl md:text-3xl font-bold mt-10">
+     <i aria-hidden="true"></i><span>Recommended</span>
+   </div>
+   <div class="recommended-article-group"><a class="recommended-article-item" href="/2023/07/02/host-angular-iis-nginx/" title="Host Angular App in IIS vs. Nginx" rel="bookmark">
+  <img src="https://miro.medium.com/v2/resize:fit:4800/format:webp/1*Pm3UYwThC5GefRnjk5v1ng.png" alt="Host Angular App in IIS vs. Nginx" class="!max-w-none">
+  <span class="title">Host Angular App in IIS vs. Nginx</span>
+</a><a class="recommended-article-item" href="/2023/02/05/install-config-your-own-mysql-on-oracle-free-vm/" title="Install and ConfigureYour Own MySQL Server On Oracle Always Free Ubuntu VM" rel="bookmark">
+  <img src="https://cdn-images-1.medium.com/max/4012/1*GX2vaijinX-m9Em9YjkJig.png" alt="Install and ConfigureYour Own MySQL Server On Oracle Always Free Ubuntu VM" class="!max-w-none">
+  <span class="title">Install and ConfigureYour Own MySQL Server On Oracle Always Free Ubuntu VM</span>
+</a></div>
+   </div>
+  </div>
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2023/03/05/all-you-need-to-know-about-angular-proxy-configuration/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">All You Need to Know About Angular Proxy Configuration</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2023/02/05/install-config-your-own-mysql-on-oracle-free-vm/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Install and ConfigureYour Own MySQL Server On Oracle Always Free Ubuntu VM</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">Host Your Free Personal Knowledge Base With Trilium Notes</div>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Complete-Guide-on-Install-and-Configure-Trilium-Notes-App-using-Trilium-Nginx-Docker-and-Oracle-Cloud"><span class="nav-text">Complete Guide on Install and Configure Trilium Notes App using Trilium, Nginx, Docker, and Oracle Cloud</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Oracle-forever-free-VM"><span class="nav-text">Oracle forever free VM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Install-the-App-using-Docker"><span class="nav-text">Install the App using Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Secure-the-App-with-Ngnix-and-SSL-certificate"><span class="nav-text">Secure the App with Ngnix and SSL certificate.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Troubleshooting-Notes-don%E2%80%99t-refresh"><span class="nav-text">Troubleshooting: Notes don’t refresh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Sunny Sun</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        34 posts in total
+                    </span>
+                    
+                        <span>
+                            42.3k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.4</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+            
+                
+        
+                
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/libs/anime.min.js"></script>
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+</body>
+</html>

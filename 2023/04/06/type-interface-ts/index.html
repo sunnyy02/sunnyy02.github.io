@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="keywords" content="restful api,typescript,js,web programming,programming tutorial,nodejs,node javascript,node js,ts script">
     
     <meta name="author" content="Sunny Sun">
     <!-- preconnect -->
@@ -13,7 +13,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://blog.ourcrmonline.com/2023/04/06/type-interface-ts/"/>
+    <link rel="canonical" href="http://coffeethinkcode.com/2023/04/06/type-interface-ts/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -21,8 +21,8 @@
         <meta name="description" content="Types vs. interfaces in TypeScript   We have two options for defining types in TypeScript: types and interfaces. One of the most frequently asked questions about TypeScript is whether we should use in">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Types vs. interfaces in TypeScript">
-<meta property="og:url" content="http://blog.ourcrmonline.com/2023/04/06/type-interface-ts/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:url" content="http://coffeethinkcode.com/2023/04/06/type-interface-ts/index.html">
+<meta property="og:site_name" content="Love what you do">
 <meta property="og:description" content="Types vs. interfaces in TypeScript   We have two options for defining types in TypeScript: types and interfaces. One of the most frequently asked questions about TypeScript is whether we should use in">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://blog.logrocket.com/wp-content/uploads/2023/03/define-type-more-than-once-error.png">
@@ -30,8 +30,8 @@
 <meta property="og:image" content="https://blog.logrocket.com/wp-content/uploads/2023/03/conflict-detected-error-thrown.png">
 <meta property="og:image" content="https://blog.logrocket.com/wp-content/uploads/2023/03/class-represents-specific-data-shape-error.png">
 <meta property="article:published_time" content="2023-04-05T14:00:00.000Z">
-<meta property="article:modified_time" content="2024-06-29T04:22:31.708Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:modified_time" content="2024-07-07T04:18:17.315Z">
+<meta property="article:author" content="Sunny">
 <meta property="article:tag" content="TypeScript">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog.logrocket.com/wp-content/uploads/2023/03/define-type-more-than-once-error.png">
@@ -91,14 +91,10 @@
     
 
     
-        
-<script src="/js/libs/anime.min.js"></script>
-
-    
 
     <script id="hexo-configurations">
-    window.config = {"hostname":"blog.ourcrmonline.com","root":"/","language":"en","path":"search.xml"};
-    window.theme = {"articles":{"style":{"font_size":"14px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true,"wordcount":true},"author_label":{"enable":true,"auto":false,"list":[],"custom_label_list":["lol"]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":true,"title":"Recommended","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":["wiki/"],"icon":"fa-solid fa-bookmark","max_count":3,"placeholder_img":"https://evan.beee.top/img/wallhaven-wqery6-light.webp"}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title":"love what you do","subtitle":{"text":"love what you do","hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}},"logo_img":"https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg# logo image on the left of the navigation bar"},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}],"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.4","code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/sunnyy02","Medium":"https://medium.com/@sunnysun-5694","LogRocket":"https://blog.logrocket.com/author/yansun/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.config = {"hostname":"coffeethinkcode.com","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"14px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true,"wordcount":true},"author_label":{"enable":true,"auto":false,"list":[],"custom_label_list":["lol"]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":true,"title":"Recommended","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":["wiki/"],"icon":"fa-solid fa-bookmark","max_count":3,"placeholder_img":"https://evan.beee.top/img/wallhaven-wqery6-light.webp"}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":false,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title":"love what you do","subtitle":{"text":"love what you do","hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}},"logo_img":"https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg# logo image on the left of the navigation bar"},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}],"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.4","code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/sunnyy02","Medium":"https://medium.com/@sunnysun-5694","LogRocket":"https://blog.logrocket.com/author/yansun/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
     window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
     window.data = {"masonry":false};
   </script>
@@ -120,7 +116,7 @@
     
     
     
-<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Love what you do" type="application/atom+xml">
 </head>
 
 
@@ -137,151 +133,6 @@
 </div>
 
 
-
-    <style>
-    :root {
-        --preloader-background-color: #fff;
-        --preloader-text-color: #000;
-    }
-
-    @media (prefers-color-scheme: dark) {
-        :root {
-            --preloader-background-color: #202124;
-            --preloader-text-color: #fff;
-        }
-    }
-
-    @media (prefers-color-scheme: light) {
-        :root {
-            --preloader-background-color: #fff;
-            --preloader-text-color: #000;
-        }
-    }
-
-    @media (max-width: 600px) {
-        .ml13 {
-            font-size: 2.6rem !important; /* Adjust this value as needed */
-        }
-    }
-
-    .preloader {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
-        align-items: center;
-        justify-content: center;
-        position: fixed;
-        padding: 12px;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh; /* 'h-screen' is 100% of the viewport height */
-        background-color: var(--preloader-background-color);
-        z-index: 1100; /* 'z-[1100]' sets the z-index */
-        transition: opacity 0.2s ease-in-out;
-    }
-
-    .ml13 {
-        font-size: 3.2rem;
-        /* text-transform: uppercase; */
-        color: var(--preloader-text-color);
-        letter-spacing: -1px;
-        font-weight: 500;
-        font-family: 'Chillax-Variable', sans-serif;
-        text-align: center;
-    }
-
-    .ml13 .word {
-        display: inline-flex;
-        flex-wrap: wrap;
-        white-space: nowrap;
-    }
-
-    .ml13 .letter {
-        display: inline-block;
-        line-height: 1em;
-    }
-</style>
-
-<div class="preloader">
-    <h2 class="ml13">
-        Do What You Love
-    </h2>
-    <script>
-        var textWrapper = document.querySelector('.ml13');
-        // Split text into words
-        var words = textWrapper.textContent.trim().split(' ');
-
-        // Clear the existing content
-        textWrapper.innerHTML = '';
-
-        // Wrap each word and its letters in spans
-        words.forEach(function(word) {
-            var wordSpan = document.createElement('span');
-            wordSpan.classList.add('word');
-            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
-            textWrapper.appendChild(wordSpan);
-            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
-        });
-
-        var animation = anime.timeline({loop: true})
-            .add({
-                targets: '.ml13 .letter',
-                translateY: [40,0],
-                translateZ: 0,
-                opacity: [0,1],
-                filter: ['blur(5px)', 'blur(0px)'], // Starting from blurred to unblurred
-                easing: "easeOutExpo",
-                duration: 1400,
-                delay: (el, i) => 300 + 30 * i,
-            }).add({
-                targets: '.ml13 .letter',
-                translateY: [0,-40],
-                opacity: [1,0],
-                filter: ['blur(0px)', 'blur(5px)'], // Ending from unblurred to blurred
-                easing: "easeInExpo",
-                duration: 1200,
-                delay: (el, i) => 100 + 30 * i,
-                complete: function() {
-                    hidePreloader(); // Call hidePreloader after the animation completes
-                }
-            });
-
-        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
-
-        // If the theme status is not found in local storage, check the preferred color scheme
-        if (themeStatus === undefined || themeStatus === null) {
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                themeStatus = 'dark';
-            } else {
-                themeStatus = 'light';
-            }
-        }
-
-        // Now you can use the themeStatus variable in your code
-        if (themeStatus) {
-            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
-            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
-        } else {
-            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
-            document.documentElement.style.setProperty('--preloader-text-color', '#000');
-        }
-
-        window.addEventListener('load', function () {
-            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
-        });
-
-        function hidePreloader() {
-            var preloader = document.querySelector('.preloader');
-            preloader.style.opacity = '0';
-            setTimeout(function () {
-                preloader.style.display = 'none';
-            }, 200);
-        }
-    </script>
-</div>
 
 <main class="page-container" id="swup">
 
@@ -512,15 +363,15 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">28</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">37</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">14</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">16</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">28</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">34</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -564,7 +415,7 @@
                     <div class="author flex items-center">
                         <span class="name text-default-text-color text-lg font-semibold">Sunny Sun</span>
                         
-                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
                         
                     </div>
                     <div class="meta-info">
@@ -578,8 +429,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-06-29 14:22:31</span>
-            <span class="mobile">2024-06-29 14:22:31</span>
+            <span class="desktop">2024-07-07 14:18:17</span>
+            <span class="mobile">2024-07-07 14:18:17</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -664,12 +515,12 @@
 <p>Each of these comes with its unique features and purposes, allowing developers to choose the appropriate one for their particular use case.</p>
 <p>Type aliases in TypeScript mean “a name for any type.” They provide a way of creating new names for existing types. Type aliases don’t define new types; instead, they simply provide an alternative name for an existing type. </p>
 <p>Type aliases can be created using the <code>type</code> keyword, and can refer to any valid TypeScript type, including primitive types.</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">type MyNumber = number;</span><br><span class="line">type User = &#123;</span><br><span class="line">  id: number;</span><br><span class="line">  name: string;</span><br><span class="line">  email: string;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">MyNumber</span> = <span class="built_in">number</span>;</span><br><span class="line"><span class="keyword">type</span> <span class="title class_">User</span> = &#123;</span><br><span class="line">  <span class="attr">id</span>: <span class="built_in">number</span>;</span><br><span class="line">  <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">email</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 
 <p>In the above example, we create two type aliases: <code>MyNumber</code> and <code>User</code>. We can use <code>MyNumber</code> as shorthand for a number type, and use <code>User type aliases</code> to represent the type definition of a user.</p>
 <p>When we say “types versus interfaces,” what we are actually referring to is “type <em>aliases</em> versus interfaces”. For example, you can create the following aliases:</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">type ErrorCode = string | number;</span><br><span class="line">type Answer = string | number;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">ErrorCode</span> = <span class="built_in">string</span> | <span class="built_in">number</span>;</span><br><span class="line"><span class="keyword">type</span> <span class="title class_">Answer</span> = <span class="built_in">string</span> | <span class="built_in">number</span>;</span><br></pre></td></tr></table></figure></div>
 
 
 <p>The two type aliases above represent alternative names for the same union type: <code>string | number</code>. While the underlying type is the same, the different names express different intents, which makes the code more readable.</p>
@@ -677,11 +528,11 @@
 
 
 <p>In TypeScript, an interface defines a contract that an object must adhere to. Below is an example:</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">interface Client &#123; </span><br><span class="line">    name: string; </span><br><span class="line">    address: string;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Client</span> &#123; </span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>; </span><br><span class="line">    <span class="attr">address</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 
 <p>We can express the same <code>Client</code> contract definition using type annotations:</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">type Client = &#123;</span><br><span class="line">    name: string;</span><br><span class="line">    address: string;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">Client</span> = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="attr">address</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>
 
 
 <h2>Differences between types and interfaces</h2>
@@ -693,7 +544,7 @@
 
 <p><a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/declaration-merging.html" >Declaration merging <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> is a feature that is exclusive to interfaces. With declaration merging, we can define an interface multiple times and the TypeScript compiler will automatically merge these definitions into a single interface definition.</p>
 <p>In the following example, the two <code>Client</code> interface definitions are merged into one by the TypeScript compiler, and we have two properties when using the <code>Client</code> interface:</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">interface Client &#123; </span><br><span class="line">    name: string; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface Client &#123;</span><br><span class="line">    age: number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const harry: Client = &#123;</span><br><span class="line">    name: &#x27;Harry&#x27;,</span><br><span class="line">    age: 41</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Client</span> &#123; </span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="attr">age</span>: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="attr">harry</span>: <span class="title class_">Client</span> = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;Harry&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">41</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 
 <p>Type aliases can’t be merged in the same way. If you try to define the <code>Client</code> type more than once, as in the above example, an error will be thrown:</p>
@@ -710,20 +561,20 @@
 
 <p>An interface can extend one or multiple interfaces. By using the <code>extends</code> keyword, a new interface can inherit all the properties and methods of an existing interface, while also adding new properties.</p>
 <p>For example, we can create a <code>VIPClient</code> interface by extending the <code>Client</code> interface:</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">interface VIPClient extends Client &#123;</span><br><span class="line">    benefits: string[]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">VIPClient</span> <span class="keyword">extends</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="attr">benefits</span>: <span class="built_in">string</span>[]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 
 <p>To achieve a similar result for types, we need to use an intersection operator:</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type VIPClient = Client &amp; &#123;benefits: string[]&#125;; // Client is a type</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">VIPClient</span> = <span class="title class_">Client</span> &amp; &#123;<span class="attr">benefits</span>: <span class="built_in">string</span>[]&#125;; <span class="comment">// Client is a type</span></span><br></pre></td></tr></table></figure></div>
 
 
 <p>You can also extend an interface from a type alias with statically known members:</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">type Client = &#123;</span><br><span class="line">    name: string;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">interface VIPClient extends Client &#123;</span><br><span class="line">    benefits: string[]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">Client</span> = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">VIPClient</span> <span class="keyword">extends</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="attr">benefits</span>: <span class="built_in">string</span>[]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 
 <p>The exception is union types. Union types allow us to describe values that can be one of several types and create unions of various primitive types, literal types, or complex types. </p>
 <p>There is no equivalent to a union type in an interface. If you try to extend an interface from a union type, you’ll receive the following error:</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type Jobs = &#x27;salary worker&#x27; | &#x27;retired&#x27;;</span><br><span class="line"></span><br><span class="line">interface MoreJobs extends Jobs &#123;</span><br><span class="line">  description: string;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">Jobs</span> = <span class="string">&#x27;salary worker&#x27;</span> | <span class="string">&#x27;retired&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">MoreJobs</span> <span class="keyword">extends</span> <span class="title class_">Jobs</span> &#123;</span><br><span class="line">  <span class="attr">description</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 
 
@@ -735,7 +586,7 @@
                 ></p>
 <p>This error occurs because the union type is not statically known. The interface definition needs to be statically known at compile time.</p>
 <p>Type aliases can extend interfaces using the intersection, as below:</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">interface Client &#123;</span><br><span class="line">    name: string;</span><br><span class="line">&#125;</span><br><span class="line">Type VIPClient = Client &amp; &#123; benefits: string[]&#125;;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Type</span> <span class="title class_">VIPClient</span> = <span class="title class_">Client</span> &amp; &#123; <span class="attr">benefits</span>: <span class="built_in">string</span>[]&#125;;</span><br></pre></td></tr></table></figure></div>
 
 
 <p>In a nutshell, both interfaces and type aliases can be extended. An interface can extend a statically known type alias, while a type alias can extend an interface using an intersection operator.</p>
@@ -744,7 +595,7 @@
 
 <p>Another difference between types and interfaces is how conflicts are handled when you try to extend from one with the same property name. </p>
 <p>When extending interfaces, the same property key isn’t allowed, as in the example below:</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">interface Person &#123;</span><br><span class="line">  getPermission: () =&gt; string;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface Staff extends Person &#123;</span><br><span class="line">   getPermission: () =&gt; string[];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">  <span class="attr">getPermission</span>: <span class="function">() =&gt;</span> <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Staff</span> <span class="keyword">extends</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">   <span class="attr">getPermission</span>: <span class="function">() =&gt;</span> <span class="built_in">string</span>[];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 
 <p>An error is thrown because a conflict is detected.</p>
@@ -756,11 +607,11 @@
                 ></p>
 <p>Type aliases handle conflicts differently. In the case of a type alias extending another type with the same property key, it will automatically merge all properties instead of throwing errors.</p>
 <p>In the following example, the intersection operator merges the method signature of the two <code>getPermission</code> declarations, and a <code><a class="link"   target="_blank" rel="noopener" href="https://blog.logrocket.com/how-to-use-keyof-operator-typescript/" >typeof operator <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></code> is used to narrow down the union type parameter, so we can get the return value in a type-safe way:</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">type Person = &#123;</span><br><span class="line">  getPermission: (id: string) =&gt; string;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">type Staff = Person &amp; &#123;</span><br><span class="line">   getPermission: (id: string[]) =&gt; string[];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">const AdminStaff: Staff = &#123;</span><br><span class="line">  getPermission: (id: string | string[]) =&gt;&#123;</span><br><span class="line">    return (typeof id === &#x27;string&#x27;?  &#x27;admin&#x27; : [&#x27;admin&#x27;]) as string[] &amp; string;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">Person</span> = &#123;</span><br><span class="line">  <span class="attr">getPermission</span>: <span class="function">(<span class="params">id: <span class="built_in">string</span></span>) =&gt;</span> <span class="built_in">string</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">Staff</span> = <span class="title class_">Person</span> &amp; &#123;</span><br><span class="line">   <span class="attr">getPermission</span>: <span class="function">(<span class="params">id: <span class="built_in">string</span>[]</span>) =&gt;</span> <span class="built_in">string</span>[];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">AdminStaff</span>: <span class="title class_">Staff</span> = &#123;</span><br><span class="line">  <span class="attr">getPermission</span>: <span class="function">(<span class="params">id: <span class="built_in">string</span> | <span class="built_in">string</span>[]</span>) =&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">typeof</span> id === <span class="string">&#x27;string&#x27;</span>?  <span class="string">&#x27;admin&#x27;</span> : [<span class="string">&#x27;admin&#x27;</span>]) <span class="keyword">as</span> <span class="built_in">string</span>[] &amp; <span class="built_in">string</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 
 <p>It is important to note that the type intersection of two properties may produce unexpected results. In the example below, the <code>name</code> property for the extended type <code>Staff</code> becomes <code>never</code>, since it can’t be both <code>string</code> and <code>number</code> at the same time:</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">type Person = &#123;</span><br><span class="line">    name: string</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">type Staff = person &amp; &#123;</span><br><span class="line">    name: number</span><br><span class="line">&#125;;</span><br><span class="line">// error: Type &#x27;string&#x27; is not assignable to type &#x27;never&#x27;.(2322)</span><br><span class="line">const Harry: Staff = &#123; name: &#x27;Harry&#x27; &#125;;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">Person</span> = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">Staff</span> = person &amp; &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">number</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// error: Type &#x27;string&#x27; is not assignable to type &#x27;never&#x27;.(2322)</span></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Harry</span>: <span class="title class_">Staff</span> = &#123; <span class="attr">name</span>: <span class="string">&#x27;Harry&#x27;</span> &#125;;</span><br></pre></td></tr></table></figure></div>
 
 
 <p>In summary, interfaces will detect property or method name conflicts at compile time and generate an error, whereas type intersections will merge the properties or methods without throwing errors. Therefore, if we need to overload functions, type aliases should be used.</p>
@@ -768,11 +619,11 @@
 
 
 <p>In TypeScript, we can implement a class using either an interface or a type alias:</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">interface Person &#123;</span><br><span class="line">  name: string;</span><br><span class="line">  greet(): void;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Student implements Person &#123;</span><br><span class="line">  name: string;</span><br><span class="line">  greet() &#123;</span><br><span class="line">    console.log(&#x27;hello&#x27;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Pet = &#123;</span><br><span class="line">  name: string;</span><br><span class="line">  run(): void;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Cat implements Pet &#123;</span><br><span class="line">  name: string;</span><br><span class="line">  run() &#123;</span><br><span class="line">    console.log(&#x27;run&#x27;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="title function_">greet</span>(): <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span> <span class="keyword">implements</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="title function_">greet</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;hello&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">Pet</span> = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="title function_">run</span>(): <span class="built_in">void</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Cat</span> <span class="keyword">implements</span> <span class="title class_">Pet</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="title function_">run</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;run&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 
 <p>As shown above, both interfaces and type aliases can be used to implement a class similarly; the only difference is that we can’t implement a union type.</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">type primaryKey = &#123; key: number; &#125; | &#123; key: string; &#125;;</span><br><span class="line"></span><br><span class="line">// can not implement a union type</span><br><span class="line">class RealKey implements primaryKey &#123;</span><br><span class="line">  key = 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> primaryKey = &#123; <span class="attr">key</span>: <span class="built_in">number</span>; &#125; | &#123; <span class="attr">key</span>: <span class="built_in">string</span>; &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// can not implement a union type</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RealKey</span> <span class="keyword">implements</span> primaryKey &#123;</span><br><span class="line">  key = <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 
 
@@ -788,11 +639,11 @@
 
 
 <p>In TypeScript, Tuple type allows us to express an array with a fixed number of elements, where each element has its own data type. It can be useful when you need to work with arrays of data with a fixed structure:</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type TeamMember = [name: string, role: string, age: number];</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">TeamMember</span> = [<span class="attr">name</span>: <span class="built_in">string</span>, <span class="attr">role</span>: <span class="built_in">string</span>, <span class="attr">age</span>: <span class="built_in">number</span>];</span><br></pre></td></tr></table></figure></div>
 
 
 <p>Interfaces don’t have direct support for tuple types. Although we can create some workarounds like in the example below, it is not as concise or readable as using the tuple type:</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">interface ITeamMember extends Array&lt;string | number&gt; </span><br><span class="line">&#123;</span><br><span class="line"> 0: string; 1: string; 2: number </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const peter: ITeamMember = [&#x27;Harry&#x27;, &#x27;Dev&#x27;, 24];</span><br><span class="line">const Tom: ITeamMember = [&#x27;Tom&#x27;, 30, &#x27;Manager&#x27;]; //Error: Type &#x27;number&#x27; is not assignable to type &#x27;string&#x27;.</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">ITeamMember</span> <span class="keyword">extends</span> <span class="title class_">Array</span>&lt;<span class="built_in">string</span> | <span class="built_in">number</span>&gt; </span><br><span class="line">&#123;</span><br><span class="line"> <span class="number">0</span>: <span class="built_in">string</span>; <span class="number">1</span>: <span class="built_in">string</span>; <span class="number">2</span>: <span class="built_in">number</span> </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="attr">peter</span>: <span class="title class_">ITeamMember</span> = [<span class="string">&#x27;Harry&#x27;</span>, <span class="string">&#x27;Dev&#x27;</span>, <span class="number">24</span>];</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Tom</span>: <span class="title class_">ITeamMember</span> = [<span class="string">&#x27;Tom&#x27;</span>, <span class="number">30</span>, <span class="string">&#x27;Manager&#x27;</span>]; <span class="comment">//Error: Type &#x27;number&#x27; is not assignable to type &#x27;string&#x27;.</span></span><br></pre></td></tr></table></figure></div>
 
 
 <h2>Advanced type features</h2>
@@ -841,11 +692,11 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-06-29 14:22:31
+                    :</strong> 2024-07-07 14:18:17
             </li>
         
         <li>
-            <strong>Link:</strong> http://blog.ourcrmonline.com/2023/04/06/type-interface-ts/
+            <strong>Link:</strong> http://coffeethinkcode.com/2023/04/06/type-interface-ts/
         </li>
         <li>
             <strong>
@@ -882,12 +733,12 @@
     <div class="recommended-article-group"><a class="recommended-article-item" href="/2021/08/19/type-flowing-rethinking-typescript-typing-system/" title="Type flowing - a new perspective on the TypeScript typing system" rel="bookmark">
   <img src="/images/wallhaven-wqery6-light.webp" alt="Type flowing - a new perspective on the TypeScript typing system" class="!max-w-none">
   <span class="title">Type flowing - a new perspective on the TypeScript typing system</span>
-</a><a class="recommended-article-item" href="/2021/11/06/6-typescript-code-patterns-to-make-your-code-more-robust/" title="6 TypeScript Code Patterns To Make Your Code More Robust" rel="bookmark">
-  <img src="https://cdn-images-1.medium.com/max/2442/1*V2kpjhBqkLBD-xF3p1fT-A.png" alt="6 TypeScript Code Patterns To Make Your Code More Robust" class="!max-w-none">
-  <span class="title">6 TypeScript Code Patterns To Make Your Code More Robust</span>
-</a><a class="recommended-article-item" href="/2021/06/19/record-type-explained/" title="TypeScript’s Record Type Explained" rel="bookmark">
-  <img src="https://cdn-images-1.medium.com/max/2000/1*bdsUHbM2L34QcDz32SFsXQ.png" alt="TypeScript’s Record Type Explained" class="!max-w-none">
-  <span class="title">TypeScript’s Record Type Explained</span>
+</a><a class="recommended-article-item" href="/2023/05/01/typescript-recursitve-type-aliases-explained/" title="TypeScript Recursive Type Aliases Explained" rel="bookmark">
+  <img src="https://miro.medium.com/v2/resize:fit:1100/format:webp/1*T3WLbDctKGZoneG-zrrBig.png" alt="TypeScript Recursive Type Aliases Explained" class="!max-w-none">
+  <span class="title">TypeScript Recursive Type Aliases Explained</span>
+</a><a class="recommended-article-item" href="/2023/08/01/unlocking-typescript-5-hidden-gems/" title="Unlocking TypeScript 5 Hidden Gems You May Not Know" rel="bookmark">
+  <img src="https://miro.medium.com/v2/resize:fit:1100/format:webp/1*tmm3cO5B2V11egam7LX9oA.png" alt="Unlocking TypeScript 5 Hidden Gems You May Not Know" class="!max-w-none">
+  <span class="title">Unlocking TypeScript 5 Hidden Gems You May Not Know</span>
 </a></div>
    </div>
    <div class="recommended-mobile">
@@ -897,9 +748,9 @@
    <div class="recommended-article-group"><a class="recommended-article-item" href="/2021/08/19/type-flowing-rethinking-typescript-typing-system/" title="Type flowing - a new perspective on the TypeScript typing system" rel="bookmark">
   <img src="/images/wallhaven-wqery6-light.webp" alt="Type flowing - a new perspective on the TypeScript typing system" class="!max-w-none">
   <span class="title">Type flowing - a new perspective on the TypeScript typing system</span>
-</a><a class="recommended-article-item" href="/2021/11/06/6-typescript-code-patterns-to-make-your-code-more-robust/" title="6 TypeScript Code Patterns To Make Your Code More Robust" rel="bookmark">
-  <img src="https://cdn-images-1.medium.com/max/2442/1*V2kpjhBqkLBD-xF3p1fT-A.png" alt="6 TypeScript Code Patterns To Make Your Code More Robust" class="!max-w-none">
-  <span class="title">6 TypeScript Code Patterns To Make Your Code More Robust</span>
+</a><a class="recommended-article-item" href="/2023/05/01/typescript-recursitve-type-aliases-explained/" title="TypeScript Recursive Type Aliases Explained" rel="bookmark">
+  <img src="https://miro.medium.com/v2/resize:fit:1100/format:webp/1*T3WLbDctKGZoneG-zrrBig.png" alt="TypeScript Recursive Type Aliases Explained" class="!max-w-none">
+  <span class="title">TypeScript Recursive Type Aliases Explained</span>
 </a></div>
    </div>
   </div>
@@ -910,13 +761,13 @@
                     <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
                         <a class="prev"
                         rel="prev"
-                        href="/2023/06/27/postman/"
+                        href="/2023/05/01/typescript-recursitve-type-aliases-explained/"
                         >
                             <span class="left arrow-icon flex justify-center items-center">
                                 <i class="fa-solid fa-chevron-left"></i>
                             </span>
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">Postman Flow - The Good Parts and Bad Parts</span>
+                                <span class="post-nav-title-item">TypeScript Recursive Type Aliases Explained</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -984,11 +835,11 @@
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        28 posts in total
+                        34 posts in total
                     </span>
                     
                         <span>
-                            35.5k words in total
+                            42.3k words in total
                         </span>
                     
                 </p>
@@ -1211,6 +1062,10 @@
 
 
 
+
+
+    
+<script src="/js/libs/anime.min.js"></script>
 
 
 

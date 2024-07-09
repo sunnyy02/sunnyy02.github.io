@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="keywords" content="restful api,typescript,js,web programming,programming tutorial,nodejs,node javascript,node js,ts script">
     
     <meta name="author" content="Sunny Sun">
     <!-- preconnect -->
@@ -13,7 +13,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://blog.ourcrmonline.com/2021/07/25/how-to-share-constannts/"/>
+    <link rel="canonical" href="http://coffeethinkcode.com/2021/07/25/how-to-share-constannts/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -21,13 +21,13 @@
         <meta name="description" content="Avoid the magic strings, and make your app maintainable and strongly typedWe often need to share common values between classes and modules. These values can be error codes, status indicators, environm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="How to Share Constants in Typescript Project">
-<meta property="og:url" content="http://blog.ourcrmonline.com/2021/07/25/how-to-share-constannts/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:url" content="http://coffeethinkcode.com/2021/07/25/how-to-share-constannts/index.html">
+<meta property="og:site_name" content="Love what you do">
 <meta property="og:description" content="Avoid the magic strings, and make your app maintainable and strongly typedWe often need to share common values between classes and modules. These values can be error codes, status indicators, environm">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-07-24T14:00:00.000Z">
-<meta property="article:modified_time" content="2024-06-29T04:18:17.978Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:modified_time" content="2024-07-06T09:47:24.752Z">
+<meta property="article:author" content="Sunny">
 <meta property="article:tag" content="TypeScript">
 <meta name="twitter:card" content="summary">
     
@@ -86,14 +86,10 @@
     
 
     
-        
-<script src="/js/libs/anime.min.js"></script>
-
-    
 
     <script id="hexo-configurations">
-    window.config = {"hostname":"blog.ourcrmonline.com","root":"/","language":"en","path":"search.xml"};
-    window.theme = {"articles":{"style":{"font_size":"14px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true,"wordcount":true},"author_label":{"enable":true,"auto":false,"list":[],"custom_label_list":["lol"]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":true,"title":"Recommended","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":["wiki/"],"icon":"fa-solid fa-bookmark","max_count":3,"placeholder_img":"https://evan.beee.top/img/wallhaven-wqery6-light.webp"}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title":"love what you do","subtitle":{"text":"love what you do","hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}},"logo_img":"https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg# logo image on the left of the navigation bar"},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}],"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.4","code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/sunnyy02","Medium":"https://medium.com/@sunnysun-5694","LogRocket":"https://blog.logrocket.com/author/yansun/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.config = {"hostname":"coffeethinkcode.com","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"14px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true,"wordcount":true},"author_label":{"enable":true,"auto":false,"list":[],"custom_label_list":["lol"]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":true,"title":"Recommended","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":["wiki/"],"icon":"fa-solid fa-bookmark","max_count":3,"placeholder_img":"https://evan.beee.top/img/wallhaven-wqery6-light.webp"}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":false,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title":"love what you do","subtitle":{"text":"love what you do","hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}},"logo_img":"https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg# logo image on the left of the navigation bar"},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}],"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.4","code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/sunnyy02","Medium":"https://medium.com/@sunnysun-5694","LogRocket":"https://blog.logrocket.com/author/yansun/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
     window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
     window.data = {"masonry":false};
   </script>
@@ -115,7 +111,7 @@
     
     
     
-<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Love what you do" type="application/atom+xml">
 </head>
 
 
@@ -132,151 +128,6 @@
 </div>
 
 
-
-    <style>
-    :root {
-        --preloader-background-color: #fff;
-        --preloader-text-color: #000;
-    }
-
-    @media (prefers-color-scheme: dark) {
-        :root {
-            --preloader-background-color: #202124;
-            --preloader-text-color: #fff;
-        }
-    }
-
-    @media (prefers-color-scheme: light) {
-        :root {
-            --preloader-background-color: #fff;
-            --preloader-text-color: #000;
-        }
-    }
-
-    @media (max-width: 600px) {
-        .ml13 {
-            font-size: 2.6rem !important; /* Adjust this value as needed */
-        }
-    }
-
-    .preloader {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
-        align-items: center;
-        justify-content: center;
-        position: fixed;
-        padding: 12px;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh; /* 'h-screen' is 100% of the viewport height */
-        background-color: var(--preloader-background-color);
-        z-index: 1100; /* 'z-[1100]' sets the z-index */
-        transition: opacity 0.2s ease-in-out;
-    }
-
-    .ml13 {
-        font-size: 3.2rem;
-        /* text-transform: uppercase; */
-        color: var(--preloader-text-color);
-        letter-spacing: -1px;
-        font-weight: 500;
-        font-family: 'Chillax-Variable', sans-serif;
-        text-align: center;
-    }
-
-    .ml13 .word {
-        display: inline-flex;
-        flex-wrap: wrap;
-        white-space: nowrap;
-    }
-
-    .ml13 .letter {
-        display: inline-block;
-        line-height: 1em;
-    }
-</style>
-
-<div class="preloader">
-    <h2 class="ml13">
-        Do What You Love
-    </h2>
-    <script>
-        var textWrapper = document.querySelector('.ml13');
-        // Split text into words
-        var words = textWrapper.textContent.trim().split(' ');
-
-        // Clear the existing content
-        textWrapper.innerHTML = '';
-
-        // Wrap each word and its letters in spans
-        words.forEach(function(word) {
-            var wordSpan = document.createElement('span');
-            wordSpan.classList.add('word');
-            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
-            textWrapper.appendChild(wordSpan);
-            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
-        });
-
-        var animation = anime.timeline({loop: true})
-            .add({
-                targets: '.ml13 .letter',
-                translateY: [40,0],
-                translateZ: 0,
-                opacity: [0,1],
-                filter: ['blur(5px)', 'blur(0px)'], // Starting from blurred to unblurred
-                easing: "easeOutExpo",
-                duration: 1400,
-                delay: (el, i) => 300 + 30 * i,
-            }).add({
-                targets: '.ml13 .letter',
-                translateY: [0,-40],
-                opacity: [1,0],
-                filter: ['blur(0px)', 'blur(5px)'], // Ending from unblurred to blurred
-                easing: "easeInExpo",
-                duration: 1200,
-                delay: (el, i) => 100 + 30 * i,
-                complete: function() {
-                    hidePreloader(); // Call hidePreloader after the animation completes
-                }
-            });
-
-        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
-
-        // If the theme status is not found in local storage, check the preferred color scheme
-        if (themeStatus === undefined || themeStatus === null) {
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                themeStatus = 'dark';
-            } else {
-                themeStatus = 'light';
-            }
-        }
-
-        // Now you can use the themeStatus variable in your code
-        if (themeStatus) {
-            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
-            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
-        } else {
-            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
-            document.documentElement.style.setProperty('--preloader-text-color', '#000');
-        }
-
-        window.addEventListener('load', function () {
-            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
-        });
-
-        function hidePreloader() {
-            var preloader = document.querySelector('.preloader');
-            preloader.style.opacity = '0';
-            setTimeout(function () {
-                preloader.style.display = 'none';
-            }, 200);
-        }
-    </script>
-</div>
 
 <main class="page-container" id="swup">
 
@@ -507,15 +358,15 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">28</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">37</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">14</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">16</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">28</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">34</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -559,7 +410,7 @@
                     <div class="author flex items-center">
                         <span class="name text-default-text-color text-lg font-semibold">Sunny Sun</span>
                         
-                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
                         
                     </div>
                     <div class="meta-info">
@@ -573,8 +424,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-06-29 14:18:17</span>
-            <span class="mobile">2024-06-29 14:18:17</span>
+            <span class="desktop">2024-07-06 19:47:24</span>
+            <span class="mobile">2024-07-06 19:47:24</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -612,7 +463,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>893 Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>890 Words</span>
         </span>
     
     
@@ -639,17 +490,9 @@
             <h2 id="Avoid-the-magic-strings-and-make-your-app-maintainable-and-strongly-typed"><a href="#Avoid-the-magic-strings-and-make-your-app-maintainable-and-strongly-typed" class="headerlink" title="Avoid the magic strings, and make your app maintainable and strongly typed"></a>Avoid the magic strings, and make your app maintainable and strongly typed</h2><p>We often need to share common values between classes and modules. These values can be error codes, status indicators, environment settings, configuration values, etc. It is a best practice to store those values in constants, instead of hard-coding magic strings. The use of constants also helps to avoid duplicating those values in multiple places, improve readability and maintainability, and <a class="link"   target="_blank" rel="noopener" href="https://betterprogramming.pub/6-typescript-typing-system-tricks-you-should-know-5aa39bda8049" >enforce type safety <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
 <p>In this article, I will discuss two common approaches to managing constants in a TypeScript project.</p>
 <h3 id="Use-Class-with-static-properties"><a href="#Use-Class-with-static-properties" class="headerlink" title="Use Class with static properties"></a>Use Class with static properties</h3><p>One way to manage constants in TypeScript is to use the class. In the following example, the AppSettings class is created with static properties to define constants. Those properties are applied with readonly modifiers, thus they can not be reassigned.</p>
-<pre><code>export class AppSettings
-&#123;
-    static readonly HTTP_NOT_FOUND= &#39;404&#39;;
-    static readonly HTTP_INTERNAL_ERROR= &#39;500&#39;;
-&#125;;
-</code></pre>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export class AppSettings</span><br><span class="line">&#123;</span><br><span class="line">    static readonly HTTP_NOT_FOUND= &#x27;404&#x27;;</span><br><span class="line">    static readonly HTTP_INTERNAL_ERROR= &#x27;500&#x27;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>
 <p>To use the defined constants, we just need to import the class and directly reference the class and property name as below.</p>
-<pre><code>import &#123;AppSettings&#125; from &quot;./appsetting.ts&quot;;
-
-if( status === AppSettings.HTTP_NOT_FOUND) ...
-</code></pre>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import &#123;AppSettings&#125; from &quot;./appsetting.ts&quot;;</span><br><span class="line"></span><br><span class="line">if( status === AppSettings.HTTP_NOT_FOUND) ...</span><br></pre></td></tr></table></figure></div>
 <p>The class approach is simple and serves the purpose. But it has a couple of limitations:</p>
 <ul>
 <li><p>The readonly modifier only works at compile time, it has no effect at runtime.</p>
@@ -690,42 +533,14 @@ const myPay:  payValueType = '4'; // error
 </code></pre>
 
 <p>The derived types will be useful in applying type constraints.</p>
-<pre><code>calculateSalary(payGrade: string) // payGrade can be any string
-calculateSalary(payGrade: payValueType) // payGarde strongly typed
-</code></pre>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">calculateSalary(payGrade: string) // payGrade can be any string</span><br><span class="line">calculateSalary(payGrade: payValueType) // payGarde strongly typed</span><br></pre></td></tr></table></figure></div>
 <p>The above example illustrates how to use the types derived from constants to enforce type safety.</p>
 <h3 id="Multiple-Constants-Files-and"><a href="#Multiple-Constants-Files-and" class="headerlink" title="Multiple Constants Files and"></a>Multiple Constants Files and</h3><p>For a small app, a single global constants file will be sufficient. Below is an example</p>
-<pre><code>// constants.ts
-export namespace Constants &#123;
-  export const FOO = &quot;foo&quot;;
-  export const BAR = &quot;bar&quot;;
-  export const BAZ = &quot;baz&quot;;
-&#125;
-
-// dosomething.ts
-import &#123; Constants&#125; from &quot;./constants&quot;
-
-export function doSomething() &#123;
-  console.log(Constants.FOO);
-  console.log(Constants.BAR);
-  console.log(Constants.BAZ);
-&#125;
-</code></pre>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// constants.ts</span><br><span class="line">export namespace Constants &#123;</span><br><span class="line">  export const FOO = &quot;foo&quot;;</span><br><span class="line">  export const BAR = &quot;bar&quot;;</span><br><span class="line">  export const BAZ = &quot;baz&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// dosomething.ts</span><br><span class="line">import &#123; Constants&#125; from &quot;./constants&quot;</span><br><span class="line"></span><br><span class="line">export function doSomething() &#123;</span><br><span class="line">  console.log(Constants.FOO);</span><br><span class="line">  console.log(Constants.BAR);</span><br><span class="line">  console.log(Constants.BAZ);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>However, for a large app, the number of required constants may grow quickly. Some of the constants may be applicable only to a particular module. One global constants file won’t be ideal for this scenario.</p>
 <p>Thus for large apps, it is better to create multiple constants files, one for each module. For example, you might create a constant file for component constants, another file for database query constants, and so on.</p>
 <p>Another way to organize different categories of constants is to use namespaces. Using the Typescript namespace allows you to group related constants and access them using dot notation. For example, we defined two namespaces: Report and Database, each with related constants.</p>
-<pre><code>// constants/report.ts
-namespace Report &#123;
-  export const DEFAULT_DATE_FORMAT = &#39;dd/MM/yyyy&#39;;
-  export const TEXT_COLOR = &#39;#000000&#39;;
-&#125;
-
-// constants/database.ts
-namespace Database &#123;
-  export const MAX_TIME_OUT_IN_SECONDS= 30;
-  export const HOST_NAME= &#39;....&#39;;
-&#125;
-</code></pre>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// constants/report.ts</span><br><span class="line">namespace Report &#123;</span><br><span class="line">  export const DEFAULT_DATE_FORMAT = &#x27;dd/MM/yyyy&#x27;;</span><br><span class="line">  export const TEXT_COLOR = &#x27;#000000&#x27;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// constants/database.ts</span><br><span class="line">namespace Database &#123;</span><br><span class="line">  export const MAX_TIME_OUT_IN_SECONDS= 30;</span><br><span class="line">  export const HOST_NAME= &#x27;....&#x27;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>Using namespace also helps prevent naming conflicts since constants within a namespace are scoped to that namespace and are not accessible outside.</p>
 <h3 id="Generate-types-using-typeof"><a href="#Generate-types-using-typeof" class="headerlink" title="Generate types using typeof"></a>Generate types using typeof</h3><p>When there are multiple constants files, we may need to extract and combine a few constants from different files. The following example shows how to take two constants from two different modules, and generate a union type from them using typeof type operator.</p>
 <pre><code>
@@ -767,11 +582,11 @@ type allPayValues =  allPayGrades[keyof allPayGrades]; //"T1" | "T2" | "T3" | "A
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-06-29 14:18:17
+                    :</strong> 2024-07-06 19:47:24
             </li>
         
         <li>
-            <strong>Link:</strong> http://blog.ourcrmonline.com/2021/07/25/how-to-share-constannts/
+            <strong>Link:</strong> http://coffeethinkcode.com/2021/07/25/how-to-share-constannts/
         </li>
         <li>
             <strong>
@@ -811,9 +626,9 @@ type allPayValues =  allPayGrades[keyof allPayGrades]; //"T1" | "T2" | "T3" | "A
 </a><a class="recommended-article-item" href="/2021/08/19/type-flowing-rethinking-typescript-typing-system/" title="Type flowing - a new perspective on the TypeScript typing system" rel="bookmark">
   <img src="/images/wallhaven-wqery6-light.webp" alt="Type flowing - a new perspective on the TypeScript typing system" class="!max-w-none">
   <span class="title">Type flowing - a new perspective on the TypeScript typing system</span>
-</a><a class="recommended-article-item" href="/2021/06/19/record-type-explained/" title="TypeScript’s Record Type Explained" rel="bookmark">
-  <img src="https://cdn-images-1.medium.com/max/2000/1*bdsUHbM2L34QcDz32SFsXQ.png" alt="TypeScript’s Record Type Explained" class="!max-w-none">
-  <span class="title">TypeScript’s Record Type Explained</span>
+</a><a class="recommended-article-item" href="/2023/08/01/unlocking-typescript-5-hidden-gems/" title="Unlocking TypeScript 5 Hidden Gems You May Not Know" rel="bookmark">
+  <img src="https://miro.medium.com/v2/resize:fit:1100/format:webp/1*tmm3cO5B2V11egam7LX9oA.png" alt="Unlocking TypeScript 5 Hidden Gems You May Not Know" class="!max-w-none">
+  <span class="title">Unlocking TypeScript 5 Hidden Gems You May Not Know</span>
 </a></div>
    </div>
    <div class="recommended-mobile">
@@ -910,11 +725,11 @@ type allPayValues =  allPayGrades[keyof allPayGrades]; //"T1" | "T2" | "T3" | "A
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        28 posts in total
+                        34 posts in total
                     </span>
                     
                         <span>
-                            35.5k words in total
+                            42.3k words in total
                         </span>
                     
                 </p>
@@ -1137,6 +952,10 @@ type allPayValues =  allPayGrades[keyof allPayGrades]; //"T1" | "T2" | "T3" | "A
 
 
 
+
+
+    
+<script src="/js/libs/anime.min.js"></script>
 
 
 

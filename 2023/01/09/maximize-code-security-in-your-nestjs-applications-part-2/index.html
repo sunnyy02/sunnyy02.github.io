@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="nestjs,security codes,secure code best practices">
+    
+    <meta name="author" content="Sunny Sun">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://coffeethinkcode.com/2023/01/09/maximize-code-security-in-your-nestjs-applications-part-2/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="Top Secure Code Best Practices for NestJS DevelopersIn  Part 1 of this article, We walk through 4 common security risks and their prevention in the context of NestJS. It is worth noting that although">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Maximize Code Security in Your NestJS Applications (Part 2)">
+<meta property="og:url" content="http://coffeethinkcode.com/2023/01/09/maximize-code-security-in-your-nestjs-applications-part-2/index.html">
+<meta property="og:site_name" content="Love what you do">
+<meta property="og:description" content="Top Secure Code Best Practices for NestJS DevelopersIn  Part 1 of this article, We walk through 4 common security risks and their prevention in the context of NestJS. It is worth noting that although">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-01-08T14:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-09T11:32:34.267Z">
+<meta property="article:author" content="Sunny">
+<meta property="article:tag" content="TypeScript">
+<meta property="article:tag" content="NestJS">
+<meta property="article:tag" content="Security">
+<meta name="twitter:card" content="summary">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Maximize Code Security in Your NestJS Applications (Part 2) -
+        
+        Do What You Love
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+        
+            
+    
+            
+    
+            
+                
+                    <script data-swup-reload-script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7754282426229634" crossorigin="anonymous"></script>
+                
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"coffeethinkcode.com","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"14px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true,"wordcount":true},"author_label":{"enable":true,"auto":false,"list":[],"custom_label_list":["lol"]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":true,"title":"Recommended","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":["wiki/"],"icon":"fa-solid fa-bookmark","max_count":3,"placeholder_img":"https://evan.beee.top/img/wallhaven-wqery6-light.webp"}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":false,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title":"love what you do","subtitle":{"text":"love what you do","hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}},"logo_img":"https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg# logo image on the left of the navigation bar"},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}],"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.4","code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/sunnyy02","Medium":"https://medium.com/@sunnysun-5694","LogRocket":"https://blog.logrocket.com/author/yansun/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Love what you do" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Do What You Love
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/about">
+                                                    ME
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/sunnyy02">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">
+                                                    MEDIUM
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">
+                                                    LOGROCKET
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about">ME</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/sunnyy02">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://medium.com/@sunnysun-5694">MEDIUM</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://blog.logrocket.com/author/yansun/">LOGROCKET</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">37</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">16</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">34</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                
+                
+                <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*aN4-CbCjgxdmgjs_U6UqEw.png" alt="Maximize Code Security in Your NestJS Applications (Part 2)" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75"/>
+                
+                <div class="w-full flex items-center absolute bottom-0 justify-start">
+                    <h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">Maximize Code Security in Your NestJS Applications (Part 2)</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/icons8-stormtrooper.svg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Sunny Sun</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-01-09</span>
+        <span class="mobile">2023-01-09</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-07-09 21:32:34</span>
+            <span class="mobile">2024-07-09 21:32:34</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Security/">Security</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/TypeScript/">TypeScript</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/NestJS/">NestJS</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Security/">Security</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.7k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>10 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h4 id="Top-Secure-Code-Best-Practices-for-NestJS-Developers"><a href="#Top-Secure-Code-Best-Practices-for-NestJS-Developers" class="headerlink" title="Top Secure Code Best Practices for NestJS Developers"></a>Top Secure Code Best Practices for NestJS Developers</h4><p>In  <a href="https://coffeethinkcode.com/2022/12/21/maximize-code-security-in-your-nestjs-applications-part-1/">Part 1 of this article</a>, We walk through 4 common security risks and their prevention in the context of NestJS. It is worth noting that although NestJS is used here (as one of my favored API frameworks), those best practices are framework agnostic.</p>
+<p>Let’s continue to dive into other common security vulnerabilities.</p>
+<h3 id="Injection"><a href="#Injection" class="headerlink" title="Injection"></a>Injection</h3><p>As one of the most well-known vulnerabilities, Injection occurs when an attacker manages to execute arbitrary code or commands by injecting them into an app. Injection attacks can take many forms, such as SQL injection, command injection, and expression injection.</p>
+<p>Although injection is a well-known risk, it is still occurring frequently. Some recent incidents include the  <a class="link"   target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/2017_Equifax_data_breach" >2017 Equifax data breach <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  affecting 147 million users, the  <a class="link"   target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/British_Airways_data_breach#:~:text=British%20Airways%20said%20the%20attack,380%2C000%20total%20customers%20being%20compromised." >2018 British airway data breach <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  leaking 380,000 credit card details, and the  <a class="link"   target="_blank" rel="noopener" href="https://www.capitalone.com/digital/facts2019/#:~:text=When%20did%20this%20occur%3F,4." >2019 Capital One <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  breach exposing 100 million users’ personal information due to SQL injection.</p>
+<p>Below is an example of SQL injection</p>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Injectable</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/common&#x27;</span>;  </span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Connection</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;typeorm&#x27;</span>;  </span><br><span class="line">  </span><br><span class="line"><span class="meta">@Injectable</span>()  </span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">ClientService</span> &#123;  </span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> connection: Connection</span>) &#123;&#125;  </span><br><span class="line">  </span><br><span class="line">  <span class="keyword">async</span> <span class="title function_">getClients</span>(<span class="params">name: <span class="built_in">string</span></span>) &#123;  </span><br><span class="line">    <span class="keyword">const</span> query = <span class="string">`SELECT * FROM client WHERE name = &#x27;<span class="subst">$&#123;name&#125;</span>&#x27;`</span>;  </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">connection</span>.<span class="title function_">query</span>(query);  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">// Client Controller  </span></span><br><span class="line"><span class="meta">@Controller</span>(<span class="string">&#x27;users&#x27;</span>)  </span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">ClientController</span> &#123;  </span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> clientService: ClientService</span>) &#123;&#125;  </span><br><span class="line">  </span><br><span class="line">  <span class="meta">@Get</span>(<span class="string">&#x27;search&#x27;</span>)  </span><br><span class="line">  <span class="keyword">async</span> <span class="title function_">searchClient</span>(<span class="params">name: <span class="built_in">string</span></span>) &#123;  </span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">clientService</span>.<span class="title function_">getClients</span>(name);  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>In this example, the  <code>ClientService</code> class use the  <code>name</code>  parameter to construct an SQL query that is executed against a database. If the  <code>name the</code> parameter isn’t properly sanitized; an attacker could inject malicious code into the query by including special characters. For example, an attacker could send a request with a  <code>name</code>  parameter such as  <code>&#39;; DROP TABLE client; --</code>, which would delete the  <code>client</code> table.</p>
+<p>SQL injection can be prevented by sanitizing user input and using prepared statements or parameterized queries whenever possible. Here is an improved version of the previous example.</p>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Injectable</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/common&#x27;</span>;  </span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Connection</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;typeorm&#x27;</span>;  </span><br><span class="line">  </span><br><span class="line"><span class="meta">@Injectable</span>()  </span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">ClientService</span> &#123;  </span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> connection: Connection</span>) &#123;&#125;  </span><br><span class="line">  </span><br><span class="line">  <span class="keyword">async</span> <span class="title function_">getClients</span>(<span class="params">name: <span class="built_in">string</span></span>) &#123;  </span><br><span class="line">    <span class="keyword">const</span> query = <span class="string">&#x27;SELECT * FROM client WHERE name = $1&#x27;</span>;  </span><br><span class="line">    <span class="keyword">const</span> params = [name];  </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">connection</span>.<span class="title function_">query</span>(query, params);  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>The revised  <code>ClientService</code> uses a parameterized query, which helps to ensure that user input is treated as data rather than executable code.</p>
+<p>Another common type of Injection attack is OS command injection. It happens when an attacker injects an arbitrary OS command and executes it; the injection can be done via a request header or parameter, etc. Here is an example.</p>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Injectable</span>()  </span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">ClientService</span> &#123;  </span><br><span class="line">  <span class="keyword">public</span> <span class="title function_">executeCommand</span>(<span class="attr">command</span>: <span class="built_in">string</span>): <span class="built_in">void</span> &#123;  </span><br><span class="line">    <span class="keyword">const</span> commandArray = command.<span class="title function_">split</span>(<span class="string">&#x27; &#x27;</span>);  </span><br><span class="line">    <span class="title function_">spawn</span>(commandArray[<span class="number">0</span>], commandArray.<span class="title function_">slice</span>(<span class="number">1</span>));  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>Without proper sanitizing or validating the  <code>command</code> input, the above code opens the door for a malicious command like “<code>rm rf /var/www</code>”.</p>
+<p>To prevent OS command injection, the best way is to replace the OS commands in the app with framework-specific API. Alternatively, we should escape and validate the user input to ensure that only the expected input will pass the validation.</p>
+<h3 id="Lack-of-Resources-and-Rate-limiting"><a href="#Lack-of-Resources-and-Rate-limiting" class="headerlink" title="Lack of Resources and Rate limiting"></a>Lack of Resources and Rate limiting</h3><p>Many clients can call an API at the same time. If the amount of simultaneous requests exceeds the limit, the API will become unresponsive or even crash.</p>
+<p>This vulnerability can be triggered by a sudden surge of  legitimate requests during peak hours or malicious DDoS attacks. One of the recent DDoS attacks is the  <a class="link"   target="_blank" rel="noopener" href="https://www.a10networks.com/blog/aws-hit-by-largest-reported-ddos-attack-of-2-3-tbps/" >2020 AWS web service attack <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<p>Any API endpoint without rate limiting can be vulnerable when an attacker sends a large number of requests in a short period of time. To prevent it, we can use a rate-limiting middleware in NestJS. You have a few choices available, such as  <code>[nestjs/throttler](https://github.com/nestjs/throttler)</code>  or <code>e``[xpress-rate-limit](https://github.com/express-rate-limit/express-rate-limit)``.</code></p>
+<p>In the below example, we use  <code>nestjs/throttler</code>  to restrict that maximum of 10 requests from the same IP can be made to a single endpoint in 1 minute. It applies to all the incoming requests for the app.</p>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Module</span>(&#123;  </span><br><span class="line">  <span class="attr">imports</span>: [  </span><br><span class="line">    <span class="title class_">ThrottlerModule</span>.<span class="title function_">forRoot</span>(&#123;  </span><br><span class="line">      <span class="attr">ttl</span>: <span class="number">60</span>,  </span><br><span class="line">      <span class="attr">limit</span>: <span class="number">10</span>,  </span><br><span class="line">    &#125;),  </span><br><span class="line">  ],  </span><br><span class="line">&#125;)  </span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppModule</span> &#123;&#125;</span><br></pre></td></tr></table></figure></div>
+<p>There are other options available to customize the throttling. For example, you can use  <code>@SkipThrottle</code>  decorator to disable rate limiting for an endpoint or use  <code>@Throttle()</code>  decorator to override the  <code>limit</code>  and  <code>ttl</code>  set in the global module.</p>
+<p>Besides the number of requests, the following limits should also be considered.</p>
+<ul>
+<li>Execution timeout: If a request takes too long to complete, it should be terminated.</li>
+<li>Payload size&#x2F;Maximum number of data in response, if a request returns a potentially large amount of data</li>
+<li>Maximum allocable memory: excessive memory usage can cause the App to crash.</li>
+</ul>
+<h3 id="Identification-and-Authentification-Failure"><a href="#Identification-and-Authentification-Failure" class="headerlink" title="Identification and Authentification Failure"></a>Identification and Authentification Failure</h3><p>Identification and authentication failures are vulnerabilities related to applications’ authentication and identification processes.</p>
+<p>It can happen when a system or application does not have robust methods in place to verify the identity of users or when the authentication process can be easily bypassed or manipulated.</p>
+<p>This vulnerability can come in many different forms. The most common one is known as session hijacking. Here is an example of how this could happen in a NestJS application:</p>
+<ul>
+<li>The attacker intercepts the normal user’s session cookies. These cookies may contain information such as the user’s ID or Role and other identifying information.<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// Cookies content  </span><br><span class="line">eyJ1c2VySWQiOjEyMzQ1LCJ1c2VyUm9sZSI6Im5vcm1hbCJ9  </span><br><span class="line">// JSON  </span><br><span class="line">&#123;&quot;userId&quot;:12345,&quot;userRole&quot;:&quot;normal&quot;&#125;</span><br></pre></td></tr></table></figure></div></li>
+<li>The attacker modifies the session cookies to change the user Role and other identifying information to match an administrative account.</li>
+<li>The attacker returns the modified cookies to the server, pretending to be the administrator. The server receives the modified cookies and grants the attacker access to the app with administrative privileges.</li>
+</ul>
+<p>The above example is obviously caused by insufficient authentication at the server. One way to prevent this type of attack in NestJS is to implement the authentication using JWT (JSON Web token). NestJS provides a <a class="link"   target="_blank" rel="noopener" href="https://github.com/nestjs/jwt" > <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> <code>[@nestjs/jwt](https://github.com/nestjs/jwt)</code> package for JWT manipulation. You can find more details on implementing JWT in your NestJS app  <a class="link"   target="_blank" rel="noopener" href="https://docs.nestjs.com/security/authentication#jwt-functionality" >here <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<p>You can consider implementing MFA (multi-factor authentication) to tighten the authentication further. The most popular form of MFA is OTP (one-time passcode).</p>
+<p>You can create your own OTP service to store the one-time passcode and manage the sending via phone or email. If you don’t want to reinvent the wheel, we can use existing libraries like  <a class="link"   target="_blank" rel="noopener" href="https://github.com/yeojz/otplib" >otplib <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<p>Below are the basic steps to use otplib in NestJS</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// install Otplib  </span><br><span class="line">npm install otplib  </span><br><span class="line">// import it  </span><br><span class="line">import * as OTPLib from &#x27;otplib&#x27;;  </span><br><span class="line">  </span><br><span class="line">// generate a secrete  </span><br><span class="line">const secret = OTPLib.authenticator.generateSecret();  </span><br><span class="line">// then, we can gerenate a QRCode url to show a QRCode in your app  </span><br><span class="line">// we should save the generated secret in database for later use  </span><br><span class="line">const otpUrl = OTPLib.authenticator.keyuri(&#x27;user&#x27;, &#x27;The App name&#x27;, secret);  </span><br><span class="line">  </span><br><span class="line">// Now user scan the QRCode and sent it to the NestJS endpoint  </span><br><span class="line">// we can use the built in authenticator.verify to validate the otp token  </span><br><span class="line">import &#123; authenticator &#125; from &#x27;otplib&#x27;;  </span><br><span class="line">  </span><br><span class="line">authenticator.verify(&#123;  </span><br><span class="line">      token: token // Sent from Client,  </span><br><span class="line">      secret: secrete // previously saved secrete  </span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure></div>
+<p>If MFA can’t be implemented, the other options to consider for additional security includes the following:</p>
+<ul>
+<li>security questions</li>
+<li>CAPTCHA</li>
+<li>require strong password</li>
+</ul>
+<h3 id="Missing-Object-level-access-control"><a href="#Missing-Object-level-access-control" class="headerlink" title="Missing Object level access control"></a>Missing Object level access control</h3><p>Object-level access control is a security mechanism that can control access to a specific object or resource based on the permissions or roles of the user requesting access.</p>
+<p>Below is an example of how the risk might occur in a NestJS application:</p>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Injectable</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/common&#x27;</span>;  </span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ClientService</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./client.service&#x27;</span>;  </span><br><span class="line">  </span><br><span class="line"><span class="meta">@Injectable</span>()  </span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AttachmentController</span> &#123;  </span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> clientService: ClientService</span>) &#123;&#125;  </span><br><span class="line">  </span><br><span class="line">  <span class="meta">@Get</span>(<span class="string">&#x27;/document/:id&#x27;</span>)  </span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">async</span> <span class="title function_">getFile</span>(<span class="attr">id</span>: <span class="built_in">string</span>): <span class="title class_">Promise</span>&lt;<span class="built_in">any</span>&gt; &#123;  </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">clientService</span>.<span class="title function_">getAttachmentById</span>(id);  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>In this example, the<code>getFile</code>  method in the  <code>AttachmentController</code>  doesn’t have object-level access control in place to ensure that only the attachment owner or users with permissions can access it. An attacker could potentially access any file in the system by guessing attachment Ids.</p>
+<p>To prevent the risk, we can verify the user is the owner or has permission to access the object or resource.</p>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Injectable</span>()  </span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AttachmentController</span> &#123;  </span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> clientService: ClientService</span>) &#123;&#125;  </span><br><span class="line">  </span><br><span class="line">  <span class="meta">@Get</span>(<span class="string">&#x27;/document/:id&#x27;</span>)  </span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">async</span> <span class="title function_">getFile</span>(<span class="attr">id</span>: <span class="built_in">string</span>): <span class="title class_">Promise</span>&lt;<span class="built_in">any</span>&gt; &#123;  </span><br><span class="line">    <span class="keyword">const</span> currentUser = <span class="title function_">getCurrentUser</span>();  </span><br><span class="line">    <span class="keyword">const</span> <span class="variable language_">document</span> = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">clientService</span>.<span class="title function_">getAttachmentById</span>(id);  </span><br><span class="line">    <span class="keyword">if</span> (currentUser.<span class="property">id</span> !== <span class="variable language_">document</span>.<span class="property">ownerId</span>) &#123;  </span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">ForbiddenException</span>();  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">document</span>;  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>Please note that the above is a contrived example based on the assumption that only the attachment file’s owner can access it.</p>
+<p>To further reduce the risk, we can also use random values that are difficult to predict as record Ids. This can help to prevent attackers from guessing or enumerating record IDs. Below is an example to use  <code>uuid</code> module to generate a random unique value for the document id.</p>
+<div class="highlight-container" data-rel="Typescript"><figure class="iseeu highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; v4 <span class="keyword">as</span> uuid &#125; <span class="keyword">from</span> <span class="string">&#x27;uuid&#x27;</span>;  </span><br><span class="line"><span class="keyword">const</span> <span class="variable language_">document</span> = &#123;  </span><br><span class="line">  <span class="attr">id</span>: <span class="title function_">uuid</span>(),  </span><br><span class="line">  <span class="attr">ownerId</span>: currentUser.<span class="property">id</span>,  </span><br></pre></td></tr></table></figure></div>
+<p>The best practice is to ensure the server-side functions are protected with a role-based authorization  <a class="link"   target="_blank" rel="noopener" href="https://docs.nestjs.com/guards" >guard <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> in your NestJS app.</p>
+<h3 id="Final-thoughts"><a href="#Final-thoughts" class="headerlink" title="Final thoughts"></a>Final thoughts</h3><p>It is a common myth that security is the final step in the software development cycle, either in the form of a penetration test or through the use of a static scanning tool. However, this approach is not enough.</p>
+<p>Instead, security should be integrated into every development process step, from design to coding and testing. Security considerations should be a key part of the planning and development a software application rather than an afterthought.</p>
+<p>In this article, We discuss several common security risks that can impact NestJS applications, there are  <a class="link"   target="_blank" rel="noopener" href="https://owasp.org/www-community/vulnerabilities/" >many others <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  that need to be considered. I hope you found this article helpful in building a secure and resilient app.<br>If you are interested to learn more, welcome to <a href="https://coffeethinkcode.com/2024/06/15/restapi/">my NestJS course</a>.</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> Maximize Code Security in Your NestJS Applications (Part 2)</li>
+        <li><strong>Author:</strong> Sunny Sun</li>
+        <li><strong>Created at
+                :</strong> 2023-01-09 00:00:00</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2024-07-09 21:32:34
+            </li>
+        
+        <li>
+            <strong>Link:</strong> http://coffeethinkcode.com/2023/01/09/maximize-code-security-in-your-nestjs-applications-part-2/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/TypeScript/">#TypeScript</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/NestJS/">#NestJS</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/Security/">#Security</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+  <div class="recommended-article px-2 sm:px-6 md:px-8">
+   <div class="recommended-desktop">
+    <div class="recommended-article-header text-xl md:text-3xl font-bold mt-10">
+     <i aria-hidden="true"></i><span>Recommended</span>
+    </div>
+    <div class="recommended-article-group"><a class="recommended-article-item" href="/2022/12/21/maximize-code-security-in-your-nestjs-applications-part-1/" title="Maximize Code Security in Your NestJS Applications (Part 1)" rel="bookmark">
+  <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*aN4-CbCjgxdmgjs_U6UqEw.png" alt="Maximize Code Security in Your NestJS Applications (Part 1)" class="!max-w-none">
+  <span class="title">Maximize Code Security in Your NestJS Applications (Part 1)</span>
+</a><a class="recommended-article-item" href="/2023/01/05/donnot-export-your-nestjs-endpoint/" title="Don't Leave Your NestJS API Exposed" rel="bookmark">
+  <img src="https://cdn-images-1.medium.com/max/2000/1*SsPIZqAcoJvrZ5iHCqwQ5A.png" alt="Don't Leave Your NestJS API Exposed" class="!max-w-none">
+  <span class="title">Don't Leave Your NestJS API Exposed</span>
+</a><a class="recommended-article-item" href="/2022/09/21/build-a-high-performance-nestjs-app/" title="Turbocharge Your App with NestJS - Tips and Tricks" rel="bookmark">
+  <img src="https://cdn-images-1.medium.com/max/2156/1*5UmbCAgI31gKpqN11w73hQ.png" alt="Turbocharge Your App with NestJS - Tips and Tricks" class="!max-w-none">
+  <span class="title">Turbocharge Your App with NestJS - Tips and Tricks</span>
+</a></div>
+   </div>
+   <div class="recommended-mobile">
+   <div class="recommended-article-header text-xl md:text-3xl font-bold mt-10">
+     <i aria-hidden="true"></i><span>Recommended</span>
+   </div>
+   <div class="recommended-article-group"><a class="recommended-article-item" href="/2022/12/21/maximize-code-security-in-your-nestjs-applications-part-1/" title="Maximize Code Security in Your NestJS Applications (Part 1)" rel="bookmark">
+  <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*aN4-CbCjgxdmgjs_U6UqEw.png" alt="Maximize Code Security in Your NestJS Applications (Part 1)" class="!max-w-none">
+  <span class="title">Maximize Code Security in Your NestJS Applications (Part 1)</span>
+</a><a class="recommended-article-item" href="/2023/01/05/donnot-export-your-nestjs-endpoint/" title="Don't Leave Your NestJS API Exposed" rel="bookmark">
+  <img src="https://cdn-images-1.medium.com/max/2000/1*SsPIZqAcoJvrZ5iHCqwQ5A.png" alt="Don't Leave Your NestJS API Exposed" class="!max-w-none">
+  <span class="title">Don't Leave Your NestJS API Exposed</span>
+</a></div>
+   </div>
+  </div>
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2023/02/05/install-config-your-own-mysql-on-oracle-free-vm/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Install and ConfigureYour Own MySQL Server On Oracle Always Free Ubuntu VM</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2023/01/05/donnot-export-your-nestjs-endpoint/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Don&#39;t Leave Your NestJS API Exposed</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">Maximize Code Security in Your NestJS Applications (Part 2)</div>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Injection"><span class="nav-text">Injection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lack-of-Resources-and-Rate-limiting"><span class="nav-text">Lack of Resources and Rate limiting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Identification-and-Authentification-Failure"><span class="nav-text">Identification and Authentification Failure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Missing-Object-level-access-control"><span class="nav-text">Missing Object level access control</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Final-thoughts"><span class="nav-text">Final thoughts</span></a></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Sunny Sun</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        34 posts in total
+                    </span>
+                    
+                        <span>
+                            42.3k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.4</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+            
+                
+        
+                
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/libs/anime.min.js"></script>
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+</body>
+</html>

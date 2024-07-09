@@ -3,197 +3,260 @@
 
 
     <url>
-        <loc>http://blog.ourcrmonline.com/tags/Nginx/</loc>
-        <lastmod>2024-07-06T01:04:07.431Z</lastmod>
+        <loc>http://coffeethinkcode.com/tags/Contactless/</loc>
+        <lastmod>2024-07-09T20:53:13.860Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.ourcrmonline.com/tags/IIS/</loc>
-        <lastmod>2024-07-06T01:04:07.431Z</lastmod>
+        <loc>http://coffeethinkcode.com/tags/Chrome-app/</loc>
+        <lastmod>2024-07-09T20:53:13.860Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.ourcrmonline.com/tags/Angular/</loc>
-        <lastmod>2024-07-06T01:04:07.431Z</lastmod>
+        <loc>http://coffeethinkcode.com/tags/SmartCard-reader/</loc>
+        <lastmod>2024-07-09T20:53:13.860Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.ourcrmonline.com/tags/tools/</loc>
-        <lastmod>2024-07-05T08:47:05.568Z</lastmod>
+        <loc>http://coffeethinkcode.com/tags/TypeScript/</loc>
+        <lastmod>2024-07-09T11:32:46.069Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.ourcrmonline.com/tags/API/</loc>
-        <lastmod>2024-07-05T08:47:05.568Z</lastmod>
+        <loc>http://coffeethinkcode.com/tags/Security/</loc>
+        <lastmod>2024-07-09T11:32:34.267Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.ourcrmonline.com/tags/Durandal/</loc>
-        <lastmod>2024-07-04T01:11:30.076Z</lastmod>
+        <loc>http://coffeethinkcode.com/tags/NestJS/</loc>
+        <lastmod>2024-07-09T11:32:34.267Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.ourcrmonline.com/tags/NestJS/</loc>
-        <lastmod>2024-07-03T22:00:51.430Z</lastmod>
+        <loc>http://coffeethinkcode.com/tags/Docker/</loc>
+        <lastmod>2024-07-09T11:31:51.095Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.ourcrmonline.com/tags/Programming/</loc>
-        <lastmod>2024-06-29T04:23:15.503Z</lastmod>
+        <loc>http://coffeethinkcode.com/tags/hosting/</loc>
+        <lastmod>2024-07-09T11:31:51.095Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.ourcrmonline.com/tags/TypeScript/</loc>
-        <lastmod>2024-06-29T04:22:57.653Z</lastmod>
+        <loc>http://coffeethinkcode.com/tags/trilium/</loc>
+        <lastmod>2024-07-09T11:31:51.095Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.ourcrmonline.com/tags/Course/</loc>
-        <lastmod>2024-06-29T04:21:52.462Z</lastmod>
+        <loc>http://coffeethinkcode.com/tags/Nginx/</loc>
+        <lastmod>2024-07-09T11:31:51.095Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.ourcrmonline.com/tags/Security/</loc>
-        <lastmod>2024-06-29T04:21:17.426Z</lastmod>
+        <loc>http://coffeethinkcode.com/tags/Performance/</loc>
+        <lastmod>2024-07-09T11:31:40.648Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.ourcrmonline.com/tags/DynamicsCRM/</loc>
-        <lastmod>2024-06-29T04:21:02.095Z</lastmod>
+        <loc>http://coffeethinkcode.com/tags/Design-Pattern/</loc>
+        <lastmod>2024-07-09T11:31:29.208Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.ourcrmonline.com/tags/WebAPI/</loc>
-        <lastmod>2024-06-29T04:21:02.095Z</lastmod>
+        <loc>http://coffeethinkcode.com/tags/Programming/</loc>
+        <lastmod>2024-07-07T08:37:31.718Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.ourcrmonline.com/tags/MySQL/</loc>
-        <lastmod>2024-06-29T04:20:39.368Z</lastmod>
+        <loc>http://coffeethinkcode.com/tags/tools/</loc>
+        <lastmod>2024-07-07T08:35:43.328Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.ourcrmonline.com/tags/Refactoring/</loc>
-        <lastmod>2024-06-29T04:17:41.528Z</lastmod>
+        <loc>http://coffeethinkcode.com/tags/API/</loc>
+        <lastmod>2024-07-07T08:35:43.328Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.ourcrmonline.com/tags/Best-Practice/</loc>
-        <lastmod>2024-06-29T04:17:41.528Z</lastmod>
+        <loc>http://coffeethinkcode.com/tags/DynamicsCRM/</loc>
+        <lastmod>2024-07-07T08:35:23.113Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.ourcrmonline.com/tags/Certificate/</loc>
-        <lastmod>2024-06-29T04:17:02.164Z</lastmod>
+        <loc>http://coffeethinkcode.com/tags/WebAPI/</loc>
+        <lastmod>2024-07-07T08:35:23.113Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.ourcrmonline.com/tags/JavaScript/</loc>
-        <lastmod>2024-06-29T04:17:02.164Z</lastmod>
+        <loc>http://coffeethinkcode.com/tags/Certificate/</loc>
+        <lastmod>2024-07-07T08:34:27.151Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.ourcrmonline.com/tags/Decorator/</loc>
-        <lastmod>2024-06-29T04:16:33.355Z</lastmod>
+        <loc>http://coffeethinkcode.com/tags/JavaScript/</loc>
+        <lastmod>2024-07-07T08:34:27.151Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.ourcrmonline.com/tags/Web-API/</loc>
-        <lastmod>2024-06-29T04:16:33.355Z</lastmod>
+        <loc>http://coffeethinkcode.com/tags/Decorator/</loc>
+        <lastmod>2024-07-07T08:34:05.325Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.ourcrmonline.com/tags/CKAD/</loc>
+        <loc>http://coffeethinkcode.com/tags/Web-API/</loc>
+        <lastmod>2024-07-07T08:34:05.325Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://coffeethinkcode.com/tags/Angular/</loc>
+        <lastmod>2024-07-07T08:34:05.325Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://coffeethinkcode.com/tags/Proxy/</loc>
+        <lastmod>2024-07-07T04:23:21.946Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://coffeethinkcode.com/tags/Durandal/</loc>
+        <lastmod>2024-07-07T02:41:38.400Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://coffeethinkcode.com/tags/Course/</loc>
+        <lastmod>2024-07-07T02:15:31.702Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://coffeethinkcode.com/tags/Agile/</loc>
+        <lastmod>2024-07-07T02:07:54.250Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://coffeethinkcode.com/tags/Software-development/</loc>
+        <lastmod>2024-07-07T02:07:54.250Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://coffeethinkcode.com/tags/Best-Practice/</loc>
+        <lastmod>2024-07-07T02:07:54.250Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://coffeethinkcode.com/tags/Refactoring/</loc>
+        <lastmod>2024-07-07T01:38:07.612Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://coffeethinkcode.com/tags/MySQL/</loc>
+        <lastmod>2024-07-06T09:51:12.865Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://coffeethinkcode.com/tags/IIS/</loc>
+        <lastmod>2024-07-06T09:36:21.366Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://coffeethinkcode.com/tags/formatting/</loc>
+        <lastmod>2024-07-06T09:31:58.626Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://coffeethinkcode.com/tags/CSharpier/</loc>
+        <lastmod>2024-07-06T09:31:58.626Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://coffeethinkcode.com/tags/Dotnet/</loc>
+        <lastmod>2024-07-06T09:31:58.626Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://coffeethinkcode.com/tags/CKAD/</loc>
         <lastmod>2024-06-29T04:16:01.424Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.ourcrmonline.com/tags/Kubernetes/</loc>
+        <loc>http://coffeethinkcode.com/tags/Kubernetes/</loc>
         <lastmod>2024-06-29T04:16:01.424Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.ourcrmonline.com/tags/Agile/</loc>
-        <lastmod>2024-06-29T04:15:23.417Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://blog.ourcrmonline.com/tags/Software-development/</loc>
-        <lastmod>2024-06-29T04:15:23.417Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://blog.ourcrmonline.com/tags/ORM/</loc>
+        <loc>http://coffeethinkcode.com/tags/ORM/</loc>
         <lastmod>2024-06-29T04:13:22.715Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://blog.ourcrmonline.com/tags/Performance/</loc>
-        <lastmod>2024-06-29T04:12:44.677Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://blog.ourcrmonline.com/tags/Proxy/</loc>
-        <lastmod>2024-06-29T04:12:33.045Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://blog.ourcrmonline.com/tags/Design-Pattern/</loc>
-        <lastmod>2024-06-29T04:12:08.999Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

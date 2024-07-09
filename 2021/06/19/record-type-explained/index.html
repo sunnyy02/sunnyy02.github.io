@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="keywords" content="restful api,typescript,js,web programming,programming tutorial,nodejs,node javascript,node js,ts script">
     
     <meta name="author" content="Sunny Sun">
     <!-- preconnect -->
@@ -13,7 +13,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://blog.ourcrmonline.com/2021/06/19/record-type-explained/"/>
+    <link rel="canonical" href="http://coffeethinkcode.com/2021/06/19/record-type-explained/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -21,8 +21,8 @@
         <meta name="description" content="Everything you want to know about the Record utility typeRecord is one of the TypeScript utility types and has been available out of the box since version 2.1. I have to admit that I was a little conf">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TypeScript’s Record Type Explained">
-<meta property="og:url" content="http://blog.ourcrmonline.com/2021/06/19/record-type-explained/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:url" content="http://coffeethinkcode.com/2021/06/19/record-type-explained/index.html">
+<meta property="og:site_name" content="Love what you do">
 <meta property="og:description" content="Everything you want to know about the Record utility typeRecord is one of the TypeScript utility types and has been available out of the box since version 2.1. I have to admit that I was a little conf">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/2000/1*7LB7CK4k-ssUrOkyMMXdCQ.png">
@@ -30,8 +30,8 @@
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/2000/1*z7tzFyX5CRF9m_hy9P6Jpw.png">
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/2000/1*uEJNjd5OfX3wao0LSjEZTg.png">
 <meta property="article:published_time" content="2021-06-18T14:00:00.000Z">
-<meta property="article:modified_time" content="2024-06-29T04:21:38.520Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:modified_time" content="2024-07-09T11:32:46.069Z">
+<meta property="article:author" content="Sunny">
 <meta property="article:tag" content="TypeScript">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn-images-1.medium.com/max/2000/1*7LB7CK4k-ssUrOkyMMXdCQ.png">
@@ -91,14 +91,10 @@
     
 
     
-        
-<script src="/js/libs/anime.min.js"></script>
-
-    
 
     <script id="hexo-configurations">
-    window.config = {"hostname":"blog.ourcrmonline.com","root":"/","language":"en","path":"search.xml"};
-    window.theme = {"articles":{"style":{"font_size":"14px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true,"wordcount":true},"author_label":{"enable":true,"auto":false,"list":[],"custom_label_list":["lol"]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":true,"title":"Recommended","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":["wiki/"],"icon":"fa-solid fa-bookmark","max_count":3,"placeholder_img":"https://evan.beee.top/img/wallhaven-wqery6-light.webp"}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title":"love what you do","subtitle":{"text":"love what you do","hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}},"logo_img":"https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg# logo image on the left of the navigation bar"},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}],"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.4","code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/sunnyy02","Medium":"https://medium.com/@sunnysun-5694","LogRocket":"https://blog.logrocket.com/author/yansun/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.config = {"hostname":"coffeethinkcode.com","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"14px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true,"wordcount":true},"author_label":{"enable":true,"auto":false,"list":[],"custom_label_list":["lol"]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":true,"title":"Recommended","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":["wiki/"],"icon":"fa-solid fa-bookmark","max_count":3,"placeholder_img":"https://evan.beee.top/img/wallhaven-wqery6-light.webp"}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":false,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title":"love what you do","subtitle":{"text":"love what you do","hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}},"logo_img":"https://cdn-images-1.medium.com/fit/c/64/64/1*wNZ_uqRg-IDdEkWRUw27pA.jpeg# logo image on the left of the navigation bar"},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}],"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.4","code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/sunnyy02","Medium":"https://medium.com/@sunnysun-5694","LogRocket":"https://blog.logrocket.com/author/yansun/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
     window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
     window.data = {"masonry":false};
   </script>
@@ -120,7 +116,7 @@
     
     
     
-<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Love what you do" type="application/atom+xml">
 </head>
 
 
@@ -137,151 +133,6 @@
 </div>
 
 
-
-    <style>
-    :root {
-        --preloader-background-color: #fff;
-        --preloader-text-color: #000;
-    }
-
-    @media (prefers-color-scheme: dark) {
-        :root {
-            --preloader-background-color: #202124;
-            --preloader-text-color: #fff;
-        }
-    }
-
-    @media (prefers-color-scheme: light) {
-        :root {
-            --preloader-background-color: #fff;
-            --preloader-text-color: #000;
-        }
-    }
-
-    @media (max-width: 600px) {
-        .ml13 {
-            font-size: 2.6rem !important; /* Adjust this value as needed */
-        }
-    }
-
-    .preloader {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
-        align-items: center;
-        justify-content: center;
-        position: fixed;
-        padding: 12px;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh; /* 'h-screen' is 100% of the viewport height */
-        background-color: var(--preloader-background-color);
-        z-index: 1100; /* 'z-[1100]' sets the z-index */
-        transition: opacity 0.2s ease-in-out;
-    }
-
-    .ml13 {
-        font-size: 3.2rem;
-        /* text-transform: uppercase; */
-        color: var(--preloader-text-color);
-        letter-spacing: -1px;
-        font-weight: 500;
-        font-family: 'Chillax-Variable', sans-serif;
-        text-align: center;
-    }
-
-    .ml13 .word {
-        display: inline-flex;
-        flex-wrap: wrap;
-        white-space: nowrap;
-    }
-
-    .ml13 .letter {
-        display: inline-block;
-        line-height: 1em;
-    }
-</style>
-
-<div class="preloader">
-    <h2 class="ml13">
-        Do What You Love
-    </h2>
-    <script>
-        var textWrapper = document.querySelector('.ml13');
-        // Split text into words
-        var words = textWrapper.textContent.trim().split(' ');
-
-        // Clear the existing content
-        textWrapper.innerHTML = '';
-
-        // Wrap each word and its letters in spans
-        words.forEach(function(word) {
-            var wordSpan = document.createElement('span');
-            wordSpan.classList.add('word');
-            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
-            textWrapper.appendChild(wordSpan);
-            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
-        });
-
-        var animation = anime.timeline({loop: true})
-            .add({
-                targets: '.ml13 .letter',
-                translateY: [40,0],
-                translateZ: 0,
-                opacity: [0,1],
-                filter: ['blur(5px)', 'blur(0px)'], // Starting from blurred to unblurred
-                easing: "easeOutExpo",
-                duration: 1400,
-                delay: (el, i) => 300 + 30 * i,
-            }).add({
-                targets: '.ml13 .letter',
-                translateY: [0,-40],
-                opacity: [1,0],
-                filter: ['blur(0px)', 'blur(5px)'], // Ending from unblurred to blurred
-                easing: "easeInExpo",
-                duration: 1200,
-                delay: (el, i) => 100 + 30 * i,
-                complete: function() {
-                    hidePreloader(); // Call hidePreloader after the animation completes
-                }
-            });
-
-        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
-
-        // If the theme status is not found in local storage, check the preferred color scheme
-        if (themeStatus === undefined || themeStatus === null) {
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                themeStatus = 'dark';
-            } else {
-                themeStatus = 'light';
-            }
-        }
-
-        // Now you can use the themeStatus variable in your code
-        if (themeStatus) {
-            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
-            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
-        } else {
-            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
-            document.documentElement.style.setProperty('--preloader-text-color', '#000');
-        }
-
-        window.addEventListener('load', function () {
-            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
-        });
-
-        function hidePreloader() {
-            var preloader = document.querySelector('.preloader');
-            preloader.style.opacity = '0';
-            setTimeout(function () {
-                preloader.style.display = 'none';
-            }, 200);
-        }
-    </script>
-</div>
 
 <main class="page-container" id="swup">
 
@@ -512,15 +363,15 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">28</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">37</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">14</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">16</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">28</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">34</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -564,7 +415,7 @@
                     <div class="author flex items-center">
                         <span class="name text-default-text-color text-lg font-semibold">Sunny Sun</span>
                         
-                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
                         
                     </div>
                     <div class="meta-info">
@@ -578,8 +429,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-06-29 14:21:38</span>
-            <span class="mobile">2024-06-29 14:21:38</span>
+            <span class="desktop">2024-07-09 21:32:46</span>
+            <span class="mobile">2024-07-09 21:32:46</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -617,7 +468,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>734 Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>677 Words</span>
         </span>
     
     
@@ -648,11 +499,9 @@
 </blockquote>
 <p>At face value, it says the Record type creates an object type that has properties of type Keys with corresponding values of type Type. But a similar feature can be achieved by using an index signature, so why would we want to use a Record type? What makes it different or useful?</p>
 <h2 id="Record-Type-vs-Index-Signature"><a href="#Record-Type-vs-Index-Signature" class="headerlink" title="Record Type vs. Index Signature"></a>Record Type vs. Index Signature</h2><p>In TypeScript, we call the way of accessing an object property with square brackets an <em>index signature</em>. It is widely used for object types with unknown string keys and a specific value type. Here is an example:</p>
-<pre><code>type studentScore= &#123; [name: string]: number &#125;;
-</code></pre>
+<p>   <code> type studentScore= &#123; [name: string]: number &#125;;</code></p>
 <p>The index signature example above can be expressed by a Record type as well:</p>
-<pre><code>type studentScore = Record&lt;string, number&gt;;
-</code></pre>
+<p>   <code> type studentScore = Record&lt;string, number&gt;;</code></p>
 <p>For this use case, the two type declarations are equivalent from a type-asserting perspective. But from the syntax perspective, the index signature is better. In the index signature approach, the name key expresses the intent more clearly, and another advantage is that it is shown in VisualCode IntelliSense.</p>
 <p>Then why do we want to use a Record type?</p>
 <h3 id="Why-is-the-Record-type-useful"><a href="#Why-is-the-Record-type-useful" class="headerlink" title="Why is the Record type useful?"></a>Why is the Record type useful?</h3><p>The benefit of Record types are <strong>conciseness</strong>. It is particularly useful when we want to limit the properties of an object. For example, we can use a union of string literals to specify the allowable keys for the Record type, as shown below:</p>
@@ -688,9 +537,7 @@
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type seniorRole = &#x27;manager&#x27;;</span><br><span class="line">type technicalRole = &#x27;developer&#x27;;</span><br><span class="line">const benefits:  Partial&lt;Record&lt;seniorRole, &#x27;Free Parking&#x27;&gt; &amp; Record&lt;technicalRole, &#x27;Free Coffee&#x27;&gt;&gt; = &#123;&#125;;</span><br><span class="line">benefits.manager = &#x27;Free Parking&#x27;;</span><br><span class="line">benefits.developer = &#x27;Free Parking&#x27;;//ERROR: no free parking for dev</span><br></pre></td></tr></table></figure></div>
 
 <p>With Record, Partial, and Intersection types working together, this code creates a strongly typed benefits object with an association between keys and value types. The strongly typed object makes it possible to catch the error at compile time. It also makes it possible for the IDE to flag errors while typing and provides IntelliSense with auto-completion.</p>
-<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Record is a handy and concise utility type that can make your code more robust. It is especially useful when dealing with a dynamic data structure. The goal of Record type is the same as the other wonderful TypeScript features: <a class="link"   target="_blank" rel="noopener" href="https://levelup.gitconnected.com/achieve-type-safety-with-typescript-magic-fef5ff939c98" >better type safety <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
-<p>If you like this article, you may also like to read <a class="link"   target="_blank" rel="noopener" href="https://sunnysun-5694.medium.com/typescript-infer-keyword-explained-76f4a7208cb0" >another article about infer keyword <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
-<p><em>If you are not already a paid member of Medium, <a class="link"   target="_blank" rel="noopener" href="https://sunnysun-5694.medium.com/membership" >**you can do so by visiting this link <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**. You’ll get unlimited full access to every story on Medium. I’ll receive a portion of your membership fees as a referral.</em></p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Record is a handy and concise utility type that can make your code more robust. It is especially useful when dealing with a dynamic data structure. The goal of Record type is the same as the other wonderful TypeScript features: <a href="https://coffeethinkcode.com/2024/02/01/typescript-index-signature-explained/">better type safety</a>.</p>
 
         </div>
 
@@ -705,11 +552,11 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-06-29 14:21:38
+                    :</strong> 2024-07-09 21:32:46
             </li>
         
         <li>
-            <strong>Link:</strong> http://blog.ourcrmonline.com/2021/06/19/record-type-explained/
+            <strong>Link:</strong> http://coffeethinkcode.com/2021/06/19/record-type-explained/
         </li>
         <li>
             <strong>
@@ -744,14 +591,14 @@
      <i aria-hidden="true"></i><span>Recommended</span>
     </div>
     <div class="recommended-article-group"><a class="recommended-article-item" href="/2024/02/01/typescript-index-signature-explained/" title="TypeScript Index Signature Explained" rel="bookmark">
-  <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*U1VoIpghZrD4mkPg7MfZJw.png" alt="TypeScript Index Signature Explained" class="!max-w-none">
+  <img src="https://miro.medium.com/v2/resize:fit:400/format:webp/1*U1VoIpghZrD4mkPg7MfZJw.png" alt="TypeScript Index Signature Explained" class="!max-w-none">
   <span class="title">TypeScript Index Signature Explained</span>
 </a><a class="recommended-article-item" href="/2021/08/19/type-flowing-rethinking-typescript-typing-system/" title="Type flowing - a new perspective on the TypeScript typing system" rel="bookmark">
   <img src="/images/wallhaven-wqery6-light.webp" alt="Type flowing - a new perspective on the TypeScript typing system" class="!max-w-none">
   <span class="title">Type flowing - a new perspective on the TypeScript typing system</span>
-</a><a class="recommended-article-item" href="/2023/04/06/type-interface-ts/" title="Types vs. interfaces in TypeScript" rel="bookmark">
-  <img src="https://blog.logrocket.com/wp-content/uploads/2023/03/types-vs-interfaces-typescript-2023.png" alt="Types vs. interfaces in TypeScript" class="!max-w-none">
-  <span class="title">Types vs. interfaces in TypeScript</span>
+</a><a class="recommended-article-item" href="/2023/08/01/unlocking-typescript-5-hidden-gems/" title="Unlocking TypeScript 5 Hidden Gems You May Not Know" rel="bookmark">
+  <img src="https://miro.medium.com/v2/resize:fit:1100/format:webp/1*tmm3cO5B2V11egam7LX9oA.png" alt="Unlocking TypeScript 5 Hidden Gems You May Not Know" class="!max-w-none">
+  <span class="title">Unlocking TypeScript 5 Hidden Gems You May Not Know</span>
 </a></div>
    </div>
    <div class="recommended-mobile">
@@ -759,7 +606,7 @@
      <i aria-hidden="true"></i><span>Recommended</span>
    </div>
    <div class="recommended-article-group"><a class="recommended-article-item" href="/2024/02/01/typescript-index-signature-explained/" title="TypeScript Index Signature Explained" rel="bookmark">
-  <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*U1VoIpghZrD4mkPg7MfZJw.png" alt="TypeScript Index Signature Explained" class="!max-w-none">
+  <img src="https://miro.medium.com/v2/resize:fit:400/format:webp/1*U1VoIpghZrD4mkPg7MfZJw.png" alt="TypeScript Index Signature Explained" class="!max-w-none">
   <span class="title">TypeScript Index Signature Explained</span>
 </a><a class="recommended-article-item" href="/2021/08/19/type-flowing-rethinking-typescript-typing-system/" title="Type flowing - a new perspective on the TypeScript typing system" rel="bookmark">
   <img src="/images/wallhaven-wqery6-light.webp" alt="Type flowing - a new perspective on the TypeScript typing system" class="!max-w-none">
@@ -848,11 +695,11 @@
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        28 posts in total
+                        34 posts in total
                     </span>
                     
                         <span>
-                            35.5k words in total
+                            42.3k words in total
                         </span>
                     
                 </p>
@@ -1075,6 +922,10 @@
 
 
 
+
+
+    
+<script src="/js/libs/anime.min.js"></script>
 
 
 
